@@ -16,12 +16,18 @@ class Device(models.Model):
     maintainers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="devices")
     created = models.DateTimeField(auto_now_add=True, editable=False)
 
+    def __str__(self):
+        return self.name + " (" + self.codename + ")"
+
 
 # Variant Model
 class Variant(models.Model):
     device = models.ForeignKey(Device, on_delete=models.CASCADE)
     name = models.TextField()                       # gapps, no-gapps, etc.
     created = models.DateTimeField(auto_now_add=True, editable=False)
+
+    def __str__(self):
+        return self.name + " - " + str(self.device)
 
 
 # Build Model

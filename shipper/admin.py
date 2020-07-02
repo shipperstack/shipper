@@ -16,8 +16,13 @@ class VariantAdmin(admin.ModelAdmin):
 
 
 class BuildAdmin(admin.ModelAdmin):
-    list_display = ['id', 'file_name', 'variant', 'variant.device', 'size', 'version']
+    list_display = ['id', 'file_name', 'variant', 'get_device_name', 'size', 'version']
     ordering = ['-created']
+
+    def get_device_name(self, obj):
+        return obj.variant.device.name
+    get_device_name.short_description = 'Device'
+    get_device_name.admin_order_field = 'variant_device_name'
 
 
 admin.site.register(Device, DeviceAdmin)

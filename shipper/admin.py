@@ -4,9 +4,13 @@ from .models import *
 
 
 class DeviceAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'codename', 'manufacturer', 'status', 'created']
+    list_display = ['id', 'manufacturer', 'name', 'codename', 'get_maintainers', 'status', 'created']
     search_fields = ['name', 'codename', 'manufacturer']
     ordering = ['-created']
+
+    def get_maintainers(self, obj):
+        return ",".join([maintainer.username for maintainer in obj.maintainers.all()])
+    get_maintainers.short_description = 'Maintainers'
 
 
 class BuildAdmin(admin.ModelAdmin):

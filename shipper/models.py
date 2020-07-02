@@ -7,6 +7,9 @@ class Device(models.Model):
     name = models.TextField()                       # Nexus 5X
     codename = models.TextField(max_length=50)      # bullhead
     manufacturer = models.TextField(max_length=20)  # LG
+    memory = models.IntegerField(max_length=4)      # 2 (in gigabytes)
+    storage = models.IntegerField(max_length=10)    # 512 (in gigabytes)
+    photo = models.URLField()                       # Image of device
     maintainers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="devices")
     created = models.DateTimeField(auto_now_add=True, editable=False)
 

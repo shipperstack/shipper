@@ -9,8 +9,8 @@ class Device(models.Model):
     manufacturer = models.TextField(max_length=20)  # LG
     cpu = models.TextField(max_length=50)           # MSM8940
     gpu = models.TextField(max_length=50)           # Adreno 420
-    memory = models.IntegerField(max_length=4)      # 2 (in gigabytes)
-    storage = models.IntegerField(max_length=10)    # 512 (in gigabytes)
+    memory = models.IntegerField()      # 2 (in gigabytes)
+    storage = models.IntegerField()    # 512 (in gigabytes)
     photo = models.URLField()                       # Image of device
     status = models.BooleanField(default=True)      # True - device is still maintained
     maintainers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="devices")

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ object }}{% endblock %}
+
+{% block content %}
+    <h3>{{ object }}</h3>
+
+    <div class="btn-group">
+        <a href="#" class="btn btn-success btn-sm">Upload new build</a>
+    </div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Build name</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for build in object.builds %}
+            <tr>
+                <td><a href="">{{build.file_name}}</a></td>
+                <!-- url 'upload' pk=device.id  -->
+                <td><a href="#" class="btn btn-success btn-sm">test</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{%endblock%}

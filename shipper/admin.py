@@ -12,6 +12,14 @@ class DeviceAdmin(admin.ModelAdmin):
         return ",".join([maintainer.username for maintainer in obj.maintainers.all()])
     get_maintainers.short_description = 'Maintainers'
 
+    # Override devices shown to maintainers
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        # Allow superusers to modify any device
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(maintainers=request.user)
+
 
 class BuildAdmin(admin.ModelAdmin):
     list_display = ['id', 'file_name', 'get_device_name', 'size', 'version']

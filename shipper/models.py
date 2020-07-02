@@ -4,16 +4,29 @@ from django.conf import settings
 
 # Device Model
 class Device(models.Model):
-    name = models.TextField(max_length=20)          # Nexus 5X
-    codename = models.TextField(max_length=20)      # bullhead
-    manufacturer = models.TextField(max_length=20)  # LG
-    cpu = models.TextField(max_length=20)           # MSM8940
-    gpu = models.TextField(max_length=20)           # Adreno 420
-    memory = models.IntegerField()                  # 2 (in gigabytes)
-    storage = models.IntegerField()                 # 512 (in gigabytes)
-    photo = models.URLField()                       # Image of device
-    status = models.BooleanField(default=True)      # True - device is still maintained
-    maintainers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="devices")
+    name = models.TextField(max_length=20, help_text="Example: 'Nexus 5X', 'Nexus 6P'")
+    codename = models.TextField(max_length=20, help_text="Example: 'bullhead', 'angler'")
+    manufacturer = models.TextField(max_length=20, help_text="Example: 'LG', 'Huawei'")
+    cpu = models.TextField(max_length=20, help_text="Example: 'MSM8992', 'MSM8994'")
+    gpu = models.TextField(max_length=20, help_text="Example: 'Adreno 418', 'Adreno 430'")
+    memory = models.IntegerField(
+        help_text="RAM amount. Set to lowest value if device has multiple SKUs.<br>Example: '2' if device ships with "
+                  "2 or 3 GB of RAM"
+    )
+    storage = models.IntegerField(
+        help_text="Storage amount. Set to lowest value if device has multiple SKUs.<br>Example: '32' if device ships "
+                  "with 32 or 64 GB of storage"
+    )
+    photo = models.URLField(
+        help_text="URL to image of device.<br>Preferably grab an image from <a "
+                  "href=\"https://www.gsmarena.com\">GSMArena.</a>"
+    )
+    status = models.BooleanField(default=True, help_text="Device is still maintained - uncheck if abandoned")
+    maintainers = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        related_name="devices",
+        help_text="Choose the maintainers working on this device. Multiple maintainers can be selected.<br>"
+    )
     created = models.DateTimeField(auto_now_add=True, editable=False)
 
     def __str__(self):

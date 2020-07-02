@@ -27,7 +27,7 @@ class Device(models.Model):
     )
     photo = models.URLField(
         help_text="URL to image of device.<br>Preferably grab an image from <a "
-                  "href=\"https://www.gsmarena.com\">GSMArena.</a>"
+                  "href=\"https://www.gsmarena.com\" target=\"_blank\">GSMArena.</a>"
     )
     status = models.BooleanField(default=True, help_text="Device is still maintained - uncheck if abandoned")
     maintainers = models.ManyToManyField(

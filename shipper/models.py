@@ -19,7 +19,7 @@ class Variant(models.Model):
 # Build Model
 class Build(models.Model):
     variant = models.ForeignKey(Variant)
-    file_name = models.TextField(max_length=100)    # Bliss-v12.9-xxxx-xxxx.zip
+    file_name = models.TextField(max_length=500)    # Bliss-v12.9-xxxx-xxxx.zip
     sourceforge_direct_link = models.URLField()     # https://sourceforge.com/xxx.zip
     size = models.IntegerField()                    # (size of file in bytes) 720924381
     type = models.TextField(max_length=20)          # official

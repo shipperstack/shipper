@@ -19,7 +19,7 @@ class Device(models.Model):
 
 # Variant Model
 class Variant(models.Model):
-    device = models.ForeignKey(Device)
+    device = models.ForeignKey(Device, on_delete=models.CASCADE)
     name = models.TextField()                       # gapps, no-gapps, etc.
     created = models.DateTimeField(auto_now_add=True, editable=False)
 
@@ -27,7 +27,7 @@ class Variant(models.Model):
 # Build Model
 class Build(models.Model):
     # Basic build information
-    variant = models.ForeignKey(Variant)
+    variant = models.ForeignKey(Variant, on_delete=models.CASCADE)
     file_name = models.TextField(max_length=500)    # Bliss-v12.9-xxxx-xxxx.zip
     sourceforge_direct_link = models.URLField()     # https://sourceforge.com/xxx.zip
     size = models.IntegerField()                    # (size of file in bytes) 720924381

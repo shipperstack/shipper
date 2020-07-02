@@ -8,12 +8,14 @@ class Device(models.Model):
     codename = models.TextField(max_length=50)      # bullhead
     manufacturer = models.TextField(max_length=20)  # LG
     maintainers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="devices")
+    created = models.DateTimeField(auto_now_add=True, editable=False)
 
 
 # Variant Model
 class Variant(models.Model):
     device = models.ForeignKey(Device)
     name = models.TextField()                       # gapps, no-gapps, etc.
+    created = models.DateTimeField(auto_now_add=True, editable=False)
 
 
 # Build Model

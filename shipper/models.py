@@ -20,25 +20,16 @@ class Device(models.Model):
         return self.name + " (" + self.codename + ")"
 
 
-# Variant Model
-class Variant(models.Model):
-    device = models.ForeignKey(Device, on_delete=models.CASCADE)
-    name = models.TextField()                       # gapps, no-gapps, etc.
-    created = models.DateTimeField(auto_now_add=True, editable=False)
-
-    def __str__(self):
-        return self.name + " - " + str(self.device)
-
-
 # Build Model
 class Build(models.Model):
     # Basic build information
-    variant = models.ForeignKey(Variant, on_delete=models.CASCADE)
+    device = models.ForeignKey(Device, on_delete=models.CASCADE)
     file_name = models.TextField(max_length=500)    # Bliss-v12.9-xxxx-xxxx.zip
     sourceforge_direct_link = models.URLField()     # https://sourceforge.com/xxx.zip
     size = models.IntegerField()                    # (size of file in bytes) 720924381
     type = models.TextField(max_length=20)          # official
     version = models.TextField(max_length=20)       # v12.9
+    gapps = models.BooleanField(default=False)      # Does the build include GApps?
     created = models.DateTimeField(auto_now_add=True, editable=False)
 
     # Build Release Types
@@ -55,5 +46,4 @@ class Build(models.Model):
         choices=RELEASE_CHOICES,
         default=STABLE,
     )
-
 

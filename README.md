@@ -8,8 +8,7 @@ Before deploying live, remember to change the `SECRET_KEY` value in `config/sett
 
 ## Quickstart
 
-Make sure Django is installed.
-
-    python manage.py migrate    # create initial db
-    python manage.py runserver  # run internal webserver
+    pip install -r requirements.txt # install dependencies
+    python manage.py migrate        # create initial db
+    python manage.py runserver      # run internal webserver
     

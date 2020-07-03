@@ -51,10 +51,20 @@ class Build(models.Model):
         related_name="builds",
         on_delete=models.CASCADE,
     )
-    file_name = models.TextField(max_length=500)    # Bliss-v12.9-xxxx-xxxx.zip
-    sourceforge_direct_link = models.URLField()     # https://sourceforge.com/xxx.zip
-    size = models.IntegerField()                    # (size of file in bytes) 720924381
-    version = models.TextField(max_length=20)       # v12.9
+    file_name = models.TextField(
+        max_length=500,
+        unique=True,
+        help_text="Example: 'Bliss-v12.8-bullhead-OFFICIAL-20200608")
+    sourceforge_direct_link = models.URLField(
+        help_text="https://sourceforge.net/projects/blissroms/files/Q/<codename>/<file_name>.zip/download"
+    )
+    size = models.IntegerField(
+        help_text="Size of zip file in bytes<br>Example: 857483855"
+    )
+    version = models.TextField(
+        max_length=20,
+        help_text="Example: v12.8"
+    )
     gapps = models.BooleanField(default=False)      # Does the build include GApps?
     created = models.DateTimeField(auto_now_add=True, editable=False)
 

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ device }}{% endblock %}
+
+{% block content %}
+    <h3>{{ device }} - Upload new build</h3>
+
+    {% if upload_succeeded == True %}
+        <div class="alert alert-success">Your build was successfully uploaded!</div>
+    {% elif upload_succeeded == False %}
+        {% if invalid_form == True %}
+            <div class="alert alert-warning">The submitted files are incorrect!</div>
+        {% else %}
+            <div class="alert alert-warning">There was a problem uploading your build.</div>
+        {% endif %}
+    {% endif %}
+
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="build_file" accept=".zip, .md5" multiple>
+        <p>Only .zip and .md5 files can be uploaded.</p>
+        <button class="btn btn-info btn-sm" type="submit">Upload</button>
+    </form>
+{% endblock %}

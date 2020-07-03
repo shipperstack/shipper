@@ -1,8 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.edit import FormView
 
 from .models import *
+from .forms import *
 
 
 class DashboardView(LoginRequiredMixin, ListView):
@@ -23,3 +25,36 @@ class BuildDetailView(LoginRequiredMixin, DetailView):
     template_name = 'shipper/build_detail.html'
     model = Build
 
+
+def build_upload(request, pk):
+    device = get_object_or_404(Device, pk=pk)
+
+    if request.method == 'POST':
+        form = BuildUploadForm(request.POST, request.FILES)
+        files = request.FILES.getlist('build_file')
+        if form.is_valid():
+            for f in files:
+                import os
+                from pathlib import Path
+                # Make sure path exists
+                Path(os.path.join(settings.MEDIA_ROOT, device.codename)).mkdir(parents=True, exist_ok=True)
+                with open(os.path.join(settings.MEDIA_ROOT, device.codename, f.name), 'wb+') as destination:
+                    for chunk in f.chunks():
+                        destination.write(chunk)
+                file_name, file_extension = os.path.splitext(f.name)
+            return render(request, 'shipper/build_upload.html', {
+                'upload_succeeded': True,
+                'device': device
+            })
+        else:
+            return render(request, 'shipper/build_upload.html', {
+                'upload_succeeded': False,
+                'invalid_form': True,
+                'device': device
+            })
+    else:
+        form = BuildUploadForm()
+    return render(request, 'shipper/build_upload.html', {
+        'form': form,
+        'device': device
+    })

@@ -6,7 +6,7 @@
     <h3>{{ object }}</h3>
 
     <div class="btn-group">
-        <a href="#" class="btn btn-success btn-sm">Upload new build</a>
+        <a href="{% url 'build_upload' pk=object.id %}" class="btn btn-success btn-sm">Upload new build</a>
     </div>
 
     <table class="table">

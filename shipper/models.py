@@ -46,11 +46,14 @@ class Device(models.Model):
 # Build Model
 class Build(models.Model):
     # Basic build information
-    device = models.ForeignKey(Device, on_delete=models.CASCADE)
+    device = models.ForeignKey(
+        Device,
+        related_name="builds",
+        on_delete=models.CASCADE,
+    )
     file_name = models.TextField(max_length=500)    # Bliss-v12.9-xxxx-xxxx.zip
     sourceforge_direct_link = models.URLField()     # https://sourceforge.com/xxx.zip
     size = models.IntegerField()                    # (size of file in bytes) 720924381
-    type = models.TextField(max_length=20)          # official
     version = models.TextField(max_length=20)       # v12.9
     gapps = models.BooleanField(default=False)      # Does the build include GApps?
     created = models.DateTimeField(auto_now_add=True, editable=False)
@@ -69,4 +72,7 @@ class Build(models.Model):
         choices=RELEASE_CHOICES,
         default=STABLE,
     )
+
+    def __str__(self):
+        return self.file_name
 

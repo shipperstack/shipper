@@ -17,3 +17,9 @@ class DashboardView(LoginRequiredMixin, ListView):
 class DeviceDetailView(LoginRequiredMixin, DetailView):
     template_name = 'shipper/device_detail.html'
     model = Device
+
+
+class BuildDetailView(LoginRequiredMixin, DetailView):
+    template_name = 'shipper/build_detail.html'
+    model = Build
+

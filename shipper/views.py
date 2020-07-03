@@ -42,6 +42,14 @@ def build_upload(request, pk):
                     for chunk in f.chunks():
                         destination.write(chunk)
                 file_name, file_extension = os.path.splitext(f.name)
+                if file_extension == '.zip':
+                    _, version, codename, type, date = file_name.split('-')
+                    if codename != device.codename:
+                        return render(request, 'shipper/build_upload.html', {
+                            'upload_succeeded': False,
+                            'invalid_form': True,
+                            'device': device
+                        })
             return render(request, 'shipper/build_upload.html', {
                 'upload_succeeded': True,
                 'device': device

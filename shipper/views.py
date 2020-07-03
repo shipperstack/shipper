@@ -50,6 +50,8 @@ def build_upload(request, pk):
                             'invalid_form': True,
                             'device': device
                         })
+                    build = Build(device=device, file_name=file_name, size=f.size, version=version, sourceforge_direct_link="https://sourceforge.com/xxx")
+                    build.save()
             return render(request, 'shipper/build_upload.html', {
                 'upload_succeeded': True,
                 'device': device

@@ -7,6 +7,7 @@
 
     {% if upload_succeeded == True %}
         <div class="alert alert-success">Your build was successfully uploaded!</div>
+        <div class="alert alert-info">Note that your build will not show up on the build list until changes have propagated.</div>
     {% elif upload_succeeded == False %}
         {% if invalid_form == True %}
             <div class="alert alert-warning">The submitted files are incorrect!</div>

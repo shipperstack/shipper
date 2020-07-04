@@ -8,7 +8,7 @@
     <div class="btn-group">
         <a href="#" class="btn btn-success btn-sm">Set as default</a>
         <a href="#" class="btn btn-info btn-sm">Edit build</a>
-        <a href="{% url 'build_delete' pk=object.device.id pkb=object.id %}" class="btn btn-danger btn-sm">Delete build</a>
+        <a href="{% url 'build_delete' pkd=object.device.id pk=object.id %}" class="btn btn-danger btn-sm">Delete build</a>
     </div>
 
     <div class="col-md-2"></div>

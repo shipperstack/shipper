@@ -19,7 +19,7 @@
         <tbody>
             {% for build in object.builds.all %}
             <tr>
-                <td><a href="{% url 'build_detail' pk=object.id pkb=build.id %}">{{build.file_name}}</a></td>
+                <td><a href="{% url 'build_detail' pkd=object.id pk=build.id %}">{{build.file_name}}</a></td>
                 <!-- url 'upload' pk=device.id  -->
                 <td><a href="#" class="btn btn-success btn-sm">test</a></td>
             </tr>

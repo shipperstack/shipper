@@ -12,10 +12,12 @@
         </thead>
         <tbody>
             {% for device in object_list %}
-            <tr>
-                <td><p>{{device.name}}</p></td>
-                <td><a href="https://sourceforge.net/projects/{{ sourceforge_project_name }}/files/Q/{{device.codename}}/{{ device.get_latest_build_object.file_name }}.zip/download" class="btn btn-success btn-sm">Download</a></td>
-            </tr>
+                {% if device.does_processed_builds_exist %}
+                <tr>
+                    <td><p>{{device.name}}</p></td>
+                    <td><a href="https://sourceforge.net/projects/{{ sourceforge_project_name }}/files/Q/{{device.codename}}/{{ device.get_latest_build_object.file_name }}.zip/download" class="btn btn-success btn-sm">Download</a></td>
+                </tr>
+                {% endif %}
             {% endfor %}
         </tbody>
     </table>

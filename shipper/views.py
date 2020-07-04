@@ -3,12 +3,10 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic.edit import FormView
 
 from .models import *
 from .forms import *
 from .tasks import *
-from .utils import delete_artifact
 
 
 class DashboardView(LoginRequiredMixin, ListView):

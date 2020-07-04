@@ -55,7 +55,7 @@ def build_upload(request, pk):
                             'invalid_form': True,
                             'device': device
                         })
-                    if Build.objects.get(file_name=file_name).count() >= 1:
+                    if Build.objects.filter(file_name=file_name).count() >= 1:
                         # Build already exists
                         return render(request, 'shipper/build_upload.html', {
                             'upload_succeeded': False,

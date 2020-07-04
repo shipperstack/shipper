@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
 from django.views.generic import ListView, DetailView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import FormView
@@ -31,6 +32,9 @@ class BuildDetailView(LoginRequiredMixin, DetailView):
 class BuildDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'shipper/build_delete.html'
     model = Build
+
+    def get_success_url(self):
+        return reverse('device_detail', kwargs={'pk': self.object.device.id})
 
 
 def build_upload(request, pk):

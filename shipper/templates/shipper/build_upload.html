@@ -18,7 +18,8 @@
 
     <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <input type="file" name="build_file" accept=".zip, .md5" multiple>
+        <label for="build_file">Files</label>
+        <input id="build_file" type="file" name="build_file" accept=".zip, .md5" multiple>
         <p>Only .zip and .md5 files can be uploaded.</p>
         <button class="btn btn-info btn-sm" type="submit">Upload</button>
     </form>

@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import FormView
 
@@ -25,6 +25,11 @@ class DeviceDetailView(LoginRequiredMixin, DetailView):
 
 class BuildDetailView(LoginRequiredMixin, DetailView):
     template_name = 'shipper/build_detail.html'
+    model = Build
+
+
+class BuildDeleteView(LoginRequiredMixin, DeleteView):
+    template_name = 'shipper/build_delete.html'
     model = Build
 
 

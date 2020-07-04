@@ -62,7 +62,11 @@ class Build(models.Model):
         max_length=20,
         help_text="Example: v12.8"
     )
-    gapps = models.BooleanField(default=False)      # Does the build include GApps?
+    sha256sum = models.TextField(max_length=64)
+    gapps = models.BooleanField(
+        default=False,
+        help_text="Does the build include GApps?"
+    )
     created = models.DateTimeField(auto_now_add=True, editable=False)
 
     # Build Release Types

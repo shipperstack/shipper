@@ -72,7 +72,7 @@ def delete_build(build):
 
         sftp.cwd(build.device.codename)
 
-        sftp.put("{}.zip".format(build.file_name))
-        sftp.put("{}.zip.md5".format(build.file_name))
+        sftp.remove("{}.zip".format(build.file_name))
+        sftp.remove("{}.zip.md5".format(build.file_name))
 
         build.delete()

@@ -35,10 +35,15 @@ def process_build(codename):
                     os.path.join(
                         '/home/frs/project/',
                         settings.SOURCEFORGE_PROJECT,
-                        '/Q/',
-                        codename
+                        'Q'
                     )
                 )
+
+                # Check if directory exists
+                if not sftp.exists(codename):
+                    sftp.mkdir(codename)
+
+                sftp.cwd(codename)
 
                 sftp.put(os.path.join(settings.MEDIA_ROOT, codename, file.path))
                 sftp.put(os.path.join(settings.MEDIA_ROOT, codename, file.path, '.md5'))

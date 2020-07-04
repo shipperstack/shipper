@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import user_passes_test
 
 from .models import *
 from .forms import *
@@ -61,6 +62,21 @@ class BuildDeleteView(LoginRequiredMixin, DeleteView):
     def get_queryset(self):
         return Build.objects.filter(device__maintainers=self.request.user)
 
+
+@user_passes_test(lambda u: u.is_superuser)
+def device_force_processing(request, pk):
+    device = get_object_or_404(Device, pk=pk)
+
+    if request.method == 'POST':
+        process_build.delay(device.codename)
+        return render(request, 'shipper/device_force_processing.html', {
+            'device': device,
+            'started': True,
+        })
+
+    return render(request, 'shipper/device_force_processing.html', {
+        'device': device
+    })
 
 
 def build_upload(request, pk):

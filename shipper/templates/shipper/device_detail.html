@@ -13,6 +13,7 @@
         <thead>
         <tr>
             <th scope="col">Build name</th>
+            <th scope="col">Release</th>
             <th scope="col">Actions</th>
         </tr>
         </thead>
@@ -20,7 +21,7 @@
             {% for build in object.builds.all %}
             <tr>
                 <td><a href="{% url 'build_detail' pkd=object.id pk=build.id %}">{{build.file_name}}</a></td>
-                <!-- url 'upload' pk=device.id  -->
+                <td>{{ build.release }}</td>
                 <td><a href="{% url 'build_delete' pkd=object.id pk=build.id %}" class="btn btn-danger btn-sm">Delete</a></td>
             </tr>
             {% endfor %}

@@ -7,6 +7,6 @@ from django.conf import settings
 def delete_artifact(codename, file_path):
     try:
         os.remove(os.path.join(settings.MEDIA_ROOT, codename, file_path))
-        os.remove(os.path.join(settings.MEDIA_ROOT, codename, file_path, ".md5"))
+        os.remove("{}.md5".format(os.path.join(settings.MEDIA_ROOT, codename, file_path)))
     except OSError:
         pass

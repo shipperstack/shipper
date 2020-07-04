@@ -35,9 +35,8 @@ class BuildDeleteView(LoginRequiredMixin, DeleteView):
     model = Build
 
     def delete(self, request, *args, **kwargs):
-        self.object = self.get_object()
         success_url = self.get_success_url()
-        delete_build.delay(self.object)
+        delete_build.delay(self.get_object())
         return HttpResponseRedirect(success_url)
 
     def get_success_url(self):

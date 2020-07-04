@@ -9,8 +9,8 @@ from .forms import *
 from .tasks import *
 
 
-class DashboardView(LoginRequiredMixin, ListView):
-    template_name = 'shipper/dashboard.html'
+class MaintainerDashboardView(LoginRequiredMixin, ListView):
+    template_name = 'shipper/maintainer_dashboard.html'
     model = Device
 
     # Override devices shown to maintainers

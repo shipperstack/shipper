@@ -68,6 +68,7 @@ class Build(models.Model):
         help_text="Does the build include GApps?"
     )
     created = models.DateTimeField(auto_now_add=True, editable=False)
+    processed = models.BooleanField(default=False)
 
     # Build Release Types
     STABLE = 'STABLE'

@@ -9,5 +9,5 @@ class BuildUploadForm(forms.Form):
         widget=forms.ClearableFileInput(attrs={'multiple': True}),
         validators=[validate_file_extension]
     )
-    gapps = forms.BooleanField()
+    gapps = forms.BooleanField(initial=False, required=False)
     release = forms.ChoiceField(choices=Build.RELEASE_CHOICES)

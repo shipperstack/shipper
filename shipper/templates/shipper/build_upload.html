@@ -7,13 +7,18 @@
 
     {% if upload_succeeded == True %}
         <div class="alert alert-success">Your build was successfully uploaded!</div>
-        <div class="alert alert-info">Note that your build will not show up on the build list until changes have propagated.</div>
     {% elif upload_succeeded == False %}
+        <div class="alert alert-warning">
         {% if invalid_form == True %}
-            <div class="alert alert-warning">The submitted files are incorrect!</div>
+            The submitted files are incorrect!
+        {% elif build_exists == True %}
+            The build already exists in the system!
+        {% elif incorrect_device == True %}
+            The device codename does not match the build codename. Are you sure you meant to upload for {{ device }}?
         {% else %}
-            <div class="alert alert-warning">There was a problem uploading your build.</div>
+            There was a problem uploading your build.
         {% endif %}
+        </div>
     {% endif %}
 
     <form action="" method="post" enctype="multipart/form-data">

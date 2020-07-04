@@ -61,13 +61,14 @@ def build_upload(request, pk):
                         # Incorrect device uploaded
                         return render(request, 'shipper/build_upload.html', {
                             'upload_succeeded': False,
-                            'invalid_form': True,
+                            'incorrect_device': True,
                             'device': device
                         })
                     if Build.objects.filter(file_name=file_name).count() >= 1:
                         # Build already exists
                         return render(request, 'shipper/build_upload.html', {
                             'upload_succeeded': False,
+                            'build_exists': True,
                             'device': device
                         })
                     build = Build(

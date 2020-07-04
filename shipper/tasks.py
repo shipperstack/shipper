@@ -1,31 +1,17 @@
+from __future__ import absolute_import, unicode_literals
+
 import os
 import hashlib
 import pysftp
 
+from celery import shared_task
+from config import settings
 
-from celery import Celery
-from django.conf import settings
-
-from .models import *
+from shipper import models
 from .utils import delete_artifact
 
-app = Celery('tasks', broker='pyampq://localhost')
 
-
-'''
-Process builds for specified device
-
-Iterate through media/<codename>/*
-For each build artifact:
- - Check if same build object exists
-     - If yes, then stop. Delete the artifact.
-     - If no, then continue
- - Generate a SHA256 hash for the Updater app
- - Upload the build and MD5 files to SourceForge and delete build
- - Create a build object and save to the database
- - Set representative build to latest build
-'''
-@app.task
+@shared_task
 def process_build(codename):
     for file in os.scandir(os.path.join(settings.MEDIA_ROOT, codename)):
         if file.path.endswith(".zip"):
@@ -59,6 +45,6 @@ def process_build(codename):
 
             delete_artifact(codename, file.path)
 
-            build = Build.objects.get(file_name=file_name)
+            build = models.Build.objects.get(file_name=file_name)
             build.sha256sum = sha256sum
             build.processed = True

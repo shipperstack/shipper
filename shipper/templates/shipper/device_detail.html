@@ -21,7 +21,7 @@
             <tr>
                 <td><a href="{% url 'build_detail' pkd=object.id pk=build.id %}">{{build.file_name}}</a></td>
                 <!-- url 'upload' pk=device.id  -->
-                <td><a href="#" class="btn btn-success btn-sm">test</a></td>
+                <td><a href="{% url 'build_delete' pkd=object.id pk=build.id %}" class="btn btn-danger btn-sm">Delete</a></td>
             </tr>
             {% endfor %}
         </tbody>

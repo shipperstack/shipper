@@ -35,7 +35,7 @@ def build_upload(request, pk):
         form = BuildUploadForm(request.POST, request.FILES)
         files = request.FILES.getlist('build_file')
         gapps = request.POST['gapps']
-
+        release = request.POST['release']
         if form.is_valid():
             for f in files:
                 import os

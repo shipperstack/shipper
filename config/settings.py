@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'duk4hvedu3zxnmw@shnjw7z^)x#wcm@cj05t5f&#90rx-g44d2'
 
 SOURCEFORGE_SFTP_URL = 'frs.sourceforge.net'
-SOURCEFORGE_PROJECT = 'blissroms'
+SOURCEFORGE_PROJECT = 'blissroms-shipper-demo'
 SOURCEFORGE_USERNAME = 'ideaman924'
 SOURCEFORGE_SSH_PRIVATE_KEY = '~/.ssh/id_rsa'
 

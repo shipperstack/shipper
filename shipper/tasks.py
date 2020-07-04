@@ -53,3 +53,26 @@ def process_build(codename):
             build = models.Build.objects.get(file_name=file_name)
             build.sha256sum = sha256sum
             build.processed = True
+
+@shared_task
+def delete_build(build):
+    with pysftp.Connection(
+            host=settings.SOURCEFORGE_SFTP_URL,
+            username=settings.SOURCEFORGE_USERNAME,
+            private_key=settings.SOURCEFORGE_SSH_PRIVATE_KEY
+    ) as sftp:
+        # Established connection
+        sftp.cwd(
+            os.path.join(
+                '/home/frs/project/',
+                settings.SOURCEFORGE_PROJECT,
+                'Q'
+            )
+        )
+
+        sftp.cwd(build.device.codename)
+
+        sftp.put("{}.zip".format(build.file_name))
+        sftp.put("{}.zip.md5".format(build.file_name))
+
+        build.delete()

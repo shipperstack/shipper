@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, DeleteView
@@ -6,7 +7,7 @@ from django.views.generic.edit import FormView
 
 from .models import *
 from .forms import *
-from .tasks import process_build
+from .tasks import *
 from .utils import delete_artifact
 
 
@@ -32,6 +33,12 @@ class BuildDetailView(LoginRequiredMixin, DetailView):
 class BuildDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'shipper/build_delete.html'
     model = Build
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        delete_build.delay(self.object)
+        return HttpResponseRedirect(success_url)
 
     def get_success_url(self):
         return reverse('device_detail', kwargs={'pk': self.object.device.id})

@@ -10,7 +10,7 @@
     {% elif upload_succeeded == False %}
         <div class="alert alert-warning">
         {% if invalid_form == True %}
-            The submitted files are incorrect!
+            Form validation failed.
         {% elif build_exists == True %}
             The build already exists in the system!
         {% elif incorrect_device == True %}

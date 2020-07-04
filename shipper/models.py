@@ -42,6 +42,9 @@ class Device(models.Model):
     def __str__(self):
         return self.name + " (" + self.codename + ")"
 
+    def get_latest_build_object(self):
+        return self.builds.latest('id')
+
 
 # Build Model
 class Build(models.Model):

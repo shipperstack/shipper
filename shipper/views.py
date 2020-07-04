@@ -9,6 +9,11 @@ from .forms import *
 from .tasks import *
 
 
+class DownloadsView(ListView):
+    template_name = 'shipper/downloads.html'
+    model = Device
+
+
 class MaintainerDashboardView(LoginRequiredMixin, ListView):
     template_name = 'shipper/maintainer_dashboard.html'
     model = Device

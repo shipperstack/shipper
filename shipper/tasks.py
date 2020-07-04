@@ -34,7 +34,7 @@ def process_build(codename):
 
             sha256sum = hashlib.sha256()
 
-            with open(file_name, "rb") as file:
+            with open(file.path, "rb") as file:
                 # Read and update hash string value in blocks of 4K
                 for byte_block in iter(lambda: file.read(4096), b""):
                     sha256sum.update(byte_block)

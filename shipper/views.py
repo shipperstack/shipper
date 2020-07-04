@@ -31,10 +31,18 @@ class DeviceDetailView(LoginRequiredMixin, DetailView):
     template_name = 'shipper/device_detail.html'
     model = Device
 
+    # Override devices shown to maintainers
+    def get_queryset(self):
+        return Device.objects.filter(maintainers=self.request.user)
+
 
 class BuildDetailView(LoginRequiredMixin, DetailView):
     template_name = 'shipper/build_detail.html'
     model = Build
+
+    # Override builds shown to maintainers
+    def get_queryset(self):
+        return Build.objects.filter(device__maintainers=self.request.user)
 
 
 class BuildDeleteView(LoginRequiredMixin, DeleteView):
@@ -48,6 +56,11 @@ class BuildDeleteView(LoginRequiredMixin, DeleteView):
 
     def get_success_url(self):
         return reverse('device_detail', kwargs={'pk': self.object.device.id})
+
+    # Override builds shown to maintainers
+    def get_queryset(self):
+        return Build.objects.filter(device__maintainers=self.request.user)
+
 
 
 def build_upload(request, pk):

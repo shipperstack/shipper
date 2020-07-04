@@ -43,7 +43,7 @@ class Device(models.Model):
         return self.name + " (" + self.codename + ")"
 
     def get_latest_build_object(self):
-        return self.builds.latest('id')
+        return self.builds.filter(processed=True).latest('id')
 
 
 # Build Model

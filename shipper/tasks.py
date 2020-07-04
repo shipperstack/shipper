@@ -40,8 +40,8 @@ def process_build(codename):
                     )
                 )
 
-                sftp.put(os.path.join(settings.MEDIA_ROOT, file.path))
-                sftp.put(os.path.join(settings.MEDIA_ROOT, file.path, '.md5'))
+                sftp.put(os.path.join(settings.MEDIA_ROOT, codename, file.path))
+                sftp.put(os.path.join(settings.MEDIA_ROOT, codename, file.path, '.md5'))
 
             delete_artifact(codename, file.path)
 

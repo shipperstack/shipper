@@ -9,7 +9,10 @@ from shipper.models import *
 def v1_updater(request):
     retJson = {}
     for device in Device.objects.all():
-        build = device.get_latest_build_object()
+        try:
+            build = device.get_latest_build_object()
+        except Build.DoesNotExist:
+            continue
         _, version, codename, type, date = build.file_name.split('-')
 
         deviceJson = {

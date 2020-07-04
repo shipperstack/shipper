@@ -21,6 +21,23 @@
         <label for="build_file">Files</label>
         <input id="build_file" type="file" name="build_file" accept=".zip, .md5" multiple>
         <p>Only .zip and .md5 files can be uploaded.</p>
+
+        <br>
+
+        <label for="gapps">GApps included</label>
+        <input id="gapps" type="checkbox" name="gapps">
+
+        <br>
+
+        <label for="release">Release</label>
+        <select id="release" name="release">
+            <option value="STABLE" selected="selected">Stable</option>
+            <option value="BETA">Beta</option>
+            <option value="ALPHA">Alpha</option>
+        </select>
+
+        <br>
+
         <button class="btn btn-info btn-sm" type="submit">Upload</button>
     </form>
 {% endblock %}

@@ -34,9 +34,9 @@ def build_upload(request, pk):
     if request.method == 'POST':
         form = BuildUploadForm(request.POST, request.FILES)
         files = request.FILES.getlist('build_file')
-        gapps = request.POST['gapps']
-        release = request.POST['release']
         if form.is_valid():
+            gapps = form.cleaned_data['gapps']
+            release = form.cleaned_data['release']
             for f in files:
                 import os
                 from pathlib import Path
@@ -67,7 +67,8 @@ def build_upload(request, pk):
                         size=f.size,
                         version=version,
                         sha256sum="0",
-                        gapps=False # replace with GApps from form
+                        gapps=gapps,
+                        release=release
                     )
                     build.save()
             process_build.delay(device.codename)

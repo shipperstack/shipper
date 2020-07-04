@@ -5,6 +5,8 @@ from django.views.generic.edit import FormView
 
 from .models import *
 from .forms import *
+from .tasks import process_build
+from .utils import delete_artifact
 
 
 class DashboardView(LoginRequiredMixin, ListView):
@@ -32,6 +34,8 @@ def build_upload(request, pk):
     if request.method == 'POST':
         form = BuildUploadForm(request.POST, request.FILES)
         files = request.FILES.getlist('build_file')
+        gapps = request.POST['gapps']
+
         if form.is_valid():
             for f in files:
                 import os
@@ -45,13 +49,28 @@ def build_upload(request, pk):
                 if file_extension == '.zip':
                     _, version, codename, type, date = file_name.split('-')
                     if codename != device.codename:
+                        # Incorrect device uploaded
                         return render(request, 'shipper/build_upload.html', {
                             'upload_succeeded': False,
                             'invalid_form': True,
                             'device': device
                         })
-                    build = Build(device=device, file_name=file_name, size=f.size, version=version, sourceforge_direct_link="https://sourceforge.com/xxx")
+                    if Build.objects.get(file_name=file_name).count() >= 1:
+                        # Build already exists
+                        return render(request, 'shipper/build_upload.html', {
+                            'upload_succeeded': False,
+                            'device': device
+                        })
+                    build = Build(
+                        device=device,
+                        file_name=file_name,
+                        size=f.size,
+                        version=version,
+                        sha256sum="0",
+                        gapps=False # replace with GApps from form
+                    )
                     build.save()
+            process_build.delay(device.codename)
             return render(request, 'shipper/build_upload.html', {
                 'upload_succeeded': True,
                 'device': device

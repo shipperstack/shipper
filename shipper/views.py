@@ -50,13 +50,15 @@ class BuildDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'shipper/build_delete.html'
     model = Build
 
+    def get_success_url(self):
+        return reverse('device_detail', kwargs={'pk': self.get_object().device.id})
+
     def delete(self, request, *args, **kwargs):
         success_url = self.get_success_url()
-        delete_build.delay(self.get_object())
+        codename = self.get_object().device.codename
+        file_name = self.get_object().file_name
+        delete_build.delay(codename, file_name)
         return HttpResponseRedirect(success_url)
-
-    def get_success_url(self):
-        return reverse('device_detail', kwargs={'pk': self.object.device.id})
 
     # Override builds shown to maintainers
     def get_queryset(self):

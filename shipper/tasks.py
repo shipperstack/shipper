@@ -55,7 +55,7 @@ def process_build(codename):
             build.processed = True
 
 @shared_task
-def delete_build(build):
+def delete_build(codename, file_name):
     with pysftp.Connection(
             host=settings.SOURCEFORGE_SFTP_URL,
             username=settings.SOURCEFORGE_USERNAME,
@@ -70,9 +70,13 @@ def delete_build(build):
             )
         )
 
-        sftp.cwd(build.device.codename)
+        sftp.cwd(codename)
 
-        sftp.remove("{}.zip".format(build.file_name))
-        sftp.remove("{}.zip.md5".format(build.file_name))
+        try:
+            sftp.remove("{}.zip".format(file_name))
+            sftp.remove("{}.zip.md5".format(file_name))
+        except FileNotFoundError:
+            # Builds have been deleted already
+            pass
 
-        build.delete()
+        Build.objects.get(file_name=file_name).delete()

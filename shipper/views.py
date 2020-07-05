@@ -1,4 +1,4 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, DeleteView
@@ -84,6 +84,9 @@ def device_force_processing(request, pk):
 @login_required
 def build_upload(request, pk):
     device = get_object_or_404(Device, pk=pk)
+
+    if request.user not in device.maintainers.all():
+        raise Http404
 
     if request.method == 'POST':
         form = BuildUploadForm(request.POST, request.FILES)

@@ -7,6 +7,7 @@
                 <a class="navbar-brand" href="/maintainers">Shipper</a>
                 <ul class="nav">
                     {% if user.is_authenticated %}
+                        <li class="nav-item"><a href="{% url 'password_change' %}" class="nav-link">Change Password</a></li>
                         <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Logout</a></li>
                     {% else %}
                         <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">Login</a></li>

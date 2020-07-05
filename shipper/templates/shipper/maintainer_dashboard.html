@@ -13,7 +13,7 @@
         <tbody>
             {% for device in object_list %}
             <tr>
-                <td><a href="{% url 'device_detail' pk=device.id %}">{{device.name}}</a></td>
+                <td><a href="{% url 'device_detail' pk=device.id %}">{{device}}</a></td>
                 <td><a href="{% url 'build_upload' pk=device.id %}" class="btn btn-success btn-sm">Upload new build</a></td>
             </tr>
             {% endfor %}

@@ -41,7 +41,7 @@ class Device(models.Model):
     created = models.DateTimeField(auto_now_add=True, editable=False)
 
     def __str__(self):
-        return self.name + " (" + self.codename + ")"
+        return "{} {} ({})".format(self.manufacturer, self.name, self.codename)
 
     def get_latest_build_object(self):
         return self.builds.filter(processed=True).latest('id')

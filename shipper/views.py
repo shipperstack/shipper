@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import user_passes_test, login_required
 
 from .models import *
 from .forms import *
@@ -81,6 +81,7 @@ def device_force_processing(request, pk):
     })
 
 
+@login_required
 def build_upload(request, pk):
     device = get_object_or_404(Device, pk=pk)
 

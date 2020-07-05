@@ -14,6 +14,8 @@ Make sure Python 3 and pip are installed.
 
 Shipper depends on RabbitMQ. Install RabbitMQ using your package manager.
 
+For production environments, we recommend using `supervisord`.
+
     pip install -r requirements.txt     # install dependencies
     python manage.py migrate            # create initial db
     python manage.py runserver          # run internal webserver

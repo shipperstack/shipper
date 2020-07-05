@@ -35,7 +35,8 @@ class Device(models.Model):
     maintainers = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
         related_name="devices",
-        help_text="Choose the maintainers working on this device. Multiple maintainers can be selected.<br>"
+        help_text="Choose the maintainers working on this device. Multiple maintainers can be selected.<br>",
+        blank=True,
     )
     created = models.DateTimeField(auto_now_add=True, editable=False)
 

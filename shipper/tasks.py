@@ -94,9 +94,8 @@ def delete_build(codename, file_name):
             )
         )
 
-        sftp.cwd(codename)
-
         try:
+            sftp.cwd(codename)
             sftp.remove("{}.zip".format(file_name))
             sftp.remove("{}.zip.md5".format(file_name))
         except FileNotFoundError:

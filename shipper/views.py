@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import user_passes_test, login_required
 from .models import *
 from .forms import *
 from .tasks import *
+from .handler import *
 
 
 class DownloadsView(ListView):
@@ -90,46 +91,21 @@ def build_upload(request, pk):
 
     if request.method == 'POST':
         form = BuildUploadForm(request.POST, request.FILES)
-        files = request.FILES.getlist('build_file')
         if form.is_valid():
+            build_file = request.FILES['build_file']
+            checksum_file = request.FILES['checksum_file']
             gapps = form.cleaned_data['gapps']
             release = form.cleaned_data['release']
-            for f in files:
-                import os
-                from pathlib import Path
-                # Make sure path exists
-                Path(os.path.join(settings.MEDIA_ROOT, device.codename)).mkdir(parents=True, exist_ok=True)
-                with open(os.path.join(settings.MEDIA_ROOT, device.codename, f.name), 'wb+') as destination:
-                    for chunk in f.chunks():
-                        destination.write(chunk)
-                file_name, file_extension = os.path.splitext(f.name)
-                if file_extension == '.zip':
-                    _, version, codename, type, date = file_name.split('-')
-                    if codename != device.codename:
-                        # Incorrect device uploaded
-                        return render(request, 'shipper/build_upload.html', {
-                            'upload_succeeded': False,
-                            'incorrect_device': True,
-                            'device': device
-                        })
-                    if Build.objects.filter(file_name=file_name).count() >= 1:
-                        # Build already exists
-                        return render(request, 'shipper/build_upload.html', {
-                            'upload_succeeded': False,
-                            'build_exists': True,
-                            'device': device
-                        })
-                    build = Build(
-                        device=device,
-                        file_name=file_name,
-                        size=f.size,
-                        version=version,
-                        sha256sum="0",
-                        gapps=gapps,
-                        release=release
-                    )
-                    build.save()
-            process_build.delay(device.codename)
+
+            try:
+                handle_builds(device, build_file, checksum_file, gapps, release)
+            except Exception as e:
+                return render(request, 'shipper/build_upload.html', {
+                    'upload_succeeded': False,
+                    'error_reason': e.args[0],
+                    'device': device
+                })
+
             return render(request, 'shipper/build_upload.html', {
                 'upload_succeeded': True,
                 'device': device
@@ -137,7 +113,7 @@ def build_upload(request, pk):
         else:
             return render(request, 'shipper/build_upload.html', {
                 'upload_succeeded': False,
-                'invalid_form': True,
+                'error_reason': 'invalid_form',
                 'device': device
             })
     else:

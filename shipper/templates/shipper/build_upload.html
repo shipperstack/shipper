@@ -9,23 +9,28 @@
         <div class="alert alert-success">Your build was successfully uploaded!</div>
     {% elif upload_succeeded == False %}
         <div class="alert alert-warning">
-        {% if invalid_form == True %}
-            Form validation failed.
-        {% elif build_exists == True %}
-            The build already exists in the system!
-        {% elif incorrect_device == True %}
+        {% if error_reason == 'invalid_form' %}
+            The form is invalid!
+        {% elif error_reason == 'file_name_mismatch' %}
+            The build file and the checksum file names do not match!
+        {% elif error_reason == 'invalid_file_name' %}
+            The build file name was malformed. (Hint: Do NOT change the build file name after compilation.)
+        {% elif error_reason == 'codename_mismatch' %}
             The device codename does not match the build codename. Are you sure you meant to upload for {{ device }}?
+        {% elif error_reason == 'duplicate_build' %}
+            The build already exists in the system!
         {% else %}
-            There was a problem uploading your build.
+            An undefined error occurred and there was a problem uploading your build. Please contact the administrators.
         {% endif %}
         </div>
     {% endif %}
 
     <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <label for="build_file">Files</label>
-        <input id="build_file" type="file" name="build_file" accept=".zip, .md5" multiple>
-        <p>Only .zip and .md5 files can be uploaded.</p>
+        <label for="build_file">Build zip: </label>
+        <input id="build_file" type="file" name="build_file" accept=".zip">
+        <label for="checksum_file">Checksum file: </label>
+        <input id="checksum_file" type="file" name="checksum_file" accept=".md5">
 
         <br>
 

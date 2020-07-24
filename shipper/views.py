@@ -1,9 +1,20 @@
 from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, DetailView, DeleteView
+from django.contrib.auth import authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import user_passes_test, login_required
+from rest_framework.authtoken.models import Token
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
+from rest_framework.status import (
+    HTTP_400_BAD_REQUEST,
+    HTTP_404_NOT_FOUND,
+    HTTP_200_OK
+)
+from rest_framework.response import Response
 
 from .models import *
 from .forms import *
@@ -122,3 +133,36 @@ def build_upload(request, pk):
         'form': form,
         'device': device
     })
+
+
+@csrf_exempt
+@api_view(["POST"])
+@permission_classes((AllowAny,))
+def maintainer_api_login(request):
+    username = request.data.get("username")
+    password = request.data.get("password")
+    if username is None or password is None:
+        return Response(
+            {
+                'error': 'blank_username_or_password',
+                'message': 'Username or password cannot be blank!'
+            },
+            status=HTTP_400_BAD_REQUEST
+        )
+    user = authenticate(username=username, password=password)
+    if not user:
+        return Response({
+            'error': 'invalid_credential',
+            'message': 'Invalid credentials. Please try again.'
+        },
+            status=HTTP_404_NOT_FOUND
+        )
+    token, _ = Token.objects.get_or_create(user=user)
+    return Response(
+        {
+            'token': token.key,
+            'message': 'Successfully logged in!'
+        },
+        status=HTTP_200_OK
+    )
+

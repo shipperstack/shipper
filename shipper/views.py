@@ -180,7 +180,7 @@ def maintainer_api_device_id(request):
         )
 
     # Check if maintainer matches device
-    if request.user not in device.maintainers:
+    if request.user not in device.maintainers.all():
         return Response(
             {
                 'error': 'insufficient_permissions',

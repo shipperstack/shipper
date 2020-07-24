@@ -1,4 +1,5 @@
-Django
-pysftp
 Celery
+Django
+djangorestframework
 gunicorn
+pysftp

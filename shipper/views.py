@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import user_passes_test, login_required
 from rest_framework.authtoken.models import Token
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, parser_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.status import (
     HTTP_400_BAD_REQUEST,
@@ -15,6 +15,7 @@ from rest_framework.status import (
     HTTP_200_OK
 )
 from rest_framework.response import Response
+from rest_framework.parsers import MultiPartParser
 
 from .models import *
 from .forms import *
@@ -166,3 +167,51 @@ def maintainer_api_login(request):
         status=HTTP_200_OK
     )
 
+@csrf_exempt
+@api_view(["POST"])
+@parser_classes([MultiPartParser])
+def maintainer_api_build_upload(request, pk):
+    device = get_object_or_404(Device, pk=pk)
+
+    build_file = request.data.get("build_file")
+    checksum_file = request.data.get("checksum_file")
+    gapps = request.data.get("gapps")
+    release = request.data.get("release")
+
+    # If any of the fields are blank, fail immediately
+    if build_file is None or checksum_file is None or gapps is None or release is None:
+        return Response(
+            {
+                'error': 'missing_fields',
+                'message': 'One of the required fields is blank. Try again with correct information.'
+            },
+            status=HTTP_400_BAD_REQUEST
+        )
+
+    # Check if user has sufficient permission to upload builds for given codename
+    if device not in Device.objects.filter(maintainers=request.user):
+        return Response(
+            {
+                'error': 'insufficient_permissions',
+                'message': 'You are not authorized to upload for this device!'
+            },
+            status=HTTP_400_BAD_REQUEST
+        )
+
+    try:
+        handle_builds(device, build_file, checksum_file, gapps, release)
+    except Exception as e:
+        return Response(
+            {
+                'error': 'upload_error',
+                'message': 'An error occurred while uploading your build. Contact the administrators for help.'
+            },
+            status=HTTP_400_BAD_REQUEST
+        )
+
+    return Response(
+        {
+            'message': 'Build has been uploaded for device {}!'.format(device)
+        },
+        status=HTTP_200_OK
+    )

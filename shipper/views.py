@@ -163,6 +163,40 @@ def maintainer_api_login(request):
         status=HTTP_200_OK
     )
 
+
+@api_view(["GET"])
+def maintainer_api_device_id(request):
+    codename = request.data.get("codename")
+
+    try:
+        device = Device.objects.get(codename=codename)
+    except:
+        return Response(
+            {
+                'error': 'invalid_codename',
+                'message': 'A device with that codename does not exist. Please try again.'
+            },
+            status=HTTP_400_BAD_REQUEST
+        )
+
+    # Check if maintainer matches device
+    if request.user not in device.maintainers:
+        return Response(
+            {
+                'error': 'insufficient_permissions',
+                'message': 'You are not authorized to query this device!'
+            },
+            status=HTTP_401_UNAUTHORIZED
+        )
+
+    return Response(
+        {
+            'id': device.id
+        },
+        status=HTTP_200_OK
+    )
+
+
 @csrf_exempt
 @api_view(["POST"])
 @parser_classes([MultiPartParser])

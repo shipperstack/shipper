@@ -9,11 +9,7 @@ from django.contrib.auth.decorators import user_passes_test, login_required
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes, parser_classes
 from rest_framework.permissions import AllowAny
-from rest_framework.status import (
-    HTTP_400_BAD_REQUEST,
-    HTTP_404_NOT_FOUND,
-    HTTP_200_OK
-)
+from rest_framework.status import *
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser
 
@@ -195,7 +191,7 @@ def maintainer_api_build_upload(request, pk):
                 'error': 'insufficient_permissions',
                 'message': 'You are not authorized to upload for this device!'
             },
-            status=HTTP_400_BAD_REQUEST
+            status=HTTP_401_UNAUTHORIZED
         )
 
     try:
@@ -206,7 +202,7 @@ def maintainer_api_build_upload(request, pk):
                 'error': 'upload_error',
                 'message': 'An error occurred while uploading your build. Contact the administrators for help.'
             },
-            status=HTTP_400_BAD_REQUEST
+            status=HTTP_500_INTERNAL_SERVER_ERROR
         )
 
     return Response(

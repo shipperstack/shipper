@@ -20,4 +20,21 @@ For production environments, we recommend using `supervisord`.
     python manage.py migrate            # create initial db
     python manage.py runserver          # run internal webserver
     celery -A shipper worker -l info    # run Celery
-    
+
+## Running in production
+
+If your configuration file has different values, sometimes pulling the latest changes may result in a conflict.
+
+To fix this, stash the changes first, pull, then pop the stash.
+
+    git stash
+    git pull
+    git stash pop
+
+If you are using `supervisorctl`, then the following commands may help.
+
+    sudo supervisorctl restart shipper
+    sudo supervisorctl restart shipper-celery
+    sudo supervisorctl status
+
+If there are new dependencies, remember to source the virtual environment and then download the latest dependencies.

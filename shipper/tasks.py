@@ -52,16 +52,15 @@ def process_build(codename):
                         def print_progress(transferred, total):
                             print("{} transferred out of {} ({:.2f}%)".format(transferred, total, transferred*100/total))
 
-
                         print("Beginning file transfer for {}: {}".format(codename, file_name))
                         sftp.put(
                             os.path.join(settings.MEDIA_ROOT, codename, file.path),
-                            callback=lambda x,y: print_progress(x, y),
+                            callback=lambda x, y: print_progress(x, y),
                             confirm=True,
                         )
                         sftp.put(
                             "{}.md5".format(os.path.join(settings.MEDIA_ROOT, codename, file.path)),
-                            callback=lambda x,y: print_progress(x, y),
+                            callback=lambda x, y: print_progress(x, y),
                             confirm=True,
                         )
                 except:

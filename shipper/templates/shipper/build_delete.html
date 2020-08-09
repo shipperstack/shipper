@@ -5,9 +5,14 @@
 {% block content %}
 <form action="" method="post">
     {% csrf_token %}
-    <div class="alert alert-danger">Do you want to delete the build "{{object}}"?</div>
-    <div class="alert alert-warning">This will also delete the files at SourceForge. Once the process is complete, the builds will be removed from your list. This may take some time.</div>
-    <input type="submit" value="Delete" class="btn btn-danger">
+    {% if not object.processed %}
+        <div class="alert alert-danger">Sorry, it is not possible to delete the build "{{object}}" at this time.</div>
+        <div class="alert alert-warning">Shipper is currently uploading your build to SourceForge. Please submit a deletion request after processing has completed.</div>
+    {% else %}
+        <div class="alert alert-danger">Do you want to delete the build "{{object}}"?</div>
+        <div class="alert alert-warning">This will also delete the files at SourceForge. Once the process is complete, the builds will be removed from your list. This may take some time.</div>
+        <input type="submit" value="Delete" class="btn btn-danger">
+    {% endif %}
 </form>
 
 {% endblock %}

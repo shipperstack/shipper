@@ -14,7 +14,7 @@ class DeviceAdmin(admin.ModelAdmin):
 
 
 class BuildAdmin(admin.ModelAdmin):
-    list_display = ['id', 'file_name', 'get_device_name', 'size', 'version']
+    list_display = ['id', 'file_name', 'get_device_name', 'size', 'version', 'processed']
     ordering = ['-created']
 
     def get_device_name(self, obj):

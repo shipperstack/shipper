@@ -11,6 +11,9 @@ from .models import Build
 from .utils import delete_artifact
 
 
+MAX_RETRY_COUNT = 3
+
+
 @shared_task
 def process_build(codename):
     for file in os.scandir(os.path.join(settings.MEDIA_ROOT, codename)):
@@ -26,8 +29,8 @@ def process_build(codename):
                 for byte_block in iter(lambda: file_reader.read(4096), b""):
                     sha256sum.update(byte_block)
 
-            # Retry if connection or upload fails
-            while True:
+            # Retry up to 3 times if connection or upload fails
+            for try_count in list(range(MAX_RETRY_COUNT)):
                 try:
                     with pysftp.Connection(
                             host=settings.SOURCEFORGE_SFTP_URL,
@@ -63,7 +66,9 @@ def process_build(codename):
                             callback=lambda x, y: print_progress(x, y),
                             confirm=True,
                         )
-                except:
+                except Exception as e:
+                    print(e)
+                    print("An exception occurred. Try {} out of {}".format(try_count, MAX_RETRY_COUNT))
                     continue
 
                 # Upload succeeded

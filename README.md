@@ -38,3 +38,12 @@ If you are using `supervisorctl`, then the following commands may help.
     sudo supervisorctl status
 
 If there are new dependencies, remember to source the virtual environment and then download the latest dependencies.
+
+If there are database changes, remember to migrate:
+
+    python3 manage.py migrate
+
+You may also need to update static files:
+
+    python3 manage.py collectstatic
+

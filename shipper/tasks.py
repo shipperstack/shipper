@@ -31,6 +31,7 @@ def process_build(codename):
 
             # Retry up to 3 times if connection or upload fails
             for try_count in list(range(MAX_RETRY_COUNT)):
+                upload_success = False
                 try:
                     with pysftp.Connection(
                             host=settings.SOURCEFORGE_SFTP_URL,
@@ -66,20 +67,21 @@ def process_build(codename):
                             callback=lambda x, y: print_progress(x, y),
                             confirm=True,
                         )
+
+                        upload_success = True
+                        break
                 except Exception as e:
                     print(e)
                     print("An exception occurred. Try {} out of {}".format(try_count, MAX_RETRY_COUNT))
                     continue
 
-                # Upload succeeded
-                break
+            if upload_success:
+                delete_artifact(codename, file.path)
 
-            delete_artifact(codename, file.path)
-
-            build = Build.objects.get(file_name=file_name)
-            build.sha256sum = sha256sum.hexdigest()
-            build.processed = True
-            build.save()
+                build = Build.objects.get(file_name=file_name)
+                build.sha256sum = sha256sum.hexdigest()
+                build.processed = True
+                build.save()
 
 
 @shared_task

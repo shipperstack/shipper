@@ -14,11 +14,39 @@
             {% for device in object_list %}
                 {% if device.does_processed_builds_exist %}
                 <tr>
-                    <td><p>{{device.name}}</p></td>
+                    <td><p>{{device}}</p></td>
                     <td><a href="https://sourceforge.net/projects/{{ sourceforge_project_name }}/files/Q/{{device.codename}}/{{ device.get_latest_build_object.file_name }}.zip/download" class="btn btn-success btn-sm">Download</a></td>
                 </tr>
                 {% endif %}
             {% endfor %}
         </tbody>
     </table>
+
+
+
+    <a href="#faqContainer" class="btn btn-info" data-toggle="collapse">Frequently asked questions</a>
+
+    <div class="card card-body collapse" id="faqContainer">
+      <ul>
+          <li>Where are the downloads hosted?</li>
+          <ul>
+            <li>All downloads are hosted at SourceForge.
+                Each download button will allow you to download the latest build for your device currently on SourceForge.</li>
+          </ul>
+          <li>If I click on a download, SourceForge says the build is not found. What is going on?</li>
+          <ul>
+            <li>SourceForge may take some time to process builds and make the build available.
+              During this time, you might receive an error. If this happens, then please try again after a couple of moments.
+              If you don't want to wait, go to the device downloads page and download the latest zip there. </li>
+            <li>Additionally, we may simply not support your device at all.
+                If this is the case, we are working hard to support more devices. Keep an eye out!</li>
+          </ul>
+          <li>Why is my device not in this list?</li>
+          <ul>
+            <li>This is a relatively new system and therefore we are in the process of migrating all of our maintainers here.
+                Unfortunately, if your maintainer did not migrate yet, then you may not see your device here.
+                For all devices we support, please go to our <a href="https://sourceforge.net/projects {{ sourceforge_project_name }}">SourceForge page</a> for now.</li>
+          </ul>
+      </ul>
+    </div>
 {% endblock %}

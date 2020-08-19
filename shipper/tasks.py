@@ -72,7 +72,7 @@ def process_build(codename):
                         break
                 except Exception as e:
                     print(e)
-                    print("An exception occurred. Try {} out of {}".format(try_count, MAX_RETRY_COUNT))
+                    print("An exception occurred. Try {} out of {}".format(try_count + 1, MAX_RETRY_COUNT))
                     continue
 
             if upload_success:

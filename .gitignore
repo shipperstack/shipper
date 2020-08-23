@@ -113,6 +113,10 @@ ENV/
 env.bak/
 venv.bak/
 
+# Include example venv
+!examples/venv/
+!examples/venv/logs
+
 # Spyder project settings
 .spyderproject
 .spyproject

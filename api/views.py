@@ -46,7 +46,7 @@ def v1_updater_device(request, codename, release):
     # Convert date into UNIX time
     year = int(date[:4])
     month = int(date[4:-2])
-    day = int(date[6])
+    day = int(date[6:])
 
     import datetime
     date = datetime.date(year, month, day)

@@ -6,7 +6,7 @@ This system was designed to replace our aging downloads infrastructure.
 
 ## Installation
 
-Please [check out the wiki for installing and configuring shipper.](wiki/Installation)
+Please [check out the wiki for installing and configuring shipper.](https://github.com/ericswpark/shipper/wiki/Installation)
 
 ## Running in production
 

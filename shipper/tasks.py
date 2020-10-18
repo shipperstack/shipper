@@ -47,10 +47,15 @@ def process_build(codename):
                             )
                         )
 
-                        # Check if directory exists
+                        # If target is GApps, put in GApps folder
+                        if gapps_raw == "gapps":
+                            if not sftp.exists("gapps"):
+                                sftp.mkdir("gapps")
+                            sftp.cwd("gapps")
+
+                        # Check existence and go into device folder
                         if not sftp.exists(codename):
                             sftp.mkdir(codename)
-
                         sftp.cwd(codename)
 
                         def print_progress(transferred, total):

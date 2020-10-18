@@ -14,7 +14,7 @@
         {% elif error_reason == 'file_name_mismatch' %}
             The build file and the checksum file names do not match!
         {% elif error_reason == 'invalid_file_name' %}
-            The build file name was malformed. (Hint: Do NOT change the build file name after compilation.)
+            The build file name was malformed. Do not change the build file name after compilation.
         {% elif error_reason == 'codename_mismatch' %}
             The device codename does not match the build codename. Are you sure you meant to upload for {{ device }}?
         {% elif error_reason == 'duplicate_build' %}

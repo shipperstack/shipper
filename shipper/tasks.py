@@ -20,7 +20,7 @@ def process_build(codename):
         if file.path.endswith(".zip"):
             absolute_file_name = os.path.basename(file.path)
             file_name, file_extension = os.path.splitext(absolute_file_name)
-            _, version, codename, type, date = file_name.split('-')
+            _, version, codename, type, gapps_raw, date = file_name.split('-')
 
             sha256sum = hashlib.sha256()
 

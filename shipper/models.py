@@ -79,21 +79,6 @@ class Build(models.Model):
     created = models.DateTimeField(auto_now_add=True, editable=False)
     processed = models.BooleanField(default=False)
 
-    # Build Release Types
-    STABLE = 'STABLE'
-    BETA = 'BETA'
-    ALPHA = 'ALPHA'
-    RELEASE_CHOICES = [
-        (STABLE, 'Stable'),
-        (BETA, 'Beta'),
-        (ALPHA, 'Alpha'),
-    ]
-    release = models.TextField(
-        max_length=10,
-        choices=RELEASE_CHOICES,
-        default=STABLE,
-    )
-
     def __str__(self):
         return self.file_name
 

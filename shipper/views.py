@@ -102,11 +102,9 @@ def build_upload(request, pk):
         if form.is_valid():
             build_file = request.FILES['build_file']
             checksum_file = request.FILES['checksum_file']
-            gapps = form.cleaned_data['gapps']
-            release = form.cleaned_data['release']
 
             try:
-                handle_builds(device, build_file, checksum_file, gapps, release)
+                handle_builds(device, build_file, checksum_file)
             except Exception as e:
                 return render(request, 'shipper/build_upload.html', {
                     'upload_succeeded': False,

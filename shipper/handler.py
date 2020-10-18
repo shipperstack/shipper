@@ -6,7 +6,7 @@ from .models import Build
 from .tasks import process_build
 
 
-def handle_builds(device, build_file, checksum_file, gapps, release):
+def handle_builds(device, build_file, checksum_file):
     # Confirm file names of build and checksum files match
     checksum_file_name, checksum_file_ext = os.path.splitext(checksum_file.name)
     if build_file.name != checksum_file_name:
@@ -14,7 +14,7 @@ def handle_builds(device, build_file, checksum_file, gapps, release):
 
     build_file_name, build_file_ext = os.path.splitext(build_file.name)
     try:
-        _, version, codename, type, date = build_file_name.split('-')
+        _, version, codename, type, gapps_raw, date = build_file_name.split('-')
     except:
         raise Exception('invalid_file_name')
 
@@ -23,6 +23,13 @@ def handle_builds(device, build_file, checksum_file, gapps, release):
 
     if Build.objects.filter(file_name=build_file_name).count() >= 1:
         raise Exception('duplicate_build')
+
+    if gapps_raw == "gapps":
+        gapps = True
+    elif gapps_raw == "vanilla":
+        gapps = False
+    else:
+        raise Exception('invalid_file_name')
 
     # Start upload
     Path(os.path.join(settings.MEDIA_ROOT, device.codename)).mkdir(parents=True, exist_ok=True)
@@ -41,8 +48,7 @@ def handle_builds(device, build_file, checksum_file, gapps, release):
         size=build_file.size,
         version=version,
         sha256sum="0",
-        gapps=gapps,
-        release=release
+        gapps=gapps
     )
     build.save()
 

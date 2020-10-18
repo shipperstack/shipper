@@ -43,7 +43,7 @@ def process_build(codename):
                             os.path.join(
                                 '/home/frs/project/',
                                 settings.SOURCEFORGE_PROJECT,
-                                'Q'
+                                'R'
                             )
                         )
 

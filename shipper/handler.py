@@ -1,3 +1,4 @@
+import hashlib
 import os
 from pathlib import Path
 from config import settings
@@ -42,12 +43,20 @@ def handle_builds(device, zip_file, md5_file):
         for chunk in md5_file.chunks():
             destination.write(chunk)
 
+    sha256sum = hashlib.sha256()
+
+    # Process SHA256
+    with open(os.path.join(settings.MEDIA_ROOT, device.codename, zip_file.name), 'rb') as destination:
+        # Read and update hash string value in blocks of 4K
+        for byte_block in iter(lambda: destination.read(4096), b""):
+            sha256sum.update(byte_block)
+
     build = Build(
         device=device,
         file_name=build_file_name,
         size=zip_file.size,
         version=version,
-        sha256sum="0",
+        sha256sum=sha256sum,
         gapps=gapps
     )
     build.save()

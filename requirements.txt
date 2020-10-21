@@ -1,4 +1,5 @@
 Django
+django-cleanup
 djangorestframework
 gunicorn
 pysftp

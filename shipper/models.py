@@ -77,7 +77,6 @@ class Build(models.Model):
         help_text="Does the build include GApps?"
     )
     created = models.DateTimeField(auto_now_add=True, editable=False)
-    processed = models.BooleanField(default=False)
 
     def get_upload_path(self, filename):
         return "{}/{}".format(self.device.codename, filename)

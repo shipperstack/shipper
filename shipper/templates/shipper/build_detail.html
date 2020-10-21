@@ -9,10 +9,6 @@
         <a href="{% url 'build_delete' pkd=object.device.id pk=object.id %}" class="btn btn-danger btn-sm">Delete build</a>
     </div>
 
-    {% if object.processed == False %}
-       <div class="alert alert-warning">Your build is still being processed by the backend. It may not be available on SourceForge yet. Some values below may be incorrect as well.</div>
-    {% endif %}
-
     <div class="col-md-2"></div>
     <div class="col-md-8">
         <table class="table">

@@ -63,8 +63,8 @@ class BuildDeleteView(LoginRequiredMixin, DeleteView):
 
     def delete(self, request, *args, **kwargs):
         success_url = self.get_success_url()
-        self.get_object().zip_file.delete()
-        self.get_object().md5_file.delete()
+        # TODO: install django-cleanup
+        self.get_object().delete()
         return HttpResponseRedirect(success_url)
 
     # Override builds shown to maintainers

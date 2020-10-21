@@ -13,7 +13,7 @@ def v1_updater(request):
             build = device.get_latest_build_object()
         except Build.DoesNotExist:
             continue
-        _, version, codename, type, date = build.file_name.split('-')
+        _, version, codename, type, _, date = build.file_name.split('-')
 
         deviceJson = {
             "date": date,
@@ -32,6 +32,7 @@ def v1_updater(request):
         retJson[codename] = [deviceJson]
     return HttpResponse(json.dumps(retJson), content_type='application/json')
 
+
 def v1_updater_device(request, codename, release):
 
     # Check if device exists
@@ -41,7 +42,7 @@ def v1_updater_device(request, codename, release):
         build = device.get_latest_build_object()
     except Build.DoesNotExist:
         raise Http404("No builds exist for this device yet!")
-    _, version, codename, type, date = build.file_name.split('-')
+    _, version, codename, type, _, date = build.file_name.split('-')
 
     # Convert date into UNIX time
     year = int(date[:4])

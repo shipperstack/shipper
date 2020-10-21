@@ -13,6 +13,8 @@
             The form is invalid!
         {% elif error_reason == 'file_name_mismatch' %}
             The build file and the checksum file names do not match!
+        {% elif error_reason == 'not_official' %}
+            The build is not official!
         {% elif error_reason == 'invalid_file_name' %}
             The build file name was malformed. Do not change the build file name after compilation.
         {% elif error_reason == 'codename_mismatch' %}

@@ -14,7 +14,7 @@ def handle_builds(device, zip_file, md5_file):
 
     build_file_name, build_file_ext = os.path.splitext(zip_file.name)
     try:
-        _, version, codename, type, gapps_raw, date = build_file_name.split('-')
+        _, version, codename, build_type, gapps_raw, date = build_file_name.split('-')
     except:
         raise Exception('invalid_file_name')
 

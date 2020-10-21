@@ -15,7 +15,6 @@ from rest_framework.parsers import MultiPartParser
 
 from .models import *
 from .forms import *
-from .tasks import *
 from .handler import *
 
 

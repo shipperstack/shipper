@@ -4,7 +4,6 @@ from pathlib import Path
 from config import settings
 
 from .models import Build
-from .tasks import process_build
 
 
 def handle_builds(device, zip_file, md5_file):

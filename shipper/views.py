@@ -72,22 +72,6 @@ class BuildDeleteView(LoginRequiredMixin, DeleteView):
         return Build.objects.filter(device__maintainers=self.request.user)
 
 
-@user_passes_test(lambda u: u.is_superuser)
-def device_force_processing(request, pk):
-    device = get_object_or_404(Device, pk=pk)
-
-    if request.method == 'POST':
-        process_build.delay(device.codename)
-        return render(request, 'shipper/device_force_processing.html', {
-            'device': device,
-            'started': True,
-        })
-
-    return render(request, 'shipper/device_force_processing.html', {
-        'device': device
-    })
-
-
 @login_required
 def build_upload(request, pk):
     device = get_object_or_404(Device, pk=pk)

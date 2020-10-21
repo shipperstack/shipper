@@ -29,10 +29,11 @@
 
     <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <label for="build_file">Build zip: </label>
-        <input id="build_file" type="file" name="build_file" accept=".zip">
-        <label for="checksum_file">Checksum file: </label>
-        <input id="checksum_file" type="file" name="checksum_file" accept=".md5">
+        <label for="zip_file">Build zip: </label>
+        <input id="zip_file" type="file" name="zip_file" accept=".zip">
+        <br>
+        <label for="md5_file">Checksum file: </label>
+        <input id="md5_file" type="file" name="md5_file" accept=".md5">
 
         <br>
 

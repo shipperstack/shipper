@@ -43,14 +43,6 @@ class Device(models.Model):
     def __str__(self):
         return "{} {} ({})".format(self.manufacturer, self.name, self.codename)
 
-    def get_latest_build_object(self):
-        return self.builds.filter(processed=True).latest('id')
-
-    def does_processed_builds_exist(self):
-        if self.builds.filter(processed=True).count() > 0:
-            return True
-        return False
-
 
 # Build Model
 class Build(models.Model):

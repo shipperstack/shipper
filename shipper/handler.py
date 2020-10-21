@@ -59,5 +59,3 @@ def handle_builds(device, zip_file, md5_file):
         gapps=gapps
     )
     build.save()
-
-    process_build.delay(device.codename)

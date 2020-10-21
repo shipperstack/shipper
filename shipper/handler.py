@@ -58,7 +58,7 @@ def handle_builds(device, zip_file, md5_file):
         file_name=build_file_name,
         size=zip_file.size,
         version=version,
-        sha256sum=sha256sum,
+        sha256sum=sha256sum.hexdigest(),
         gapps=gapps
     )
     build.save()

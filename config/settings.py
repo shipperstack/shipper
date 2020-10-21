@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'accounts',
     'shipper',
     'api',
+    'django_cleanup.apps.CleanupConfig',    # must be last in order for successful deletions
 ]
 
 MIDDLEWARE = [

@@ -63,7 +63,6 @@ class BuildDeleteView(LoginRequiredMixin, DeleteView):
 
     def delete(self, request, *args, **kwargs):
         success_url = self.get_success_url()
-        # TODO: install django-cleanup
         self.get_object().delete()
         return HttpResponseRedirect(success_url)
 

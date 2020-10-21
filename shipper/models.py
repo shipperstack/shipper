@@ -58,7 +58,7 @@ class Build(models.Model):
     file_name = models.TextField(
         max_length=500,
         unique=True,
-        help_text="Example: 'Bliss-v12.8-bullhead-OFFICIAL-20200608")
+        help_text="Example: 'Bliss-v12.8-bullhead-OFFICIAL-gapps-20200608")
     size = models.IntegerField(
         help_text="Size of zip file in bytes<br>Example: 857483855"
     )

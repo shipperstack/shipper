@@ -1,7 +1,6 @@
 from django import forms
 
 from .validators import *
-from .models import Build
 
 
 class BuildUploadForm(forms.Form):

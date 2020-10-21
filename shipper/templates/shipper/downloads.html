@@ -14,8 +14,8 @@
             {% for device in object_list %}
                 {% if device.does_processed_builds_exist %}
                 <tr>
-                    <td><a href="https://sourceforge.net/projects/{{ sourceforge_project_name }}/files/Q/{{ device.codename }}" title="Go to the device SourceForge">{{device}}</a></td>
-                    <td><a href="https://sourceforge.net/projects/{{ sourceforge_project_name }}/files/Q/{{ device.codename }}/{{ device.get_latest_build_object.file_name }}.zip/download" class="btn btn-success btn-sm" title="Download the latest build for this device">Download</a></td>
+                    <td>{{device}}</td>
+                    <td><a href="#" class="btn btn-success btn-sm" title="Show downloads for this device">Download</a></td>
                 </tr>
                 {% endif %}
             {% endfor %}

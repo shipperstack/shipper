@@ -18,11 +18,6 @@ def v1_updater(request):
         deviceJson = {
             "date": date,
             "filename": "{}.zip".format(build.file_name),
-            "download_url": "https://sourceforge.net/projects/{}/files/Q/{}/{}/download".format(
-                settings.SOURCEFORGE_PROJECT,
-                device.codename,
-                "{}.zip".format(build.file_name)
-            ),
             "sha256": build.sha256sum,
             "size": build.size,
             "type": "official",
@@ -63,11 +58,6 @@ def v1_updater_device(request, codename, release):
                     "id": build.sha256sum,
                     "romtype": "official",
                     "size": build.size,
-                    "url": "https://sourceforge.net/projects/{}/files/Q/{}/{}/download".format(
-                               settings.SOURCEFORGE_PROJECT,
-                               device.codename,
-                               "{}.zip".format(build.file_name)
-                    ),
                     "version": build.version,
                 }
         ]

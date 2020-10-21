@@ -64,9 +64,6 @@ class BuildDeleteView(LoginRequiredMixin, DeleteView):
 
     def delete(self, request, *args, **kwargs):
         success_url = self.get_success_url()
-        codename = self.get_object().device.codename
-        file_name = self.get_object().file_name
-        delete_build.delay(codename, file_name)
         return HttpResponseRedirect(success_url)
 
     # Override builds shown to maintainers

@@ -79,6 +79,11 @@ class Build(models.Model):
     created = models.DateTimeField(auto_now_add=True, editable=False)
     processed = models.BooleanField(default=False)
 
+    def get_upload_path(self, filename):
+        return "{}/{}".format(self.device.codename, filename)
+
+    zip_file = models.FileField(upload_to=get_upload_path)
+    md5_file = models.FileField(upload_to=get_upload_path)
+
     def __str__(self):
         return self.file_name
-

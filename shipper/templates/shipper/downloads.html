@@ -12,12 +12,10 @@
         </thead>
         <tbody>
             {% for device in object_list %}
-                {% if device.does_processed_builds_exist %}
-                <tr>
-                    <td>{{device}}</td>
-                    <td><a href="#" class="btn btn-success btn-sm" title="Show downloads for this device">Download</a></td>
-                </tr>
-                {% endif %}
+            <tr>
+                <td>{{device}}</td>
+                <td><a href="#" class="btn btn-success btn-sm" title="Show downloads for this device">Download</a></td>
+            </tr>
             {% endfor %}
         </tbody>
     </table>

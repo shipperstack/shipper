@@ -21,23 +21,4 @@
             {% endfor %}
         </tbody>
     </table>
-
-
-
-    <a href="#faqContainer" class="btn btn-outline-info btn-sm" data-toggle="collapse">Frequently asked questions</a>
-
-    <div class="card card-body collapse" id="faqContainer">
-      <ul>
-          <li>Where are the downloads hosted?</li>
-          <ul>
-            <li>All downloads are hosted <a href="https://sourceforge.net/projects/{{ sourceforge_project_name }}">at SourceForge.</a></li>
-          </ul>
-          <li>If I click on a download, SourceForge says the build is not found. What is going on?</li>
-          <ul>
-            <li>SourceForge requires processing time to mirror the builds across their infrastructure and make the builds available.
-              During this time, you may receive an error. If this happens, then please try again after a couple of minutes.
-            </li>
-          </ul>
-      </ul>
-    </div>
 {% endblock %}

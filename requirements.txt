@@ -1,5 +1,6 @@
 Django
 django-cleanup
+django-environ
 djangorestframework
 gunicorn
 pysftp

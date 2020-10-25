@@ -22,10 +22,6 @@ class DownloadsView(ListView):
     template_name = 'shipper/downloads.html'
     model = Device
 
-    def get(self, request, *args, **kwargs):
-        self.extra_context = {'sourceforge_project_name': settings.SOURCEFORGE_PROJECT}
-        return super().get(request, *args, **kwargs)
-
 
 class MaintainerDashboardView(LoginRequiredMixin, ListView):
     template_name = 'shipper/maintainer_dashboard.html'

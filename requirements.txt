@@ -4,3 +4,4 @@ django-environ
 djangorestframework
 gunicorn
 pysftp
+sentry-sdk

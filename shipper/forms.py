@@ -1,8 +1,7 @@
 from django import forms
-
-from .validators import *
+from django.core.validators import FileExtensionValidator
 
 
 class BuildUploadForm(forms.Form):
-    zip_file = forms.FileField(validators=[validate_build_file_extension])
-    md5_file = forms.FileField(validators=[validate_checksum_file_extension])
+    zip_file = forms.FileField(validators=[FileExtensionValidator(allowed_extensions=['zip'])], label="Build ZIP file")
+    md5_file = forms.FileField(validators=[FileExtensionValidator(allowed_extensions=['md5'])], label="MD5 file")

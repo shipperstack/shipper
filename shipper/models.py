@@ -43,14 +43,20 @@ class Device(models.Model):
     def __str__(self):
         return "{} {} ({})".format(self.manufacturer, self.name, self.codename)
 
-    def get_latest_build_object(self):
-        return self.builds.latest('id')
-
     def has_gapps_builds(self):
         return self.builds.filter(gapps=True).count() > 0
 
     def has_nongapps_builds(self):
         return self.builds.filter(gapps=False).count() > 0
+
+    def has_builds(self):
+        return self.builds.count() > 0
+
+    def get_latest_gapps_build_object(self):
+        return self.builds.filter(gapps=True).latest('id')
+
+    def get_latest_nongapps_build_object(self):
+        return self.builds.filter(gapps=False).latest('id')
 
 
 # Build Model

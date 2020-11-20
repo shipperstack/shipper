@@ -13,15 +13,17 @@
         <tbody>
             {% for device in object_list %}
             <tr>
-                <td>{{device}}</td>
-                <td>
-                    {% if device.has_gapps_builds %}
-                        <a href="#" class="btn btn-success btn-sm" title="">GApps</a>
-                    {% endif %}
-                    {% if device.has_nongapps_builds %}
-                        <a href="#" class="btn btn-info btn-sm">Non-GApps</a>
-                    {% endif %}
-                </td>
+                {% if device.has_builds %}
+                    <td>{{device}}</td>
+                    <td>
+                        {% if device.has_gapps_builds %}
+                            <a href="{{ device.get_latest_gapps_build_object.zip_file.url }}" class="btn btn-success btn-sm" title="">GApps</a>
+                        {% endif %}
+                        {% if device.has_nongapps_builds %}
+                            <a href="{{ device.get_latest_nongapps_build_object.zip_file.url }}" class="btn btn-info btn-sm">Non-GApps</a>
+                        {% endif %}
+                    </td>
+                {% endif %}
             </tr>
             {% endfor %}
         </tbody>

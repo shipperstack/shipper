@@ -71,6 +71,7 @@ class BuildDeleteView(LoginRequiredMixin, DeleteView):
 def build_upload(request, pk):
     device = get_object_or_404(Device, pk=pk)
 
+    # Check if maintainer is in device's approved maintainers list
     if request.user not in device.maintainers.all():
         raise Http404
 

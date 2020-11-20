@@ -153,7 +153,7 @@ REST_FRAMEWORK = {
 from sentry_sdk.integrations.django import DjangoIntegration
 
 sentry_sdk.init(
-    dsn=env("SENTRY_SDK_DSN"),
+    dsn=env("SENTRY_SDK_DSN", default=""),
     integrations=[DjangoIntegration()],
 
     traces_sample_rate=1.0,

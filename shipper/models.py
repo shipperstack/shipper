@@ -46,6 +46,12 @@ class Device(models.Model):
     def get_latest_build_object(self):
         return self.builds.latest('id')
 
+    def has_gapps_builds(self):
+        return self.builds.filter(gapps=True).count() > 0
+
+    def has_nongapps_builds(self):
+        return self.builds.filter(gapps=False).count() > 0
+
 
 # Build Model
 class Build(models.Model):

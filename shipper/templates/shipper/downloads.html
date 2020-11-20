@@ -14,7 +14,14 @@
             {% for device in object_list %}
             <tr>
                 <td>{{device}}</td>
-                <td><a href="#" class="btn btn-success btn-sm" title="Show downloads for this device">Download</a></td>
+                <td>
+                    {% if device.has_gapps_builds %}
+                        <a href="#" class="btn btn-success btn-sm" title="">GApps</a>
+                    {% endif %}
+                    {% if device.has_nongapps_builds %}
+                        <a href="#" class="btn btn-info btn-sm">Non-GApps</a>
+                    {% endif %}
+                </td>
             </tr>
             {% endfor %}
         </tbody>

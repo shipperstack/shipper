@@ -82,8 +82,8 @@ class Build(models.Model):
     def get_upload_path(self, filename):
         return "{}/{}".format(self.device.codename, filename)
 
-    zip_file = models.FileField(upload_to=get_upload_path)
-    md5_file = models.FileField(upload_to=get_upload_path)
+    zip_file = models.FileField(upload_to=get_upload_path, unique=True)
+    md5_file = models.FileField(upload_to=get_upload_path, unique=True)
 
     def __str__(self):
         return self.file_name

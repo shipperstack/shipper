@@ -77,17 +77,7 @@ def build_upload(request, pk):
     if request.method == 'POST':
         form = BuildUploadForm(request.POST, request.FILES)
         if form.is_valid():
-            zip_file = request.FILES['zip_file']
-            md5_file = request.FILES['md5_file']
-
-            try:
-                handle_builds(device, zip_file, md5_file)
-            except Exception as e:
-                return render(request, 'shipper/build_upload.html', {
-                    'upload_succeeded': False,
-                    'error_reason': e.args[0],
-                    'device': device
-                })
+            handle_builds(device, request.FILES["zip_file"], request.FILES["md5_file"])
 
             return render(request, 'shipper/build_upload.html', {
                 'upload_succeeded': True,
@@ -180,15 +170,13 @@ def maintainer_api_build_upload(request, pk):
 
     build_file = request.data.get("build_file")
     checksum_file = request.data.get("checksum_file")
-    gapps = request.data.get("gapps")
-    release = request.data.get("release")
 
     # If any of the fields are blank, fail immediately
-    if build_file is None or checksum_file is None or gapps is None or release is None:
+    if build_file is None or checksum_file is None:
         return Response(
             {
-                'error': 'missing_fields',
-                'message': 'One of the required fields is blank. Try again with correct information.'
+                'error': 'missing_files',
+                'message': 'One or more required files are missing.'
             },
             status=HTTP_400_BAD_REQUEST
         )
@@ -204,7 +192,7 @@ def maintainer_api_build_upload(request, pk):
         )
 
     try:
-        handle_builds(device, build_file, checksum_file, gapps, release)
+        handle_builds(device, build_file, checksum_file)
     except Exception as e:
         return Response(
             {

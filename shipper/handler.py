@@ -34,31 +34,25 @@ def handle_builds(device, zip_file, md5_file):
     else:
         raise Exception('invalid_file_name')
 
-    # Start upload
-    Path(os.path.join(settings.MEDIA_ROOT, device.codename)).mkdir(parents=True, exist_ok=True)
-
-    with open(os.path.join(settings.MEDIA_ROOT, device.codename, zip_file.name), 'wb+') as destination:
-        for chunk in zip_file.chunks():
-            destination.write(chunk)
-
-    with open(os.path.join(settings.MEDIA_ROOT, device.codename, md5_file.name), 'wb+') as destination:
-        for chunk in md5_file.chunks():
-            destination.write(chunk)
-
-    sha256sum = hashlib.sha256()
-
-    # Process SHA256
-    with open(os.path.join(settings.MEDIA_ROOT, device.codename, zip_file.name), 'rb') as destination:
-        # Read and update hash string value in blocks of 4K
-        for byte_block in iter(lambda: destination.read(4096), b""):
-            sha256sum.update(byte_block)
-
     build = Build(
         device=device,
         file_name=build_file_name,
         size=zip_file.size,
         version=version,
-        sha256sum=sha256sum.hexdigest(),
-        gapps=gapps
+        gapps=gapps,
+        zip_file=zip_file,
+        md5_file=md5_file
     )
+
+    # Save the files FIRST
+    build.save()
+
+    # Process SHA256
+    sha256sum = hashlib.sha256()
+    with open(os.path.join(settings.MEDIA_ROOT, device.codename, zip_file.name), 'rb') as destination:
+        # Read and update hash string value in blocks of 4K
+        for byte_block in iter(lambda: destination.read(4096), b""):
+            sha256sum.update(byte_block)
+    build.sha256sum = sha256sum.hexdigest()
+
     build.save()

@@ -62,12 +62,12 @@ def login_to_server(username, password):
         raise Exception("An unknown error occurred.")
 
 
-def upload_to_server(build_file, checksum_file, gapps, release):
+def upload_to_server(build_file, checksum_file):
     import os.path
     # Get codename from build_file
     build_file_name, build_file_ext = os.path.splitext(build_file)
     try:
-        _, version, codename, type, date = build_file_name.split('-')
+        _, version, codename, build_type, gapps_raw, date = build_file_name.split('-')
     except:
         raise Exception("The file name is mangled!")
 
@@ -89,20 +89,13 @@ def upload_to_server(build_file, checksum_file, gapps, release):
 
     print("Uploading build {}...".format(build_file))
 
-    DEVICE_UPLOAD_URL = "{}/maintainers/api/device/{}/upload/".format(SERVER_URL, device_id)
+    device_upload_url = "{}/maintainers/api/device/{}/upload/".format(SERVER_URL, device_id)
 
     files = {
         'build_file': open(build_file, 'rb'),
         'checksum_file': open(checksum_file, 'rb')
     }
-    r = requests.post(DEVICE_UPLOAD_URL,
-                      headers={"Authorization": "Token {}".format(TOKEN)},
-                      data={
-                          "gapps": gapps,
-                          "release": release
-                      },
-                      files=files
-                      )
+    r = requests.post(device_upload_url, headers={"Authorization": "Token {}".format(TOKEN)}, files=files)
 
     if r.status_code == 200:
         print("Successfully uploaded the build {}!".format(build_file))
@@ -173,35 +166,15 @@ If you have a unique case contact maintainer support.
         for file in glob.glob(glob_match):
             print("\t{}".format(file))
             builds.append(file)
-        if input_yn("Proceed with the upload?"):
-            for build in builds:
-                # Check if build has md5 file
-                import os.path
-                if not os.path.isfile("{}.md5".format(build)):
-                    print("We couldn't find a valid checksum file for this build! Skipping....")
-                else:
-                    while True:
-                        # Specify build options
-                        print("Please specify the options for {}".format(build))
-                        gapps = input_yn("Does the build include GApps?")
-                        while True:
-                            VALID_RELEASE_TYPES = ["Stable", "Beta", "Alpha"]
-                            valid_release_type_string = "/".join(VALID_RELEASE_TYPES)
-                            release = input("Specify the release type ({}): ".format(valid_release_type_string))
-                            if release not in VALID_RELEASE_TYPES:
-                                print("Incorrect input! Please try again.")
-                            else:
-                                break
 
-                        if input_yn("We are uploading the build {} with{} GApps and with release branch {}. Correct?".format(
-                            build,
-                            "" if gapps else "out",
-                            release
-                        )):
-                            upload_to_server(build, "{}.md5".format(build), gapps, release)
-                            break
-                        else:
-                            print("OK. Let's try again.")
+        for build in builds:
+            # Check if build has md5 file
+            import os.path
+            if not os.path.isfile("{}.md5".format(build)):
+                print("We couldn't find a valid checksum file for this build! Skipping....")
+            else:
+                if input_yn("Uploading build {}. Start?".format(build)):
+                    upload_to_server(build, "{}.md5".format(build))
 
 
 if __name__ == "__main__":

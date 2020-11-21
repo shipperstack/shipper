@@ -34,7 +34,7 @@ def v2_updater_device(request, codename, gapps):
     return_json = {
         "date": int(date.strftime("%s")),
         "file_name": "{}.zip".format(build.file_name),
-        "sha256_sum": build.sha256sum,
+        "sha256": build.sha256sum,
         "size": build.size,
         "version": build.version,
         "zip_download_url": request.get_host() + build.zip_file.url,

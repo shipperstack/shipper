@@ -1,5 +1,5 @@
 # Use Python 3 as base
-FROM python:3
+FROM python:3.9-alpine
 
 # Python environment variables
 ENV PYTHONDONTWRITEBYTECODE=1

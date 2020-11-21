@@ -18,3 +18,6 @@ RUN pip install -r requirements.txt
 
 # Copy project
 COPY . .
+
+# Run entrypoint.sh
+ENTRYPOINT ["/usr/src/shipper/entrypoint.sh"]

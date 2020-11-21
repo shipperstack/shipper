@@ -9,3 +9,15 @@ services:
       - .:/usr/src/shipper/
     ports:
       - "8000:8000"
+  db:
+    image: postgres:13.1-alpine
+    volumes:
+    - postgres_data:/var/lib/postgresql/data
+    environment:
+     - POSTGRES_USER=pdbuser
+     - POSTGRES_PASSWORD=pdbpw_changeme
+     - POSTGRES_DB=shipper
+
+volumes:
+  postgres_data:
+

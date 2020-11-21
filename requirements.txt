@@ -3,5 +3,6 @@ django-cleanup
 django-environ
 djangorestframework
 gunicorn
+psycopg2-binary
 pysftp
 sentry-sdk

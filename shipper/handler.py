@@ -1,6 +1,5 @@
 import hashlib
 import os
-from pathlib import Path
 from config import settings
 
 from .models import Build

@@ -82,13 +82,15 @@ def build_upload(request, pk):
 
             return render(request, 'shipper/build_upload.html', {
                 'upload_succeeded': True,
-                'device': device
+                'device': device,
+                'form': form
             })
         else:
             return render(request, 'shipper/build_upload.html', {
                 'upload_succeeded': False,
                 'error_reason': 'invalid_form',
-                'device': device
+                'device': device,
+                'form': form
             })
     else:
         form = BuildUploadForm()

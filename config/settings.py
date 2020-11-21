@@ -25,6 +25,8 @@ SECRET_KEY = env("SECRET_KEY")
 DEBUG = env("DEBUG", default=False)
 ALLOWED_HOSTS = env("ALLOWED_HOSTS", default=[])
 
+MAIN_WEBSITE_URL = env("MAIN_WEBSITE_URL", default="")
+DOWNLOADS_PAGE_MAIN_BRANDING = env("DOWNLOADS_PAGE_MAIN_BRANDING", default="Downloads")
 
 # Application definition
 

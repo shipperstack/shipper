@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -37,7 +38,7 @@ INSTALLED_APPS = [
     'accounts',
     'shipper',
     'api',
-    'django_cleanup.apps.CleanupConfig',    # must be last in order for successful deletions
+    'django_cleanup.apps.CleanupConfig',  # must be last in order for successful deletions
 ]
 
 MIDDLEWARE = [
@@ -70,7 +71,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
@@ -84,7 +84,6 @@ DATABASES = {
         'PORT': os.environ.get("SQL_PORT", default="5432"),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -104,7 +103,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -118,7 +116,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
@@ -128,13 +125,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static_files')
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
-
 # Media
 
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 
 # Login
 
@@ -147,11 +142,10 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated', )
+        'rest_framework.permissions.IsAuthenticated',)
 }
 
 # Sentry SDK
-from sentry_sdk.integrations.django import DjangoIntegration
 
 sentry_sdk.init(
     dsn=os.environ.get("SENTRY_SDK_DSN", default=""),

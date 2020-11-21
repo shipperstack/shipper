@@ -18,9 +18,14 @@
                     <td>
                         {% if device.has_gapps_builds %}
                             <a href="{{ device.get_latest_gapps_build_object.zip_file.url }}" class="btn btn-success btn-sm" title="">GApps</a>
+                            <a href="{{ device.get_latest_gapps_build_object.md5_file.url }}" class="btn btn-link btn-sm">MD5</a>
+                        {% endif %}
+                        {% if device.has_gapps_builds and device.has_nongapps_builds %}
+                            <br>
                         {% endif %}
                         {% if device.has_nongapps_builds %}
                             <a href="{{ device.get_latest_nongapps_build_object.zip_file.url }}" class="btn btn-info btn-sm">Non-GApps</a>
+                            <a href="{{ device.get_latest_nongapps_build_object.md5_file.url }}" class="btn btn-link btn-sm">MD5</a>
                         {% endif %}
                     </td>
                 {% endif %}

@@ -1,6 +1,5 @@
 Django
 django-cleanup
-django-environ
 djangorestframework
 gunicorn
 psycopg2-binary

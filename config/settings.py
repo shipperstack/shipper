@@ -13,20 +13,15 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 import sentry_sdk
 
-import environ
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-env = environ.Env()
-environ.Env.read_env()
+SECRET_KEY = os.environ.get("SECRET_KEY")
+DEBUG = os.environ.get("DEBUG", default=False)
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", default=[])
 
-SECRET_KEY = env("SECRET_KEY")
-DEBUG = env("DEBUG", default=False)
-ALLOWED_HOSTS = env("ALLOWED_HOSTS", default=[])
-
-MAIN_WEBSITE_URL = env("MAIN_WEBSITE_URL", default="")
-DOWNLOADS_PAGE_MAIN_BRANDING = env("DOWNLOADS_PAGE_MAIN_BRANDING", default="Downloads")
+MAIN_WEBSITE_URL = os.environ.get("MAIN_WEBSITE_URL", default="")
+DOWNLOADS_PAGE_MAIN_BRANDING = os.environ.get("DOWNLOADS_PAGE_MAIN_BRANDING", default="Downloads")
 
 # Application definition
 
@@ -81,12 +76,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': env("SQL_ENGINE", default='django.db.backends.sqlite3'),
-        'NAME': env("SQL_DATABASE", default=os.path.join(BASE_DIR, 'db.sqlite3')),
-        'USER': env("SQL_USER", default="user"),
-        'PASSWORD': env("SQL_PASSWORD", default="password"),
-        'HOST': env("SQL_HOST", default="localhost"),
-        'PORT': env("SQL_PORT", default="5432"),
+        'ENGINE': os.environ.get("SQL_ENGINE", default='django.db.backends.sqlite3'),
+        'NAME': os.environ.get("SQL_DATABASE", default=os.path.join(BASE_DIR, 'db.sqlite3')),
+        'USER': os.environ.get("SQL_USER", default="user"),
+        'PASSWORD': os.environ.get("SQL_PASSWORD", default="password"),
+        'HOST': os.environ.get("SQL_HOST", default="localhost"),
+        'PORT': os.environ.get("SQL_PORT", default="5432"),
     }
 }
 
@@ -159,9 +154,9 @@ REST_FRAMEWORK = {
 from sentry_sdk.integrations.django import DjangoIntegration
 
 sentry_sdk.init(
-    dsn=env("SENTRY_SDK_DSN", default=""),
+    dsn=os.environ.get("SENTRY_SDK_DSN", default=""),
     integrations=[DjangoIntegration()],
 
     traces_sample_rate=1.0,
-    send_default_pii=env("SENTRY_SDK_PII"),
+    send_default_pii=os.environ.get("SENTRY_SDK_PII", default=False),
 )

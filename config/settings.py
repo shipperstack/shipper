@@ -18,7 +18,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = os.environ.get("DEBUG", default=False)
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", default=[])
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
 MAIN_WEBSITE_URL = os.environ.get("MAIN_WEBSITE_URL", default="")
 DOWNLOADS_PAGE_MAIN_BRANDING = os.environ.get("DOWNLOADS_PAGE_MAIN_BRANDING", default="Downloads")

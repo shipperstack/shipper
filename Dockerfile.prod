@@ -15,7 +15,7 @@ RUN apk update && apk add postgresql-dev gcc python3-dev musl-dev
 # Install dependencies
 RUN pip install --upgrade pip
 COPY ./requirements.txt .
-RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/app/wheels -r requirements.txt
+RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/shipper/wheels -r requirements.txt
 
 # Stage 2
 
@@ -47,11 +47,11 @@ COPY ./entrypoint.prod.sh $APP_HOME
 # copy project
 COPY . $APP_HOME
 
-# chown all the files to the app user
-RUN chown -R app:app $APP_HOME
+# chown all the files to the shipper user
+RUN chown -R shipper:shipper $APP_HOME
 
-# change to the app user
-USER app
+# change to the shipper user
+USER shipper
 
 # Run entrypoint.sh
 ENTRYPOINT ["/usr/src/shipper/entrypoint.prod.sh"]

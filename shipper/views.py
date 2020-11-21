@@ -78,7 +78,7 @@ def build_upload(request, pk):
     if request.method == 'POST':
         form = BuildUploadForm(request.POST, request.FILES)
         if form.is_valid():
-            handle_builds(device, request.FILES["zip_file"], request.FILES["md5_file"])
+            handle_build(device, request.FILES["zip_file"], request.FILES["md5_file"])
 
             return render(request, 'shipper/build_upload.html', {
                 'upload_succeeded': True,
@@ -193,7 +193,7 @@ def maintainer_api_build_upload(request, pk):
         )
 
     try:
-        handle_builds(device, build_file, checksum_file)
+        handle_build(device, build_file, checksum_file)
     except Exception as e:
         return Response(
             {

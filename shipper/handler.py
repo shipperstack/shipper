@@ -5,7 +5,7 @@ from config import settings
 from .models import Build
 
 
-def handle_builds(device, zip_file, md5_file):
+def handle_build(device, zip_file, md5_file):
     # Confirm file names of build and checksum files match
     checksum_file_name, checksum_file_ext = os.path.splitext(md5_file.name)
     if zip_file.name != checksum_file_name:

@@ -18,7 +18,7 @@ from sentry_sdk.integrations.django import DjangoIntegration
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
-DEBUG = os.environ.get("DEBUG", default=False)
+DEBUG = int(os.environ.get("DEBUG", default=0))
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
 MAIN_WEBSITE_URL = os.environ.get("MAIN_WEBSITE_URL", default="")

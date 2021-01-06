@@ -3,6 +3,10 @@ import json
 from django.http import HttpResponse, Http404
 
 from django.shortcuts import render, get_object_or_404
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.status import HTTP_401_UNAUTHORIZED, HTTP_200_OK
+
 from shipper.models import *
 
 
@@ -44,3 +48,27 @@ def v2_updater_device(request, codename, gapps):
     return HttpResponse(json.dumps(return_json), content_type='application/json')
 
 
+@api_view(["GET"])
+def v1_internal_device_list(request):
+    internal_password = request.data.get("internal_password")
+
+    devices = Device.objects.all()
+
+    if internal_password != settings.SHIPPER_INTERNAL_PASSWORD:
+        return Response(
+            {
+                'error': 'insufficient_permissions',
+                'message': 'You are not authorized to query this device!'
+            },
+            status=HTTP_401_UNAUTHORIZED
+        )
+
+    retJson = {}
+
+    for device in devices:
+        retJson += device
+
+    return Response(
+        retJson,
+        status=HTTP_200_OK
+    )

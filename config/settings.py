@@ -24,6 +24,8 @@ ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 MAIN_WEBSITE_URL = os.environ.get("MAIN_WEBSITE_URL", default="")
 DOWNLOADS_PAGE_MAIN_BRANDING = os.environ.get("DOWNLOADS_PAGE_MAIN_BRANDING", default="Downloads")
 
+SHIPPER_INTERNAL_PASSWORD = os.environ.get("SHIPPER_INTERNAL_PASSWORD")
+
 # Application definition
 
 INSTALLED_APPS = [

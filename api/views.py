@@ -2,8 +2,10 @@ import json
 
 from django.http import HttpResponse, Http404
 
-from django.shortcuts import render, get_object_or_404
-from rest_framework.decorators import api_view
+from django.shortcuts import get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.status import HTTP_401_UNAUTHORIZED, HTTP_200_OK
 
@@ -48,7 +50,9 @@ def v2_updater_device(request, codename, gapps):
     return HttpResponse(json.dumps(return_json), content_type='application/json')
 
 
+@csrf_exempt
 @api_view(["GET"])
+@permission_classes((AllowAny,))
 def v1_internal_device_list(request):
     internal_password = request.data.get("internal_password")
 
@@ -57,8 +61,8 @@ def v1_internal_device_list(request):
     if internal_password != settings.SHIPPER_INTERNAL_PASSWORD:
         return Response(
             {
-                'error': 'insufficient_permissions',
-                'message': 'You are not authorized to query this device!'
+                'error': 'incorrect_password',
+                'message': 'The internal password is incorrect!'
             },
             status=HTTP_401_UNAUTHORIZED
         )
@@ -66,7 +70,19 @@ def v1_internal_device_list(request):
     retJson = {}
 
     for device in devices:
-        retJson += device
+        maintainerJson = []
+        for maintainer in device.maintainers.all():
+            maintainerJson.append(maintainer.username)
+        deviceJson = {
+            "cpu": device.CPU,
+            "gpu": device.GPU,
+            "manufacturer": device.manufacturer,
+            "storage": device.storage,
+            "memory": device.memory,
+            "photo": device.photo,
+            "maintainers": maintainerJson,
+        }
+        retJson[device.codename] = deviceJson
 
     return Response(
         retJson,

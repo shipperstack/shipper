@@ -74,7 +74,7 @@ def v1_internal_device_list(request):
         for maintainer in device.maintainers.all():
             maintainerJson.append(maintainer.username)
         deviceJson = {
-            "name": device.name
+            "name": device.name,
             "cpu": device.CPU,
             "gpu": device.GPU,
             "manufacturer": device.manufacturer,

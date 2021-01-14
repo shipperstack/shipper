@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
-from rest_framework.status import HTTP_401_UNAUTHORIZED, HTTP_200_OK
+from rest_framework.status import HTTP_401_UNAUTHORIZED, HTTP_400_BAD_REQUEST, HTTP_200_OK
 
 from shipper.models import *
 
@@ -86,6 +86,59 @@ def v1_internal_device_list(request):
 
     return Response(
         retJson,
+        status=HTTP_200_OK
+    )
+
+@csrf_exempt
+@api_view(["POST"])
+@permission_classes((AllowAny,))
+def v1_internal_device_add(request):
+    internal_password = request.data.get("internal_password")
+
+    if internal_password != settings.SHIPPER_INTERNAL_PASSWORD:
+        return Response(
+            {
+                'error': 'incorrect_password',
+                'message': 'The internal password is incorrect!'
+            },
+            status=HTTP_401_UNAUTHORIZED
+        )
+
+    devices = Device.objects.all()
+
+    codename = request.data.get("codename")
+    cpu = request.data.get("cpu")
+    gpu = request.data.get("gpu")
+    manufacturer = request.data.get("manufacturer")
+    storage = int(request.data.get("storage"))
+    memory = int(request.data.get("memory"))
+    photo = request.data.get("photo")
+
+    # Check if device already exists
+    for device in devices:
+        if device.codename == codename:
+            return Response(
+                {
+                    'error': 'device_exists',
+                    'message': 'The specified device already exists!'
+                },
+                status=HTTP_400_BAD_REQUEST
+            )
+
+    new_device = Device(codename=codename)
+    new_device.CPU = cpu
+    new_device.GPU = gpu
+    new_device.manufacturer = manufacturer
+    new_device.storage = storage
+    new_device.memory = memory
+    new_device.photo = photo
+
+    new_device.save()
+
+    return Response(
+        {
+            'message': 'The device was successfully added!'
+        },
         status=HTTP_200_OK
     )
 

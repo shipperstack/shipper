@@ -88,3 +88,33 @@ def v1_internal_device_list(request):
         retJson,
         status=HTTP_200_OK
     )
+
+
+@csrf_exempt
+@api_view(["GET"])
+@permission_classes((AllowAny,))
+def v1_internal_maintainer_list(request):
+    internal_password = request.data.get("internal_password")
+
+    devices = Device.objects.all()
+
+    if internal_password != settings.SHIPPER_INTERNAL_PASSWORD:
+        return Response(
+            {
+                'error': 'incorrect_password',
+                'message': 'The internal password is incorrect!'
+            },
+            status=HTTP_401_UNAUTHORIZED
+        )
+
+    retJson = []
+
+    for device in devices:
+        for maintainer in device.maintainers.all():
+            if maintainer.username not in retJson:
+                retJson.append(maintainer.username)
+
+    return Response(
+        retJson,
+        status=HTTP_200_OK
+    )

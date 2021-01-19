@@ -1,4 +1,6 @@
 # shipper
+![version](https://img.shields.io/github/v/release/ericswpark/shipper)
+![commits-since](https://img.shields.io/github/commits-since/ericswpark/shipper/latest)
 
 Artifact release manager with API support and user presentation
 

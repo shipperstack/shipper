@@ -10,6 +10,8 @@ SERVER_URL = "http://127.0.0.1:8000"
 CONFIGURATION_FILE = "{}/.shippy.ini".format(home_dir)
 TOKEN = ""
 DEBUG = False
+VERSION_CODE = 1
+VERSION_STRING = "1.0"
 
 
 def exception_handler(exception_type, exception, traceback, debug_hook=sys.excepthook):
@@ -116,7 +118,7 @@ def main():
     config = configparser.ConfigParser()
     config.read(CONFIGURATION_FILE)
 
-    print("Welcome to shippy!")
+    print("Welcome to shippy {} (version code {})!".format(VERSION_STRING, VERSION_CODE))
 
     try:
         TOKEN = config['shipper']['token']

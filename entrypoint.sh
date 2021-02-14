@@ -11,7 +11,10 @@ then
     echo "PostgreSQL started"
 fi
 
-python manage.py flush --no-input
+# Uncomment this if you want your env to be reset on every restart
+# Will make debugging extremely harder
+# python manage.py flush --no-input
+
 python manage.py migrate
 
 exec "$@"

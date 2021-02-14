@@ -21,6 +21,9 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = int(os.environ.get("DEBUG", default=0))
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
+with open("version.txt") as v_file:
+    SHIPPER_VERSION = v_file.read()
+
 MAIN_WEBSITE_URL = os.environ.get("MAIN_WEBSITE_URL", default="")
 DOWNLOADS_PAGE_MAIN_BRANDING = os.environ.get("DOWNLOADS_PAGE_MAIN_BRANDING", default="Downloads")
 
@@ -66,6 +69,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'config.context_processors.version_processor',
             ],
         },
     },

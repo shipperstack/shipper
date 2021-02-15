@@ -2,9 +2,7 @@ version: "3.8"
 
 services:
   web:
-    build:
-      context: ./
-      dockerfile: Dockerfile
+    image: ericswpark/shipper:release-1.2.4
     command: gunicorn config.wsgi:application --bind 0.0.0.0:8000
     volumes:
     - media_volume:/home/shipper/web/media

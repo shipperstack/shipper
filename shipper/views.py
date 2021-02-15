@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes, parser_classes
 from rest_framework.permissions import AllowAny
-from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND, HTTP_200_OK, HTTP_401_UNAUTHORIZED, HTTP_500_INTERNAL_SERVER_ERROR
+from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND, HTTP_200_OK, HTTP_401_UNAUTHORIZED
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser
 
@@ -98,22 +98,29 @@ def build_upload(request, pk):
     if request.method == 'POST':
         form = BuildUploadForm(request.POST, request.FILES)
         if form.is_valid():
-            handle_build(device, request.FILES["zip_file"], request.FILES["md5_file"])
+            try:
+                handle_build(device, request.FILES["zip_file"], request.FILES["md5_file"])
+            except Exception as exception:
+                return render(request, 'shipper/build_upload.html', {
+                    'upload_succeeded': False,
+                    'error_reason': str(exception),
+                    'device': device,
+                    'form': form
+                })
 
             return render(request, 'shipper/build_upload.html', {
                 'upload_succeeded': True,
                 'device': device,
                 'form': form
             })
-        else:
-            return render(request, 'shipper/build_upload.html', {
-                'upload_succeeded': False,
-                'error_reason': 'invalid_form',
-                'device': device,
-                'form': form
-            })
-    else:
-        form = BuildUploadForm()
+        return render(request, 'shipper/build_upload.html', {
+            'upload_succeeded': False,
+            'error_reason': 'invalid_form',
+            'device': device,
+            'form': form
+        })
+
+    form = BuildUploadForm()
     return render(request, 'shipper/build_upload.html', {
         'form': form,
         'device': device
@@ -216,13 +223,13 @@ def maintainer_api_build_upload(request, pk):
 
     try:
         handle_build(device, build_file, checksum_file)
-    except:
+    except Exception as exception:
         return Response(
             {
-                'error': 'upload_error',
-                'message': 'An error occurred while uploading your build. Contact the administrators for help.'
+                'error': str(exception),
+                'message': exception_to_message(exception)
             },
-            status=HTTP_500_INTERNAL_SERVER_ERROR
+            status=HTTP_400_BAD_REQUEST
         )
 
     return Response(
@@ -231,3 +238,17 @@ def maintainer_api_build_upload(request, pk):
         },
         status=HTTP_200_OK
     )
+
+def exception_to_message(e):
+    e = str(e)
+    if e == 'file_name_mismatch':
+        return "The file name does not match the checksum file name!"
+    if e == 'invalid_file_name':
+        return "The file name was malformed. Please do not edit the file name!"
+    if e == 'not_official':
+        return "Only official builds are allowed."
+    if e == 'codename_mismatch':
+        return "The codename does not match the file!"
+    if e == 'duplicate_build':
+        return "The build already exists in the system!"
+    return "An unknown error occurred."

@@ -22,8 +22,9 @@ services:
     env_file:
       - ./.env.db
   nginx:
-    build: ./nginx
+    image: nginx:latest
     volumes:
+    - ./nginx/:/etc/nginx/conf.d
     - media_volume:/home/shipper/web/media
     - static_volume:/home/shipper/web/static
     ports:

@@ -216,7 +216,7 @@ def maintainer_api_build_upload(request, pk):
 
     try:
         handle_build(device, build_file, checksum_file)
-    except Exception as e:
+    except Exception:
         return Response(
             {
                 'error': 'upload_error',

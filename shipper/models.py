@@ -58,6 +58,15 @@ class Device(models.Model):
     def get_latest_nongapps_build_object(self):
         return self.builds.filter(gapps=False).latest('id')
 
+    def get_all_build_objects(self):
+        return self.builds.all()
+
+    def get_all_gapps_build_objects(self):
+        return self.builds.filter(gapps=True).all()
+
+    def get_all_nongapps_build_objects(self):
+        return self.builds.filter(gapps=False).all()
+
 
 # Build Model
 class Build(models.Model):

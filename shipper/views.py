@@ -30,6 +30,19 @@ class DownloadsView(ListView):
         return super().get(request, *args, **kwargs)
 
 
+class DownloadsDeviceView(DetailView):
+    template_name = 'shipper/downloads_device.html'
+    model = Device
+
+    def get(self, request, *args, **kwargs):
+        self.extra_context = {
+            'main_website_url': settings.MAIN_WEBSITE_URL,
+            'downloads_page_main_branding': settings.DOWNLOADS_PAGE_MAIN_BRANDING
+        }
+        return super().get(request, *args, **kwargs)
+
+
+
 class MaintainerDashboardView(LoginRequiredMixin, ListView):
     template_name = 'shipper/maintainer_dashboard.html'
     model = Device

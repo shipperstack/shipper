@@ -4,9 +4,7 @@
 ![Docker Cloud Automated build](https://img.shields.io/docker/cloud/automated/ericswpark/shipper)
 ![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/ericswpark/shipper)
 
-Artifact release manager with API support and user presentation
-
-This system was designed to replace our aging downloads infrastructure.
+Artifact release manager with  access control, API support and user presentation
 
 ## Documentation
 

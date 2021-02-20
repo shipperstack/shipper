@@ -42,7 +42,7 @@ COPY --from=builder /usr/src/shipper/requirements.txt .
 RUN pip install --no-cache /wheels/*
 
 # copy entrypoint-prod.sh
-COPY ./entrypoint.prod.sh $APP_HOME
+COPY ./entrypoint.sh $APP_HOME
 
 # copy project
 COPY . $APP_HOME
@@ -54,4 +54,4 @@ RUN chown -R shipper:shipper $APP_HOME
 USER shipper
 
 # Run entrypoint.sh
-ENTRYPOINT ["/home/shipper/web/entrypoint.prod.sh"]
+ENTRYPOINT ["/home/shipper/web/entrypoint.sh"]

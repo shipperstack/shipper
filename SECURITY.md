@@ -4,11 +4,8 @@
 
 | Version | Supported          |
 | ------- | ------------------ |
-| > 1.2.1 | :white_check_mark: |
-| 1.2.0   | :x:                |
-| < 1.2.0 | :x:                |
-
-Versions 1.2.0 and below have a debug flag bug which makes the system more vulnerable, so it is no longer supported.
+| 1.2.x   | :white_check_mark: |
+| 1.1.x   | :x:                |
 
 ## Reporting a Vulnerability
 

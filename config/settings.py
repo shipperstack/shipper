@@ -153,10 +153,17 @@ REST_FRAMEWORK = {
 }
 
 # Sentry SDK
+def before_send(event, hint):
+    if 'log_record' in hint:
+        if hint['log_record'].name == 'django.security.DisallowedHost':
+            return None
+    return event
+
 sentry_sdk.init(
     dsn=os.environ.get("SENTRY_SDK_DSN", default=""),
     integrations=[DjangoIntegration()],
     release="{}".format(SHIPPER_VERSION),
     traces_sample_rate=1.0,
     send_default_pii=os.environ.get("SENTRY_SDK_PII", default=False),
+    before_send=before_send,
 )

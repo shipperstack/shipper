@@ -17,7 +17,7 @@ def handle_build(device, zip_file, md5_file):
     except ValueError:
         raise Exception('invalid_file_name')
 
-    if build_type.lower() != "official":
+    if build_type != "OFFICIAL":
         raise Exception('not_official')
 
     if codename != device.codename:

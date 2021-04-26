@@ -9,13 +9,14 @@ from django.contrib.auth.decorators import login_required
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes, parser_classes
 from rest_framework.permissions import AllowAny
-from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND, HTTP_200_OK, HTTP_401_UNAUTHORIZED
+from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND, HTTP_200_OK, HTTP_401_UNAUTHORIZED, HTTP_500_INTERNAL_SERVER_ERROR
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser
 
 from .models import *
 from .forms import *
 from .handler import *
+from .exceptions import *
 
 
 class DownloadsView(ListView):
@@ -100,7 +101,7 @@ def build_upload(request, pk):
         if form.is_valid():
             try:
                 handle_build(device, request.FILES["zip_file"], request.FILES["md5_file"])
-            except Exception as exception:
+            except UploadException as exception:
                 return render(request, 'shipper/build_upload.html', {
                     'upload_succeeded': False,
                     'error_reason': str(exception),
@@ -223,13 +224,20 @@ def maintainer_api_build_upload(request, pk):
 
     try:
         handle_build(device, build_file, checksum_file)
-    except Exception as exception:
+    except UploadException as exception:
         return Response(
             {
                 'error': str(exception),
                 'message': exception_to_message(exception)
             },
             status=HTTP_400_BAD_REQUEST
+        )
+    except Exception:
+        return Response(
+            {
+                'message': 'A server-side error has occurred. Contact the admins for help.'
+            },
+            status=HTTP_500_INTERNAL_SERVER_ERROR
         )
 
     return Response(

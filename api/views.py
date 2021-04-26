@@ -1,6 +1,6 @@
 import json
 
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, Http400
 
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
@@ -20,12 +20,13 @@ def v2_updater_device(request, codename, gapps):
             build = device.get_latest_gapps_build_object()
         except Build.DoesNotExist:
             raise Http404("No GApps builds exist for this device yet!")
-
-    if gapps == "vanilla":
+    elif gapps == "vanilla":
         try:
             build = device.get_latest_nongapps_build_object()
         except Build.DoesNotExist:
             raise Http404("No non-GApps builds exist for this device yet!")
+    else:
+        raise Http400("Wrong parameter. Try with the correct parameters.")
 
     _, version, codename, build_type, gapps_raw, date = build.file_name.split('-')
 

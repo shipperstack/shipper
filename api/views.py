@@ -42,6 +42,7 @@ def v1_updater_los(request, codename, gapps):
             "id": build.sha256sum,      # WHY
             "size": build.size,
             "version": build.version,
+            "variant": gapps,
             "url": request.get_host() + build.zip_file.url,
             "md5url": request.get_host() + build.md5_file.url
         })

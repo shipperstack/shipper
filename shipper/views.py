@@ -165,7 +165,7 @@ def maintainer_api_device_id(request):
 
     try:
         device = Device.objects.get(codename=codename)
-    except:
+    except Device.DoesNotExist:
         return Response(
             {
                 'error': 'invalid_codename',

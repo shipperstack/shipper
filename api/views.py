@@ -23,6 +23,13 @@ def v1_updater_los(request, codename, gapps):
     else:
         raise Http404("Wrong parameter. Try with the correct parameters.")
 
+    # Check if list is empty and return a 404
+    if not builds:
+        if gapps == "gapps":
+            raise Http404("No GApps builds exist for this device yet!")
+        elif gapps == "vanilla":
+            raise Http404("No non-GApps builds exist for this device yet!")
+
     return_json = []
 
     for build in builds:

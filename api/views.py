@@ -30,13 +30,7 @@ def v2_updater_device(request, codename, gapps):
 
     _, version, codename, build_type, gapps_raw, date = build.file_name.split('-')
 
-    # Convert date into UNIX time
-    year = int(date[:4])
-    month = int(date[4:-2])
-    day = int(date[6:])
-
-    import datetime
-    date = datetime.date(year, month, day)
+    date = parse_build_date(date)
 
     return_json = {
         "date": int(date.strftime("%s")),
@@ -49,6 +43,14 @@ def v2_updater_device(request, codename, gapps):
     }
 
     return HttpResponse(json.dumps(return_json), content_type='application/json')
+
+
+def parse_build_date(date):
+    year = int(date[:4])
+    month = int(date[4:-2])
+    day = int(date[6:])
+
+    return datetime.date(year, month, day)
 
 
 @csrf_exempt

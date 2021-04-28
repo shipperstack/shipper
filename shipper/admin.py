@@ -4,8 +4,10 @@ from django.contrib.auth.admin import UserAdmin
 
 from .models import *
 
+
 class CustomUserAdmin(UserAdmin):
     list_display = ['username', 'is_active', 'email', 'last_login', 'is_staff', 'is_superuser']
+
 
 class DeviceAdmin(admin.ModelAdmin):
     list_display = ['id', 'manufacturer', 'name', 'codename', 'get_maintainers', 'status', 'created']
@@ -26,9 +28,9 @@ class BuildAdmin(admin.ModelAdmin):
     get_device_name.short_description = 'Device'
     get_device_name.admin_order_field = 'device_name'
 
+
 admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)
 
 admin.site.register(Device, DeviceAdmin)
 admin.site.register(Build, BuildAdmin)
-

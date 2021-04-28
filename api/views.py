@@ -13,6 +13,42 @@ from rest_framework.status import HTTP_401_UNAUTHORIZED, HTTP_400_BAD_REQUEST, H
 from shipper.models import *
 
 
+def v1_updater_los(request, codename, gapps):
+    device = get_object_or_404(Device, codename=codename)
+
+    if gapps == "gapps":
+        try:
+            builds = device.get_all_gapps_build_objects()
+        except Build.DoesNotExist:
+            raise Http404("No GApps builds exist for this device yet!")
+    elif gapps == "vanilla":
+        try:
+            builds = device.get_all_nongapps_build_objects()
+        except Build.DoesNotExist:
+            raise Http404("No non-GApps builds exist for this device yet!")
+    else:
+        raise Http404("Wrong parameter. Try with the correct parameters.")
+
+    return_json = []
+
+    for build in builds:
+        _, version, codename, build_type, gapps_raw, date = build.file_name.split('-')
+
+        date = parse_build_date(date)
+
+        return_json.append({
+            "datetime": int(date.strftime("%s")),
+            "filename": "{}.zip".format(build.file_name),
+            "id": build.sha256sum,      # WHY
+            "size": build.size,
+            "version": build.version,
+            "url": request.get_host() + build.zip_file.url,
+            "md5url": request.get_host() + build.md5_file.url
+        })
+
+    return HttpResponse(json.dumps({"response": return_json}), content_type='application/json')
+
+
 def v2_updater_device(request, codename, gapps):
     device = get_object_or_404(Device, codename=codename)
 

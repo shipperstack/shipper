@@ -17,15 +17,9 @@ def v1_updater_los(request, codename, gapps):
     device = get_object_or_404(Device, codename=codename)
 
     if gapps == "gapps":
-        try:
-            builds = device.get_all_gapps_build_objects()
-        except Build.DoesNotExist:
-            raise Http404("No GApps builds exist for this device yet!")
+        builds = device.get_all_gapps_build_objects()
     elif gapps == "vanilla":
-        try:
-            builds = device.get_all_nongapps_build_objects()
-        except Build.DoesNotExist:
-            raise Http404("No non-GApps builds exist for this device yet!")
+        builds = device.get_all_nongapps_build_objects()
     else:
         raise Http404("Wrong parameter. Try with the correct parameters.")
 

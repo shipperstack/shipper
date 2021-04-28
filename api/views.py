@@ -107,13 +107,13 @@ def v1_internal_device_list(request):
             status=HTTP_401_UNAUTHORIZED
         )
 
-    retJson = {}
+    return_json = {}
 
     for device in devices:
-        maintainerJson = []
+        maintainer_json = []
         for maintainer in device.maintainers.all():
-            maintainerJson.append(maintainer.username)
-        deviceJson = {
+            maintainer_json.append(maintainer.username)
+        device_json = {
             "name": device.name,
             "cpu": device.CPU,
             "gpu": device.GPU,
@@ -121,14 +121,15 @@ def v1_internal_device_list(request):
             "storage": device.storage,
             "memory": device.memory,
             "photo": device.photo,
-            "maintainers": maintainerJson,
+            "maintainers": maintainer_json,
         }
-        retJson[device.codename] = deviceJson
+        return_json[device.codename] = device_json
 
     return Response(
-        retJson,
+        return_json,
         status=HTTP_200_OK
     )
+
 
 @csrf_exempt
 @api_view(["POST"])
@@ -203,14 +204,14 @@ def v1_internal_maintainer_list(request):
             status=HTTP_401_UNAUTHORIZED
         )
 
-    retJson = []
+    return_json = []
 
     for device in devices:
         for maintainer in device.maintainers.all():
-            if maintainer.username not in retJson:
-                retJson.append(maintainer.username)
+            if maintainer.username not in return_json:
+                return_json.append(maintainer.username)
 
     return Response(
-        retJson,
+        return_json,
         status=HTTP_200_OK
     )

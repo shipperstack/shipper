@@ -131,6 +131,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Media
 MEDIA_URL = '/media/'
+# noinspection PyUnresolvedReferences
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Login

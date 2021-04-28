@@ -43,7 +43,6 @@ class DownloadsDeviceView(DetailView):
         return super().get(request, *args, **kwargs)
 
 
-
 class MaintainerDashboardView(LoginRequiredMixin, ListView):
     template_name = 'shipper/maintainer_dashboard.html'
     model = Device
@@ -239,6 +238,7 @@ def maintainer_api_build_upload(request, pk):
         },
         status=HTTP_200_OK
     )
+
 
 def exception_to_message(e):
     e = str(e)

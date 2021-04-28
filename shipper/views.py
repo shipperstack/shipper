@@ -9,8 +9,7 @@ from django.contrib.auth.decorators import login_required
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes, parser_classes
 from rest_framework.permissions import AllowAny
-from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND, HTTP_200_OK, HTTP_401_UNAUTHORIZED,\
-    HTTP_500_INTERNAL_SERVER_ERROR
+from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND, HTTP_200_OK, HTTP_401_UNAUTHORIZED
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser
 
@@ -232,13 +231,6 @@ def maintainer_api_build_upload(request, pk):
                 'message': exception_to_message(exception)
             },
             status=HTTP_400_BAD_REQUEST
-        )
-    except Exception:
-        return Response(
-            {
-                'message': 'A server-side error has occurred. Contact the admins for help.'
-            },
-            status=HTTP_500_INTERNAL_SERVER_ERROR
         )
 
     return Response(

@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   web:
-    image: ericswpark/shipper:release-1.4.0
+    image: ericswpark/shipper:release-1.4.1
     build:
       context: ./
       dockerfile: Dockerfile

@@ -27,6 +27,13 @@ def handle_build(device, zip_file, md5_file):
     if Build.objects.filter(file_name=build_file_name).count() >= 1:
         raise UploadException('duplicate_build')
 
+    # See if a file exists from a previous failed attempt
+    if os.path.exists(os.path.join(settings.MEDIA_ROOT, device.codename, zip_file.name)):
+        os.remove(os.path.join(settings.MEDIA_ROOT, device.codename, zip_file.name))
+
+    if os.path.exists(os.path.join(settings.MEDIA_ROOT, device.codename, md5_file.name)):
+        os.remove(os.path.join(settings.MEDIA_ROOT, device.codename, md5_file.name))
+
     if gapps_raw == "gapps":
         gapps = True
     elif gapps_raw == "vanilla":

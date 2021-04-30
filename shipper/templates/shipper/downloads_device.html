@@ -6,6 +6,7 @@
     <h1>Downloads for {{ object }}</h1>
     <br>
 
+    <!-- GApps section -->
     {% if object.has_gapps_builds %}
     <h2>GApps build downloads </h2>
     <table class="table">
@@ -28,8 +29,10 @@
         </tbody>
     </table>
     {% endif %}
+
+    <!-- Vanilla section -->
     {% if object.has_vanilla_builds %}
-    <h2>Vanilla build downloads </h2>
+    <h2>Vanilla (no GApps) build downloads </h2>
     <table class="table">
         <thead>
         <tr>
@@ -50,7 +53,56 @@
         </tbody>
     </table>
     {% endif %}
-    {% if not object.has_gapps_builds and not object.has_vanilla_builds %}
+
+    <!-- FOSS section -->
+    {% if object.has_foss_builds %}
+    <h2>FOSS build downloads </h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Builds</th>
+            <th scope="col">Download</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for build in object.get_all_foss_build_objects %}
+            <tr>
+                    <td>{{build}}</td>
+                    <td>
+                            <a href="{{ build.zip_file.url }}" class="btn btn-success btn-sm" title="">Download</a>
+                            <a href="{{ build.md5_file.url }}" class="btn btn-link btn-sm">MD5</a>
+                    </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+    <!-- GoApps section -->
+    {% if object.has_goapps_builds %}
+    <h2>GoApps build downloads </h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Builds</th>
+            <th scope="col">Download</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for build in object.get_all_goapps_build_objects %}
+            <tr>
+                    <td>{{build}}</td>
+                    <td>
+                            <a href="{{ build.zip_file.url }}" class="btn btn-success btn-sm" title="">Download</a>
+                            <a href="{{ build.md5_file.url }}" class="btn btn-link btn-sm">MD5</a>
+                    </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+    {% if not object.has_builds %}
     <h2>Sorry, this device currently has no builds. Check back later!</h2>
     {% endif %}
 {% endblock %}

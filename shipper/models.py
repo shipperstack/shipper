@@ -74,16 +74,16 @@ class Device(models.Model):
         return self.builds.all()
 
     def get_all_gapps_build_objects(self):
-        return self.builds.filter(variant="gapps").all()
+        return self.builds.filter(variant="gapps").all().order_by('created')
 
     def get_all_vanilla_build_objects(self):
-        return self.builds.filter(variant="vanilla").all()
+        return self.builds.filter(variant="vanilla").all().order_by('created')
 
     def get_all_foss_build_objects(self):
-        return self.builds.filter(variant="foss").all()
+        return self.builds.filter(variant="foss").all().order_by('created')
 
     def get_all_goapps_build_objects(self):
-        return self.builds.filter(variant="goapps").all()
+        return self.builds.filter(variant="goapps").all().order_by('created')
 
 
 # Build Model

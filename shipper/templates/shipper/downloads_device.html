@@ -28,7 +28,7 @@
         </tbody>
     </table>
     {% endif %}
-    {% if object.has_nongapps_builds %}
+    {% if object.has_vanilla_builds %}
     <h2>Vanilla build downloads </h2>
     <table class="table">
         <thead>
@@ -38,7 +38,7 @@
         </tr>
         </thead>
         <tbody>
-            {% for build in object.get_all_nongapps_build_objects %}
+            {% for build in object.get_all_vanilla_build_objects %}
             <tr>
                     <td>{{build}}</td>
                     <td>
@@ -50,7 +50,7 @@
         </tbody>
     </table>
     {% endif %}
-    {% if not object.has_gapps_builds and not object.has_nongapps_builds %}
+    {% if not object.has_gapps_builds and not object.has_vanilla_builds %}
     <h2>Sorry, this device currently has no builds. Check back later!</h2>
     {% endif %}
 {% endblock %}

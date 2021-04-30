@@ -14,7 +14,7 @@ def handle_build(device, zip_file, md5_file):
 
     build_file_name, build_file_ext = os.path.splitext(zip_file.name)
     try:
-        _, version, codename, build_type, gapps_raw, date = build_file_name.split('-')
+        _, version, codename, build_type, variant, date = build_file_name.split('-')
     except ValueError:
         raise UploadException('invalid_file_name')
 
@@ -34,11 +34,7 @@ def handle_build(device, zip_file, md5_file):
     if os.path.exists(os.path.join(settings.MEDIA_ROOT, device.codename, md5_file.name)):
         os.remove(os.path.join(settings.MEDIA_ROOT, device.codename, md5_file.name))
 
-    if gapps_raw == "gapps":
-        gapps = True
-    elif gapps_raw == "vanilla":
-        gapps = False
-    else:
+    if variant not in ["gapps", "vanilla", "foss", "goapps"]:
         raise UploadException('invalid_file_name')
 
     build = Build(
@@ -46,7 +42,7 @@ def handle_build(device, zip_file, md5_file):
         file_name=build_file_name,
         size=zip_file.size,
         version=version,
-        gapps=gapps,
+        variant=variant,
         zip_file=zip_file,
         md5_file=md5_file
     )

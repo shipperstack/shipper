@@ -44,28 +44,46 @@ class Device(models.Model):
         return "{} {} ({})".format(self.manufacturer, self.name, self.codename)
 
     def has_gapps_builds(self):
-        return self.builds.filter(gapps=True).count() > 0
+        return self.builds.filter(variant="gapps").count() > 0
 
-    def has_nongapps_builds(self):
-        return self.builds.filter(gapps=False).count() > 0
+    def has_vanilla_builds(self):
+        return self.builds.filter(variant="vanilla").count() > 0
+
+    def has_foss_builds(self):
+        return self.builds.filter(variant="foss").count() > 0
+
+    def has_goapps_builds(self):
+        return self.builds.filter(variant="goapps").count() > 0
 
     def has_builds(self):
         return self.builds.count() > 0
 
     def get_latest_gapps_build_object(self):
-        return self.builds.filter(gapps=True).latest('id')
+        return self.builds.filter(variant="gapps").latest('id')
 
-    def get_latest_nongapps_build_object(self):
-        return self.builds.filter(gapps=False).latest('id')
+    def get_latest_vanilla_build_object(self):
+        return self.builds.filter(variant="vanilla").latest('id')
+
+    def get_latest_foss_build_object(self):
+        return self.builds.filter(variant="foss").latest('id')
+
+    def get_latest_goapps_build_object(self):
+        return self.builds.filter(variant="goapps").latest('id')
 
     def get_all_build_objects(self):
         return self.builds.all()
 
     def get_all_gapps_build_objects(self):
-        return self.builds.filter(gapps=True).all()
+        return self.builds.filter(variant="gapps").all()
 
-    def get_all_nongapps_build_objects(self):
-        return self.builds.filter(gapps=False).all()
+    def get_all_vanilla_build_objects(self):
+        return self.builds.filter(variant="vanilla").all()
+
+    def get_all_foss_build_objects(self):
+        return self.builds.filter(variant="foss").all()
+
+    def get_all_goapps_build_objects(self):
+        return self.builds.filter(variant="goapps").all()
 
 
 # Build Model
@@ -88,10 +106,11 @@ class Build(models.Model):
         help_text="Example: v12.8"
     )
     sha256sum = models.TextField(max_length=64)
-    gapps = models.BooleanField(
-        default=False,
-        help_text="Does the build include GApps?"
+    variant = models.TextField(
+        max_length=20,
+        help_text="One of the following variants: gapps, vanilla, goapps, foss"
     )
+
     created = models.DateTimeField(auto_now_add=True, editable=False)
 
     def get_upload_path(self, filename):

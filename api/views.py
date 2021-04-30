@@ -44,8 +44,8 @@ def v1_updater_los(request, codename, gapps):
             "size": build.size,
             "version": build.version,
             "variant": gapps,
-            "url": request.get_host() + build.zip_file.url,
-            "md5url": request.get_host() + build.md5_file.url
+            "url": "https://" + request.get_host() + build.zip_file.url,
+            "md5url": "https://" + request.get_host() + build.md5_file.url
         })
 
     return HttpResponse(json.dumps({"response": return_json}), content_type='application/json')
@@ -77,8 +77,8 @@ def v2_updater_device(request, codename, gapps):
         "sha256": build.sha256sum,
         "size": build.size,
         "version": build.version,
-        "zip_download_url": request.get_host() + build.zip_file.url,
-        "md5_download_url": request.get_host() + build.md5_file.url
+        "zip_download_url": "https://" + request.get_host() + build.zip_file.url,
+        "md5_download_url": "https://" + request.get_host() + build.md5_file.url
     }
 
     return HttpResponse(json.dumps(return_json), content_type='application/json')

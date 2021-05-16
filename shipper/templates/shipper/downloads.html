@@ -14,7 +14,7 @@
             {% for device in object_list %}
             <tr>
                 {% if device.has_builds %}
-                    <td><a href="{{ device.id }}">{{device}}</a></td>
+                    <td><a href="download/{{ device.codename }}/">{{device}}</a></td>
                     <td>
                         {% if device.has_gapps_builds %}
                             <a href="{{ device.get_latest_gapps_build_object.zip_file.url }}" class="btn btn-primary btn-sm" title="">GApps</a>

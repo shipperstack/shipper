@@ -35,6 +35,9 @@ class DownloadsDeviceView(DetailView):
     template_name = 'shipper/downloads_device.html'
     model = Device
 
+    def get_object(self, queryset=None):
+        return Device.objects.get(codename=self.kwargs.get("codename"))
+
     def get(self, request, *args, **kwargs):
         self.extra_context = {
             'main_website_url': settings.MAIN_WEBSITE_URL,

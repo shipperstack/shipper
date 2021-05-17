@@ -26,6 +26,7 @@ with open("version.txt") as v_file:
 
 MAIN_WEBSITE_URL = os.environ.get("MAIN_WEBSITE_URL", default="")
 DOWNLOADS_PAGE_MAIN_BRANDING = os.environ.get("DOWNLOADS_PAGE_MAIN_BRANDING", default="Downloads")
+DOWNLOADS_PAGE_DONATION_URL = os.environ.get("DOWNLOADS_PAGE_DONATION_URL", default="#")
 
 SHIPPER_INTERNAL_PASSWORD = os.environ.get("SHIPPER_INTERNAL_PASSWORD")
 

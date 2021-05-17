@@ -12,7 +12,13 @@
         <h4 class="alert-heading">Warning</h4>
         This device is no longer supported, and things may break at any time. Download at your own risk!
     </div>
-    <br>
+    {% endif %}
+
+    <!-- Donation alert -->
+    {% if downloads_page_donation_url != "#" %}
+    <div class="alert alert-secondary">
+        Please <a href="{{ downloads_page_donation_url }}" class="alert-link">consider donating</a> to support the team. Thank you!
+    </div>
     {% endif %}
 
     <!-- GApps section -->

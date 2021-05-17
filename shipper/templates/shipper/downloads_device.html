@@ -6,6 +6,15 @@
     <h1>Downloads for {{ object }}</h1>
     <br>
 
+    <!-- Device maintenance check -->
+    {% if object.status == False %}
+    <div class="alert alert-warning">
+        <h4 class="alert-heading">Warning</h4>
+        This device is no longer supported, and things may break at any time. Download at your own risk!
+    </div>
+    <br>
+    {% endif %}
+
     <!-- GApps section -->
     {% if object.has_gapps_builds %}
     <h2>GApps build downloads </h2>

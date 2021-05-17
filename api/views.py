@@ -117,12 +117,8 @@ def v1_internal_device_list(request):
             maintainer_json.append(maintainer.username)
         device_json = {
             "name": device.name,
-            "cpu": device.CPU,
-            "gpu": device.GPU,
             "manufacturer": device.manufacturer,
-            "storage": device.storage,
-            "memory": device.memory,
-            "photo": device.photo,
+            "photo": device.get_photo_url(),
             "maintainers": maintainer_json,
         }
         return_json[device.codename] = device_json
@@ -152,11 +148,7 @@ def v1_internal_device_add(request):
 
     name = request.data.get("name")
     codename = request.data.get("codename")
-    cpu = request.data.get("cpu")
-    gpu = request.data.get("gpu")
     manufacturer = request.data.get("manufacturer")
-    storage = int(request.data.get("storage"))
-    memory = int(request.data.get("memory"))
     photo = request.data.get("photo")
 
     # Check if device already exists
@@ -172,11 +164,7 @@ def v1_internal_device_add(request):
 
     new_device = Device(codename=codename)
     new_device.name = name
-    new_device.CPU = cpu
-    new_device.GPU = gpu
     new_device.manufacturer = manufacturer
-    new_device.storage = storage
-    new_device.memory = memory
     new_device.photo = photo
 
     new_device.save()

@@ -29,7 +29,8 @@ class Device(models.Model):
         help_text="URL to image of device.<br>Preferably grab an image from <a "
                   "href=\"https://www.gsmarena.com\" target=\"_blank\">GSMArena.</a><br>Example: "
                   "'https://fdn2.gsmarena.com/vv/bigpic/lg-nexus-5x-.jpg', "
-                  "'https://fdn2.gsmarena.com/vv/bigpic/huawei-nexus-6p-.jpg'"
+                  "'https://fdn2.gsmarena.com/vv/bigpic/huawei-nexus-6p-.jpg'",
+        blank=True,
     )
     status = models.BooleanField(default=True, help_text="Device is still maintained - uncheck if abandoned")
     maintainers = models.ManyToManyField(
@@ -42,6 +43,13 @@ class Device(models.Model):
 
     def __str__(self):
         return "{} {} ({})".format(self.manufacturer, self.name, self.codename)
+
+    def get_photo_url(self):
+        if not self.photo:
+            # Return a generic image
+            return "#"  # TODO: add URL to generic photo here
+        else:
+            return self.photo
 
     def has_gapps_builds(self):
         return self.builds.filter(variant="gapps").count() > 0

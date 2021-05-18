@@ -219,7 +219,7 @@ def maintainer_api_build_upload(request):
 @csrf_exempt
 @api_view(["GET"])
 @permission_classes((AllowAny,))
-def system_information():
+def system_information(request):
     return Response(
         {
             'version': SHIPPER_VERSION

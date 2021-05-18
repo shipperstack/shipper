@@ -6,6 +6,8 @@ from django.views.generic import ListView, DetailView, DeleteView
 from django.contrib.auth import authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from drf_chunked_upload.models import ChunkedUpload
+from drf_chunked_upload.views import ChunkedUploadView
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes, parser_classes
 from rest_framework.permissions import AllowAny
@@ -121,6 +123,32 @@ def build_upload(request, pk):
         'form': form,
         'device': device
     })
+
+
+class ChunkedBuildUpload(ChunkedUploadView):
+    def on_completion(self, uploaded_file, request):
+        device = get_object_or_404(Device, codename=get_codename_from_filename(uploaded_file.name))
+
+        # Check if maintainer is in device's approved maintainers list
+        if self.request.user not in device.maintainers.all():
+            raise Http404
+
+        try:
+            handle_build(device, uploaded_file, md5_file=None, md5_value=request.POST.get('md5'))
+        except UploadException as exception:
+            return Response(
+                {
+                    'error': str(exception),
+                    'message': exception_to_message(exception)
+                },
+                status=HTTP_400_BAD_REQUEST
+            )
+        return Response(
+            {
+                'message': 'Build has been uploaded for device {}!'.format(device)
+            },
+            status=HTTP_200_OK
+        )
 
 
 @csrf_exempt

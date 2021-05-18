@@ -6,7 +6,7 @@ from .models import Build
 from .exceptions import *
 
 
-def handle_build(device, zip_file, md5_file):
+def handle_build(device, zip_file, md5_file, md5_value=None):
     # Confirm file names of build and checksum files match
     checksum_file_name, checksum_file_ext = os.path.splitext(md5_file.name)
     if zip_file.name != checksum_file_name:
@@ -49,6 +49,14 @@ def handle_build(device, zip_file, md5_file):
 
     # Save the files FIRST
     build.save()
+
+    # If the files were uploaded using chunked upload, then we need to manually create an MD5 file
+    if md5_file is None:
+        # Generate string
+        md5_file_contents = "{}  {}".format(md5_value, zip_file.name)
+        with open(os.path.join(settings.MEDIA_ROOT, device.codename, "{}.md5".format(zip_file.name)), 'w')\
+                as target_md5:
+            target_md5.write(md5_file_contents)
 
     # Process SHA256
     sha256sum = hashlib.sha256()

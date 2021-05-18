@@ -34,7 +34,7 @@
         <tbody>
             {% for build in object.get_all_gapps_build_objects %}
             <tr>
-                    <td>{{build}}</td>
+                    <td title="{{ build }}">{{ build.get_user_friendly_name }}</td>
                     <td>
                             <a href="{{ build.zip_file.url }}" class="btn btn-success btn-sm" title="">Download</a>
                             <a href="{{ build.md5_file.url }}" class="btn btn-link btn-sm">MD5</a>

@@ -109,5 +109,11 @@ class Build(models.Model):
     zip_file = models.FileField(upload_to=get_upload_path, unique=True)
     md5_file = models.FileField(upload_to=get_upload_path, unique=True)
 
+    def get_user_friendly_name(self):
+        from datetime import datetime
+        _, version, _, _, _, date = self.file_name.split('-')
+        date = datetime.strptime(date, '%Y%m%d').strftime('%B %-d, %Y')
+        return "{} - {}".format(version, date)
+
     def __str__(self):
         return self.file_name

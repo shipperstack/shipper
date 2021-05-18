@@ -37,11 +37,12 @@
     <p>We strongly recommend <a href="https://github.com/ericswpark/shippy" class="alert-link">using shippy</a> to upload your builds.
         Here's how!</p>
     <hr>
-    <ol class="mb-0">
+    <ol>
         <li>Install shippy on your system with <code>pip3 install shipper-shippy</code>.</li>
         <li>Navigate to the directory with your build artifacts and run <code>shippy</code>.</li>
         <li>shippy will ask you your details. When prompted for the server URL, type <code>{{ request.scheme }}://{{ request.get_host }}</code>.</li>
     </ol>
+    <p class="mb-0">In the future, we plan to deprecate uploading via the web UI, since it does not support chunk-based uploading.</p>
     </div>
 
     <form action="" method="post" enctype="multipart/form-data">

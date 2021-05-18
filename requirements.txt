@@ -1,6 +1,7 @@
 Django
 django-cleanup
 djangorestframework
+drf-chunked-upload==0.5.0a1
 gunicorn
 humanize
 psycopg2-binary

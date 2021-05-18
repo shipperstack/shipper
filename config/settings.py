@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'accounts',
     'shipper',
     'api',
+    'drf_chunked_upload',
     'django_cleanup.apps.CleanupConfig',  # must be last in order for successful deletions
 ]
 
@@ -152,9 +153,14 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_THROTTLE_RATES': {
         'anon': '50/hour',
-        'user': '100/hour'
+        'user': '20/second'
     }
 }
+
+# drf-chunked-upload
+DRF_CHUNKED_UPLOAD_COMPLETE_EXT = ''
+DRF_CHUNKED_UPLOAD_ABSTRACT_MODEL = False
+DRF_CHUNKED_UPLOAD_MAX_BYTES = 2_500_000_000   # 2.5GB
 
 
 # Sentry SDK

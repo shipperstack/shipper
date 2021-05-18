@@ -66,15 +66,6 @@ class DeviceDetailView(LoginRequiredMixin, DetailView):
         return Device.objects.filter(maintainers=self.request.user)
 
 
-class BuildDetailView(LoginRequiredMixin, DetailView):
-    template_name = 'shipper/build_detail.html'
-    model = Build
-
-    # Override builds shown to maintainers
-    def get_queryset(self):
-        return Build.objects.filter(device__maintainers=self.request.user)
-
-
 class BuildDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'shipper/build_delete.html'
     model = Build

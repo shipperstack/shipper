@@ -19,8 +19,8 @@
         <tbody>
             {% for build in object.builds.all %}
             <tr>
-                <td><a href="{% url 'build_detail' pkd=object.id pk=build.id %}">{{build.file_name}}</a></td>
-                <td><a href="{% url 'build_delete' pkd=object.id pk=build.id %}" class="btn btn-danger btn-sm">Delete</a></td>
+                <td>{{ build.file_name }}</td>
+                <td><a href="{% url 'build_delete' pk=build.id %}" class="btn btn-danger btn-sm">Delete</a></td>
             </tr>
             {% endfor %}
         </tbody>

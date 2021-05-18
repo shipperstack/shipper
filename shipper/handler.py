@@ -42,8 +42,8 @@ def handle_build(device, zip_file, md5_file):
     build.save()
 
 
-def handle_chunked_build(device, target_file_name, chunked_file, md5_value):
-    build_file_name, build_file_ext = os.path.splitext(target_file_name)
+def handle_chunked_build(device, chunked_file, md5_value):
+    build_file_name, build_file_ext = os.path.splitext(chunked_file.filename)
     try:
         _, version, codename, build_type, variant, date = build_file_name.split('-')
     except ValueError:
@@ -51,7 +51,7 @@ def handle_chunked_build(device, target_file_name, chunked_file, md5_value):
 
     file_name_validity_check(device, build_file_name, build_type, codename, variant)
 
-    target_file_full_path = os.path.join(settings.MEDIA_ROOT, device.codename, target_file_name)
+    target_file_full_path = os.path.join(settings.MEDIA_ROOT, device.codename, chunked_file.filename)
 
     # See if the build exists from a previous failed attempt
     if os.path.exists(target_file_full_path):
@@ -61,13 +61,14 @@ def handle_chunked_build(device, target_file_name, chunked_file, md5_value):
     os.rename(chunked_file.file.path, target_file_full_path)
 
     # Generate MD5 file
-    md5_file_contents = "{}  {}".format(md5_value, target_file_name)
-    with open(os.path.join(settings.MEDIA_ROOT, device.codename, "{}.md5".format(target_file_name)), 'w') as target_md5:
+    md5_file_contents = "{}  {}".format(md5_value, chunked_file.filename)
+    with open(os.path.join(settings.MEDIA_ROOT, device.codename, "{}.md5".format(chunked_file.filename)), 'w') \
+            as target_md5:
         target_md5.write(md5_file_contents)
 
     # Open target files
     zip_file = File(open(target_file_full_path))
-    md5_file = File(open(os.path.join(settings.MEDIA_ROOT, device.codename, "{}.md5".format(target_file_name))))
+    md5_file = File(open(os.path.join(settings.MEDIA_ROOT, device.codename, "{}.md5".format(chunked_file.filename))))
 
     build = Build(
         device=device,

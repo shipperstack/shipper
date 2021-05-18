@@ -6,6 +6,8 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, DetailView, DeleteView
+from drf_chunked_upload.exceptions import ChunkedUploadError
+from drf_chunked_upload.settings import CHECKSUM_TYPE
 from drf_chunked_upload.views import ChunkedUploadView
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes, parser_classes
@@ -124,8 +126,40 @@ def build_upload(request, pk):
 
 
 class ChunkedBuildUpload(ChunkedUploadView):
-    def on_completion(self, uploaded_file, request):
-        device_codename = get_codename_from_filename(uploaded_file.filename)
+    def _post(self, request, pk=None, *args, **kwargs):
+        chunked_upload = None
+        if pk:
+            upload_id = pk
+        else:
+            chunked_upload = self._put_chunk(request, *args,
+                                             whole=True, **kwargs)
+            upload_id = chunked_upload.id
+
+        checksum = request.data.get(CHECKSUM_TYPE)
+
+        error_msg = None
+        if self.do_checksum_check:
+            if not upload_id or not checksum:
+                error_msg = ("Both 'id' and '{}' are "
+                             "required").format(CHECKSUM_TYPE)
+        elif not upload_id:
+            error_msg = "'id' is required"
+        if error_msg:
+            raise ChunkedUploadError(status=HTTP_400_BAD_REQUEST,
+                                     detail=error_msg)
+
+        if not chunked_upload:
+            chunked_upload = get_object_or_404(self.get_queryset(),
+                                               pk=upload_id)
+
+        self.is_valid_chunked_upload(chunked_upload)
+
+        if self.do_checksum_check:
+            self.checksum_check(chunked_upload, checksum)
+
+        chunked_upload.completed()
+
+        device_codename = get_codename_from_filename(chunked_upload.filename)
         device = get_object_or_404(Device, codename=device_codename)
 
         # Check if maintainer is in device's approved maintainers list
@@ -133,8 +167,9 @@ class ChunkedBuildUpload(ChunkedUploadView):
             raise Http404
 
         try:
-            handle_chunked_build(device, uploaded_file.filename, uploaded_file, request.POST.get('md5'))
+            handle_chunked_build(device, chunked_upload, request.POST.get('md5'))
         except UploadException as exception:
+            chunked_upload.delete()
             return Response(
                 {
                     'error': str(exception),
@@ -142,6 +177,7 @@ class ChunkedBuildUpload(ChunkedUploadView):
                 },
                 status=HTTP_400_BAD_REQUEST
             )
+
         return Response(
             {
                 'message': 'Build has been uploaded for device {}!'.format(device)

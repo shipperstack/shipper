@@ -133,7 +133,7 @@ class ChunkedBuildUpload(ChunkedUploadView):
             raise Http404
 
         try:
-            handle_chunked_build(device, uploaded_file.filename, uploaded_file.file, request.POST.get('md5'))
+            handle_chunked_build(device, uploaded_file.filename, uploaded_file, request.POST.get('md5'))
         except UploadException as exception:
             return Response(
                 {

@@ -164,44 +164,15 @@ def maintainer_api_login(request):
     )
 
 
-@api_view(["GET"])
-def maintainer_api_device_id(request):
-    codename = request.data.get("codename")
-
-    try:
-        device = Device.objects.get(codename=codename)
-    except Device.DoesNotExist:
-        return Response(
-            {
-                'error': 'invalid_codename',
-                'message': 'A device with that codename does not exist. Please try again.'
-            },
-            status=HTTP_400_BAD_REQUEST
-        )
-
-    # Check if maintainer matches device
-    if request.user not in device.maintainers.all():
-        return Response(
-            {
-                'error': 'insufficient_permissions',
-                'message': 'You are not authorized to query this device!'
-            },
-            status=HTTP_401_UNAUTHORIZED
-        )
-
-    return Response(
-        {
-            'id': device.id
-        },
-        status=HTTP_200_OK
-    )
-
-
 @csrf_exempt
 @api_view(["POST"])
 @parser_classes([MultiPartParser])
-def maintainer_api_build_upload(request, pk):
-    device = get_object_or_404(Device, pk=pk)
+def maintainer_api_build_upload(request):
+    device = Device.objects.get(codename=get_codename_from_filename(request.FILES["zip_file"].name))
+
+    # Check if device exists
+    if device is None:
+        raise Http404
 
     build_file = request.data.get("build_file")
     checksum_file = request.data.get("checksum_file")
@@ -255,6 +226,13 @@ def system_information():
         }
     )
 
+
+def get_codename_from_filename(filename):
+    try:
+        _, version, codename, build_type, variant, date = os.path.splitext(filename)[0].split('-')
+        return codename
+    except ValueError:
+        return None
 
 
 def exception_to_message(e):

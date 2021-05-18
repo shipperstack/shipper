@@ -2,5 +2,6 @@ Django
 django-cleanup
 djangorestframework
 gunicorn
+humanize
 psycopg2-binary
 sentry-sdk

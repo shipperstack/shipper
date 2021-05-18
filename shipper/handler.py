@@ -67,20 +67,26 @@ def handle_chunked_build(device, chunked_file, md5_value):
         target_md5.write(md5_file_contents)
 
     # Open target files
-    zip_file = File(open(target_file_full_path))
-    md5_file = File(open(os.path.join(settings.MEDIA_ROOT, device.codename, "{}.md5".format(chunked_file.filename))))
+    zip_file = open(target_file_full_path)
+    zip_file_wrapper = File(zip_file)
+    md5_file = open(os.path.join(settings.MEDIA_ROOT, device.codename, "{}.md5".format(chunked_file.filename)))
+    md5_file_wrapper = File(md5_file)
 
     build = Build(
         device=device,
         file_name=build_file_name,
-        size=zip_file.size,
+        size=zip_file_wrapper.size,
         version=version,
         variant=variant,
-        zip_file=zip_file,
-        md5_file=md5_file,
+        zip_file=zip_file_wrapper,
+        md5_file=md5_file_wrapper,
         sha256sum=calculate_sha256_hash(target_file_full_path),
     )
     build.save()
+
+    # Close file handles
+    zip_file.close()
+    md5_file.close()
 
     # Delete unused chunked_upload file
     chunked_file.delete()

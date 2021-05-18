@@ -12,5 +12,5 @@ urlpatterns = [
     path('maintainers/api/login/', maintainer_api_login, name='maintainer_api_login'),
     path('maintainers/api/upload/', maintainer_api_build_upload, name='maintainer_api_build_upload'),
     path('maintainers/api/chunked_upload/', ChunkedBuildUpload.as_view(), name='chunked_build_upload'),
-    path('maintainers/api/chunked_upload/<int:pk>/', ChunkedBuildUpload.as_view(), name='chunked_build_upload_detail'),
+    path('maintainers/api/chunked_upload/<int:pk>/', ChunkedBuildUpload.as_view(), name='chunkedupload-detail'),
 ]

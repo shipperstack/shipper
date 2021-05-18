@@ -67,9 +67,9 @@ def handle_chunked_build(device, chunked_file, md5_value):
         target_md5.write(md5_file_contents)
 
     # Open target files
-    zip_file = open(target_file_full_path)
+    zip_file = open(target_file_full_path, "rb")
     zip_file_wrapper = File(zip_file)
-    md5_file = open(os.path.join(settings.MEDIA_ROOT, device.codename, "{}.md5".format(chunked_file.filename)))
+    md5_file = open("{}.md5".format(target_file_full_path), "r")
     md5_file_wrapper = File(md5_file)
 
     build = Build(

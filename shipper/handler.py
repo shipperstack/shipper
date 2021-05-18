@@ -77,7 +77,8 @@ def handle_chunked_build(device, chunked_file, md5_value):
     build.save()
 
     # Delete unused chunked_upload file
-    chunked_file.delete()
+    # TODO: FIX RECURSION BUG
+    # chunked_file.delete()
 
 
 def file_name_validity_check(device, build_file_name, build_type, codename, variant):

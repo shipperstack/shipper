@@ -9,6 +9,7 @@ urlpatterns = [
     path('maintainers/device/<int:pkd>/build/<int:pk>/', BuildDetailView.as_view(), name='build_detail'),
     path('maintainers/device/<int:pkd>/build/<int:pk>/delete/', BuildDeleteView.as_view(), name='build_delete'),
     path('maintainers/device/<int:pk>/upload/', build_upload, name='build_upload'),
+    path('maintainers/api/system/', system_information, name='system_information'),
     path('maintainers/api/login/', maintainer_api_login, name='maintainer_api_login'),
     path('maintainers/api/device/id/', maintainer_api_device_id, name='maintainer_api_device_id'),
     path('maintainers/api/device/<int:pk>/upload/', maintainer_api_build_upload, name='maintainer_api_build_upload'),

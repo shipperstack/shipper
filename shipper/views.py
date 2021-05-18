@@ -13,6 +13,7 @@ from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND, HTTP
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser
 
+from config.settings import SHIPPER_VERSION
 from .models import *
 from .forms import *
 from .handler import *
@@ -242,6 +243,18 @@ def maintainer_api_build_upload(request, pk):
         },
         status=HTTP_200_OK
     )
+
+
+@csrf_exempt
+@api_view(["GET"])
+@permission_classes((AllowAny,))
+def system_information():
+    return Response(
+        {
+            'version': SHIPPER_VERSION
+        }
+    )
+
 
 
 def exception_to_message(e):

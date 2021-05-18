@@ -28,6 +28,7 @@
         <thead>
         <tr>
             <th scope="col">Builds</th>
+            <th scope="col">Size</th>
             <th scope="col">Download</th>
         </tr>
         </thead>
@@ -35,6 +36,7 @@
             {% for build in object.get_all_gapps_build_objects %}
             <tr>
                     <td title="{{ build }}">{{ build.get_user_friendly_name }}</td>
+                    <td title="{{ build.size }} bytes">{{ build.get_human_readable_size }}</td>
                     <td>
                             <a href="{{ build.zip_file.url }}" class="btn btn-success btn-sm" title="">Download</a>
                             <a href="{{ build.md5_file.url }}" class="btn btn-link btn-sm">MD5</a>
@@ -52,13 +54,15 @@
         <thead>
         <tr>
             <th scope="col">Builds</th>
+            <th scope="col">Size</th>
             <th scope="col">Download</th>
         </tr>
         </thead>
         <tbody>
             {% for build in object.get_all_vanilla_build_objects %}
             <tr>
-                    <td>{{build}}</td>
+                    <td title="{{ build }}">{{ build.get_user_friendly_name }}</td>
+                    <td title="{{ build.size }} bytes">{{ build.get_human_readable_size }}</td>
                     <td>
                             <a href="{{ build.zip_file.url }}" class="btn btn-success btn-sm" title="">Download</a>
                             <a href="{{ build.md5_file.url }}" class="btn btn-link btn-sm">MD5</a>
@@ -76,13 +80,15 @@
         <thead>
         <tr>
             <th scope="col">Builds</th>
+            <th scope="col">Size</th>
             <th scope="col">Download</th>
         </tr>
         </thead>
         <tbody>
             {% for build in object.get_all_foss_build_objects %}
             <tr>
-                    <td>{{build}}</td>
+                    <td title="{{ build }}">{{ build.get_user_friendly_name }}</td>
+                    <td title="{{ build.size }} bytes">{{ build.get_human_readable_size }}</td>
                     <td>
                             <a href="{{ build.zip_file.url }}" class="btn btn-success btn-sm" title="">Download</a>
                             <a href="{{ build.md5_file.url }}" class="btn btn-link btn-sm">MD5</a>
@@ -100,13 +106,15 @@
         <thead>
         <tr>
             <th scope="col">Builds</th>
+            <th scope="col">Size</th>
             <th scope="col">Download</th>
         </tr>
         </thead>
         <tbody>
             {% for build in object.get_all_goapps_build_objects %}
             <tr>
-                    <td>{{build}}</td>
+                    <td title="{{ build }}">{{ build.get_user_friendly_name }}</td>
+                    <td title="{{ build.size }} bytes">{{ build.get_human_readable_size }}</td>
                     <td>
                             <a href="{{ build.zip_file.url }}" class="btn btn-success btn-sm" title="">Download</a>
                             <a href="{{ build.md5_file.url }}" class="btn btn-link btn-sm">MD5</a>

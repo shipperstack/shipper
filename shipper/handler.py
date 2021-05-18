@@ -68,9 +68,9 @@ def handle_chunked_build(device, chunked_file, md5_value):
 
     # Open target files
     zip_file = open(target_file_full_path, "rb")
-    zip_file_wrapper = File(zip_file)
+    zip_file_wrapper = File(zip_file, name=chunked_file.filename)
     md5_file = open("{}.md5".format(target_file_full_path), "r")
-    md5_file_wrapper = File(md5_file)
+    md5_file_wrapper = File(md5_file, name="{}.md5".format(chunked_file.filename))
 
     build = Build(
         device=device,

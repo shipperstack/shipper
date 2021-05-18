@@ -1,25 +1,23 @@
+from django.contrib.auth import authenticate
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, DetailView, DeleteView
-from django.contrib.auth import authenticate
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.decorators import login_required
-from drf_chunked_upload.models import ChunkedUpload
 from drf_chunked_upload.views import ChunkedUploadView
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes, parser_classes
-from rest_framework.permissions import AllowAny
-from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND, HTTP_200_OK, HTTP_401_UNAUTHORIZED
-from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser
+from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
+from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND, HTTP_200_OK, HTTP_401_UNAUTHORIZED
 
 from config.settings import SHIPPER_VERSION
-from .models import *
 from .forms import *
 from .handler import *
-from .exceptions import *
+from .models import *
 
 
 class DownloadsView(ListView):
@@ -127,14 +125,15 @@ def build_upload(request, pk):
 
 class ChunkedBuildUpload(ChunkedUploadView):
     def on_completion(self, uploaded_file, request):
-        device = get_object_or_404(Device, codename=get_codename_from_filename(uploaded_file.name))
+        device_codename = get_codename_from_filename(uploaded_file.filename)
+        device = get_object_or_404(Device, codename=device_codename)
 
         # Check if maintainer is in device's approved maintainers list
         if self.request.user not in device.maintainers.all():
             raise Http404
 
         try:
-            handle_build(device, uploaded_file, md5_file=None, md5_value=request.POST.get('md5'))
+            handle_chunked_build(device, uploaded_file.filename, uploaded_file.file, request.POST.get('md5'))
         except UploadException as exception:
             return Response(
                 {

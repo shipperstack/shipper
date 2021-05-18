@@ -1,12 +1,15 @@
 import hashlib
 import os
+
+from django.core.files import File
+
 from config import settings
 
 from .models import Build
 from .exceptions import *
 
 
-def handle_build(device, zip_file, md5_file, md5_value=None):
+def handle_build(device, zip_file, md5_file):
     # Confirm file names of build and checksum files match
     checksum_file_name, checksum_file_ext = os.path.splitext(md5_file.name)
     if zip_file.name != checksum_file_name:
@@ -18,6 +21,71 @@ def handle_build(device, zip_file, md5_file, md5_value=None):
     except ValueError:
         raise UploadException('invalid_file_name')
 
+    file_name_validity_check(device, build_file_name, build_type, codename, variant)
+
+    # See if a file exists from a previous failed attempt
+    if os.path.exists(os.path.join(settings.MEDIA_ROOT, device.codename, zip_file.name)):
+        os.remove(os.path.join(settings.MEDIA_ROOT, device.codename, zip_file.name))
+    if os.path.exists(os.path.join(settings.MEDIA_ROOT, device.codename, md5_file.name)):
+        os.remove(os.path.join(settings.MEDIA_ROOT, device.codename, md5_file.name))
+
+    build = Build(
+        device=device,
+        file_name=build_file_name,
+        size=zip_file.size,
+        version=version,
+        variant=variant,
+        zip_file=zip_file,
+        md5_file=md5_file,
+        sha256sum=calculate_sha256_hash(os.path.join(settings.MEDIA_ROOT, device.codename, zip_file.name))
+    )
+    build.save()
+
+
+def handle_chunked_build(device, target_file_name, chunked_file, md5_value):
+    build_file_name, build_file_ext = os.path.splitext(target_file_name)
+    try:
+        _, version, codename, build_type, variant, date = build_file_name.split('-')
+    except ValueError:
+        raise UploadException('invalid_file_name')
+
+    file_name_validity_check(device, build_file_name, build_type, codename, variant)
+
+    target_file_full_path = os.path.join(settings.MEDIA_ROOT, device.codename, target_file_name)
+
+    # See if the build exists from a previous failed attempt
+    if os.path.exists(target_file_full_path):
+        os.remove(target_file_full_path)
+
+    # Rename chunked file and move to correct folder
+    os.rename(chunked_file.file.path, target_file_full_path)
+
+    # Generate MD5 file
+    md5_file_contents = "{}  {}".format(md5_value, target_file_name)
+    with open(os.path.join(settings.MEDIA_ROOT, device.codename, "{}.md5".format(target_file_name)), 'w') as target_md5:
+        target_md5.write(md5_file_contents)
+
+    # Open target files
+    zip_file = File(open(target_file_full_path))
+    md5_file = File(open(os.path.join(settings.MEDIA_ROOT, device.codename, "{}.md5".format(target_file_name))))
+
+    build = Build(
+        device=device,
+        file_name=build_file_name,
+        size=zip_file.size,
+        version=version,
+        variant=variant,
+        zip_file=zip_file,
+        md5_file=md5_file,
+        sha256sum=calculate_sha256_hash(target_file_full_path),
+    )
+    build.save()
+
+    # Delete unused chunked_upload file
+    chunked_file.delete()
+
+
+def file_name_validity_check(device, build_file_name, build_type, codename, variant):
     if build_type != "OFFICIAL":
         raise UploadException('not_official')
 
@@ -27,43 +95,14 @@ def handle_build(device, zip_file, md5_file, md5_value=None):
     if Build.objects.filter(file_name=build_file_name).count() >= 1:
         raise UploadException('duplicate_build')
 
-    # See if a file exists from a previous failed attempt
-    if os.path.exists(os.path.join(settings.MEDIA_ROOT, device.codename, zip_file.name)):
-        os.remove(os.path.join(settings.MEDIA_ROOT, device.codename, zip_file.name))
-
-    if os.path.exists(os.path.join(settings.MEDIA_ROOT, device.codename, md5_file.name)):
-        os.remove(os.path.join(settings.MEDIA_ROOT, device.codename, md5_file.name))
-
     if variant not in ["gapps", "vanilla", "foss", "goapps"]:
         raise UploadException('invalid_file_name')
 
-    build = Build(
-        device=device,
-        file_name=build_file_name,
-        size=zip_file.size,
-        version=version,
-        variant=variant,
-        zip_file=zip_file,
-        md5_file=md5_file
-    )
 
-    # Save the files FIRST
-    build.save()
-
-    # If the files were uploaded using chunked upload, then we need to manually create an MD5 file
-    if md5_file is None:
-        # Generate string
-        md5_file_contents = "{}  {}".format(md5_value, zip_file.name)
-        with open(os.path.join(settings.MEDIA_ROOT, device.codename, "{}.md5".format(zip_file.name)), 'w')\
-                as target_md5:
-            target_md5.write(md5_file_contents)
-
-    # Process SHA256
+def calculate_sha256_hash(file_full_path):
     sha256sum = hashlib.sha256()
-    with open(os.path.join(settings.MEDIA_ROOT, device.codename, zip_file.name), 'rb') as destination:
+    with open(file_full_path, 'rb') as destination:
         # Read and update hash string value in blocks of 4K
         for byte_block in iter(lambda: destination.read(4096), b""):
             sha256sum.update(byte_block)
-    build.sha256sum = sha256sum.hexdigest()
-
-    build.save()
+    return sha256sum.hexdigest()

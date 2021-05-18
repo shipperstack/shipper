@@ -1,8 +1,6 @@
 import hashlib
 import os
 
-from django.core.files import File
-
 from config import settings
 
 from .models import Build
@@ -66,27 +64,17 @@ def handle_chunked_build(device, chunked_file, md5_value):
             as target_md5:
         target_md5.write(md5_file_contents)
 
-    # Open target files
-    zip_file = open(target_file_full_path, "rb")
-    zip_file_wrapper = File(zip_file, name=chunked_file.filename)
-    md5_file = open("{}.md5".format(target_file_full_path), "r")
-    md5_file_wrapper = File(md5_file, name="{}.md5".format(chunked_file.filename))
-
     build = Build(
         device=device,
         file_name=build_file_name,
-        size=zip_file_wrapper.size,
+        size=os.path.getsize(target_file_full_path),
         version=version,
         variant=variant,
-        zip_file=zip_file_wrapper,
-        md5_file=md5_file_wrapper,
+        zip_file="{}/{}".format(device.codename, chunked_file.filename),
+        md5_file="{}/{}.md5".format(device.codename, chunked_file.filename),
         sha256sum=calculate_sha256_hash(target_file_full_path),
     )
     build.save()
-
-    # Close file handles
-    zip_file.close()
-    md5_file.close()
 
     # Delete unused chunked_upload file
     chunked_file.delete()

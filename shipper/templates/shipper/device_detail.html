@@ -4,9 +4,9 @@
 
 {% block content %}
 
-    <div class="row align-items-center ml-2 mt-2 mb-2">
-        <h3 class="mr-2 my-auto" style="display: inline">{{ object }}</h3>
-        <a href="{% url 'build_upload' pk=object.id %}" class="btn btn-success btn-sm my-auto">Upload new build</a>
+    <div class="container">
+        <h3>{{ object }}</h3>
+        <a href="{% url 'build_upload' pk=object.id %}" class="btn btn-success btn-sm">Upload new build</a>
     </div>
 
     <table class="table">

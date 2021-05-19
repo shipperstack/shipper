@@ -5,7 +5,7 @@
 {% block content %}
 
     <div class="container">
-        <h3>{{ object }}</h3>
+        <h3 style="display: inline-block">{{ object }}</h3>
         <a href="{% url 'build_upload' pk=object.id %}" class="btn btn-success btn-sm">Upload new build</a>
     </div>
 

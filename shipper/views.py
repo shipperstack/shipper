@@ -26,6 +26,8 @@ class DownloadsView(ListView):
     template_name = 'shipper/downloads.html'
     model = Device
 
+    ordering = ['-status', 'manufacturer', 'name']
+
     def get(self, request, *args, **kwargs):
         self.extra_context = {
             'main_website_url': settings.MAIN_WEBSITE_URL,
@@ -53,6 +55,8 @@ class DownloadsDeviceView(DetailView):
 class MaintainerDashboardView(LoginRequiredMixin, ListView):
     template_name = 'shipper/maintainer_dashboard.html'
     model = Device
+
+    ordering = ['-status', 'manufacturer', 'name']
 
     # Override devices shown to maintainers
     def get_queryset(self):

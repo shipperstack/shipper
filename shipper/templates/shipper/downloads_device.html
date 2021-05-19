@@ -8,124 +8,126 @@
 
     <!-- Device maintenance check -->
     {% if object.status == False %}
-    <div class="alert alert-warning" role="alert">
-        <h4 class="alert-heading">Warning</h4>
-        <p class="mb-0">This device is no longer supported, and things may break at any time. Download at your own risk!</p>
-    </div>
+        <div class="alert alert-warning" role="alert">
+            <h4 class="alert-heading">Warning</h4>
+            <p class="mb-0">This device is no longer supported, and things may break at any time. Download at your own
+                risk!</p>
+        </div>
     {% endif %}
 
     <!-- Donation alert -->
     {% if downloads_page_donation_url != "#" %}
-    <div class="alert alert-secondary">
-        Please <a href="{{ downloads_page_donation_url }}" class="alert-link">consider donating</a> to support the team. Thank you!
-    </div>
+        <div class="alert alert-secondary">
+            Please <a href="{{ downloads_page_donation_url }}" class="alert-link">consider donating</a> to support the
+            team. Thank you!
+        </div>
     {% endif %}
 
     <!-- GApps section -->
     {% if object.has_gapps_builds %}
-    <h2>GApps build downloads </h2>
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Builds</th>
-            <th scope="col">Size</th>
-            <th scope="col">Download</th>
-        </tr>
-        </thead>
-        <tbody>
-            {% for build in object.get_all_gapps_build_objects %}
+        <h2>GApps build downloads </h2>
+        <table class="table">
+            <thead>
             <tr>
+                <th scope="col">Builds</th>
+                <th scope="col">Size</th>
+                <th scope="col">Download</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for build in object.get_all_gapps_build_objects %}
+                <tr>
                     <td title="{{ build }}">{{ build.get_user_friendly_name }}</td>
                     <td title="{{ build.size }} bytes">{{ build.get_human_readable_size }}</td>
                     <td>
-                            <a href="{{ build.zip_file.url }}" class="btn btn-success btn-sm" title="">Download</a>
-                            <a href="{{ build.md5_file.url }}" class="btn btn-link btn-sm">MD5</a>
+                        <a href="{{ build.zip_file.url }}" class="btn btn-success btn-sm" title="">Download</a>
+                        <a href="{{ build.md5_file.url }}" class="btn btn-link btn-sm">MD5</a>
                     </td>
-            </tr>
+                </tr>
             {% endfor %}
-        </tbody>
-    </table>
+            </tbody>
+        </table>
     {% endif %}
 
     <!-- Vanilla section -->
     {% if object.has_vanilla_builds %}
-    <h2>Vanilla (no GApps) build downloads </h2>
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Builds</th>
-            <th scope="col">Size</th>
-            <th scope="col">Download</th>
-        </tr>
-        </thead>
-        <tbody>
-            {% for build in object.get_all_vanilla_build_objects %}
+        <h2>Vanilla (no GApps) build downloads </h2>
+        <table class="table">
+            <thead>
             <tr>
+                <th scope="col">Builds</th>
+                <th scope="col">Size</th>
+                <th scope="col">Download</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for build in object.get_all_vanilla_build_objects %}
+                <tr>
                     <td title="{{ build }}">{{ build.get_user_friendly_name }}</td>
                     <td title="{{ build.size }} bytes">{{ build.get_human_readable_size }}</td>
                     <td>
-                            <a href="{{ build.zip_file.url }}" class="btn btn-success btn-sm" title="">Download</a>
-                            <a href="{{ build.md5_file.url }}" class="btn btn-link btn-sm">MD5</a>
+                        <a href="{{ build.zip_file.url }}" class="btn btn-success btn-sm" title="">Download</a>
+                        <a href="{{ build.md5_file.url }}" class="btn btn-link btn-sm">MD5</a>
                     </td>
-            </tr>
+                </tr>
             {% endfor %}
-        </tbody>
-    </table>
+            </tbody>
+        </table>
     {% endif %}
 
     <!-- FOSS section -->
     {% if object.has_foss_builds %}
-    <h2>FOSS build downloads </h2>
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Builds</th>
-            <th scope="col">Size</th>
-            <th scope="col">Download</th>
-        </tr>
-        </thead>
-        <tbody>
-            {% for build in object.get_all_foss_build_objects %}
+        <h2>FOSS build downloads </h2>
+        <table class="table">
+            <thead>
             <tr>
+                <th scope="col">Builds</th>
+                <th scope="col">Size</th>
+                <th scope="col">Download</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for build in object.get_all_foss_build_objects %}
+                <tr>
                     <td title="{{ build }}">{{ build.get_user_friendly_name }}</td>
                     <td title="{{ build.size }} bytes">{{ build.get_human_readable_size }}</td>
                     <td>
-                            <a href="{{ build.zip_file.url }}" class="btn btn-success btn-sm" title="">Download</a>
-                            <a href="{{ build.md5_file.url }}" class="btn btn-link btn-sm">MD5</a>
+                        <a href="{{ build.zip_file.url }}" class="btn btn-success btn-sm" title="">Download</a>
+                        <a href="{{ build.md5_file.url }}" class="btn btn-link btn-sm">MD5</a>
                     </td>
-            </tr>
+                </tr>
             {% endfor %}
-        </tbody>
-    </table>
+            </tbody>
+        </table>
     {% endif %}
 
     <!-- GoApps section -->
     {% if object.has_goapps_builds %}
-    <h2>GoApps (Android Go Edition GApps) build downloads </h2>
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Builds</th>
-            <th scope="col">Size</th>
-            <th scope="col">Download</th>
-        </tr>
-        </thead>
-        <tbody>
-            {% for build in object.get_all_goapps_build_objects %}
+        <h2>GoApps (Android Go Edition GApps) build downloads </h2>
+        <table class="table">
+            <thead>
             <tr>
+                <th scope="col">Builds</th>
+                <th scope="col">Size</th>
+                <th scope="col">Download</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for build in object.get_all_goapps_build_objects %}
+                <tr>
                     <td title="{{ build }}">{{ build.get_user_friendly_name }}</td>
                     <td title="{{ build.size }} bytes">{{ build.get_human_readable_size }}</td>
                     <td>
-                            <a href="{{ build.zip_file.url }}" class="btn btn-success btn-sm" title="">Download</a>
-                            <a href="{{ build.md5_file.url }}" class="btn btn-link btn-sm">MD5</a>
+                        <a href="{{ build.zip_file.url }}" class="btn btn-success btn-sm" title="">Download</a>
+                        <a href="{{ build.md5_file.url }}" class="btn btn-link btn-sm">MD5</a>
                     </td>
-            </tr>
+                </tr>
             {% endfor %}
-        </tbody>
-    </table>
+            </tbody>
+        </table>
     {% endif %}
 
     {% if not object.has_builds %}
-    <h2>Sorry, this device currently has no builds. Check back later!</h2>
+        <h2>Sorry, this device currently has no builds. Check back later!</h2>
     {% endif %}
 {% endblock %}

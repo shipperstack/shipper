@@ -3,12 +3,14 @@
 {% block title %}Confirm Deletion{% endblock %}
 
 {% block content %}
-<h1>Delete Build?</h1>
+    <h1>Delete Build?</h1>
 
-<form action="" method="post">
-    {% csrf_token %}
-    <div class="alert alert-danger">Are you sure you want to delete the build "{{object}}"? This is not reversible!</div>
-    <input type="submit" value="Delete" class="btn btn-danger">
-</form>
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="alert alert-danger">Are you sure you want to delete the build "{{ object }}"? This is not
+            reversible!
+        </div>
+        <input type="submit" value="Delete" class="btn btn-danger">
+    </form>
 
 {% endblock %}

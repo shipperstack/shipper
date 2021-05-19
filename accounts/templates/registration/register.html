@@ -3,18 +3,20 @@
 {% block title %}Register{% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col-md-2"></div>
-    <div class="col-md-8 panel panel-default">
-        <div class="alert alert-info">Create a new maintainer account.</div>
-        <div class="alert alert-danger">If you did not file a maintainer application or if you were not accepted as a maintainer please do not fill out this form.</div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8 panel panel-default">
+            <div class="alert alert-info">Create a new maintainer account.</div>
+            <div class="alert alert-danger">If you did not file a maintainer application or if you were not accepted as
+                a maintainer please do not fill out this form.
+            </div>
 
-        <form action="" method="post">
-            {{form.as_p}}
-            {% csrf_token %}
-            <input class="btn btn-primary" type="submit" value="Create Account">
-        </form>
+            <form action="" method="post">
+                {{ form.as_p }}
+                {% csrf_token %}
+                <input class="btn btn-primary" type="submit" value="Create Account">
+            </form>
+        </div>
+        <div class="col-md-2"></div>
     </div>
-    <div class="col-md-2"></div>
-</div>
 {% endblock %}

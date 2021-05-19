@@ -11,22 +11,24 @@
         <div class="alert alert-success">Your build was successfully uploaded!</div>
     {% elif upload_succeeded == False %}
         <div class="alert alert-warning">
-        {% if error_reason == 'invalid_form' %}
-            The form is invalid!
-        {% elif error_reason == 'file_name_mismatch' %}
-            The build file and the checksum file names do not match!
-        {% elif error_reason == 'not_official' %}
-            The build is not official!
-        {% elif error_reason == 'invalid_file_name' %}
-            The build file name was malformed. Do not change the build file name after compilation.
-        {% elif error_reason == 'codename_mismatch' %}
-            The device codename does not match the build codename. Are you sure you meant to upload for {{ device }}?
-        {% elif error_reason == 'duplicate_build' %}
-            The build already exists in the system!
-        {% else %}
-            An undefined error occurred and there was a problem uploading your build. Please contact the administrators.
-            Error reason: {{ error_reason }}
-        {% endif %}
+            {% if error_reason == 'invalid_form' %}
+                The form is invalid!
+            {% elif error_reason == 'file_name_mismatch' %}
+                The build file and the checksum file names do not match!
+            {% elif error_reason == 'not_official' %}
+                The build is not official!
+            {% elif error_reason == 'invalid_file_name' %}
+                The build file name was malformed. Do not change the build file name after compilation.
+            {% elif error_reason == 'codename_mismatch' %}
+                The device codename does not match the build codename. Are you sure you meant to upload for {{ device }}
+                ?
+            {% elif error_reason == 'duplicate_build' %}
+                The build already exists in the system!
+            {% else %}
+                An undefined error occurred and there was a problem uploading your build. Please contact the
+                administrators.
+                Error reason: {{ error_reason }}
+            {% endif %}
         </div>
     {% endif %}
 
@@ -34,14 +36,17 @@
 
     <!-- Upload notice with shippy -->
     <div class="alert alert-dark" role="alert">
-    <p>We strongly recommend <a href="https://github.com/ericswpark/shippy" class="alert-link">using shippy</a> to upload your builds.
-        Here's how!</p>
-    <hr>
-    <ol class="mb-0">
-        <li>Install shippy on your system with <code>pip3 install shipper-shippy</code>.</li>
-        <li>Navigate to the directory with your build artifacts and run <code>shippy</code>.</li>
-        <li>shippy will ask you your details. When prompted for the server URL, type <code>{{ request.scheme }}://{{ request.get_host }}</code>.</li>
-    </ol>
+        <p>We strongly recommend <a href="https://github.com/ericswpark/shippy" class="alert-link">using shippy</a> to
+            upload your builds.
+            Here's how!</p>
+        <hr>
+        <ol class="mb-0">
+            <li>Install shippy on your system with <code>pip3 install shipper-shippy</code>.</li>
+            <li>Navigate to the directory with your build artifacts and run <code>shippy</code>.</li>
+            <li>shippy will ask you your details. When prompted for the server URL, type
+                <code>{{ request.scheme }}://{{ request.get_host }}</code>.
+            </li>
+        </ol>
     </div>
 
     <form action="" method="post" enctype="multipart/form-data">
@@ -50,7 +55,7 @@
 
         <div class="progress">
             <div class="progress-bar progress-bar-striped active" role="progressbar"
-            aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                 aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
             </div>
         </div>
 
@@ -64,7 +69,7 @@
     </form>
 
     <br>
-    
+
     <script>
         $(':button').on('click', function () {
             // Disable button
@@ -96,7 +101,7 @@
                 success: function (response) {
                     $("html").html(response);
                 },
-                error: function(response) {
+                error: function (response) {
                     $("html").html(response.responseText);
                 }
             });

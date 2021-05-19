@@ -19,14 +19,14 @@
         </tr>
         </thead>
         <tbody>
-            {% for build in object.builds.all %}
+        {% for build in object.builds.all %}
             <tr>
                 <td>{{ build.file_name }}</td>
                 <td title="{{ build.size }} bytes">{{ build.get_human_readable_size }}</td>
                 <td>{{ build.variant }}</td>
                 <td><a href="{% url 'build_delete' pk=build.id %}" class="btn btn-danger btn-sm">Delete</a></td>
             </tr>
-            {% endfor %}
+        {% endfor %}
         </tbody>
     </table>
 {% endblock %}

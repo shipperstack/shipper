@@ -14,7 +14,13 @@
             {% for device in object_list %}
             <tr>
                 {% if device.has_builds %}
-                    <td><a href="download/{{ device.codename }}/">{{device}}</a></td>
+                    {% if device.status %}
+                        <td><a href="download/{{ device.codename }}/">{{device}}</a></td>
+                    {% else %}
+                        <td class="text-reset text-decoration-line-through" title="This device is no longer supported.">
+                            <a class="text-reset text-decoration-line-through" href="download/{{ device.codename }}/">{{device}}</a>
+                        </td>
+                    {% endif %}
                     <td>
                         {% if device.has_gapps_builds %}
                             <a href="{{ device.get_latest_gapps_build_object.zip_file.url }}" class="btn btn-primary btn-sm" title="">GApps</a>

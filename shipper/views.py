@@ -56,11 +56,9 @@ class MaintainerDashboardView(LoginRequiredMixin, ListView):
     template_name = 'shipper/maintainer_dashboard.html'
     model = Device
 
-    ordering = ['-status', 'manufacturer', 'name']
-
     # Override devices shown to maintainers
     def get_queryset(self):
-        return Device.objects.filter(maintainers=self.request.user)
+        return Device.objects.filter(maintainers=self.request.user).order_by('-status', 'manufacturer', 'name')
 
 
 class DeviceDetailView(LoginRequiredMixin, DetailView):

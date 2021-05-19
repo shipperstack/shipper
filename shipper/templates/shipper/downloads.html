@@ -4,50 +4,60 @@
 
 {% block content %}
     <div class="container">
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Device</th>
-            <th scope="col">Download Latest</th>
-        </tr>
-        </thead>
-        <tbody>
-            {% for device in object_list %}
+        <table class="table">
+            <thead>
             <tr>
-                {% if device.has_builds %}
-                    {% if device.status %}
-                        <td><a href="download/{{ device.codename }}/">{{device}}</a></td>
-                    {% else %}
-                        <td class="text-reset text-decoration-line-through" title="This device is no longer supported.">
-                            <a class="text-reset text-decoration-line-through" href="download/{{ device.codename }}/">{{device}}</a>
+                <th scope="col">Device</th>
+                <th scope="col">Download Latest</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for device in object_list %}
+                <tr>
+                    {% if device.has_builds %}
+                        {% if device.status %}
+                            <td><a href="download/{{ device.codename }}/">{{ device }}</a></td>
+                        {% else %}
+                            <td class="text-reset text-decoration-line-through"
+                                title="This device is no longer supported.">
+                                <a class="text-reset text-decoration-line-through"
+                                   href="download/{{ device.codename }}/">{{ device }}</a>
+                            </td>
+                        {% endif %}
+                        <td>
+                            {% if device.has_gapps_builds %}
+                                <a href="{{ device.get_latest_gapps_build_object.zip_file.url }}"
+                                   class="btn btn-primary btn-sm" title="">GApps</a>
+                                <a href="{{ device.get_latest_gapps_build_object.md5_file.url }}"
+                                   class="btn btn-link btn-sm">MD5</a>
+                                <br>
+                            {% endif %}
+                            {% if device.has_vanilla_builds %}
+                                <a href="{{ device.get_latest_vanilla_build_object.zip_file.url }}"
+                                   class="btn btn-secondary btn-sm">Non-GApps</a>
+                                <a href="{{ device.get_latest_vanilla_build_object.md5_file.url }}"
+                                   class="btn btn-link btn-sm">MD5</a>
+                                <br>
+                            {% endif %}
+                            {% if device.has_foss_builds %}
+                                <a href="{{ device.get_latest_foss_build_object.zip_file.url }}"
+                                   class="btn btn-warning btn-sm">FOSS</a>
+                                <a href="{{ device.get_latest_foss_build_object.md5_file.url }}"
+                                   class="btn btn-link btn-sm">MD5</a>
+                                <br>
+                            {% endif %}
+                            {% if device.has_goapps_builds %}
+                                <a href="{{ device.get_latest_goapps_build_object.zip_file.url }}"
+                                   class="btn btn-dark btn-sm">Go Apps</a>
+                                <a href="{{ device.get_latest_goapps_build_object.md5_file.url }}"
+                                   class="btn btn-link btn-sm">MD5</a>
+                                <br>
+                            {% endif %}
                         </td>
                     {% endif %}
-                    <td>
-                        {% if device.has_gapps_builds %}
-                            <a href="{{ device.get_latest_gapps_build_object.zip_file.url }}" class="btn btn-primary btn-sm" title="">GApps</a>
-                            <a href="{{ device.get_latest_gapps_build_object.md5_file.url }}" class="btn btn-link btn-sm">MD5</a>
-                            <br>
-                        {% endif %}
-                        {% if device.has_vanilla_builds %}
-                            <a href="{{ device.get_latest_vanilla_build_object.zip_file.url }}" class="btn btn-secondary btn-sm">Non-GApps</a>
-                            <a href="{{ device.get_latest_vanilla_build_object.md5_file.url }}" class="btn btn-link btn-sm">MD5</a>
-                            <br>
-                        {% endif %}
-                        {% if device.has_foss_builds %}
-                            <a href="{{ device.get_latest_foss_build_object.zip_file.url }}" class="btn btn-warning btn-sm">FOSS</a>
-                            <a href="{{ device.get_latest_foss_build_object.md5_file.url }}" class="btn btn-link btn-sm">MD5</a>
-                            <br>
-                        {% endif %}
-                        {% if device.has_goapps_builds %}
-                            <a href="{{ device.get_latest_goapps_build_object.zip_file.url }}" class="btn btn-dark btn-sm">Go Apps</a>
-                            <a href="{{ device.get_latest_goapps_build_object.md5_file.url }}" class="btn btn-link btn-sm">MD5</a>
-                            <br>
-                        {% endif %}
-                    </td>
-                {% endif %}
-            </tr>
+                </tr>
             {% endfor %}
-        </tbody>
-    </table>
+            </tbody>
+        </table>
     </div>
 {% endblock %}

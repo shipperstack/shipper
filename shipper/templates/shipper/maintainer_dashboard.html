@@ -13,8 +13,15 @@
         <tbody>
             {% for device in object_list %}
             <tr>
-                <td><a href="{% url 'device_detail' pk=device.id %}">{{device}}</a></td>
-                <td><a href="{% url 'build_upload' pk=device.id %}" class="btn btn-success btn-sm">Upload new build</a></td>
+                {% if device.status %}
+                    <td><a href="{% url 'device_detail' pk=device.id %}">{{ device }}</a></td>
+                {% else %}
+                    <td class="text-reset text-decoration-line-through"><a
+                            class="text-reset text-decoration-line-through"
+                            href="{% url 'device_detail' pk=device.id %}">{{ device }}</a></td>
+                {% endif %}
+                <td><a href="{% url 'build_upload' pk=device.id %}" class="btn btn-success btn-sm">Upload new build</a>
+                </td>
             </tr>
             {% endfor %}
         </tbody>

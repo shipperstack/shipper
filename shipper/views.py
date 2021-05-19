@@ -41,7 +41,7 @@ class DownloadsDeviceView(DetailView):
     model = Device
 
     def get_object(self, queryset=None):
-        return Device.objects.get(codename=self.kwargs.get("codename"))
+        return get_object_or_404(Device, codename=self.kwargs.get("codename"))
 
     def get(self, request, *args, **kwargs):
         self.extra_context = {

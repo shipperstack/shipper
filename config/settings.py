@@ -31,7 +31,6 @@ DOWNLOADS_PAGE_DONATION_URL = os.environ.get("DOWNLOADS_PAGE_DONATION_URL", defa
 SHIPPER_INTERNAL_PASSWORD = os.environ.get("SHIPPER_INTERNAL_PASSWORD")
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',

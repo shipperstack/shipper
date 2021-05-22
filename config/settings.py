@@ -17,16 +17,16 @@ from sentry_sdk.integrations.django import DjangoIntegration
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = os.environ.get("SECRET_KEY")
-DEBUG = int(os.environ.get("DEBUG", default=0))
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
+SECRET_KEY = os.environ.get("SHIPPER_SECRET_KEY")
+DEBUG = int(os.environ.get("SHIPPER_DEBUG", default=0))
+ALLOWED_HOSTS = os.environ.get("SHIPPER_ALLOWED_HOSTS").split(" ")
 
 with open("version.txt") as v_file:
     SHIPPER_VERSION = v_file.read().rstrip()
 
-MAIN_WEBSITE_URL = os.environ.get("MAIN_WEBSITE_URL", default="")
-DOWNLOADS_PAGE_MAIN_BRANDING = os.environ.get("DOWNLOADS_PAGE_MAIN_BRANDING", default="Downloads")
-DOWNLOADS_PAGE_DONATION_URL = os.environ.get("DOWNLOADS_PAGE_DONATION_URL", default="#")
+MAIN_WEBSITE_URL = os.environ.get("SHIPPER_MAIN_WEBSITE_URL", default="")
+DOWNLOADS_PAGE_MAIN_BRANDING = os.environ.get("SHIPPER_DOWNLOADS_PAGE_MAIN_BRANDING", default="Downloads")
+DOWNLOADS_PAGE_DONATION_URL = os.environ.get("SHIPPER_DOWNLOADS_PAGE_DONATION_URL", default="#")
 
 SHIPPER_INTERNAL_PASSWORD = os.environ.get("SHIPPER_INTERNAL_PASSWORD")
 
@@ -83,12 +83,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': os.environ.get("SQL_ENGINE", default='django.db.backends.sqlite3'),
-        'NAME': os.environ.get("SQL_DATABASE", default=os.path.join(BASE_DIR, 'db.sqlite3')),
-        'USER': os.environ.get("SQL_USER", default="user"),
-        'PASSWORD': os.environ.get("SQL_PASSWORD", default="password"),
-        'HOST': os.environ.get("SQL_HOST", default="localhost"),
-        'PORT': os.environ.get("SQL_PORT", default="5432"),
+        'ENGINE': os.environ.get("SHIPPER_SQL_ENGINE", default='django.db.backends.sqlite3'),
+        'NAME': os.environ.get("SHIPPER_SQL_DATABASE", default=os.path.join(BASE_DIR, 'db.sqlite3')),
+        'USER': os.environ.get("SHIPPER_SQL_USER", default="user"),
+        'PASSWORD': os.environ.get("SHIPPER_SQL_PASSWORD", default="password"),
+        'HOST': os.environ.get("SHIPPER_SQL_HOST", default="localhost"),
+        'PORT': os.environ.get("SHIPPER_SQL_PORT", default="5432"),
     }
 }
 
@@ -171,10 +171,10 @@ def before_send(event, hint):
 
 
 sentry_sdk.init(
-    dsn=os.environ.get("SENTRY_SDK_DSN", default=""),
+    dsn=os.environ.get("SHIPPER_SENTRY_SDK_DSN", default=""),
     integrations=[DjangoIntegration()],
     release="{}".format(SHIPPER_VERSION),
     traces_sample_rate=1.0,
-    send_default_pii=os.environ.get("SENTRY_SDK_PII", default=False),
+    send_default_pii=os.environ.get("SHIPPER_SENTRY_SDK_PII", default=False),
     before_send=before_send,
 )

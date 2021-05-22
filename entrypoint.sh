@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ "$DATABASE" = "postgres" ]
+if [ "$SHIPPER_SQL_ENGINE" = "django.db.backends.postgresql" ]
 then
     echo "Waiting for postgres..."
 

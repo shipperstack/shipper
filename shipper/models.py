@@ -100,6 +100,10 @@ class Build(models.Model):
         max_length=20,
         help_text="One of the following variants: gapps, vanilla, goapps, foss"
     )
+    backed_up = models.BooleanField(
+        default=False,
+        help_text="Indicates whether the build has been backed up to Sourceforge, if the option is enabled."
+    )
 
     created = models.DateTimeField(auto_now_add=True, editable=False)
 

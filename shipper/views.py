@@ -30,8 +30,8 @@ class DownloadsView(ListView):
 
     def get(self, request, *args, **kwargs):
         self.extra_context = {
-            'main_website_url': settings.MAIN_WEBSITE_URL,
-            'downloads_page_main_branding': settings.DOWNLOADS_PAGE_MAIN_BRANDING
+            'main_website_url': settings.SHIPPER_MAIN_WEBSITE_URL,
+            'downloads_page_main_branding': settings.SHIPPER_DOWNLOADS_PAGE_MAIN_BRANDING
         }
         return super().get(request, *args, **kwargs)
 
@@ -45,9 +45,9 @@ class DownloadsDeviceView(DetailView):
 
     def get(self, request, *args, **kwargs):
         self.extra_context = {
-            'main_website_url': settings.MAIN_WEBSITE_URL,
-            'downloads_page_main_branding': settings.DOWNLOADS_PAGE_MAIN_BRANDING,
-            'downloads_page_donation_url': settings.DOWNLOADS_PAGE_DONATION_URL
+            'main_website_url': settings.SHIPPER_MAIN_WEBSITE_URL,
+            'downloads_page_main_branding': settings.SHIPPER_DOWNLOADS_PAGE_MAIN_BRANDING,
+            'downloads_page_donation_url': settings.SHIPPER_DOWNLOADS_PAGE_DONATION_URL
         }
         return super().get(request, *args, **kwargs)
 

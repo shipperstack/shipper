@@ -24,9 +24,9 @@ ALLOWED_HOSTS = os.environ.get("SHIPPER_ALLOWED_HOSTS").split(" ")
 with open("version.txt") as v_file:
     SHIPPER_VERSION = v_file.read().rstrip()
 
-MAIN_WEBSITE_URL = os.environ.get("SHIPPER_MAIN_WEBSITE_URL", default="")
-DOWNLOADS_PAGE_MAIN_BRANDING = os.environ.get("SHIPPER_DOWNLOADS_PAGE_MAIN_BRANDING", default="Downloads")
-DOWNLOADS_PAGE_DONATION_URL = os.environ.get("SHIPPER_DOWNLOADS_PAGE_DONATION_URL", default="#")
+SHIPPER_MAIN_WEBSITE_URL = os.environ.get("SHIPPER_MAIN_WEBSITE_URL", default="")
+SHIPPER_DOWNLOADS_PAGE_MAIN_BRANDING = os.environ.get("SHIPPER_DOWNLOADS_PAGE_MAIN_BRANDING", default="Downloads")
+SHIPPER_DOWNLOADS_PAGE_DONATION_URL = os.environ.get("SHIPPER_DOWNLOADS_PAGE_DONATION_URL", default="#")
 
 SHIPPER_INTERNAL_PASSWORD = os.environ.get("SHIPPER_INTERNAL_PASSWORD")
 

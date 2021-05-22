@@ -36,6 +36,7 @@ SHIPPER_INTERNAL_PASSWORD = os.environ.get("SHIPPER_INTERNAL_PASSWORD")
 SHIPPER_ENABLE_SF_BACKUP = int(os.environ.get("SHIPPER_ENABLE_SF_BACKUP", default=0))
 SHIPPER_SF_USERNAME = os.environ.get("SHIPPER_SF_USERNAME", default="")
 SHIPPER_SF_PRIVATE_KEY = os.environ.get("SHIPPER_SF_PRIVATE_KEY", default="")
+SHIPPER_SF_PATH = os.environ.get("SHIPPER_SF_PATH", default="")
 
 
 # Application definition

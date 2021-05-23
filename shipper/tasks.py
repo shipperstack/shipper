@@ -25,4 +25,3 @@ def backup_build(build):
 
     build.backed_up = True
     build.save()
-

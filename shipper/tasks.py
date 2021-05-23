@@ -20,6 +20,11 @@ def backup_build(build):
             )
         )
 
+        if not sftp.exists(build.device.codename):
+            sftp.mkdir(build.device.codename)
+
+        sftp.cwd(build.device.codename)
+
         sftp.put(os.path.join(settings.MEDIA_ROOT, build.zip_file))
         sftp.put(os.path.join(settings.MEDIA_ROOT, build.md5_file))
 

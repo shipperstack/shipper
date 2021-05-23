@@ -31,6 +31,8 @@ services:
       - 9200:80
     depends_on:
       - web
+  rabbitmq:
+    image: rabbitmq:3.8.16-alpine
 
 volumes:
   postgres_data:

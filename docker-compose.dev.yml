@@ -31,6 +31,17 @@ services:
       - 9200:80
     depends_on:
       - web
+  celery:
+    restart: always
+    build:
+      context: .
+    command: celery -A shipper worker -l info
+    env_file:
+      - ./.env
+    depends_on:
+      - db
+      - rabbitmq
+      - web
   rabbitmq:
     image: rabbitmq:3.8.16-alpine
 

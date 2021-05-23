@@ -170,6 +170,10 @@ DRF_CHUNKED_UPLOAD_COMPLETE_EXT = ''
 DRF_CHUNKED_UPLOAD_ABSTRACT_MODEL = False
 DRF_CHUNKED_UPLOAD_MAX_BYTES = 2_500_000_000   # 2.5GB
 
+# Celery
+CELERY_BROKER_URL = "pyampq://"
+CELERY_TASK_TIME_LIMIT = 60 * 2     # 2 minutes
+
 
 # Sentry SDK
 def before_send(event, hint):

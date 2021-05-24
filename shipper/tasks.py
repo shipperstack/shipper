@@ -19,6 +19,10 @@ def backup_build(build_id):
         print("SourceForge backups are disabled. Not backing up the build. Exiting...")
         return
 
+    # Check if a previous run has already completed a backup
+    if build.backed_up:
+        return
+
     keydata = b"""AAAAB3NzaC1yc2EAAAABIwAAAQEA2uifHZbNexw6cXbyg1JnzDitL5VhYs0E65Hk/tLAPmcmm5GuiGeUoI
 /B0eUSNFsbqzwgwrttjnzKMKiGLN5CWVmlN1IXGGAfLYsQwK6wAu7kYFzkqP4jcwc5Jr9UPRpJdYIK733tSEmzab4qc5Oq8izKQKIaxXNe7FgmL15HjSpatF
 t9w/ot/CHS78FUAr3j3RwekHCm/jhPeqhlMAgC+jUgNJbFt3DlhDaRMa0NYamVzmX8D47rtmBbEDU3ld6AezWBPUR5Lh7ODOwlfVI58NAf/aYNlmvl2TZiau
@@ -55,6 +59,10 @@ BCTa7OPYSyXJnIPbQXg6YQlDknNCr0K769EjeIlAfY87Z4tw=="""
 @shared_task
 def generate_sha256(build_id):
     build = Build.objects.get(id=build_id)
+
+    # Check if this task has already been run
+    if build.sha256sum != '':
+        return
 
     sha256sum = hashlib.sha256()
     with open(os.path.join(settings.MEDIA_ROOT, build.zip_file.name), 'rb') as destination:

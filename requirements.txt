@@ -6,4 +6,5 @@ drf-chunked-upload==0.5.0a2
 gunicorn
 humanize
 psycopg2-binary
+pysftp
 sentry-sdk

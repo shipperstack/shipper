@@ -5,6 +5,7 @@ from config import settings
 
 from .models import Build
 from .exceptions import *
+from .tasks import backup_build
 
 
 def handle_build(device, zip_file, md5_file):
@@ -38,6 +39,9 @@ def handle_build(device, zip_file, md5_file):
         sha256sum=calculate_sha256_hash(os.path.join(settings.MEDIA_ROOT, device.codename, zip_file.name))
     )
     build.save()
+
+    # Call delayed backup command
+    backup_build(build)
 
 
 def handle_chunked_build(device, chunked_file, md5_value):
@@ -78,6 +82,9 @@ def handle_chunked_build(device, chunked_file, md5_value):
 
     # Delete unused chunked_upload file
     chunked_file.delete()
+
+    # Call delayed backup command
+    backup_build(build)
 
 
 def file_name_validity_check(device, build_file_name, build_type, codename, variant):

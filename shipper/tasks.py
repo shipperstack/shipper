@@ -57,7 +57,7 @@ def generate_sha256(build_id):
     build = Build.objects.get(id=build_id)
 
     sha256sum = hashlib.sha256()
-    with open(build.zip_file, 'rb') as destination:
+    with open(build.zip_file.name, 'rb') as destination:
         # Read and update hash string value in blocks of 4K
         for byte_block in iter(lambda: destination.read(4096), b""):
             sha256sum.update(byte_block)

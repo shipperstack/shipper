@@ -13,6 +13,7 @@ def backup_build(build_id):
 
     # Check if backup is enabled
     if settings.SHIPPER_ENABLE_SF_BACKUP != 1:
+        print("SourceForge backups are disabled. Not backing up the build. Exiting...")
         return
 
     with pysftp.Connection(

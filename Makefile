@@ -1,7 +1,7 @@
 .PHONY: usage up down restart setup dup ddown drestart dsetup
 
 usage:
-	echo "Use up/down/restart for production, dup/ddown/drestart for develpment"
+	echo "Use up/down/restart for production, dup/ddown/drestart for development"
 
 up:
 	docker-compose up -d

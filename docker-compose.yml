@@ -63,7 +63,7 @@ services:
     image: rabbitmq:3.8.16-alpine
   flower:
     image: mher/flower
-    command: flower --broker=pyamqp://rabbitmq:5672/ --port=5555
+    command: flower --broker=pyamqp://rabbitmq:5672/ --port=5555 --purge_offline_workers
     depends_on:
       - rabbitmq
 

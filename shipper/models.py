@@ -34,46 +34,46 @@ class Device(models.Model):
             return self.photo
 
     def has_gapps_builds(self):
-        return self.builds.filter(variant="gapps").count() > 0
+        return self.builds.filter(variant="gapps").exclude(sha256sum__exact='').count() > 0
 
     def has_vanilla_builds(self):
-        return self.builds.filter(variant="vanilla").count() > 0
+        return self.builds.filter(variant="vanilla").exclude(sha256sum__exact='').count() > 0
 
     def has_foss_builds(self):
-        return self.builds.filter(variant="foss").count() > 0
+        return self.builds.filter(variant="foss").exclude(sha256sum__exact='').count() > 0
 
     def has_goapps_builds(self):
-        return self.builds.filter(variant="goapps").count() > 0
+        return self.builds.filter(variant="goapps").exclude(sha256sum__exact='').count() > 0
 
     def has_builds(self):
         return self.builds.count() > 0
 
     def get_latest_gapps_build_object(self):
-        return self.builds.filter(variant="gapps").latest('id')
+        return self.builds.filter(variant="gapps").exclude(sha256sum__exact='').latest('id')
 
     def get_latest_vanilla_build_object(self):
-        return self.builds.filter(variant="vanilla").latest('id')
+        return self.builds.filter(variant="vanilla").exclude(sha256sum__exact='').latest('id')
 
     def get_latest_foss_build_object(self):
-        return self.builds.filter(variant="foss").latest('id')
+        return self.builds.filter(variant="foss").exclude(sha256sum__exact='').latest('id')
 
     def get_latest_goapps_build_object(self):
-        return self.builds.filter(variant="goapps").latest('id')
+        return self.builds.filter(variant="goapps").exclude(sha256sum__exact='').latest('id')
 
     def get_all_build_objects(self):
         return self.builds.all()
 
     def get_all_gapps_build_objects(self):
-        return self.builds.filter(variant="gapps").all().order_by('created')
+        return self.builds.filter(variant="gapps").exclude(sha256sum__exact='').all().order_by('created')
 
     def get_all_vanilla_build_objects(self):
-        return self.builds.filter(variant="vanilla").all().order_by('created')
+        return self.builds.filter(variant="vanilla").exclude(sha256sum__exact='').all().order_by('created')
 
     def get_all_foss_build_objects(self):
-        return self.builds.filter(variant="foss").all().order_by('created')
+        return self.builds.filter(variant="foss").exclude(sha256sum__exact='').all().order_by('created')
 
     def get_all_goapps_build_objects(self):
-        return self.builds.filter(variant="goapps").all().order_by('created')
+        return self.builds.filter(variant="goapps").exclude(sha256sum__exact='').all().order_by('created')
 
 
 # Build Model

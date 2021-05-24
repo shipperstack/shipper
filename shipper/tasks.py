@@ -45,8 +45,8 @@ BCTa7OPYSyXJnIPbQXg6YQlDknNCr0K769EjeIlAfY87Z4tw=="""
 
         sftp.cwd(build.device.codename)
 
-        sftp.put(os.path.join(settings.MEDIA_ROOT, build.zip_file))
-        sftp.put(os.path.join(settings.MEDIA_ROOT, build.md5_file))
+        sftp.put(os.path.join(settings.MEDIA_ROOT, build.zip_file.name))
+        sftp.put(os.path.join(settings.MEDIA_ROOT, build.md5_file.name))
 
     build.backed_up = True
     build.save()

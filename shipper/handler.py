@@ -52,6 +52,10 @@ def handle_chunked_build(device, chunked_file, md5_value):
     if os.path.exists(target_file_full_path):
         os.remove(target_file_full_path)
 
+    # Make sure device codename folder exists
+    if not os.path.exists(os.path.join(settings.MEDIA_ROOT, device.codename)):
+        os.mkdir(os.path.join(settings.MEDIA_ROOT, device.codename))
+
     # Rename chunked file and move to correct folder
     os.rename(chunked_file.file.path, target_file_full_path)
 

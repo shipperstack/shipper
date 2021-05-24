@@ -46,7 +46,7 @@ class Device(models.Model):
         return self.builds.filter(variant="goapps").exclude(sha256sum__exact='').count() > 0
 
     def has_builds(self):
-        return self.builds.count() > 0
+        return self.builds.exclude(sha256sum__exact='').count() > 0
 
     def get_latest_gapps_build_object(self):
         return self.builds.filter(variant="gapps").exclude(sha256sum__exact='').latest('id')
@@ -61,7 +61,7 @@ class Device(models.Model):
         return self.builds.filter(variant="goapps").exclude(sha256sum__exact='').latest('id')
 
     def get_all_build_objects(self):
-        return self.builds.all()
+        return self.builds.exclude(sha256sum__exact='').all()
 
     def get_all_gapps_build_objects(self):
         return self.builds.filter(variant="gapps").exclude(sha256sum__exact='').all().order_by('created')

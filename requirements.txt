@@ -1,5 +1,7 @@
 Celery
 Django
+django-celery-beat
+django-celery-results
 django-cleanup
 djangorestframework
 drf-chunked-upload==0.5.0a2

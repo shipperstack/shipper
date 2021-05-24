@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     'shipper',
     'api',
     'drf_chunked_upload',
+    'django_celery_beat',
+    'django_celery_results',
     'django_cleanup.apps.CleanupConfig',  # must be last in order for successful deletions
 ]
 
@@ -165,14 +167,18 @@ REST_FRAMEWORK = {
     }
 }
 
+
 # drf-chunked-upload
 DRF_CHUNKED_UPLOAD_COMPLETE_EXT = ''
 DRF_CHUNKED_UPLOAD_ABSTRACT_MODEL = False
 DRF_CHUNKED_UPLOAD_MAX_BYTES = 2_500_000_000   # 2.5GB
 
+
 # Celery
 CELERY_BROKER_URL = "pyamqp://"
 CELERY_TASK_TIME_LIMIT = 60 * 2     # 2 minutes
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_RESULT_CACHE = 'django-cache'
 
 
 # Sentry SDK

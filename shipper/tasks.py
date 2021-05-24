@@ -1,3 +1,4 @@
+import hashlib
 import os
 import pysftp
 
@@ -33,4 +34,15 @@ def backup_build(build):
         sftp.put(os.path.join(settings.MEDIA_ROOT, build.md5_file))
 
     build.backed_up = True
+    build.save()
+
+
+@shared_task
+def generate_sha256(build):
+    sha256sum = hashlib.sha256()
+    with open(build.zip_file, 'rb') as destination:
+        # Read and update hash string value in blocks of 4K
+        for byte_block in iter(lambda: destination.read(4096), b""):
+            sha256sum.update(byte_block)
+    build.sha256sum = sha256sum.hexdigest()
     build.save()

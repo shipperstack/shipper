@@ -1,11 +1,6 @@
-import hashlib
-import os
-
-from config import settings
-
 from .models import Build
 from .exceptions import *
-from .tasks import backup_build
+from .tasks import *
 
 
 def handle_build(device, zip_file, md5_file):
@@ -36,11 +31,11 @@ def handle_build(device, zip_file, md5_file):
         variant=variant,
         zip_file=zip_file,
         md5_file=md5_file,
-        sha256sum=calculate_sha256_hash(os.path.join(settings.MEDIA_ROOT, device.codename, zip_file.name))
     )
     build.save()
 
-    # Call delayed backup command
+    # Execute background tasks
+    generate_sha256(build)
     backup_build(build)
 
 
@@ -76,14 +71,14 @@ def handle_chunked_build(device, chunked_file, md5_value):
         variant=variant,
         zip_file="{}/{}".format(device.codename, chunked_file.filename),
         md5_file="{}/{}.md5".format(device.codename, chunked_file.filename),
-        sha256sum=calculate_sha256_hash(target_file_full_path),
     )
     build.save()
 
     # Delete unused chunked_upload file
     chunked_file.delete()
 
-    # Call delayed backup command
+    # Execute background tasks
+    generate_sha256(build)
     backup_build(build)
 
 
@@ -99,12 +94,3 @@ def file_name_validity_check(device, build_file_name, build_type, codename, vari
 
     if variant not in ["gapps", "vanilla", "foss", "goapps"]:
         raise UploadException('invalid_file_name')
-
-
-def calculate_sha256_hash(file_full_path):
-    sha256sum = hashlib.sha256()
-    with open(file_full_path, 'rb') as destination:
-        # Read and update hash string value in blocks of 4K
-        for byte_block in iter(lambda: destination.read(4096), b""):
-            sha256sum.update(byte_block)
-    return sha256sum.hexdigest()

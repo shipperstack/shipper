@@ -4,10 +4,13 @@ import pysftp
 
 from celery import shared_task
 from config import settings
+from shipper.models import Build
 
 
 @shared_task
-def backup_build(build):
+def backup_build(build_id):
+    build = Build.objects.get(id=build_id)
+
     # Check if backup is enabled
     if settings.SHIPPER_ENABLE_SF_BACKUP != 1:
         return
@@ -38,7 +41,9 @@ def backup_build(build):
 
 
 @shared_task
-def generate_sha256(build):
+def generate_sha256(build_id):
+    build = Build.objects.get(id=build_id)
+
     sha256sum = hashlib.sha256()
     with open(build.zip_file, 'rb') as destination:
         # Read and update hash string value in blocks of 4K

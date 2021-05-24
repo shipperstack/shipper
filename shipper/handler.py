@@ -1,4 +1,3 @@
-from .models import Build
 from .exceptions import *
 from .tasks import *
 
@@ -35,7 +34,7 @@ def handle_build(device, zip_file, md5_file):
     build.save()
 
     # Execute background tasks
-    build_background_processing(build)
+    build_background_processing(build.id)
 
 
 def handle_chunked_build(device, chunked_file, md5_value):
@@ -77,12 +76,12 @@ def handle_chunked_build(device, chunked_file, md5_value):
     chunked_file.delete()
 
     # Execute background tasks
-    build_background_processing(build)
+    build_background_processing(build.id)
 
 
-def build_background_processing(build):
-    generate_sha256.delay(build)
-    backup_build.delay(build)
+def build_background_processing(build_id):
+    generate_sha256.delay(build_id)
+    backup_build.delay(build_id)
 
 
 def file_name_validity_check(device, build_file_name, build_type, codename, variant):

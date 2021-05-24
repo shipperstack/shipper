@@ -7,6 +7,10 @@ from config import settings
 
 @shared_task
 def backup_build(build):
+    # Check if backup is enabled
+    if settings.SHIPPER_ENABLE_SF_BACKUP != 1:
+        return
+
     with pysftp.Connection(
             host="frs.sourceforge.net",
             username=settings.SHIPPER_SF_USERNAME,

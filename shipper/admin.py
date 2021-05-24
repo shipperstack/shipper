@@ -12,7 +12,7 @@ class CustomUserAdmin(UserAdmin):
 class DeviceAdmin(admin.ModelAdmin):
     list_display = ['id', 'manufacturer', 'name', 'codename', 'get_maintainers', 'status', 'created']
     search_fields = ['name', 'codename', 'manufacturer']
-    ordering = ['-created']
+    ordering = ['-status', 'manufacturer', 'name']
 
     def get_maintainers(self, obj):
         return ",".join([maintainer.username for maintainer in obj.maintainers.all()])

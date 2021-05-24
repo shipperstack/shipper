@@ -24,6 +24,19 @@ def memcache_lock(lock_id, oid):
             cache.delete(lock_id)
 
 
+@shared_task
+def process_incomplete_builds():
+    builds = Build.objects.filter(sha256sum__exact='')
+
+    for build in builds:
+        generate_sha256.delay(build.id)
+
+    builds = Build.objects.filter(backed_up=False)
+
+    for build in builds:
+        backup_build.delay(build.id)
+
+
 # noinspection SpellCheckingInspection
 @shared_task(bind=True)
 def backup_build(self, build_id):

@@ -37,7 +37,6 @@ BCTa7OPYSyXJnIPbQXg6YQlDknNCr0K769EjeIlAfY87Z4tw=="""
             os.path.join(
                 '/home/frs/project/',
                 settings.SHIPPER_SF_PATH,
-                build.device.codename
             )
         )
 

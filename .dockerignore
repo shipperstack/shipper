@@ -1,0 +1,16 @@
+.github
+nginx
+ssh
+venv
+.env
+.env.db
+.env.example
+.env.db.example
+.gitignore
+db.sqlite3
+docker-compose.dev.yml
+docker-compose.yml
+Dockerfile
+Makefile
+README.md
+SECURITY.md

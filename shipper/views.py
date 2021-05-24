@@ -166,7 +166,14 @@ class ChunkedBuildUpload(ChunkedUploadView):
 
         # Check if maintainer is in device's approved maintainers list
         if self.request.user not in device.maintainers.all():
-            raise Http404
+            chunked_upload.delete()
+            return Response(
+                {
+                    'error': 'insufficient_permissions',
+                    'message': 'You are not authorized to upload for this device!'
+                },
+                status=HTTP_401_UNAUTHORIZED
+            )
 
         try:
             handle_chunked_build(device, chunked_upload, request.POST.get('md5'))

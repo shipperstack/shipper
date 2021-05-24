@@ -37,6 +37,9 @@ services:
     build:
       context: .
     command: celery -A shipper worker -l info
+    volumes:
+      - media_volume:/home/shipper/web/media
+      - ./ssh/:/home/shipper/ssh
     env_file:
       - ./.env
     depends_on:
@@ -48,6 +51,9 @@ services:
     build:
       context: .
     command: celery -A shipper beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    volumes:
+      - media_volume:/home/shipper/web/media
+      - ./ssh/:/home/shipper/ssh
     env_file:
       - ./.env
     depends_on:

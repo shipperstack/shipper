@@ -6,8 +6,12 @@ from .models import *
 
 
 class CustomUserAdmin(UserAdmin):
-    list_display = ['username', 'is_active', 'email', 'last_login', 'is_staff', 'is_superuser']
+    list_display = ['username', 'is_active', 'email', 'last_login', 'get_devices', 'is_staff', 'is_superuser']
     ordering = ['-last_login']
+
+    def get_devices(self, obj):
+        return [device.codename for device in Device.objects.filter(maintainers=obj)]
+    get_devices.short_description = 'Devices'
 
 
 class DeviceAdmin(admin.ModelAdmin):

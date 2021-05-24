@@ -26,8 +26,12 @@ class DeviceAdmin(admin.ModelAdmin):
 
 class BuildAdmin(admin.ModelAdmin):
     list_display = ['id', 'file_name', 'get_device_name', 'size', 'version', 'variant', 'get_build_device_maintainers',
-                    'backed_up', 'created']
+                    'is_processed', 'backed_up', 'created']
     ordering = ['-created']
+
+    def is_processed(self, obj):
+        return obj.sha256sum != ''
+    is_processed.short_description = 'Processed'
 
     def get_device_name(self, obj):
         return str(obj.device)

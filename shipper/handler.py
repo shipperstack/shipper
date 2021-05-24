@@ -35,8 +35,7 @@ def handle_build(device, zip_file, md5_file):
     build.save()
 
     # Execute background tasks
-    generate_sha256(build)
-    backup_build(build)
+    build_background_processing(build)
 
 
 def handle_chunked_build(device, chunked_file, md5_value):
@@ -78,8 +77,12 @@ def handle_chunked_build(device, chunked_file, md5_value):
     chunked_file.delete()
 
     # Execute background tasks
-    generate_sha256(build)
-    backup_build(build)
+    build_background_processing(build)
+
+
+def build_background_processing(build):
+    generate_sha256.delay(build)
+    backup_build.delay(build)
 
 
 def file_name_validity_check(device, build_file_name, build_type, codename, variant):

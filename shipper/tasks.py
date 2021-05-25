@@ -7,6 +7,7 @@ import paramiko
 import pysftp
 from celery import shared_task
 from django.core.cache import cache
+from django.db import transaction
 from paramiko.py3compat import decodebytes
 
 from config import settings
@@ -85,8 +86,11 @@ def backup_build(self, build_id):
                 sftp.put(os.path.join(settings.MEDIA_ROOT, build.zip_file.name))
                 sftp.put(os.path.join(settings.MEDIA_ROOT, build.md5_file.name))
 
-            build.backed_up = True
-            build.save()
+            # Fetch build one more time and lock until save completes
+            with transaction.atomic():
+                build = Build.objects.select_for_update().get(id=build_id)
+                build.backed_up = True
+                build.save()
         else:
             print("Build {} is already being uploaded by another process, exiting!".format(build.file_name))
 
@@ -105,5 +109,9 @@ def generate_sha256(build_id):
         # Read and update hash string value in blocks of 4K
         for byte_block in iter(lambda: destination.read(4096), b""):
             sha256sum.update(byte_block)
-    build.sha256sum = sha256sum.hexdigest()
-    build.save()
+
+    # Fetch build one more time and lock until save completes
+    with transaction.atomic():
+        build = Build.objects.select_for_update().get(id=build_id)
+        build.sha256sum = sha256sum.hexdigest()
+        build.save()

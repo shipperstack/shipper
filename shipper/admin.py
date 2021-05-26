@@ -35,6 +35,10 @@ class BuildAdmin(admin.ModelAdmin):
     is_processed.boolean = True
 
     def is_backed_up(self, obj):
+        # Check if all mirrors are disabled
+        if MirrorServer.objects.filter(enabled=True).count() == 0:
+            return False
+
         return all(mirror in obj.mirrored_on.all() for mirror in list(MirrorServer.objects.filter(enabled=True)))
     is_backed_up.short_description = 'Backed Up'
     is_backed_up.boolean = True

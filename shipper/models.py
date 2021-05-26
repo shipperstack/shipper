@@ -147,6 +147,14 @@ class MirrorServer(models.Model):
                   'be shown to users in the mirror list. Make sure to set the URL base field above if you enable this '
                   'option!',
     )
+    priority = models.IntegerField(
+        default=10,
+        blank=False,
+        help_text='Sets the priority of the mirror in the mirror list. Lower values will be listed first, and higher '
+                  'values will be listed last.<br>'
+                  'Note: the main server does not have a priority value and will always be the first in the mirror '
+                  'list.'
+    )
 
     def __str__(self):
         return self.name

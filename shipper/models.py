@@ -119,7 +119,7 @@ class MirrorServer(models.Model):
                   'Example: /home/frs/project/example/R/, /mnt/media/mirror/src/target/R/, etc.'
     )
     enabled = models.BooleanField(
-        default=False,
+        default=True,
         help_text='Whether this mirror instance is enabled or not. If disabled, builds will not be mirrored until '
                   'the mirror instance is enabled again and a background refresh task runs.'
     )

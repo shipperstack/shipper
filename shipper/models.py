@@ -122,6 +122,13 @@ class MirrorServer(models.Model):
         help_text='Path to upload to on the server.<br>'
                   'Example: /home/frs/project/example/R/, /mnt/media/mirror/src/target/R/, etc.',
     )
+    download_url_base = models.TextField(
+        max_length=100,
+        verbose_name='Download URL base',
+        help_text='Base of downloads URL, should a download URL exist.<br>'
+                  'Example: if full URL to download is https://downloads.example.com/R/bullhead/Bliss-v14-bullhead'
+                  '-OFFICIAL-gapps-20200608.zip, then the base URL is https://downloads.example.com/R/',
+    )
     enabled = models.BooleanField(
         default=True,
         help_text='Whether this mirror instance is enabled or not. If disabled, builds will not be mirrored until '

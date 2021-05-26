@@ -127,8 +127,9 @@ class MirrorServer(models.Model):
         verbose_name='Download URL base',
         blank=True,
         help_text='Base of downloads URL, should a download URL exist.<br>'
-                  'Example: if full URL to download is https://downloads.example.com/R/bullhead/Bliss-v14-bullhead'
-                  '-OFFICIAL-gapps-20200608.zip, then the base URL is https://downloads.example.com/R/',
+                  'Example: if full URL to download is https://sourceforge.net/projects/blissroms-shipper-demo/files'
+                  '/Q/sunfish/Bliss-v14.2-sunfish-OFFICIAL-gapps-20210425.zip/download, then the base URL is '
+                  'https://sourceforge.net/projects/blissroms-shipper-demo/files/Q/{}/download',
     )
     enabled = models.BooleanField(
         default=True,

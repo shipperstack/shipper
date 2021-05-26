@@ -92,14 +92,14 @@ class MirrorServer(models.Model):
     )
     ssh_host_fingerprint_type = models.TextField(
         max_length=20,
-        help_text='SSH host fingerprint type.<br>'
+        help_text='SSH host fingerprint type. Get this with <code>ssh-keyscan hostname</code>.<br>'
                   'Example: ssh-rsa, etc.',
         verbose_name='SSH host fingerprint type',
         blank=False,
     )
     ssh_host_fingerprint = models.TextField(
         max_length=1000,
-        help_text='SSH host fingerprint.',
+        help_text='SSH host fingerprint. Get this with <code>ssh-keyscan hostname</code>.',
         verbose_name='SSH host fingerprint',
         blank=False,
     )

@@ -13,27 +13,31 @@ from rest_framework.status import HTTP_401_UNAUTHORIZED, HTTP_400_BAD_REQUEST, H
 from shipper.models import *
 
 
-def v1_updater_los(request, codename, gapps):
+def v1_updater_los(request, codename, variant):
     device = get_object_or_404(Device, codename=codename)
 
-    if gapps == "gapps":
-        builds = device.get_all_gapps_build_objects()
-    elif gapps == "vanilla":
-        builds = device.get_all_vanilla_build_objects()
-    else:
+    if variant not in ["gapps", "vanilla", "foss", "goapps"]:
         raise Http404("Wrong parameter. Try with the correct parameters.")
+
+    if variant == "gapps":
+        builds = device.get_all_gapps_build_objects()
+    elif variant == "vanilla":
+        builds = device.get_all_vanilla_build_objects()
+    elif variant == "foss":
+        builds = device.get_all_foss_build_objects()
+    elif variant == "goapps":
+        builds = device.get_all_goapps_build_objects()
+    else:
+        builds = None
 
     # Check if list is empty and return a 404
     if not builds:
-        if gapps == "gapps":
-            raise Http404("No GApps builds exist for this device yet!")
-        elif gapps == "vanilla":
-            raise Http404("No non-GApps builds exist for this device yet!")
+        raise Http404("No builds exist for the specified variant yet!")
 
     return_json = []
 
     for build in builds:
-        _, version, codename, build_type, gapps_raw, date = build.file_name.split('-')
+        _, version, codename, build_type, variant, date = build.file_name.split('-')
 
         date = parse_build_date(date)
 
@@ -43,7 +47,7 @@ def v1_updater_los(request, codename, gapps):
             "id": build.sha256sum,      # WHY
             "size": build.size,
             "version": build.version,
-            "variant": gapps,
+            "variant": variant,
             "url": "https://" + request.get_host() + build.zip_file.url,
             "md5url": "https://" + request.get_host() + build.md5_file.url
         })
@@ -51,23 +55,31 @@ def v1_updater_los(request, codename, gapps):
     return HttpResponse(json.dumps({"response": return_json}), content_type='application/json')
 
 
-def v2_updater_device(request, codename, gapps):
+def v2_updater_device(request, codename, variant):
     device = get_object_or_404(Device, codename=codename)
 
-    if gapps == "gapps":
-        try:
-            build = device.get_latest_gapps_build_object()
-        except Build.DoesNotExist:
-            raise Http404("No GApps builds exist for this device yet!")
-    elif gapps == "vanilla":
-        try:
-            build = device.get_latest_vanilla_build_object()
-        except Build.DoesNotExist:
-            raise Http404("No non-GApps builds exist for this device yet!")
-    else:
+    if variant not in ["gapps", "vanilla", "foss", "goapps"]:
         raise Http404("Wrong parameter. Try with the correct parameters.")
 
-    _, version, codename, build_type, gapps_raw, date = build.file_name.split('-')
+    try:
+        if variant == "gapps":
+            build = device.get_latest_gapps_build_object()
+        elif variant == "vanilla":
+            build = device.get_latest_vanilla_build_object()
+        elif variant == "foss":
+            build = device.get_latest_foss_build_object()
+        elif variant == "goapps":
+            build = device.get_latest_goapps_build_object()
+        else:
+            build = None
+    except Build.DoesNotExist:
+        raise Http404("No builds exist for the specified variant yet!")
+
+    # Check to make sure build isn't None
+    if not build:
+        raise Http404("No builds exist for the specified variant yet!")
+
+    _, version, _, _, _, date = build.file_name.split('-')
 
     date = parse_build_date(date)
 

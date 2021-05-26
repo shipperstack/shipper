@@ -132,8 +132,8 @@ class MirrorServer(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = "Mirror Server"
-        verbose_name_plural = "Mirror Servers"
+        verbose_name = "mirror server"
+        verbose_name_plural = "mirror servers"
 
 
 # Build Model

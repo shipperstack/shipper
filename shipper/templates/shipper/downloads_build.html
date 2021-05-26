@@ -1,0 +1,51 @@
+{% extends 'user_base.html' %}
+
+{% block title %}Downloads for {{ object }}{% endblock %}
+
+{% block content %}
+    <h1>Downloads for {{ object }}</h1>
+    <br>
+
+    <!-- Donation alert -->
+    {% if downloads_page_donation_url != "#" %}
+        <div class="alert alert-secondary">
+            Please <a href="{{ downloads_page_donation_url }}" class="alert-link">consider donating</a> to support the
+            team. Thank you!
+        </div>
+    {% endif %}
+
+    <div class="container">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Server</th>
+                <th scope="col">Description</th>
+                <th scope="col">Download</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Main</td>
+                <td>Download builds from the main website.</td>
+                <td><a href="{{ object.zip_file.url }}"
+                                   class="btn btn-success btn-sm" title="">Download</a>
+                    <a href="{{ object.md5_file.url }}"
+                                   class="btn btn-link btn-sm">MD5</a>
+                </td>
+            </tr>
+
+{#            {% for mirror in object__mirrored_on %}#}
+{#                <td>{{ mirror.name }}</td>#}
+{#                <td>{{ mirror.description }}</td>#}
+{#                <td><a href="{{ object.zip_file.url }}"#}
+{#                                   class="btn btn-success btn-sm" title="">GApps</a>#}
+{#                    <a href="{{ object.md5_file.url }}"#}
+{#                                   class="btn btn-link btn-sm">MD5</a>#}
+{#                </td>#}
+{#            {% endfor %}#}
+            </tbody>
+        </table>
+    </div>
+
+
+{% endblock %}

@@ -134,6 +134,12 @@ class MirrorServer(models.Model):
         help_text='Whether this mirror instance is enabled or not. If disabled, builds will not be mirrored until '
                   'the mirror instance is enabled again and a background refresh task runs.',
     )
+    downloadable = models.BooleanField(
+        default=False,
+        help_text='Whether downloads from this mirror instance is possible or not. If disabled, this mirror will not '
+                  'be shown to users in the mirror list. Make sure to set the URL base field above if you enable this '
+                  'option!',
+    )
 
     def __str__(self):
         return self.name

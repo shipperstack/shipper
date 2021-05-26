@@ -134,9 +134,11 @@ class Build(models.Model):
         max_length=20,
         help_text="One of the following variants: gapps, vanilla, goapps, foss"
     )
-    backed_up = models.BooleanField(
-        default=False,
-        help_text="Indicates whether the build has been backed up to Sourceforge, if the option is enabled."
+    mirrored_on = models.ManyToManyField(
+        MirrorServer,
+        related_name="mirrors",
+        help_text="Servers this build is mirrored on. Do not edit manually unless you know what you are doing!<br>",
+        blank=True,
     )
 
     created = models.DateTimeField(auto_now_add=True, editable=False)

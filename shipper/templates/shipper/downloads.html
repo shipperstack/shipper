@@ -26,31 +26,23 @@
                         {% endif %}
                         <td>
                             {% if device.has_gapps_builds %}
-                                <a href="{{ device.get_latest_gapps_build_object.zip_file.url }}"
+                                <a href="download/{{ device.codename }}/{{ device.get_latest_gapps_build_object.id }}/"
                                    class="btn btn-primary btn-sm" title="">GApps</a>
-                                <a href="{{ device.get_latest_gapps_build_object.md5_file.url }}"
-                                   class="btn btn-link btn-sm">MD5</a>
                                 <br>
                             {% endif %}
                             {% if device.has_vanilla_builds %}
-                                <a href="{{ device.get_latest_vanilla_build_object.zip_file.url }}"
+                                <a href="download/{{ device.codename }}/{{ device.get_latest_vanilla_build_object.id }}"
                                    class="btn btn-secondary btn-sm">Non-GApps</a>
-                                <a href="{{ device.get_latest_vanilla_build_object.md5_file.url }}"
-                                   class="btn btn-link btn-sm">MD5</a>
                                 <br>
                             {% endif %}
                             {% if device.has_foss_builds %}
-                                <a href="{{ device.get_latest_foss_build_object.zip_file.url }}"
+                                <a href="download/{{ device.codename }}/{{ device.get_latest_foss_build_object.id }}"
                                    class="btn btn-warning btn-sm">FOSS</a>
-                                <a href="{{ device.get_latest_foss_build_object.md5_file.url }}"
-                                   class="btn btn-link btn-sm">MD5</a>
                                 <br>
                             {% endif %}
                             {% if device.has_goapps_builds %}
-                                <a href="{{ device.get_latest_goapps_build_object.zip_file.url }}"
+                                <a href="download/{{ device.codename }}/{{ device.get_latest_goapps_build_object.id }}"
                                    class="btn btn-dark btn-sm">Go Apps</a>
-                                <a href="{{ device.get_latest_goapps_build_object.md5_file.url }}"
-                                   class="btn btn-link btn-sm">MD5</a>
                                 <br>
                             {% endif %}
                         </td>

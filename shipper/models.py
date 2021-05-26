@@ -84,6 +84,11 @@ class MirrorServer(models.Model):
                   'Example: SourceForge, Mirror A, etc.',
         blank=False,
     )
+    description = models.TextField(
+        max_length=100,
+        help_text='Description of the server. This is shown to the users on the mirror page.',
+        blank=True,
+    )
     hostname = models.TextField(
         max_length=100,
         help_text='Hostname of the server.<br>'

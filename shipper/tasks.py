@@ -42,10 +42,11 @@ def process_incomplete_builds():
 @shared_task(bind=True)
 def backup_build(self, build_id):
     build = Build.objects.get(id=build_id)
+    mirrors = MirrorServer.objects.filter(enabled=True)
 
-    # Check if backup is enabled
-    if settings.SHIPPER_ENABLE_SF_BACKUP != 1:
-        print("SourceForge backups are disabled. Not backing up the build. Exiting...")
+    # Check if there are any servers to back up to
+    if len(mirrors) == 0:
+        print("No mirror servers found to back up to. Exiting...")
         return
 
     # Check if a previous run has already completed a backup

@@ -94,6 +94,53 @@ def v2_updater_device(request, codename, variant):
     return HttpResponse(json.dumps(return_json), content_type='application/json')
 
 
+def v2_all_builds(request):
+    """Giant JSON response of ALL the builds in shipper"""
+    return_json = {}
+
+    for device in Device.objects.all():
+        device_json = []
+        builds = device.get_all_build_objects()
+
+        if not builds:
+            continue
+
+        for build in builds:
+            _, version, _, _, _, date = build.file_name.split('-')
+
+            date = parse_build_date(date)
+
+            build_json = {
+                "date": int(date.strftime("%s")),
+                "file_name": "{}.zip".format(build.file_name),
+                "sha256": build.sha256sum,
+                "size": build.size,
+                "version": build.version,
+            }
+
+            mirrors_json = [{
+                "name": "Main",
+                "description": "Download builds from the main server.",
+                "zip_download_url": "https://" + request.get_host() + build.zip_file.url,
+                "md5_download_url": "https://" + request.get_host() + build.md5_file.url,
+            }]
+
+            for mirror in build.mirrored_on.all():
+                mirrors_json.append({
+                    "name": mirror.name,
+                    "description": mirror.description,
+                    "zip_download_url": mirror.download_url_base.format(build.zip_file.name),
+                    "md5_download_url": mirror.download_url_base.format(build.md5_file.name),
+                })
+
+            build_json["mirrors"] = mirrors_json
+            device_json.append(build_json)
+
+        return_json[device.codename] = device_json
+
+    return HttpResponse(json.dumps(return_json), content_type='application/json')
+
+
 def parse_build_date(date):
     year = int(date[:4])
     month = int(date[4:-2])

@@ -8,11 +8,15 @@ from django.shortcuts import get_object_or_404
 from shipper.models import *
 
 
+def variant_check(variant):
+    if variant not in ["gapps", "vanilla", "foss", "goapps"]:
+        raise Http404("Wrong parameter. Try with the correct parameters.")
+
+
 def v1_updater_los(request, codename, variant):
     device = get_object_or_404(Device, codename=codename)
 
-    if variant not in ["gapps", "vanilla", "foss", "goapps"]:
-        raise Http404("Wrong parameter. Try with the correct parameters.")
+    variant_check(variant)
 
     if variant == "gapps":
         builds = device.get_all_gapps_build_objects()
@@ -53,9 +57,8 @@ def v1_updater_los(request, codename, variant):
 def v2_updater_device(request, codename, variant):
     device = get_object_or_404(Device, codename=codename)
 
-    if variant not in ["gapps", "vanilla", "foss", "goapps"]:
-        raise Http404("Wrong parameter. Try with the correct parameters.")
-
+    variant_check(variant)
+    
     try:
         if variant == "gapps":
             build = device.get_latest_gapps_build_object()

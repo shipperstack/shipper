@@ -60,7 +60,7 @@ def backup_build(self, build_id):
                 if mirror in build.mirrored_on.all():
                     continue
 
-                keydata = mirror.ssh_host_fingerprint
+                keydata = str.encode(mirror.ssh_host_fingerprint)
                 key = paramiko.RSAKey(data=decodebytes(keydata))
                 cnopts = pysftp.CnOpts()
                 cnopts.hostkeys.add(mirror.hostname, mirror.ssh_host_fingerprint_type, key)

@@ -3,6 +3,7 @@ import os
 import time
 from contextlib import contextmanager
 
+import humanize
 import paramiko
 import pysftp
 from celery import shared_task
@@ -78,7 +79,17 @@ def backup_build(self, build_id):
 
                     sftp.cwd(build.device.codename)
 
-                    sftp.put(os.path.join(settings.MEDIA_ROOT, build.zip_file.name))
+                    def print_progress(transferred, total):
+                        print(
+                            "{} transferred out of {} ({:.2f}%)".format(
+                                humanize.naturalsize(transferred), humanize.naturalsize(total),
+                                transferred * 100 / total
+                            ))
+
+                    sftp.put(
+                        os.path.join(settings.MEDIA_ROOT, build.zip_file.name),
+                        callback=lambda x, y: print_progress(x, y),
+                    )
                     sftp.put(os.path.join(settings.MEDIA_ROOT, build.md5_file.name))
 
                 # Fetch build one more time and lock until save completes

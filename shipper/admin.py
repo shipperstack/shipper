@@ -54,7 +54,8 @@ class BuildAdmin(admin.ModelAdmin):
 
 
 class MirrorServerAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'hostname', 'enabled']
+    list_display = ['id', 'name', 'description', 'hostname', 'enabled', 'downloadable']
+    ordering = ['-enabled', '-downloadable']
 
 
 admin.site.unregister(User)

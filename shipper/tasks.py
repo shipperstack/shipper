@@ -49,10 +49,6 @@ def backup_build(self, build_id):
         print("No mirror servers found to back up to. Exiting...")
         return
 
-    # Check if a previous run has already completed a backup
-    if build.backed_up:
-        return
-
     # Setup lock
     lock_id = '{}-lock-{}'.format(self.name, build.id)
     with memcache_lock(lock_id, self.app.oid) as acquired:

@@ -148,3 +148,6 @@ media/
 
 # Ignore SSH keys
 ssh/
+
+# Ignore nginx htpasswd file
+nginx/.htpasswd

@@ -76,6 +76,40 @@ class Device(models.Model):
         return self.builds.filter(variant="goapps").exclude(sha256sum__exact='').all().order_by('created')
 
 
+# Mirror Server Model
+class MirrorServer(models.Model):
+    name = models.TextField(
+        max_length=100,
+        help_text='Name that describes the server.<br>'
+                  'Example: SourceForge, Mirror A, etc.',
+    )
+    hostname = models.TextField(
+        max_length=100,
+        help_text='Hostname of the server.<br>'
+                  'Example: frs.sourceforge.net, mirror.example.com, etc.'
+    )
+    ssh_username = models.TextField(
+        max_length=50,
+        help_text='SSH username to connect with'
+    )
+    ssh_keyfile = models.TextField(
+        max_length=100,
+        help_text='SSH keyfile to connect with. Note that the SSH keyfiles must be placed in the ./ssh/ directory '
+                  'defined in the docker-compose file.<br>'
+                  'Example: ssh_key, id_rsa, etc.'
+    )
+    upload_path = models.TextField(
+        max_length=100,
+        help_text='Path to upload to on the server.<br>'
+                  'Example: /home/frs/project/example/R/, /mnt/media/mirror/src/target/R/, etc.'
+    )
+    enabled = models.BooleanField(
+        default=False,
+        help_text='Whether this mirror instance is enabled or not. If disabled, builds will not be mirrored until '
+                  'the mirror instance is enabled again and a background refresh task runs.'
+    )
+
+
 # Build Model
 class Build(models.Model):
     # Basic build information

@@ -33,8 +33,8 @@ def process_incomplete_builds():
         generate_sha256.delay(build.id)
 
     # Get all builds that are not mirrored on all enabled mirrors
-    enabled_mirrors = MirrorServer.objects.filter(enabled=True)
-    builds = Build.objects.exclude(mirrored_on=enabled_mirrors)
+    enabled_mirrors = list(MirrorServer.objects.filter(enabled=True))
+    builds = Build.objects.exclude(mirrored_on__in=enabled_mirrors)
 
     for build in builds:
         backup_build.delay(build.id)

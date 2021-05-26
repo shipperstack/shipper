@@ -9,8 +9,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # Get all builds that are not mirrored on all enabled mirrors
-        enabled_mirrors = MirrorServer.objects.filter(enabled=True)
-        builds = Build.objects.exclude(mirrored_on=enabled_mirrors)
+        enabled_mirrors = list(MirrorServer.objects.filter(enabled=True))
+        builds = Build.objects.exclude(mirrored_on__in=enabled_mirrors)
 
         for build in builds:
             self.stdout.write("Backing up build {}...".format(build.file_name))

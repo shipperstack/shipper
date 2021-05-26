@@ -57,7 +57,7 @@ def backup_build(self, build_id):
         if acquired:
             for mirror in mirrors:
                 # Check if a previous run has already completed a backup
-                if mirror in build.mirrored_on:
+                if mirror in build.mirrored_on.all():
                     continue
 
                 keydata = mirror.ssh_host_fingerprint

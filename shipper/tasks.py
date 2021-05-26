@@ -68,7 +68,7 @@ def backup_build(self, build_id):
                 with pysftp.Connection(
                         host=mirror.hostname,
                         username=mirror.ssh_username,
-                        private_key=mirror.ssh_keyfile,
+                        private_key='/home/shipper/ssh/{}'.format(mirror.ssh_keyfile),
                         cnopts=cnopts
                 ) as sftp:
                     sftp.cwd(mirror.upload_path)

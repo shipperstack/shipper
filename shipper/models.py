@@ -152,7 +152,10 @@ class Build(models.Model):
         max_length=20,
         help_text="Example: v12.8"
     )
-    sha256sum = models.TextField(max_length=64)
+    sha256sum = models.TextField(
+        max_length=64,
+        verbose_name='SHA256 hash'
+    )
     variant = models.TextField(
         max_length=20,
         help_text="One of the following variants: gapps, vanilla, goapps, foss"
@@ -169,8 +172,16 @@ class Build(models.Model):
     def get_upload_path(self, filename):
         return "{}/{}".format(self.device.codename, filename)
 
-    zip_file = models.FileField(upload_to=get_upload_path, unique=True)
-    md5_file = models.FileField(upload_to=get_upload_path, unique=True)
+    zip_file = models.FileField(
+        upload_to=get_upload_path,
+        verbose_name='Zip file',
+        unique=True
+    )
+    md5_file = models.FileField(
+        upload_to=get_upload_path,
+        verbose_name='MD5 file',
+        unique=True
+    )
 
     def get_user_friendly_name(self):
         from datetime import datetime

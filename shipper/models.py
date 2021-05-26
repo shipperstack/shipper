@@ -94,16 +94,19 @@ class MirrorServer(models.Model):
         max_length=20,
         help_text='SSH host key type.<br>'
                   'Example: ssh-rsa, etc.',
+        verbose_name='SSH host key type',
         blank=False,
     )
     ssh_host_key = models.TextField(
         max_length=1000,
         help_text='SSH host key.',
+        verbose_name='SSH host key',
         blank=False,
     )
     ssh_username = models.TextField(
         max_length=50,
         help_text='SSH username to connect with',
+        verbose_name='SSH username',
         blank=False,
     )
     ssh_keyfile = models.TextField(
@@ -111,6 +114,7 @@ class MirrorServer(models.Model):
         help_text='SSH keyfile to connect with. Note that the SSH keyfiles must be placed in the ./ssh/ directory '
                   'defined in the docker-compose file.<br>'
                   'Example: ssh_key, id_rsa, etc.',
+        verbose_name='SSH keyfile',
         blank=False,
     )
     upload_path = models.TextField(
@@ -123,6 +127,10 @@ class MirrorServer(models.Model):
         help_text='Whether this mirror instance is enabled or not. If disabled, builds will not be mirrored until '
                   'the mirror instance is enabled again and a background refresh task runs.'
     )
+
+    class Meta:
+        verbose_name = "Mirror Server"
+        verbose_name_plural = "Mirror Servers"
 
 
 # Build Model

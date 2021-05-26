@@ -136,7 +136,7 @@ class Build(models.Model):
     )
     mirrored_on = models.ManyToManyField(
         MirrorServer,
-        related_name="mirrors",
+        related_name="builds",
         help_text="Servers this build is mirrored on. Do not edit manually unless you know what you are doing!<br>",
         blank=True,
     )

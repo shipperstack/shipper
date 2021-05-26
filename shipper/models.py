@@ -90,6 +90,17 @@ class MirrorServer(models.Model):
                   'Example: frs.sourceforge.net, mirror.example.com, etc.',
         required=True
     )
+    ssh_host_key_type = models.TextField(
+        max_length=20,
+        help_text='SSH host key type.<br>'
+                  'Example: ssh-rsa, etc.',
+        required=True
+    )
+    ssh_host_key = models.TextField(
+        max_length=1000,
+        help_text='SSH host key.',
+        required=True,
+    )
     ssh_username = models.TextField(
         max_length=50,
         help_text='SSH username to connect with',

@@ -57,43 +57,39 @@ def backup_build(self, build_id):
     lock_id = '{}-lock-{}'.format(self.name, build.id)
     with memcache_lock(lock_id, self.app.oid) as acquired:
         if acquired:
-            keydata = b"AAAAB3NzaC1yc2EAAAABIwAAAQEA2uifHZbNexw6cXbyg1JnzDitL5VhYs0E65Hk/tLAPmcmm5GuiGeUoI" \
-                      b"/B0eUSNFsbqzwgwrttjnzKMKiGLN5CWVmlN1IXGGAfLYsQwK6wAu7kYFzkqP4jcwc5Jr9UPRpJdYIK733t" \
-                      b"SEmzab4qc5Oq8izKQKIaxXNe7FgmL15HjSpatFt9w/ot/CHS78FUAr3j3RwekHCm/jhPeqhlMAgC+jUgNJ" \
-                      b"bFt3DlhDaRMa0NYamVzmX8D47rtmBbEDU3ld6AezWBPUR5Lh7ODOwlfVI58NAf/aYNlmvl2TZiauBCTa7O" \
-                      b"PYSyXJnIPbQXg6YQlDknNCr0K769EjeIlAfY87Z4tw=="
-            key = paramiko.RSAKey(data=decodebytes(keydata))
-            cnopts = pysftp.CnOpts()
-            cnopts.hostkeys.add('frs.sourceforge.net', 'ssh-rsa', key)
+            for mirror in mirrors:
+                # Check if a previous run has already completed a backup
+                if mirror in build.mirrored_on:
+                    continue
 
-            with pysftp.Connection(
-                    host="frs.sourceforge.net",
-                    username=settings.SHIPPER_SF_USERNAME,
-                    private_key=settings.SHIPPER_SF_PRIVATE_KEY,
-                    cnopts=cnopts
-            ) as sftp:
-                sftp.cwd(
-                    os.path.join(
-                        '/home/frs/project/',
-                        settings.SHIPPER_SF_PATH,
-                    )
-                )
+                keydata = mirror.ssh_host_key
+                key = paramiko.RSAKey(data=decodebytes(keydata))
+                cnopts = pysftp.CnOpts()
+                cnopts.hostkeys.add(mirror.hostname, mirror.ssh_host_key_type, key)
 
-                if not sftp.exists(build.device.codename):
-                    sftp.mkdir(build.device.codename)
+                with pysftp.Connection(
+                        host=mirror.hostname,
+                        username=mirror.ssh_username,
+                        private_key=mirror.ssh_keyfile,
+                        cnopts=cnopts
+                ) as sftp:
+                    sftp.cwd(mirror.upload_path)
 
-                sftp.cwd(build.device.codename)
+                    if not sftp.exists(build.device.codename):
+                        sftp.mkdir(build.device.codename)
 
-                sftp.put(os.path.join(settings.MEDIA_ROOT, build.zip_file.name))
-                sftp.put(os.path.join(settings.MEDIA_ROOT, build.md5_file.name))
+                    sftp.cwd(build.device.codename)
 
-            # Fetch build one more time and lock until save completes
-            with transaction.atomic():
-                build = Build.objects.select_for_update().get(id=build_id)
-                build.backed_up = True
-                build.save()
+                    sftp.put(os.path.join(settings.MEDIA_ROOT, build.zip_file.name))
+                    sftp.put(os.path.join(settings.MEDIA_ROOT, build.md5_file.name))
+
+                # Fetch build one more time and lock until save completes
+                with transaction.atomic():
+                    build = Build.objects.select_for_update().get(id=build_id)
+                    build.mirrored_on.add(mirror)
+                    build.save()
         else:
-            print("Build {} is already being uploaded by another process, exiting!".format(build.file_name))
+            print("Build {} is already being backed up by another process, exiting!".format(build.file_name))
 
 
 @shared_task

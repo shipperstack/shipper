@@ -49,8 +49,13 @@ class BuildAdmin(admin.ModelAdmin):
     get_build_device_maintainers.short_description = 'Maintainers'
 
 
+class MirrorServerAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name', 'hostname', 'enabled']
+
+
 admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)
 
 admin.site.register(Device, DeviceAdmin)
 admin.site.register(Build, BuildAdmin)
+admin.site.register(MirrorServer, MirrorServerAdmin)

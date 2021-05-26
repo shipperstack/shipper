@@ -82,36 +82,36 @@ class MirrorServer(models.Model):
         max_length=100,
         help_text='Name that describes the server.<br>'
                   'Example: SourceForge, Mirror A, etc.',
-        required=True
+        blank=False,
     )
     hostname = models.TextField(
         max_length=100,
         help_text='Hostname of the server.<br>'
                   'Example: frs.sourceforge.net, mirror.example.com, etc.',
-        required=True
+        blank=False,
     )
     ssh_host_key_type = models.TextField(
         max_length=20,
         help_text='SSH host key type.<br>'
                   'Example: ssh-rsa, etc.',
-        required=True
+        blank=False,
     )
     ssh_host_key = models.TextField(
         max_length=1000,
         help_text='SSH host key.',
-        required=True,
+        blank=False,
     )
     ssh_username = models.TextField(
         max_length=50,
         help_text='SSH username to connect with',
-        required=True,
+        blank=False,
     )
     ssh_keyfile = models.TextField(
         max_length=100,
         help_text='SSH keyfile to connect with. Note that the SSH keyfiles must be placed in the ./ssh/ directory '
                   'defined in the docker-compose file.<br>'
                   'Example: ssh_key, id_rsa, etc.',
-        required=True,
+        blank=False,
     )
     upload_path = models.TextField(
         max_length=100,

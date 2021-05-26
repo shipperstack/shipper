@@ -1,5 +1,7 @@
 {% extends 'user_base.html' %}
 
+{% load build_extras %}
+
 {% block title %}Downloads for {{ object }}{% endblock %}
 
 {% block content %}
@@ -34,15 +36,17 @@
                 </td>
             </tr>
 
-{#            {% for mirror in object__mirrored_on %}#}
-{#                <td>{{ mirror.name }}</td>#}
-{#                <td>{{ mirror.description }}</td>#}
-{#                <td><a href="{{ object.zip_file.url }}"#}
-{#                                   class="btn btn-success btn-sm" title="">GApps</a>#}
-{#                    <a href="{{ object.md5_file.url }}"#}
-{#                                   class="btn btn-link btn-sm">MD5</a>#}
-{#                </td>#}
-{#            {% endfor %}#}
+            {% for mirror in object.get_enabled_downloadable_mirrors %}
+                <tr>
+                    <td>{{ mirror.name }}</td>
+                    <td>{{ mirror.description }}</td>
+                    <td><a href="{{ mirror.download_url_base|format_download_url:object.zip_file.name }}"
+                                       class="btn btn-success btn-sm" title="">Download</a>
+                        <a href="{{ mirror.download_url_base|format_download_url:object.md5_file.name }}"
+                                       class="btn btn-link btn-sm">MD5</a>
+                    </td>
+                </tr>
+            {% endfor %}
             </tbody>
         </table>
     </div>

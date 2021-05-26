@@ -11,7 +11,7 @@ from django.db import transaction
 from paramiko.py3compat import decodebytes
 
 from config import settings
-from shipper.models import Build
+from shipper.models import Build, MirrorServer
 
 
 @contextmanager

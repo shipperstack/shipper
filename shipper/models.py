@@ -128,6 +128,9 @@ class MirrorServer(models.Model):
                   'the mirror instance is enabled again and a background refresh task runs.'
     )
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name = "Mirror Server"
         verbose_name_plural = "Mirror Servers"

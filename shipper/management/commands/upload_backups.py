@@ -14,7 +14,7 @@ class Command(BaseCommand):
 
         for build in builds:
             self.stdout.write("Backing up build {}...".format(build.file_name))
-            backup_build(build.id)
-            self.stdout.write("Successfully backed up build {}!".format(build.file_name))
+            backup_build.delay(build.id)
+            self.stdout.write("Queued backup for build {}!".format(build.file_name))
 
-        self.stdout.write("Completed all backups.")
+        self.stdout.write("Queued all incomplete builds. Please check the admin panel for status updates.")

@@ -225,7 +225,7 @@ class Build(models.Model):
         return humanize.naturalsize(self.size)
 
     def get_enabled_downloadable_mirrors(self):
-        return self.mirrored_on.filter(enabled=True, downloadable=True).all()
+        return self.mirrored_on.filter(enabled=True, downloadable=True).all().order_by('priority')
 
     def __str__(self):
         return self.file_name

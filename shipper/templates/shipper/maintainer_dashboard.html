@@ -3,27 +3,38 @@
 {% block title %}Shipper{% endblock %}
 
 {% block content %}
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Device</th>
-            <th scope="col">Upload</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for device in object_list %}
+    {% if not object_list %}
+        <h1>No devices</h1>
+
+        <p>
+        It seems like your account has not been set up completely yet. Ask an admin to add/associate devices to your
+        account so you can start uploading new builds.
+        </p>
+
+    {% else %}
+        <table class="table">
+            <thead>
             <tr>
-                {% if device.status %}
-                    <td><a href="{% url 'device_detail' pk=device.id %}">{{ device }}</a></td>
-                {% else %}
-                    <td class="text-reset text-decoration-line-through"><a
-                            class="text-reset text-decoration-line-through"
-                            href="{% url 'device_detail' pk=device.id %}">{{ device }}</a></td>
-                {% endif %}
-                <td><a href="{% url 'build_upload' pk=device.id %}" class="btn btn-success btn-sm">Upload new build</a>
-                </td>
+                <th scope="col">Device</th>
+                <th scope="col">Upload</th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for device in object_list %}
+                <tr>
+                    {% if device.status %}
+                        <td><a href="{% url 'device_detail' pk=device.id %}">{{ device }}</a></td>
+                    {% else %}
+                        <td class="text-reset text-decoration-line-through"><a
+                                class="text-reset text-decoration-line-through"
+                                href="{% url 'device_detail' pk=device.id %}">{{ device }}</a></td>
+                    {% endif %}
+                    <td><a href="{% url 'build_upload' pk=device.id %}" class="btn btn-success btn-sm">Upload new
+                        build</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
 {% endblock %}

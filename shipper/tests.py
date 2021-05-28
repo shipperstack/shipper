@@ -170,8 +170,8 @@ def mock_builds_setup():
         version="v14",
         sha256sum="b9566ebc192a4c27c72df19eae8a6eed6ea063226792e680fa0b2ede284e19f2",
         variant="gapps",
-        zip_file="bullhead/Bliss-v14-dream2lte-OFFICIAL-gapps-20200609.zip",
-        md5_file="bullhead/Bliss-v14-dream2lte-OFFICIAL-gapps-20200609.zip.md5",
+        zip_file="dream2lte/Bliss-v14-dream2lte-OFFICIAL-gapps-20200609.zip",
+        md5_file="dream2lte/Bliss-v14-dream2lte-OFFICIAL-gapps-20200609.zip.md5",
     )
     Build.objects.create(
         device=Device.objects.get(codename="angler"),
@@ -180,6 +180,6 @@ def mock_builds_setup():
         version="v14",
         sha256sum="b9566ebc192a4c27c72df19eae8a6eed6ea063226792e680fa0b2ede284e19f2",
         variant="vanilla",
-        zip_file="bullhead/Bliss-v14-angler-OFFICIAL-vanilla-20200608.zip",
-        md5_file="bullhead/Bliss-v14-angler-OFFICIAL-vanilla-20200608.zip.md5",
+        zip_file="angler/Bliss-v14-angler-OFFICIAL-vanilla-20200608.zip",
+        md5_file="angler/Bliss-v14-angler-OFFICIAL-vanilla-20200608.zip.md5",
     )

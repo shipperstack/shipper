@@ -114,15 +114,15 @@ class APIV2TestCase(TestCase):
                             b': [{"date": 1591574400, "file_name": "Bliss-v14-angler-OFFICIAL-vanilla-20200608.zip", ' \
                             b'"sha256": "b9566ebc192a4c27c72df19eae8a6eed6ea063226792e680fa0b2ede284e19f2", "size": 8' \
                             b'57483855, "version": "v14", "mirrors": [{"name": "Main", "description": "Download build' \
-                            b's from the main server.", "zip_download_url": "https://testserver/media/bullhead/Bliss-' \
-                            b'v14-angler-OFFICIAL-vanilla-20200608.zip", "md5_download_url": "https://testserver/medi' \
-                            b'a/bullhead/Bliss-v14-angler-OFFICIAL-vanilla-20200608.zip.md5"}]}], "dream2lte": [{"dat' \
-                            b'e": 1591660800, "file_name": "Bliss-v14-dream2lte-OFFICIAL-gapps-20200609.zip", "sha256' \
-                            b'": "b9566ebc192a4c27c72df19eae8a6eed6ea063226792e680fa0b2ede284e19f2", "size": 85748399' \
-                            b'5, "version": "v14", "mirrors": [{"name": "Main", "description": "Download builds from ' \
-                            b'the main server.", "zip_download_url": "https://testserver/media/bullhead/Bliss-v14-dre' \
-                            b'am2lte-OFFICIAL-gapps-20200609.zip", "md5_download_url": "https://testserver/media/bull' \
-                            b'head/Bliss-v14-dream2lte-OFFICIAL-gapps-20200609.zip.md5"}]}]}' \
+                            b's from the main server.", "zip_download_url": "https://testserver/media/angler/Bliss-v1' \
+                            b'4-angler-OFFICIAL-vanilla-20200608.zip", "md5_download_url": "https://testserver/media/' \
+                            b'angler/Bliss-v14-angler-OFFICIAL-vanilla-20200608.zip.md5"}]}], "dream2lte": [{"date": ' \
+                            b'1591660800, "file_name": "Bliss-v14-dream2lte-OFFICIAL-gapps-20200609.zip", "sha256": "' \
+                            b'b9566ebc192a4c27c72df19eae8a6eed6ea063226792e680fa0b2ede284e19f2", "size": 857483995, "' \
+                            b'version": "v14", "mirrors": [{"name": "Main", "description": "Download builds from the ' \
+                            b'main server.", "zip_download_url": "https://testserver/media/dream2lte/Bliss-v14-dream2' \
+                            b'lte-OFFICIAL-gapps-20200609.zip", "md5_download_url": "https://testserver/media/dream2l' \
+                            b'te/Bliss-v14-dream2lte-OFFICIAL-gapps-20200609.zip.md5"}]}]}' \
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, expected_response)

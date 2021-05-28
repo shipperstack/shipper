@@ -26,10 +26,3 @@ drestart: ddown dup
 dsetup:
 	docker-compose -f docker-compose.dev.yml exec web python3 manage.py migrate --noinput
 	docker-compose -f docker-compose.dev.yml exec web python3 manage.py collectstatic --no-input --clear
-
-test:
-	load_dotenv .env.dev
-	coverage run --source='.' --omit='venv/*' manage.py test
-
-testreport:
-	coverage report

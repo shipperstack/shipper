@@ -64,6 +64,18 @@ class CombinedTestCase(TestCase):
         self.assertEqual(len(devices["angler"].get_all_vanilla_build_objects()), 1)
         self.assertEqual(len(devices["dream2lte"].get_all_vanilla_build_objects()), 0)
 
+    def test_foss_build_count(self):
+        devices = get_mock_devices()
+        self.assertEqual(len(devices["bullhead"].get_all_foss_build_objects()), 0)
+        self.assertEqual(len(devices["angler"].get_all_foss_build_objects()), 0)
+        self.assertEqual(len(devices["dream2lte"].get_all_foss_build_objects()), 0)
+
+    def test_goapps_build_count(self):
+        devices = get_mock_devices()
+        self.assertEqual(len(devices["bullhead"].get_all_goapps_build_objects()), 0)
+        self.assertEqual(len(devices["angler"].get_all_goapps_build_objects()), 0)
+        self.assertEqual(len(devices["dream2lte"].get_all_goapps_build_objects()), 0)
+
 
 def mock_devices_setup():
     Device.objects.create(

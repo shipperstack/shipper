@@ -1,8 +1,11 @@
-from django.test import TestCase
+from django.contrib.auth.models import AnonymousUser
+from django.http import Http404
+from django.test import TestCase, RequestFactory
 
 from shipper.exceptions import UploadException
 from shipper.handler import file_name_validity_check
 from shipper.models import Device, Build
+from shipper.views import DownloadsView, DownloadsDeviceView
 
 
 class DeviceTestCase(TestCase):
@@ -118,6 +121,34 @@ class HandlerTestCase(TestCase):
                 codename="bullhead",
                 variant="unknown",
             )
+
+
+class ViewTestCase(TestCase):
+    def setUp(self):
+        mock_devices_setup()
+        mock_builds_setup()
+        self.factory = RequestFactory()
+
+    def test_downloads_view(self):
+        request = self.factory.get("")
+        request.user = AnonymousUser()
+        response = DownloadsView.as_view()(request)
+
+        self.assertEqual(response.status_code, 200)
+
+    def test_downloads_device_bullhead_view(self):
+        request = self.factory.get("download/bullhead/")
+        request.user = AnonymousUser()
+        response = DownloadsDeviceView.as_view()(request, codename="bullhead")
+
+        self.assertEqual(response.status_code, 200)
+
+    def test_downloads_device_invalid_view(self):
+        request = self.factory.get("download/invalid/")
+        request.user = AnonymousUser()
+
+        with self.assertRaises(Http404):
+            DownloadsDeviceView.as_view()(request, codename="invalid")
 
 
 def mock_devices_setup():

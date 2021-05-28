@@ -5,26 +5,7 @@ from shipper.models import Device, Build
 
 class DeviceTestCase(TestCase):
     def setUp(self):
-        Device.objects.create(
-            name="Nexus 5X",
-            codename="bullhead",
-            manufacturer="LG",
-            photo="https://fdn2.gsmarena.com/vv/bigpic/lg-nexus-5x-.jpg",
-            status=True
-        )
-        Device.objects.create(
-            name="Nexus 6P",
-            codename="angler",
-            manufacturer="Huawei",
-            photo="https://fdn2.gsmarena.com/vv/bigpic/huawei-nexus-6p-.jpg",
-            status=False
-        )
-        Device.objects.create(
-            name="Galaxy S8+",
-            codename="dream2lte",
-            manufacturer="Samsung",
-            status=True
-        )
+        mock_devices_setup()
 
     def test_device_string(self):
         bullhead = Device.objects.get(codename="bullhead")
@@ -81,3 +62,25 @@ class BuildTestCase(TestCase):
     def test_mirrors(self):
         build = Build.objects.get(file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200608")
         self.assertEqual(len(build.get_enabled_downloadable_mirrors()),  0)
+
+def mock_devices_setup():
+    Device.objects.create(
+        name="Nexus 5X",
+        codename="bullhead",
+        manufacturer="LG",
+        photo="https://fdn2.gsmarena.com/vv/bigpic/lg-nexus-5x-.jpg",
+        status=True
+    )
+    Device.objects.create(
+        name="Nexus 6P",
+        codename="angler",
+        manufacturer="Huawei",
+        photo="https://fdn2.gsmarena.com/vv/bigpic/huawei-nexus-6p-.jpg",
+        status=False
+    )
+    Device.objects.create(
+        name="Galaxy S8+",
+        codename="dream2lte",
+        manufacturer="Samsung",
+        status=True
+    )

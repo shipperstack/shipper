@@ -4,7 +4,7 @@ from django.contrib.auth.models import AnonymousUser
 from django.http import Http404
 from django.test import TestCase, RequestFactory
 
-from api.views import parse_build_date, v1_updater_los, v2_updater_device, variant_check
+from api.views import parse_build_date, v1_updater_los, v2_updater_device, variant_check, v2_all_builds
 from shipper.tests import mock_devices_setup, mock_builds_setup
 
 
@@ -101,3 +101,28 @@ class APIV2TestCase(TestCase):
         with self.assertRaises(Http404):
             v2_updater_device(request, "bullhead", "goapps")
 
+    def test_v2_all_builds(self):
+        request = self.factory.get("/api/v2/all/")
+        request.user = AnonymousUser()
+        response = v2_all_builds(request)
+        expected_response = b'{"bullhead": [{"date": 1591574400, "file_name": "Bliss-v14-bullhead-OFFICIAL-gapps-2020' \
+                            b'0608.zip", "sha256": "b9566ebc192a4c27c72df19eae8a6eed6ea063226792e680fa0b2ede284e19f2"' \
+                            b', "size": 857483855, "version": "v14", "mirrors": [{"name": "Main", "description": "Dow' \
+                            b'nload builds from the main server.", "zip_download_url": "https://testserver/media/bull' \
+                            b'head/Bliss-v14-bullhead-OFFICIAL-gapps-20200608.zip", "md5_download_url": "https://test' \
+                            b'server/media/bullhead/Bliss-v14-bullhead-OFFICIAL-gapps-20200608.zip.md5"}]}], "angler"' \
+                            b': [{"date": 1591574400, "file_name": "Bliss-v14-angler-OFFICIAL-vanilla-20200608.zip", ' \
+                            b'"sha256": "b9566ebc192a4c27c72df19eae8a6eed6ea063226792e680fa0b2ede284e19f2", "size": 8' \
+                            b'57483855, "version": "v14", "mirrors": [{"name": "Main", "description": "Download build' \
+                            b's from the main server.", "zip_download_url": "https://testserver/media/bullhead/Bliss-' \
+                            b'v14-angler-OFFICIAL-vanilla-20200608.zip", "md5_download_url": "https://testserver/medi' \
+                            b'a/bullhead/Bliss-v14-angler-OFFICIAL-vanilla-20200608.zip.md5"}]}], "dream2lte": [{"dat' \
+                            b'e": 1591660800, "file_name": "Bliss-v14-dream2lte-OFFICIAL-gapps-20200609.zip", "sha256' \
+                            b'": "b9566ebc192a4c27c72df19eae8a6eed6ea063226792e680fa0b2ede284e19f2", "size": 85748399' \
+                            b'5, "version": "v14", "mirrors": [{"name": "Main", "description": "Download builds from ' \
+                            b'the main server.", "zip_download_url": "https://testserver/media/bullhead/Bliss-v14-dre' \
+                            b'am2lte-OFFICIAL-gapps-20200609.zip", "md5_download_url": "https://testserver/media/bull' \
+                            b'head/Bliss-v14-dream2lte-OFFICIAL-gapps-20200609.zip.md5"}]}]}' \
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, expected_response)

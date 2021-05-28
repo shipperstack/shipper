@@ -5,7 +5,7 @@ from django.test import TestCase, RequestFactory
 from shipper.exceptions import UploadException
 from shipper.handler import file_name_validity_check
 from shipper.models import Device, Build
-from shipper.views import DownloadsView, DownloadsDeviceView
+from shipper.views import DownloadsView, DownloadsDeviceView, DownloadsBuildView
 
 
 class DeviceTestCase(TestCase):
@@ -149,6 +149,19 @@ class ViewTestCase(TestCase):
 
         with self.assertRaises(Http404):
             DownloadsDeviceView.as_view()(request, codename="invalid")
+
+    def test_downloads_build_bullhead_view(self):
+        request = self.factory.get("download/bullhead/1/")
+        request.user = AnonymousUser()
+        response = DownloadsBuildView.as_view()(request, codename="bullhead", pk=1)
+
+        self.assertEqual(response.status_code, 200)
+
+    def test_downloads_invalid_build_bullhead_view(self):
+        request = self.factory.get("download/bullhead/20/")
+        request.user = AnonymousUser()
+        with self.assertRaises(Http404):
+            DownloadsBuildView.as_view()(request, codename="bullhead", pk=20)
 
 
 def mock_devices_setup():

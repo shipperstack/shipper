@@ -1,5 +1,7 @@
 from django.test import TestCase
 
+from shipper.exceptions import UploadException
+from shipper.handler import file_name_validity_check
 from shipper.models import Device, Build
 
 
@@ -75,6 +77,47 @@ class CombinedTestCase(TestCase):
         self.assertEqual(len(devices["bullhead"].get_all_goapps_build_objects()), 0)
         self.assertEqual(len(devices["angler"].get_all_goapps_build_objects()), 0)
         self.assertEqual(len(devices["dream2lte"].get_all_goapps_build_objects()), 0)
+
+
+class HandlerTestCase(TestCase):
+    def setUp(self):
+        mock_devices_setup()
+        mock_builds_setup()
+
+    def test_file_name_validity_check(self):
+        devices = get_mock_devices()
+        with self.assertRaises(UploadException):
+            file_name_validity_check(
+                device=devices["bullhead"],
+                build_file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200609",
+                build_type="official",
+                codename="bullhead",
+                variant="gapps",
+            )
+        with self.assertRaises(UploadException):
+            file_name_validity_check(
+                device=devices["bullhead"],
+                build_file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200609",
+                build_type="OFFICIAL",
+                codename="angler",
+                variant="gapps",
+            )
+        with self.assertRaises(UploadException):
+            file_name_validity_check(
+                device=devices["bullhead"],
+                build_file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200608",
+                build_type="OFFICIAL",
+                codename="bullhead",
+                variant="gapps",
+            )
+        with self.assertRaises(UploadException):
+            file_name_validity_check(
+                device=devices["bullhead"],
+                build_file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200609",
+                build_type="OFFICIAL",
+                codename="bullhead",
+                variant="unknown",
+            )
 
 
 def mock_devices_setup():

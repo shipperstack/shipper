@@ -126,20 +126,26 @@ def mock_devices_setup():
         codename="bullhead",
         manufacturer="LG",
         photo="https://fdn2.gsmarena.com/vv/bigpic/lg-nexus-5x-.jpg",
-        status=True
+        status=True,
     )
     Device.objects.create(
         name="Nexus 6P",
         codename="angler",
         manufacturer="Huawei",
         photo="https://fdn2.gsmarena.com/vv/bigpic/huawei-nexus-6p-.jpg",
-        status=False
+        status=False,
     )
     Device.objects.create(
         name="Galaxy S8+",
         codename="dream2lte",
         manufacturer="Samsung",
-        status=True
+        status=True,
+    )
+    Device.objects.create(
+        name="No Builds",
+        codename="nobuild",
+        manufacturer="NoBuilds",
+        status=False,
     )
 
 

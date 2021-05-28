@@ -50,6 +50,21 @@ class BuildTestCase(TestCase):
         build = Build.objects.get(file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200608")
         self.assertEqual(len(build.get_enabled_downloadable_mirrors()),  0)
 
+
+class CombinedTestCase(TestCase):
+    def setUp(self):
+        mock_devices_setup()
+        mock_builds_setup()
+
+    def test_gapps_build_count(self):
+        bullhead = Device.objects.get(codename="bullhead")
+        angler = Device.objects.get(codename="angler")
+        dream2lte = Device.objects.get(codename="dream2lte")
+        self.assertEqual(len(bullhead.get_all_gapps_build_objects()), 1)
+        self.assertEqual(len(angler.get_all_gapps_build_objects()), 0)
+        self.assertEqual(len(dream2lte.get_all_gapps_build_objects()), 1)
+
+
 def mock_devices_setup():
     Device.objects.create(
         name="Nexus 5X",

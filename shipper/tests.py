@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from shipper.models import Device
+from shipper.models import Device, Build
 
 
 class DeviceTestCase(TestCase):
@@ -42,3 +42,42 @@ class DeviceTestCase(TestCase):
         self.assertEqual(angler.get_photo_url(), "https://fdn2.gsmarena.com/vv/bigpic/huawei-nexus-6p-.jpg")
         self.assertEqual(dream2lte.get_photo_url(), "#")
 
+
+class BuildTestCase(TestCase):
+    def setUp(self):
+        Device.objects.create(
+            name="Nexus 5X",
+            codename="bullhead",
+            manufacturer="LG",
+            photo="https://fdn2.gsmarena.com/vv/bigpic/lg-nexus-5x-.jpg",
+            status=True
+        )
+        Build.objects.create(
+            device=Device.objects.get(codename="bullhead"),
+            file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200608",
+            size=857483855,
+            version="v14",
+            sha256sum="b9566ebc192a4c27c72df19eae8a6eed6ea063226792e680fa0b2ede284e19f2",
+            variant="gapps",
+        )
+
+    def test_build_string(self):
+        build = Build.objects.get(file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200608")
+        self.assertEqual(str(build), "Bliss-v14-bullhead-OFFICIAL-gapps-20200608")
+
+    def test_upload_path(self):
+        build = Build.objects.get(file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200608")
+        self.assertEqual(build.get_upload_path("example"), "bullhead/example")
+        self.assertEqual(build.get_upload_path(""), "bullhead/")
+
+    def test_user_friendly_name(self):
+        build = Build.objects.get(file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200608")
+        self.assertEqual(build.get_user_friendly_name(), "v14 - June 8, 2020")
+
+    def test_human_readable_size(self):
+        build = Build.objects.get(file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200608")
+        self.assertEqual(build.get_human_readable_size(), "857.5 MB")
+
+    def test_mirrors(self):
+        build = Build.objects.get(file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200608")
+        self.assertTrue(len(build.get_enabled_downloadable_mirrors()) == 0)

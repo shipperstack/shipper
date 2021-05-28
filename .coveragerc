@@ -6,6 +6,7 @@ source = .
 omit =
     */venv/*
     */migrations/*
+    */management/*
     config/asgi.py
     config/context_processors.py
     config/wsgi.py

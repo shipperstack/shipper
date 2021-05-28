@@ -8,20 +8,16 @@ class DeviceTestCase(TestCase):
         mock_devices_setup()
 
     def test_device_string(self):
-        bullhead = Device.objects.get(codename="bullhead")
-        angler = Device.objects.get(codename="angler")
-        dream2lte = Device.objects.get(codename="dream2lte")
-        self.assertEqual(str(bullhead), "LG Nexus 5X (bullhead)")
-        self.assertEqual(str(angler), "Huawei Nexus 6P (angler)")
-        self.assertEqual(str(dream2lte), "Samsung Galaxy S8+ (dream2lte)")
+        devices = get_mock_devices()
+        self.assertEqual(str(devices["bullhead"]), "LG Nexus 5X (bullhead)")
+        self.assertEqual(str(devices["angler"]), "Huawei Nexus 6P (angler)")
+        self.assertEqual(str(devices["dream2lte"]), "Samsung Galaxy S8+ (dream2lte)")
 
     def test_image_url(self):
-        bullhead = Device.objects.get(codename="bullhead")
-        angler = Device.objects.get(codename="angler")
-        dream2lte = Device.objects.get(codename="dream2lte")
-        self.assertEqual(bullhead.get_photo_url(), "https://fdn2.gsmarena.com/vv/bigpic/lg-nexus-5x-.jpg")
-        self.assertEqual(angler.get_photo_url(), "https://fdn2.gsmarena.com/vv/bigpic/huawei-nexus-6p-.jpg")
-        self.assertEqual(dream2lte.get_photo_url(), "#")
+        devices = get_mock_devices()
+        self.assertEqual(devices["bullhead"].get_photo_url(), "https://fdn2.gsmarena.com/vv/bigpic/lg-nexus-5x-.jpg")
+        self.assertEqual(devices["angler"].get_photo_url(), "https://fdn2.gsmarena.com/vv/bigpic/huawei-nexus-6p-.jpg")
+        self.assertEqual(devices["dream2lte"].get_photo_url(), "#")
 
 
 class BuildTestCase(TestCase):
@@ -57,12 +53,11 @@ class CombinedTestCase(TestCase):
         mock_builds_setup()
 
     def test_gapps_build_count(self):
-        bullhead = Device.objects.get(codename="bullhead")
-        angler = Device.objects.get(codename="angler")
-        dream2lte = Device.objects.get(codename="dream2lte")
-        self.assertEqual(len(bullhead.get_all_gapps_build_objects()), 1)
-        self.assertEqual(len(angler.get_all_gapps_build_objects()), 0)
-        self.assertEqual(len(dream2lte.get_all_gapps_build_objects()), 1)
+        devices = get_mock_devices()
+        self.assertEqual(len(devices["bullhead"].get_all_gapps_build_objects()), 1)
+        self.assertEqual(len(devices["angler"].get_all_gapps_build_objects()), 0)
+        self.assertEqual(len(devices["dream2lte"].get_all_gapps_build_objects()), 1)
+
 
 
 def mock_devices_setup():
@@ -86,6 +81,15 @@ def mock_devices_setup():
         manufacturer="Samsung",
         status=True
     )
+
+
+def get_mock_devices():
+    devices = {
+        "bullhead": Device.objects.get(codename="bullhead"),
+        "angler": Device.objects.get(codename="angler"),
+        "dream2lte": Device.objects.get(codename="dream2lte"),
+    }
+    return devices
 
 
 def mock_builds_setup():

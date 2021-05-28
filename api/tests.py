@@ -1,9 +1,10 @@
 import datetime
 
 from django.contrib.auth.models import AnonymousUser
+from django.http import Http404
 from django.test import TestCase, RequestFactory
 
-from api.views import parse_build_date, v1_updater_los, v2_updater_device
+from api.views import parse_build_date, v1_updater_los, v2_updater_device, variant_check
 from shipper.tests import mock_devices_setup, mock_builds_setup
 
 
@@ -11,6 +12,14 @@ class APIGeneralTestCase(TestCase):
     def test_parse_build_date(self):
         self.assertEqual(parse_build_date("20200824"), datetime.date(2020, 8, 24))
         self.assertEqual(parse_build_date("20200824").strftime("%s"), "1598227200")
+
+    def test_variant_check(self):
+        with self.assertRaises(Http404):
+            variant_check("unknown")
+        variant_check("gapps")
+        variant_check("vanilla")
+        variant_check("foss")
+        variant_check("goapps")
 
 
 class APIV1TestCase(TestCase):

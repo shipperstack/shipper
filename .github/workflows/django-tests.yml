@@ -37,3 +37,13 @@ jobs:
         SHIPPER_DOWNLOADS_PAGE_DONATION_URL: "https://paypal.com/test"
         SHIPPER_SENTRY_SDK_DSN: "https://34fd99861ec84ad2bd731c50267dc5f6@o444286.ingest.sentry.io/5418995"
         SHIPPER_SENTRY_SDK_PII: False
+    - name: Install coverage
+      run: |
+        pip install coverage
+    - name: Generate coverage report
+      run: |
+        coverage run --source='.' manage.py test
+    - name: Upload coverage report
+      uses: codecov/codecov-action@v1
+      with:
+        fail_ci_if_error: true

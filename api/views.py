@@ -24,10 +24,8 @@ def v1_updater_los(request, codename, variant):
         builds = device.get_all_vanilla_build_objects()
     elif variant == "foss":
         builds = device.get_all_foss_build_objects()
-    elif variant == "goapps":
+    else:   # elif variant == "goapps":
         builds = device.get_all_goapps_build_objects()
-    else:
-        builds = None
 
     # Check if list is empty and return a 404
     if not builds:
@@ -66,10 +64,8 @@ def v2_updater_device(request, codename, variant):
             build = device.get_latest_vanilla_build_object()
         elif variant == "foss":
             build = device.get_latest_foss_build_object()
-        elif variant == "goapps":
+        else:   # elif variant == "goapps":
             build = device.get_latest_goapps_build_object()
-        else:
-            build = None
     except Build.DoesNotExist:
         raise Http404("No builds exist for the specified variant yet!")
 

@@ -26,21 +26,8 @@ class DeviceTestCase(TestCase):
 
 class BuildTestCase(TestCase):
     def setUp(self):
-        Device.objects.create(
-            name="Nexus 5X",
-            codename="bullhead",
-            manufacturer="LG",
-            photo="https://fdn2.gsmarena.com/vv/bigpic/lg-nexus-5x-.jpg",
-            status=True
-        )
-        Build.objects.create(
-            device=Device.objects.get(codename="bullhead"),
-            file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200608",
-            size=857483855,
-            version="v14",
-            sha256sum="b9566ebc192a4c27c72df19eae8a6eed6ea063226792e680fa0b2ede284e19f2",
-            variant="gapps",
-        )
+        mock_devices_setup()
+        mock_builds_setup()
 
     def test_build_string(self):
         build = Build.objects.get(file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200608")
@@ -83,4 +70,37 @@ def mock_devices_setup():
         codename="dream2lte",
         manufacturer="Samsung",
         status=True
+    )
+
+
+def mock_builds_setup():
+    Build.objects.create(
+        device=Device.objects.get(codename="bullhead"),
+        file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200608",
+        size=857483855,
+        version="v14",
+        sha256sum="b9566ebc192a4c27c72df19eae8a6eed6ea063226792e680fa0b2ede284e19f2",
+        variant="gapps",
+        zip_file="bullhead/Bliss-v14-bullhead-OFFICIAL-gapps-20200608.zip",
+        md5_file="bullhead/Bliss-v14-bullhead-OFFICIAL-gapps-20200608.zip.md5",
+    )
+    Build.objects.create(
+        device=Device.objects.get(codename="dream2lte"),
+        file_name="Bliss-v14-dream2lte-OFFICIAL-gapps-20200609",
+        size=857483995,
+        version="v14",
+        sha256sum="b9566ebc192a4c27c72df19eae8a6eed6ea063226792e680fa0b2ede284e19f2",
+        variant="gapps",
+        zip_file="bullhead/Bliss-v14-dream2lte-OFFICIAL-gapps-20200609.zip",
+        md5_file="bullhead/Bliss-v14-dream2lte-OFFICIAL-gapps-20200609.zip.md5",
+    )
+    Build.objects.create(
+        device=Device.objects.get(codename="angler"),
+        file_name="Bliss-v14-angler-OFFICIAL-vanilla-20200608",
+        size=857483855,
+        version="v14",
+        sha256sum="b9566ebc192a4c27c72df19eae8a6eed6ea063226792e680fa0b2ede284e19f2",
+        variant="vanilla",
+        zip_file="bullhead/Bliss-v14-angler-OFFICIAL-vanilla-20200608.zip",
+        md5_file="bullhead/Bliss-v14-angler-OFFICIAL-vanilla-20200608.zip.md5",
     )

@@ -7,9 +7,7 @@ omit =
     */venv/*
     */migrations/*
     */management/*
-    config/asgi.py
-    config/context_processors.py
-    config/wsgi.py
+    config/*
     manage.py
 
 command_line = manage.py test

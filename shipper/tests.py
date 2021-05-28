@@ -80,4 +80,4 @@ class BuildTestCase(TestCase):
 
     def test_mirrors(self):
         build = Build.objects.get(file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200608")
-        self.assertTrue(len(build.get_enabled_downloadable_mirrors()) == 0)
+        self.assertEqual(len(build.get_enabled_downloadable_mirrors()),  0)

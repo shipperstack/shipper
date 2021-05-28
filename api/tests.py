@@ -28,7 +28,7 @@ class APIV1TestCase(TestCase):
         mock_builds_setup()
         self.factory = RequestFactory()
 
-    def test_v1_updater_los(self):
+    def test_v1_updater_los_bullhead_gapps(self):
         request = self.factory.get("/api/v1/updater/los/")
         request.user = AnonymousUser()
         response = v1_updater_los(request, "bullhead", "gapps")
@@ -44,6 +44,24 @@ class APIV1TestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, expected_response)
 
+    def test_v1_updater_los_bullhead_vanilla(self):
+        request = self.factory.get("/api/v1/updater/los/")
+        request.user = AnonymousUser
+        with self.assertRaises(Http404):
+            v1_updater_los(request, "bullhead", "vanilla")
+
+    def test_v1_updater_los_bullhead_foss(self):
+        request = self.factory.get("/api/v1/updater/los/")
+        request.user = AnonymousUser
+        with self.assertRaises(Http404):
+            v1_updater_los(request, "bullhead", "foss")
+
+    def test_v1_updater_los_bullhead_goapps(self):
+        request = self.factory.get("/api/v1/updater/los/")
+        request.user = AnonymousUser
+        with self.assertRaises(Http404):
+            v1_updater_los(request, "bullhead", "goapps")
+
 
 class APIV2TestCase(TestCase):
     def setUp(self):
@@ -51,7 +69,7 @@ class APIV2TestCase(TestCase):
         mock_builds_setup()
         self.factory = RequestFactory()
 
-    def test_v2_updater(self):
+    def test_v2_updater_bullhead_gapps(self):
         request = self.factory.get("/api/v2/updater/")
         request.user = AnonymousUser()
         response = v2_updater_device(request, "bullhead", "gapps")
@@ -64,4 +82,22 @@ class APIV2TestCase(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, expected_response)
+
+    def test_v2_updater_bullhead_vanilla(self):
+        request = self.factory.get("/api/v2/updater/")
+        request.user = AnonymousUser()
+        with self.assertRaises(Http404):
+            v2_updater_device(request, "bullhead", "vanilla")
+
+    def test_v2_updater_bullhead_foss(self):
+        request = self.factory.get("/api/v2/updater/")
+        request.user = AnonymousUser()
+        with self.assertRaises(Http404):
+            v2_updater_device(request, "bullhead", "foss")
+
+    def test_v2_updater_bullhead_goapps(self):
+        request = self.factory.get("/api/v2/updater/")
+        request.user = AnonymousUser()
+        with self.assertRaises(Http404):
+            v2_updater_device(request, "bullhead", "goapps")
 

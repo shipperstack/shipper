@@ -69,10 +69,6 @@ def v2_updater_device(request, codename, variant):
     except Build.DoesNotExist:
         raise Http404("No builds exist for the specified variant yet!")
 
-    # Check to make sure build isn't None
-    if not build:
-        raise Http404("No builds exist for the specified variant yet!")
-
     _, version, _, _, _, date = build.file_name.split('-')
 
     date = parse_build_date(date)

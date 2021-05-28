@@ -1,0 +1,14 @@
+# coverage.py configuration
+
+[run]
+source = .
+
+omit =
+    */venv/*
+    */migrations/*
+    config/asgi.py
+    config/context_processors.py
+    config/wsgi.py
+    manage.py
+
+command_line = manage.py test

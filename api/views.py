@@ -91,7 +91,11 @@ def v2_all_builds(request):
     return_json = {}
 
     for device in Device.objects.all():
-        device_json = []
+        device_json = {
+            "manufacturer": device.manufacturer,
+            "name": device.name,
+            "builds": [],
+        }
         builds = device.get_all_build_objects()
 
         if not builds:
@@ -126,7 +130,7 @@ def v2_all_builds(request):
                 })
 
             build_json["mirrors"] = mirrors_json
-            device_json.append(build_json)
+            device_json["builds"].append(build_json)
 
         return_json[device.codename] = device_json
 

@@ -105,24 +105,26 @@ class APIV2TestCase(TestCase):
         request = self.factory.get("/api/v2/all/")
         request.user = AnonymousUser()
         response = v2_all_builds(request)
-        expected_response = b'{"bullhead": [{"date": 1591574400, "file_name": "Bliss-v14-bullhead-OFFICIAL-gapps-2020' \
-                            b'0608.zip", "sha256": "b9566ebc192a4c27c72df19eae8a6eed6ea063226792e680fa0b2ede284e19f2"' \
-                            b', "size": 857483855, "version": "v14", "mirrors": [{"name": "Main", "description": "Dow' \
-                            b'nload builds from the main server.", "zip_download_url": "https://testserver/media/bull' \
-                            b'head/Bliss-v14-bullhead-OFFICIAL-gapps-20200608.zip", "md5_download_url": "https://test' \
-                            b'server/media/bullhead/Bliss-v14-bullhead-OFFICIAL-gapps-20200608.zip.md5"}]}], "angler"' \
-                            b': [{"date": 1591574400, "file_name": "Bliss-v14-angler-OFFICIAL-vanilla-20200608.zip", ' \
-                            b'"sha256": "b9566ebc192a4c27c72df19eae8a6eed6ea063226792e680fa0b2ede284e19f2", "size": 8' \
-                            b'57483855, "version": "v14", "mirrors": [{"name": "Main", "description": "Download build' \
-                            b's from the main server.", "zip_download_url": "https://testserver/media/angler/Bliss-v1' \
-                            b'4-angler-OFFICIAL-vanilla-20200608.zip", "md5_download_url": "https://testserver/media/' \
-                            b'angler/Bliss-v14-angler-OFFICIAL-vanilla-20200608.zip.md5"}]}], "dream2lte": [{"date": ' \
-                            b'1591660800, "file_name": "Bliss-v14-dream2lte-OFFICIAL-gapps-20200609.zip", "sha256": "' \
-                            b'b9566ebc192a4c27c72df19eae8a6eed6ea063226792e680fa0b2ede284e19f2", "size": 857483995, "' \
-                            b'version": "v14", "mirrors": [{"name": "Main", "description": "Download builds from the ' \
-                            b'main server.", "zip_download_url": "https://testserver/media/dream2lte/Bliss-v14-dream2' \
-                            b'lte-OFFICIAL-gapps-20200609.zip", "md5_download_url": "https://testserver/media/dream2l' \
-                            b'te/Bliss-v14-dream2lte-OFFICIAL-gapps-20200609.zip.md5"}]}]}' \
+        expected_response = b'{"bullhead": {"manufacturer": "LG", "name": "Nexus 5X", "builds": [{"date": 1591574400,' \
+                            b' "file_name": "Bliss-v14-bullhead-OFFICIAL-gapps-20200608.zip", "sha256": "b9566ebc192a' \
+                            b'4c27c72df19eae8a6eed6ea063226792e680fa0b2ede284e19f2", "size": 857483855, "version": "v' \
+                            b'14", "mirrors": [{"name": "Main", "description": "Download builds from the main server.' \
+                            b'", "zip_download_url": "https://testserver/media/bullhead/Bliss-v14-bullhead-OFFICIAL-g' \
+                            b'apps-20200608.zip", "md5_download_url": "https://testserver/media/bullhead/Bliss-v14-bu' \
+                            b'llhead-OFFICIAL-gapps-20200608.zip.md5"}]}]}, "angler": {"manufacturer": "Huawei", "nam' \
+                            b'e": "Nexus 6P", "builds": [{"date": 1591574400, "file_name": "Bliss-v14-angler-OFFICIAL' \
+                            b'-vanilla-20200608.zip", "sha256": "b9566ebc192a4c27c72df19eae8a6eed6ea063226792e680fa0b' \
+                            b'2ede284e19f2", "size": 857483855, "version": "v14", "mirrors": [{"name": "Main", "descr' \
+                            b'iption": "Download builds from the main server.", "zip_download_url": "https://testserv' \
+                            b'er/media/angler/Bliss-v14-angler-OFFICIAL-vanilla-20200608.zip", "md5_download_url": "h' \
+                            b'ttps://testserver/media/angler/Bliss-v14-angler-OFFICIAL-vanilla-20200608.zip.md5"}]}]}' \
+                            b', "dream2lte": {"manufacturer": "Samsung", "name": "Galaxy S8+", "builds": [{"date": 15' \
+                            b'91660800, "file_name": "Bliss-v14-dream2lte-OFFICIAL-gapps-20200609.zip", "sha256": "b9' \
+                            b'566ebc192a4c27c72df19eae8a6eed6ea063226792e680fa0b2ede284e19f2", "size": 857483995, "ve' \
+                            b'rsion": "v14", "mirrors": [{"name": "Main", "description": "Download builds from the ma' \
+                            b'in server.", "zip_download_url": "https://testserver/media/dream2lte/Bliss-v14-dream2lt' \
+                            b'e-OFFICIAL-gapps-20200609.zip", "md5_download_url": "https://testserver/media/dream2lte' \
+                            b'/Bliss-v14-dream2lte-OFFICIAL-gapps-20200609.zip.md5"}]}]}}'
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, expected_response)

@@ -10,8 +10,7 @@ from drf_chunked_upload.exceptions import ChunkedUploadError
 from drf_chunked_upload.settings import CHECKSUM_TYPE
 from drf_chunked_upload.views import ChunkedUploadView
 from rest_framework.authtoken.models import Token
-from rest_framework.decorators import api_view, permission_classes, parser_classes
-from rest_framework.parsers import MultiPartParser
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND, HTTP_200_OK, HTTP_401_UNAUTHORIZED
@@ -235,58 +234,6 @@ def maintainer_api_login(request):
         {
             'token': token.key,
             'message': 'Successfully logged in!'
-        },
-        status=HTTP_200_OK
-    )
-
-
-@csrf_exempt
-@api_view(["POST"])
-@parser_classes([MultiPartParser])
-def maintainer_api_build_upload(request):
-    device = Device.objects.get(codename=get_codename_from_filename(request.FILES["zip_file"].name))
-
-    # Check if device exists
-    if device is None:
-        raise Http404
-
-    build_file = request.data.get("build_file")
-    checksum_file = request.data.get("checksum_file")
-
-    # If any of the fields are blank, fail immediately
-    if build_file is None or checksum_file is None:
-        return Response(
-            {
-                'error': 'missing_files',
-                'message': 'One or more required files are missing.'
-            },
-            status=HTTP_400_BAD_REQUEST
-        )
-
-    # Check if user has sufficient permission to upload builds for given codename
-    if device not in Device.objects.filter(maintainers=request.user):
-        return Response(
-            {
-                'error': 'insufficient_permissions',
-                'message': 'You are not authorized to upload for this device!'
-            },
-            status=HTTP_401_UNAUTHORIZED
-        )
-
-    try:
-        handle_build(device, build_file, checksum_file)
-    except UploadException as exception:
-        return Response(
-            {
-                'error': str(exception),
-                'message': exception_to_message(exception)
-            },
-            status=HTTP_400_BAD_REQUEST
-        )
-
-    return Response(
-        {
-            'message': 'Build has been uploaded for device {}!'.format(device)
         },
         status=HTTP_200_OK
     )

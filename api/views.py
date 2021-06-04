@@ -94,6 +94,13 @@ def v2_all_builds(request):
         device_json = {
             "manufacturer": device.manufacturer,
             "name": device.name,
+            "hasBuilds": device.has_builds(),
+            "status": device.status,
+            "photo": device.get_photo_url(),
+            "hasGappsBuilds": device.has_gapps_builds(),
+            "hasVanillaBuilds": device.has_vanilla_builds(),
+            "hasFossBuilds": device.has_foss_builds(),
+            "hasGoappsBuilds": device.has_goapps_builds(),
             "builds": [],
         }
         builds = device.get_all_build_objects()
@@ -112,6 +119,7 @@ def v2_all_builds(request):
                 "sha256": build.sha256sum,
                 "size": build.size,
                 "version": build.version,
+                "variant": build.variant,
             }
 
             mirrors_json = [{

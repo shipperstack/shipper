@@ -13,6 +13,7 @@ def variant_check(variant):
 
 
 def v1_updater_los(request, codename, variant):
+    """LOS-style endpoint used by updater app"""
     device = get_object_or_404(Device, codename=codename)
 
     variant_check(variant)
@@ -52,6 +53,7 @@ def v1_updater_los(request, codename, variant):
 
 
 def v2_updater_device(request, codename, variant):
+    """Updater endpoint used by the R updater"""
     device = get_object_or_404(Device, codename=codename)
 
     variant_check(variant)

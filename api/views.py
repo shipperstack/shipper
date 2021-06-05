@@ -125,6 +125,8 @@ def v2_all_builds(request):
 
             date = parse_build_date(date)
 
+            scheme = request.is_secure() and "https" or "http"
+
             build_json = {
                 "date": int(date.strftime("%s")),
                 "file_name": "{}.zip".format(build.file_name),
@@ -132,6 +134,7 @@ def v2_all_builds(request):
                 "size": build.size,
                 "version": build.version,
                 "variant": build.variant,
+                "mirror_list_page": "{}://{}/download/{}/{}/".format(scheme, request.get_host(), device.codename, build.id)
             }
 
             mirrors_json = [{

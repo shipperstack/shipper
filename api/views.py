@@ -90,12 +90,6 @@ def v2_all_builds(request):
     return_json = {}
 
     for device in Device.objects.all():
-        # Display latest build ID for each variant
-        latest_gapps_id = device.get_latest_gapps_build_object().id if device.has_gapps_builds() else -1
-        latest_vanilla_id = device.get_latest_vanilla_build_object().id if device.has_vanilla_builds() else -1
-        latest_foss_id = device.get_latest_foss_build_object().id if device.has_foss_builds() else -1
-        latest_goapps_id = device.get_latest_goapps_build_object().id if device.has_goapps_builds() else -1
-
         # Construct initial device JSON
         device_json = {
             "manufacturer": device.manufacturer,
@@ -103,14 +97,6 @@ def v2_all_builds(request):
             "hasBuilds": device.has_builds(),
             "status": device.status,
             "photo": device.get_photo_url(),
-            "hasGappsBuilds": device.has_gapps_builds(),
-            "latestGappsBuildID": latest_gapps_id,
-            "hasVanillaBuilds": device.has_vanilla_builds(),
-            "latestVanillaBuildID": latest_vanilla_id,
-            "hasFossBuilds": device.has_foss_builds(),
-            "latestFossBuildID": latest_foss_id,
-            "hasGoappsBuilds": device.has_goapps_builds(),
-            "latestGoappsBuildID": latest_goapps_id,
             "builds": [],
         }
 

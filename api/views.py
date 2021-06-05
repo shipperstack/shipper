@@ -1,8 +1,7 @@
-import json
 import datetime
+import json
 
 from django.http import HttpResponse, Http404
-
 from django.shortcuts import get_object_or_404
 
 from shipper.models import *
@@ -24,7 +23,7 @@ def v1_updater_los(request, codename, variant):
         builds = device.get_all_vanilla_build_objects()
     elif variant == "foss":
         builds = device.get_all_foss_build_objects()
-    else:   # elif variant == "goapps":
+    else:  # elif variant == "goapps":
         builds = device.get_all_goapps_build_objects()
 
     # Check if list is empty and return a 404
@@ -41,7 +40,7 @@ def v1_updater_los(request, codename, variant):
         return_json.append({
             "datetime": int(date.strftime("%s")),
             "filename": "{}.zip".format(build.file_name),
-            "id": build.sha256sum,      # WHY
+            "id": build.sha256sum,  # WHY
             "size": build.size,
             "version": build.version,
             "variant": variant,
@@ -64,7 +63,7 @@ def v2_updater_device(request, codename, variant):
             build = device.get_latest_vanilla_build_object()
         elif variant == "foss":
             build = device.get_latest_foss_build_object()
-        else:   # elif variant == "goapps":
+        else:  # elif variant == "goapps":
             build = device.get_latest_goapps_build_object()
     except Build.DoesNotExist:
         raise Http404("No builds exist for the specified variant yet!")
@@ -91,6 +90,13 @@ def v2_all_builds(request):
     return_json = {}
 
     for device in Device.objects.all():
+        # Display latest build ID for each variant
+        latest_gapps_id = device.get_latest_gapps_build_object().id if device.has_gapps_builds() else -1
+        latest_vanilla_id = device.get_latest_vanilla_build_object().id if device.has_vanilla_builds() else -1
+        latest_foss_id = device.get_latest_foss_build_object().id if device.has_foss_builds() else -1
+        latest_goapps_id = device.get_latest_goapps_build_object().id if device.has_goapps_builds() else -1
+
+        # Construct initial device JSON
         device_json = {
             "manufacturer": device.manufacturer,
             "name": device.name,
@@ -98,22 +104,17 @@ def v2_all_builds(request):
             "status": device.status,
             "photo": device.get_photo_url(),
             "hasGappsBuilds": device.has_gapps_builds(),
+            "latestGappsBuildID": latest_gapps_id,
             "hasVanillaBuilds": device.has_vanilla_builds(),
+            "latestVanillaBuildID": latest_vanilla_id,
             "hasFossBuilds": device.has_foss_builds(),
+            "latestFossBuildID": latest_foss_id,
             "hasGoappsBuilds": device.has_goapps_builds(),
+            "latestGoappsBuildID": latest_goapps_id,
             "builds": [],
         }
 
-        # Display latest build ID for each variant
-        device_json["latestGappsBuildID"] = device.get_latest_gapps_build_object().id \
-            if device.has_gapps_builds() else -1
-        device_json["latestVanillaBuildID"] = device.get_latest_vanilla_build_object().id \
-            if device.has_vanilla_builds() else -1
-        device_json["latestFossBuildID"] = device.get_latest_foss_build_object().id \
-            if device.has_foss_builds() else -1
-        device_json["latestGoappsBuildID"] = device.get_latest_goapps_build_object().id \
-            if device.has_goapps_builds() else -1
-
+        # List builds for given device
         builds = device.get_all_build_objects()
 
         if not builds:

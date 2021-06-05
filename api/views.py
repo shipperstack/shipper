@@ -135,22 +135,6 @@ def v2_all_builds(request):
                 "mirror_list_page": "{}://{}/download/{}/{}/".format(scheme, request.get_host(), device.codename, build.id)
             }
 
-            mirrors_json = [{
-                "name": "Main",
-                "description": "Download builds from the main server.",
-                "zip_download_url": "{}://{}{}".format(scheme, request.get_host(), build.zip_file.url),
-                "md5_download_url": "{}://{}{}".format(scheme, request.get_host(), build.md5_file.url),
-            }]
-
-            for mirror in build.mirrored_on.all():
-                mirrors_json.append({
-                    "name": mirror.name,
-                    "description": mirror.description,
-                    "zip_download_url": mirror.download_url_base.format(build.zip_file.name),
-                    "md5_download_url": mirror.download_url_base.format(build.md5_file.name),
-                })
-
-            build_json["mirrors"] = mirrors_json
             device_json["builds"].append(build_json)
 
         return_json[device.codename] = device_json

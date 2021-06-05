@@ -4,18 +4,11 @@
 
 | Version   | Supported          |
 | --------- | ------------------ |
+|   1.6.13  | :white_check_mark: |
+|   1.6.12  | :white_check_mark: |
+|   1.6.11  | :white_check_mark: |
 |   1.6.10  | :white_check_mark: |
-|   1.6.9   | :x:                |
-|   1.6.8   | :x:                |
-|   1.6.7   | :x:                |
-|   1.6.6   | :x:                |
-|   1.6.5   | :x:                |
-|   1.6.4   | :x:                |
-|   1.6.3   | :x:                |
-|   1.6.2   | :x:                |
-|   1.6.1   | :x:                |
-|   1.6.0   | :x:                |
-| ≤ 1.5.x   | :x:                |
+| ≤ 1.6.9   | :x:                |
 
 ## Reporting a Vulnerability
 

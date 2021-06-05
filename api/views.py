@@ -129,8 +129,6 @@ def v2_all_builds(request):
 
             build_json = {
                 "date": int(date.strftime("%s")),
-                "file_name": "{}.zip".format(build.file_name),
-                "sha256": build.sha256sum,
                 "size": build.size,
                 "version": build.version,
                 "variant": build.variant,

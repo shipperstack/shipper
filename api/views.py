@@ -56,7 +56,7 @@ def v2_updater_device(request, codename, variant):
     device = get_object_or_404(Device, codename=codename)
 
     variant_check(variant)
-    
+
     try:
         if variant == "gapps":
             build = device.get_latest_gapps_build_object()
@@ -103,6 +103,17 @@ def v2_all_builds(request):
             "hasGoappsBuilds": device.has_goapps_builds(),
             "builds": [],
         }
+
+        # Display latest build ID for each variant
+        device_json["latestGappsBuildID"] = device.get_latest_gapps_build_object().id \
+            if device.has_gapps_builds() else -1
+        device_json["latestVanillaBuildID"] = device.get_latest_vanilla_build_object().id \
+            if device.has_vanilla_builds() else -1
+        device_json["latestFossBuildID"] = device.get_latest_foss_build_object().id \
+            if device.has_foss_builds() else -1
+        device_json["latestGoappsBuildID"] = device.get_latest_goapps_build_object().id \
+            if device.has_goapps_builds() else -1
+
         builds = device.get_all_build_objects()
 
         if not builds:

@@ -140,8 +140,8 @@ def v2_all_builds(request):
             mirrors_json = [{
                 "name": "Main",
                 "description": "Download builds from the main server.",
-                "zip_download_url": "https://" + request.get_host() + build.zip_file.url,
-                "md5_download_url": "https://" + request.get_host() + build.md5_file.url,
+                "zip_download_url": "{}://{}{}".format(scheme, request.get_host(), build.zip_file.url),
+                "md5_download_url": "{}://{}{}".format(scheme, request.get_host(), build.md5_file.url),
             }]
 
             for mirror in build.mirrored_on.all():

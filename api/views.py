@@ -96,7 +96,6 @@ def v2_all_builds(request):
         device_json = {
             "manufacturer": device.manufacturer,
             "name": device.name,
-            "hasBuilds": device.has_builds(),
             "status": device.status,
             "photo": device.get_photo_url(),
             "builds": [],

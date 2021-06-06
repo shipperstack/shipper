@@ -1,4 +1,5 @@
 import datetime
+import json
 
 from django.contrib.auth.models import AnonymousUser
 from django.http import Http404
@@ -105,26 +106,16 @@ class APIV2TestCase(TestCase):
         request = self.factory.get("/api/v2/all/")
         request.user = AnonymousUser()
         response = v2_all_builds(request)
-        expected_response = b'{"bullhead": {"manufacturer": "LG", "name": "Nexus 5X", "builds": [{"date": 1591574400,' \
-                            b' "file_name": "Bliss-v14-bullhead-OFFICIAL-gapps-20200608.zip", "sha256": "b9566ebc192a' \
-                            b'4c27c72df19eae8a6eed6ea063226792e680fa0b2ede284e19f2", "size": 857483855, "version": "v' \
-                            b'14", "mirrors": [{"name": "Main", "description": "Download builds from the main server.' \
-                            b'", "zip_download_url": "https://testserver/media/bullhead/Bliss-v14-bullhead-OFFICIAL-g' \
-                            b'apps-20200608.zip", "md5_download_url": "https://testserver/media/bullhead/Bliss-v14-bu' \
-                            b'llhead-OFFICIAL-gapps-20200608.zip.md5"}]}]}, "angler": {"manufacturer": "Huawei", "nam' \
-                            b'e": "Nexus 6P", "builds": [{"date": 1591574400, "file_name": "Bliss-v14-angler-OFFICIAL' \
-                            b'-vanilla-20200608.zip", "sha256": "b9566ebc192a4c27c72df19eae8a6eed6ea063226792e680fa0b' \
-                            b'2ede284e19f2", "size": 857483855, "version": "v14", "mirrors": [{"name": "Main", "descr' \
-                            b'iption": "Download builds from the main server.", "zip_download_url": "https://testserv' \
-                            b'er/media/angler/Bliss-v14-angler-OFFICIAL-vanilla-20200608.zip", "md5_download_url": "h' \
-                            b'ttps://testserver/media/angler/Bliss-v14-angler-OFFICIAL-vanilla-20200608.zip.md5"}]}]}' \
-                            b', "dream2lte": {"manufacturer": "Samsung", "name": "Galaxy S8+", "builds": [{"date": 15' \
-                            b'91660800, "file_name": "Bliss-v14-dream2lte-OFFICIAL-gapps-20200609.zip", "sha256": "b9' \
-                            b'566ebc192a4c27c72df19eae8a6eed6ea063226792e680fa0b2ede284e19f2", "size": 857483995, "ve' \
-                            b'rsion": "v14", "mirrors": [{"name": "Main", "description": "Download builds from the ma' \
-                            b'in server.", "zip_download_url": "https://testserver/media/dream2lte/Bliss-v14-dream2lt' \
-                            b'e-OFFICIAL-gapps-20200609.zip", "md5_download_url": "https://testserver/media/dream2lte' \
-                            b'/Bliss-v14-dream2lte-OFFICIAL-gapps-20200609.zip.md5"}]}]}}'
+
+        ret_json = json.loads(response.content)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.content, expected_response)
+
+        # Check JSON content
+        self.assertIn("bullhead", ret_json)
+        self.assertIn("angler", ret_json)
+        self.assertIn("dream2lte", ret_json)
+
+        self.assertIn("manufacturer", ret_json["bullhead"])
+        self.assertEqual("LG", ret_json["bullhead"]["manufacturer"])
+

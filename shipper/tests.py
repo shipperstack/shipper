@@ -6,7 +6,7 @@ from shipper.exceptions import UploadException
 from shipper.handler import file_name_validity_check
 from shipper.models import Device, Build
 from shipper.templatetags.build_extras import format_download_url
-from shipper.views import DownloadsView, DownloadsDeviceView, DownloadsBuildView
+from shipper.views import DownloadsView, DownloadsDeviceView, DownloadsBuildView, get_codename_from_filename
 
 
 class DeviceTestCase(TestCase):
@@ -163,6 +163,13 @@ class ViewTestCase(TestCase):
         request.user = AnonymousUser()
         with self.assertRaises(Http404):
             DownloadsBuildView.as_view()(request, codename="bullhead", pk=20)
+
+
+class HelperFunctionTestCase(TestCase):
+    def test_get_codename_from_filename(self):
+        self.assertEqual("bullhead", get_codename_from_filename("Bliss-v14.4-bullhead-OFFICIAL-gapps-20200408.zip"))
+        self.assertEqual("angler", get_codename_from_filename("Bliss-v14.4-angler-OFFICIAL-vanilla-20200508.zip"))
+        self.assertIsNone(get_codename_from_filename("Invalid-File-Name.zip.md5"))
 
 
 class TemplateTagsTestCase(TestCase):

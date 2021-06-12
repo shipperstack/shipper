@@ -252,8 +252,11 @@ def system_information(request):
 
 def get_codename_from_filename(filename):
     try:
-        _, version, codename, build_type, variant, date = os.path.splitext(filename)[0].split('-')
-        return codename
+        fields = os.path.splitext(filename)[0].split('-')
+        # Check field count
+        if len(fields) != 6:
+            return None
+        return fields[2] # Codename
     except ValueError:
         return None
 

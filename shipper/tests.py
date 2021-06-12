@@ -170,6 +170,7 @@ class HelperFunctionTestCase(TestCase):
     def test_get_codename_from_filename(self):
         self.assertEqual("bullhead", get_codename_from_filename("Bliss-v14.4-bullhead-OFFICIAL-gapps-20200408.zip"))
         self.assertEqual("angler", get_codename_from_filename("Bliss-v14.4-angler-OFFICIAL-vanilla-20200508.zip"))
+        self.assertIsNone(get_codename_from_filename("BlissInvalidFileNameWithoutDashes"))
         self.assertIsNone(get_codename_from_filename("Invalid-File-Name.zip.md5"))
 
     def test_exception_to_message(self):

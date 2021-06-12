@@ -6,7 +6,8 @@ from shipper.exceptions import UploadException
 from shipper.handler import file_name_validity_check
 from shipper.models import Device, Build
 from shipper.templatetags.build_extras import format_download_url
-from shipper.views import DownloadsView, DownloadsDeviceView, DownloadsBuildView, get_codename_from_filename
+from shipper.views import DownloadsView, DownloadsDeviceView, DownloadsBuildView, get_codename_from_filename, \
+    exception_to_message
 
 
 class DeviceTestCase(TestCase):
@@ -170,6 +171,22 @@ class HelperFunctionTestCase(TestCase):
         self.assertEqual("bullhead", get_codename_from_filename("Bliss-v14.4-bullhead-OFFICIAL-gapps-20200408.zip"))
         self.assertEqual("angler", get_codename_from_filename("Bliss-v14.4-angler-OFFICIAL-vanilla-20200508.zip"))
         self.assertIsNone(get_codename_from_filename("Invalid-File-Name.zip.md5"))
+
+    def test_exception_to_message(self):
+        self.assertEqual("The file name does not match the checksum file name!",
+                         exception_to_message(Exception('file_name_mismatch')))
+        self.assertEqual("The file name was malformed. Please do not edit the file name!",
+                         exception_to_message(Exception('invalid_file_name')))
+        self.assertEqual("Only official builds are allowed.",
+                         exception_to_message(Exception('not_official')))
+        self.assertEqual("The codename does not match the file!",
+                         exception_to_message(Exception('codename_mismatch')))
+        self.assertEqual("The build already exists in the system!",
+                         exception_to_message(Exception('duplicate_build')))
+        self.assertEqual("An unknown error occurred.",
+                         exception_to_message(Exception('some_weird_random_error')))
+        self.assertEqual("An unknown error occurred.",
+                         exception_to_message(Exception('unknown_error')))
 
 
 class TemplateTagsTestCase(TestCase):

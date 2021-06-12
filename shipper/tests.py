@@ -1,13 +1,16 @@
+import json
+
 from django.contrib.auth.models import AnonymousUser
 from django.http import Http404
 from django.test import TestCase, RequestFactory
 
+from config.settings import SHIPPER_VERSION
 from shipper.exceptions import UploadException
 from shipper.handler import file_name_validity_check
 from shipper.models import Device, Build
 from shipper.templatetags.build_extras import format_download_url
 from shipper.views import DownloadsView, DownloadsDeviceView, DownloadsBuildView, get_codename_from_filename, \
-    exception_to_message
+    exception_to_message, system_information
 
 
 class DeviceTestCase(TestCase):
@@ -164,6 +167,15 @@ class ViewTestCase(TestCase):
         request.user = AnonymousUser()
         with self.assertRaises(Http404):
             DownloadsBuildView.as_view()(request, codename="bullhead", pk=20)
+
+    def test_system_information_view(self):
+        request = self.factory.get("maintainers/api/system/")
+        request.user = AnonymousUser()
+        response = system_information(request).render()
+        ret_json = json.loads(response.content)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(ret_json["version"], SHIPPER_VERSION)
 
 
 class HelperFunctionTestCase(TestCase):

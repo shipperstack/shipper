@@ -4,7 +4,7 @@
     <div class="container">
         <header class="header clearfix">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="/maintainers">Shipper</a>
+                <a class="navbar-brand" href="{% url 'maintainer_dashboard' %}">Shipper</a>
                 <ul class="nav">
                     {% if user.is_authenticated %}
                         <li class="nav-item"><a href="{% url 'password_change' %}" class="nav-link">Change Password</a>

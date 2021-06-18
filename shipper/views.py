@@ -250,6 +250,17 @@ def system_information(request):
     )
 
 
+@csrf_exempt
+@api_view(["GET"])
+def maintainer_api_token_check(request):
+    return Response(
+        {
+            'username': request.user.username
+        },
+        status=HTTP_200_OK
+    )
+
+
 def get_codename_from_filename(filename):
     fields = os.path.splitext(filename)[0].split('-')
     # Check field count

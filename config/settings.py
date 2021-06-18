@@ -32,9 +32,9 @@ SHIPPER_DOWNLOADS_PAGE_DONATION_URL = os.environ.get("SHIPPER_DOWNLOADS_PAGE_DON
 
 # Application definition
 INSTALLED_APPS = [
-    'accounts',     # must be before admin/auth for password change template
     'django.contrib.admin',
     'django.contrib.auth',
+    'accounts',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',

@@ -1,5 +1,15 @@
+from django.contrib.auth.views import PasswordChangeView
 from django.shortcuts import render
+from rest_framework.authtoken.models import Token
+
 from .forms import *
+
+
+class PasswordChange(PasswordChangeView):
+    def form_valid(self, form):
+        # Invalidate tokens for the user
+        Token.objects.filter(user=form.user).delete()
+        return super().form_valid(form)
 
 
 def register(request):

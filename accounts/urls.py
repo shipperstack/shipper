@@ -8,7 +8,7 @@ urlpatterns = [
     path('logout/', auth_view.LogoutView.as_view(template_name='registration/logout.html'), name='logout'),
     path('register/', register, name='register'),
     path('password_change/',
-         auth_view.PasswordChangeView.as_view(template_name='registration/pw_change_form.html'),
+         PasswordChange.as_view(template_name='registration/pw_change_form.html'),
          name='password_change'
          ),
     path('password_change_done/',

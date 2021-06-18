@@ -6,6 +6,14 @@
 
     <br>
 
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Warning</h4>
+        <p class="mb-0">
+            Resetting your password will invalidate the account token as well. You will have to login again to shippy
+            to resume uploading builds.
+        </p>
+    </div>
+
     <form action="" method="post">
         {% csrf_token %}
         {{ form.as_p }}

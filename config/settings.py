@@ -32,6 +32,7 @@ SHIPPER_DOWNLOADS_PAGE_DONATION_URL = os.environ.get("SHIPPER_DOWNLOADS_PAGE_DON
 
 # Application definition
 INSTALLED_APPS = [
+    'accounts',     # must be before admin/auth for password change template
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,7 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    'accounts',
     'shipper',
     'api',
     'drf_chunked_upload',

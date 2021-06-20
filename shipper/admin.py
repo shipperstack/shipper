@@ -56,6 +56,7 @@ class BuildAdmin(admin.ModelAdmin):
 
 class MirrorServerAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'description', 'hostname', 'enabled', 'downloadable']
+    list_filter = ['enabled', 'downloadable']
     ordering = ['-enabled', '-downloadable']
 
 

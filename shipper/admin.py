@@ -16,6 +16,7 @@ class CustomUserAdmin(UserAdmin):
 
 class DeviceAdmin(admin.ModelAdmin):
     list_display = ['id', 'manufacturer', 'name', 'codename', 'get_maintainers', 'status', 'created']
+    list_filter = ['status']
     search_fields = ['name', 'codename', 'manufacturer']
     ordering = ['-status', 'manufacturer', 'name']
 

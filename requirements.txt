@@ -1,4 +1,4 @@
-Celery==5.1.1
+Celery==5.1.2
 Django==3.2.4
 django-celery-beat==2.2.0
 django-celery-results==2.1.0

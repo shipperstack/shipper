@@ -33,47 +33,51 @@ class Device(models.Model):
         else:
             return self.photo
 
+    def get_enabled_builds(self):
+        return self.builds.filter(enabled=True)
+
     def has_gapps_builds(self):
-        return self.builds.filter(variant="gapps").exclude(sha256sum__exact='').count() > 0
+        return self.get_enabled_builds().filter(variant="gapps").exclude(sha256sum__exact='').count() > 0
 
     def has_vanilla_builds(self):
-        return self.builds.filter(variant="vanilla").exclude(sha256sum__exact='').count() > 0
+        return self.get_enabled_builds().filter(variant="vanilla").exclude(sha256sum__exact='').count() > 0
 
     def has_foss_builds(self):
-        return self.builds.filter(variant="foss").exclude(sha256sum__exact='').count() > 0
+        return self.get_enabled_builds().filter(variant="foss").exclude(sha256sum__exact='').count() > 0
 
     def has_goapps_builds(self):
-        return self.builds.filter(variant="goapps").exclude(sha256sum__exact='').count() > 0
+        return self.get_enabled_builds().filter(variant="goapps").exclude(sha256sum__exact='').count() > 0
 
     def has_builds(self):
-        return self.builds.exclude(sha256sum__exact='').count() > 0
+        return self.get_enabled_builds().exclude(sha256sum__exact='').count() > 0
 
     def get_latest_gapps_build_object(self):
-        return self.builds.filter(variant="gapps").exclude(sha256sum__exact='').latest('id')
+        return self.get_enabled_builds().filter(variant="gapps").exclude(sha256sum__exact='').latest('id')
 
     def get_latest_vanilla_build_object(self):
-        return self.builds.filter(variant="vanilla").exclude(sha256sum__exact='').latest('id')
+        return self.get_enabled_builds().filter(variant="vanilla").exclude(sha256sum__exact='').latest('id')
 
     def get_latest_foss_build_object(self):
-        return self.builds.filter(variant="foss").exclude(sha256sum__exact='').latest('id')
+        return self.get_enabled_builds().filter(variant="foss").exclude(sha256sum__exact='').latest('id')
 
     def get_latest_goapps_build_object(self):
-        return self.builds.filter(variant="goapps").exclude(sha256sum__exact='').latest('id')
+        return self.get_enabled_builds().filter(variant="goapps").exclude(sha256sum__exact='').latest('id')
 
     def get_all_build_objects(self):
-        return self.builds.exclude(sha256sum__exact='').all()
+        return self.get_enabled_builds().exclude(sha256sum__exact='').all()
 
     def get_all_gapps_build_objects(self):
-        return self.builds.filter(variant="gapps").exclude(sha256sum__exact='').all().order_by('created')
+        return self.get_enabled_builds().filter(variant="gapps").exclude(sha256sum__exact='').all().order_by('created')
 
     def get_all_vanilla_build_objects(self):
-        return self.builds.filter(variant="vanilla").exclude(sha256sum__exact='').all().order_by('created')
+        return self.get_enabled_builds().filter(variant="vanilla").exclude(sha256sum__exact='').all() \
+            .order_by('created')
 
     def get_all_foss_build_objects(self):
-        return self.builds.filter(variant="foss").exclude(sha256sum__exact='').all().order_by('created')
+        return self.get_enabled_builds().filter(variant="foss").exclude(sha256sum__exact='').all().order_by('created')
 
     def get_all_goapps_build_objects(self):
-        return self.builds.filter(variant="goapps").exclude(sha256sum__exact='').all().order_by('created')
+        return self.get_enabled_builds().filter(variant="goapps").exclude(sha256sum__exact='').all().order_by('created')
 
 
 # Mirror Server Model
@@ -196,6 +200,12 @@ class Build(models.Model):
         related_name="builds",
         help_text="Servers this build is mirrored on. Do not edit manually unless you know what you are doing!<br>",
         blank=True,
+    )
+    enabled = models.BooleanField(
+        default=True,
+        help_text='Whether this build is enabled or not. Disabled builds will not show up to users, or in the updater '
+                  'API until it is enabled again. Disabled builds are still replicated to mirror servers, so a user '
+                  'downloading from a mirror server may see the build listed.'
     )
 
     created = models.DateTimeField(auto_now_add=True, editable=False)

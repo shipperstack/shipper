@@ -28,20 +28,15 @@
                 <td>
                     {% if build.enabled %}
                         ✅
-                    {% else %}
-                        ❌
-                    {% endif %}
-                </td>
-                <td>
-                    {% if build.enabled %}
                         <a href="{% url 'build_enabled_status_modify' pk=build.id %}"
                            class="btn btn-danger btn-sm confirm-disable">Disable</a>
                     {% else %}
+                        ❌
                         <a href="{% url 'build_enabled_status_modify' pk=build.id %}"
                            class="btn btn-success btn-sm confirm-enable">Enable</a>
                     {% endif %}
-                    <a href="{% url 'build_delete' pk=build.id %}" class="btn btn-danger btn-sm">Delete</a>
                 </td>
+                <td><a href="{% url 'build_delete' pk=build.id %}" class="btn btn-danger btn-sm">Delete</a></td>
             </tr>
         {% endfor %}
         </tbody>

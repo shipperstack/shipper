@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect, Http404
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, DetailView, DeleteView
@@ -97,6 +97,21 @@ class BuildDeleteView(LoginRequiredMixin, DeleteView):
     # Override builds shown to maintainers
     def get_queryset(self):
         return Build.objects.filter(device__maintainers=self.request.user)
+
+
+@login_required
+def build_enabled_status(request, pk):
+    build = get_object_or_404(Build, pk=pk)
+
+    # Check if maintainer is in device's approved maintainers list
+    if request.user not in build.device.maintainers.all():
+        raise Http404
+
+    # Switch build status
+    build.enabled = not build.enabled
+    build.save()
+
+    return redirect(reverse('device_detail', kwargs={'pk': build.device.id}))
 
 
 @login_required

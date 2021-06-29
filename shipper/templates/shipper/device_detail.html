@@ -15,6 +15,7 @@
             <th scope="col">Build name</th>
             <th scope="col">Size</th>
             <th scope="col">Variant</th>
+            <th scope="col">Enabled</th>
             <th scope="col">Actions</th>
         </tr>
         </thead>
@@ -24,9 +25,41 @@
                 <td>{{ build.file_name }}</td>
                 <td title="{{ build.size }} bytes">{{ build.get_human_readable_size }}</td>
                 <td>{{ build.variant }}</td>
-                <td><a href="{% url 'build_delete' pk=build.id %}" class="btn btn-danger btn-sm">Delete</a></td>
+                <td>
+                    {% if build.enabled %}
+                        ✅
+                    {% else %}
+                        ❌
+                    {% endif %}
+                </td>
+                <td>
+                    {% if build.enabled %}
+                        <a href="{% url 'build_enabled_status' pk=build.id %}"
+                           class="btn btn-danger btn-sm confirm-disable">Disable</a>
+                    {% else %}
+                        <a href="{% url 'build_enabled_status' pk=build.id %}"
+                           class="btn btn-success btn-sm confirm-enable">Enable</a>
+                    {% endif %}
+                    <a href="{% url 'build_delete' pk=build.id %}" class="btn btn-danger btn-sm">Delete</a>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
+
+
+    <!--suppress JSUnresolvedLibraryURL -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    
+    <script>
+        $(function () {
+            $('.confirm-enable').click(function () {
+                return window.confirm("Are you sure you want to enable this build?");
+            });
+            $('.confirm-disable').click(function () {
+                return window.confirm("Are you sure you want to disable this build?");
+            });
+        });
+    </script>
 {% endblock %}

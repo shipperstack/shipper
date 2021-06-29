@@ -36,6 +36,8 @@ def handle_build(device, zip_file, md5_file):
     # Execute background tasks
     build_background_processing(build.id)
 
+    return build.id
+
 
 def handle_chunked_build(device, chunked_file, md5_value):
     build_file_name, build_file_ext = os.path.splitext(chunked_file.filename)
@@ -81,6 +83,8 @@ def handle_chunked_build(device, chunked_file, md5_value):
 
     # Execute background tasks
     build_background_processing(build.id)
+
+    return build.id
 
 
 def build_background_processing(build_id):

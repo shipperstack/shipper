@@ -100,7 +100,7 @@ class BuildDeleteView(LoginRequiredMixin, DeleteView):
 
 
 @login_required
-def build_enabled_status(request, pk):
+def build_enabled_status_modify(request, pk):
     build = get_object_or_404(Build, pk=pk)
 
     # Check if maintainer is in device's approved maintainers list

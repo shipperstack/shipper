@@ -278,6 +278,53 @@ def maintainer_api_token_check(request):
     )
 
 
+@csrf_exempt
+@api_view(["GET"])
+def maintainer_api_build_enabled_status_modify(request):
+    build_id = request.data.get("build_id")
+    enable = bool(request.data.get("enable"))
+    if build_id is None or enable is None:
+        return Response(
+            {
+                'error': 'missing_parameters',
+                'message': 'One or more of the required parameters is blank! Required parameters: build ID, '
+                           'enabled flag'
+            },
+            status=HTTP_400_BAD_REQUEST
+        )
+
+    build = get_object_or_404(Build, pk=build_id)
+
+    # Check if maintainer has permission to modify this build/device
+    if request.user not in build.device.maintainers.all():
+        return Response(
+            {
+                'error': 'insufficient_permissions',
+                'message': 'You are not authorized to modify builds associated with this device!'
+            },
+            status=HTTP_401_UNAUTHORIZED
+        )
+
+    # Switch build status
+    build.enabled = enable
+    build.save()
+
+    if enable:
+        return Response(
+            {
+                'message': 'Successfully enabled the build!'
+            },
+            status=HTTP_200_OK
+        )
+    else:
+        return Response(
+            {
+                'message': 'Successfully disabled the build!'
+            },
+            status=HTTP_200_OK
+        )
+
+
 def get_codename_from_filename(filename):
     fields = os.path.splitext(filename)[0].split('-')
     # Check field count

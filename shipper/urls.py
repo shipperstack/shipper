@@ -16,4 +16,6 @@ urlpatterns = [
     path('maintainers/api/token_check/', maintainer_api_token_check, name='maintainer_api_token_check'),
     path('maintainers/api/chunked_upload/', ChunkedBuildUpload.as_view(), name='chunked_build_upload'),
     path('maintainers/api/chunked_upload/<uuid:pk>/', ChunkedBuildUpload.as_view(), name='chunkedupload-detail'),
+    path('maintainers/api/build/enabled_status_modify/', maintainer_api_build_enabled_status_modify,
+         name='maintainer_api_build_enabled_status_modify'),
 ]

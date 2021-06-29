@@ -126,7 +126,7 @@ def build_upload(request, pk):
         form = BuildUploadForm(request.POST, request.FILES)
         if form.is_valid():
             try:
-                handle_build(device, request.FILES["zip_file"], request.FILES["md5_file"])
+                build_id = handle_build(device, request.FILES["zip_file"], request.FILES["md5_file"])
             except UploadException as exception:
                 return render(request, 'shipper/build_upload.html', {
                     'upload_succeeded': False,
@@ -138,7 +138,8 @@ def build_upload(request, pk):
             return render(request, 'shipper/build_upload.html', {
                 'upload_succeeded': True,
                 'device': device,
-                'form': form
+                'form': form,
+                'build_id': build_id
             })
         return render(request, 'shipper/build_upload.html', {
             'upload_succeeded': False,

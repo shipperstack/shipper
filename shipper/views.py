@@ -282,7 +282,7 @@ def maintainer_api_token_check(request):
 @api_view(["GET"])
 def maintainer_api_build_enabled_status_modify(request):
     build_id = request.data.get("build_id")
-    enable = bool(request.data.get("enable"))
+    enable = request.data.get("enable").lower() == "true"
     if build_id is None or enable is None:
         return Response(
             {

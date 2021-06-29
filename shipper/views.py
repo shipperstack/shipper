@@ -204,7 +204,7 @@ class ChunkedBuildUpload(ChunkedUploadView):
             )
 
         try:
-            handle_chunked_build(device, chunked_upload, request.POST.get('md5'))
+            build_id = handle_chunked_build(device, chunked_upload, request.POST.get('md5'))
         except UploadException as exception:
             chunked_upload.delete()
             return Response(
@@ -217,7 +217,8 @@ class ChunkedBuildUpload(ChunkedUploadView):
 
         return Response(
             {
-                'message': 'Build has been uploaded for device {}!'.format(device)
+                'message': 'Build has been uploaded for device {}!'.format(device),
+                'build_id': build_id
             },
             status=HTTP_200_OK
         )

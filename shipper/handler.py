@@ -30,6 +30,7 @@ def handle_build(device, zip_file, md5_file):
         variant=variant,
         zip_file=zip_file,
         md5_file=md5_file,
+        enabled=True
     )
     build.save()
 
@@ -75,6 +76,7 @@ def handle_chunked_build(device, chunked_file, md5_value):
         variant=variant,
         zip_file="{}/{}".format(device.codename, chunked_file.filename),
         md5_file="{}/{}.md5".format(device.codename, chunked_file.filename),
+        enabled=True,
     )
     build.save()
 

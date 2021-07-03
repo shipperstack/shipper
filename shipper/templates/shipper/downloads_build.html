@@ -86,15 +86,11 @@
             .catch(err => console.log(err));
         }
     
-        // Get all download buttons
-        const downloadButtons = document.querySelectorAll('a.btn.btn-success.btn-sm')
-
-        downloadButtons.forEach(function(downloadButton) {
-            downloadButton.addEventListener('click', function(btn) {
-                btn.preventDefault()
-                increment_download_count(downloadButton.href)
-            })
-        })
+        // Get all download buttons and add event listener
+        $(document).on('click', 'a.btn.btn-success.btn-sm', function(e) {
+            e.preventDefault();
+            increment_download_count($(this).attr('href'));
+        });
     </script>
 
 

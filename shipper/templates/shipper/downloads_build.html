@@ -39,9 +39,9 @@
                 <td>Main</td>
                 <td>Download builds from the main website.</td>
                 <td><a href="{{ object.zip_file.url }}"
-                                   class="btn btn-success btn-sm" title="">Download</a>
+                       class="btn btn-success btn-sm" title="">Download</a>
                     <a href="{{ object.md5_file.url }}"
-                                   class="btn btn-link btn-sm">MD5</a>
+                       class="btn btn-link btn-sm">MD5</a>
                 </td>
             </tr>
 
@@ -50,9 +50,9 @@
                     <td>{{ mirror.name }}</td>
                     <td>{{ mirror.description }}</td>
                     <td><a href="{{ mirror.download_url_base|format_download_url:object.zip_file.name }}"
-                                       class="btn btn-success btn-sm" title="">Download</a>
+                           class="btn btn-success btn-sm" title="">Download</a>
                         <a href="{{ mirror.download_url_base|format_download_url:object.md5_file.name }}"
-                                       class="btn btn-link btn-sm">MD5</a>
+                           class="btn btn-link btn-sm">MD5</a>
                     </td>
                 </tr>
             {% endfor %}
@@ -61,7 +61,8 @@
     </div>
 
     <!--suppress JSUnresolvedLibraryURL -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
     <!-- Download counter script -->
     <script>

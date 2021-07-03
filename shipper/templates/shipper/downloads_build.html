@@ -70,6 +70,7 @@
         $(document).ready(function () {
             $('a.btn.btn-success.btn-sm').on('click', function (e) {
                 e.preventDefault();
+                const downloadURL = $(this).attr("href");
 
                 $.ajax({
                     url: "{% url 'downloads_api_build_counter' %}",
@@ -82,7 +83,7 @@
                     })
                 })
                 .done(function() {
-                    window.location.href = $(this).attr('href');
+                    window.location.href = downloadURL;
                 });
             });
         });

@@ -62,13 +62,17 @@
 
     <!-- Download counter script -->
     <script>
-        function increment_download_count() {
+        function increment_download_count(button) {
+            // Prevent button from executing until after POST request has completed
+            button.preventDefault()
+
             // Formulate data to send
             const build_data = {
                 file_name: "{{ object.file_name }}",
                 build_id: {{ object.id }}
             }
 
+            // Send request to server
             fetch('{% url 'downloads_api_build_counter' %}', {
                 method: "POST",
                 headers: {
@@ -78,6 +82,7 @@
             })
             .then(response => response.json())
             .then(json => console.log(json))
+            .then(window.location.href = button.href)   // Now initiate download
             .catch(err => console.log(err))
         }
     
@@ -85,7 +90,7 @@
         const downloadButtons = document.querySelectorAll('a.btn.btn-success.btn-sm')
 
         downloadButtons.forEach(function(downloadButton) {
-            downloadButton.addEventListener('click', increment_download_count)
+            downloadButton.addEventListener('click', increment_download_count(downloadButton))
         })
     </script>
 

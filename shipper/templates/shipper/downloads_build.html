@@ -65,35 +65,28 @@
 
     <!-- Download counter script -->
     <script>
-        function increment_download_count(download_url) {
-            // Formulate data to send
-            const build_data = {
-                file_name: "{{ object.file_name }}",
-                build_id: {{ object.id }}
-            };
-
-            // Send request to server
-            fetch('{% url 'downloads_api_build_counter' %}', {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(build_data)
-            })
-            .then(response => response.json())
-            .then(json => console.log(json))
-            .then(window.location.href = download_url)   // Now initiate download
-            .catch(err => console.log(err));
-        }
-    
         // Get all download buttons and add event listener
-        $(document).ready(function() {
-            $('a.btn.btn-success.btn-sm').on('click', function(e) {
+        $(document).ready(function () {
+            $('a.btn.btn-success.btn-sm').on('click', function (e) {
                 e.preventDefault();
-                increment_download_count($(this).attr('href'));
+
+                $.ajax({
+                    url: "{% url 'downloads_api_build_counter' %}",
+                    type: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    data: {
+                        file_name: "{{ object.file_name }}",
+                        build_id: {{ object.id }}
+                    },
+                    dataType: "json"
+                })
+                .done(function() {
+                    window.location.href = $(this).attr('href');
+                })
             });
         });
-
     </script>
 
 

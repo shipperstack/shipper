@@ -15,6 +15,7 @@
             <th scope="col">Build name</th>
             <th scope="col">Size</th>
             <th scope="col">Variant</th>
+            <th scope="col">Download Count</th>
             <th scope="col">Enabled</th>
             <th scope="col">Actions</th>
         </tr>
@@ -25,6 +26,7 @@
                 <td>{{ build.file_name }}</td>
                 <td title="{{ build.size }} bytes">{{ build.get_human_readable_size }}</td>
                 <td>{{ build.variant }}</td>
+                <td>{{ build.download_count }}</td>
                 <td>
                     {% if build.enabled %}
                         ✅

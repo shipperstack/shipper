@@ -65,7 +65,7 @@
         function increment_download_count() {
             // Formulate data to send
             const build_data = {
-                file_name: {{ object.file_name }},
+                file_name: "{{ object.file_name }}",
                 build_id: {{ object.id }}
             }
 

@@ -44,7 +44,7 @@ class DownloadsBuildView(DetailView):
 @csrf_exempt
 @api_view(["POST"])
 @permission_classes((AllowAny,))
-def download_build_counter_api(request):
+def downloads_api_build_counter(request):
     file_name = request.data.get("file_name")
 
     if file_name:

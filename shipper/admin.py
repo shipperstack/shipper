@@ -27,7 +27,7 @@ class DeviceAdmin(admin.ModelAdmin):
 
 class BuildAdmin(admin.ModelAdmin):
     list_display = ['id', 'enabled', 'file_name', 'get_device_name', 'size', 'version', 'variant',
-                    'get_build_device_maintainers', 'is_processed', 'is_backed_up', 'created']
+                    'get_build_device_maintainers', 'download_count', 'is_processed', 'is_backed_up', 'created']
     list_filter = ['enabled']
     ordering = ['-created']
 

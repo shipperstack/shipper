@@ -60,5 +60,31 @@
         </table>
     </div>
 
+    <!-- Download counter script -->
+    <script>
+        function increment_download_count() {
+            // Formulate data to send
+            const build_data = {
+                file_name: {{ object.file_name }},
+                build_id: {{ object.id }}
+            }
+
+            fetch('{% url 'downloads_api_build_counter' %}', {
+                method: "POST",
+                body: JSON.stringify(build_data)
+            })
+            .then(response => response.json())
+            .then(json => console.log(json))
+            .catch(err => console.log(err))
+        }
+    
+        // Get all download buttons
+        const downloadButtons = document.querySelectorAll('.btn .btn-success .btn-sm')
+
+        downloadButtons.forEach(function(downloadButton) {
+            downloadButton.addEventListener('click', )
+        })
+    </script>
+
 
 {% endblock %}

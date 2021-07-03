@@ -71,6 +71,9 @@
 
             fetch('{% url 'downloads_api_build_counter' %}', {
                 method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
                 body: JSON.stringify(build_data)
             })
             .then(response => response.json())

@@ -8,6 +8,7 @@ def download_page_processor(request):
             'downloads_page_donation_url': settings.SHIPPER_DOWNLOADS_PAGE_DONATION_URL,
     }
 
+
 def version_processor(request):
     return {'SHIPPER_VERSION': settings.SHIPPER_VERSION}
 

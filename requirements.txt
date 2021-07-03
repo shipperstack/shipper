@@ -1,5 +1,6 @@
 Celery==5.1.2
 Django==3.2.5
+django-auditlog==1.0a1
 django-celery-beat==2.2.1
 django-celery-results==2.2.0
 django-cleanup==5.2.0

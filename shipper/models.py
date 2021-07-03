@@ -1,3 +1,4 @@
+from auditlog.registry import auditlog
 from django.conf import settings
 from django.db import models
 
@@ -239,3 +240,9 @@ class Build(models.Model):
 
     def __str__(self):
         return self.file_name
+
+
+# Register all models to audit log
+auditlog.register(Device)
+auditlog.register(MirrorServer)
+auditlog.register(Build)

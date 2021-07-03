@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'shipper',
     'api',
     'drf_chunked_upload',
+    'auditlog',
     'django_celery_beat',
     'django_celery_results',
     'django_cleanup.apps.CleanupConfig',  # must be last in order for successful deletions
@@ -57,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'auditlog.middleware.AuditlogMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'

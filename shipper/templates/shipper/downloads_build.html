@@ -82,7 +82,7 @@
                         build_id: {{ object.id }}
                     })
                 })
-                .done(function() {
+                .always(function() {
                     window.location.href = downloadURL;
                 });
             });

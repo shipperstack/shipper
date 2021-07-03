@@ -10,9 +10,16 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # Device/Maintainer Statistics
-        device_count = Device.objects.all().count()
-        maintainer_count = User.objects.all().count()
-        self.stdout.write("{} devices maintained by {} maintainers.".format(device_count, maintainer_count))
+        devices = Device.objects.all()
+        maintainers = User.objects.all()
+        device_count = devices.count()
+        maintainer_count = maintainers.count()
+        enabled_devices_count = devices.filter(status=True).count()
+        active_maintainers_count = maintainers.filter(is_active=True).count()
+        self.stdout.write("{} devices maintained by {} maintainers."
+                          .format(enabled_devices_count, active_maintainers_count))
+        self.stdout.write("{} unsupported devices, {} inactive maintainers."
+                          .format(device_count - enabled_devices_count, maintainer_count - active_maintainers_count))
 
         # Total Build Statistics
         builds = Build.objects.all()

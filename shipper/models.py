@@ -208,6 +208,10 @@ class Build(models.Model):
                   'API until it is enabled again. Disabled builds are still replicated to mirror servers, so a user '
                   'downloading from a mirror server may see the build listed.'
     )
+    download_count = models.BigIntegerField(
+        default=0,
+        help_text='Approximate download count'
+    )
 
     created = models.DateTimeField(auto_now_add=True, editable=False)
 

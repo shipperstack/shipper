@@ -41,6 +41,66 @@ class DownloadsBuildView(DetailView):
     model = Build
 
 
+@csrf_exempt
+@api_view(["GET"])
+@permission_classes((AllowAny,))
+def download_build_counter_api(request):
+    file_name = request.data.get("file_name")
+
+    if file_name:
+        try:
+            build = Build.objects.get(file_name=file_name)
+            build_increase_download_count(build)
+            return Response(
+                {
+                    'message': 'The request was successful!'
+                },
+                status=HTTP_200_OK
+            )
+        except Build.DoesNotExist:
+            return Response(
+                {
+                    'error': 'invalid_build_name',
+                    'message': 'A build with that file name does not exist!'
+                },
+                status=HTTP_404_NOT_FOUND
+            )
+
+    build_id = request.data.get("build_id")
+
+    if build_id:
+        try:
+            build = Build.objects.get(pk=int(build_id))
+            build_increase_download_count(build)
+            return Response(
+                {
+                    'message': 'The request was successful!'
+                },
+                status=HTTP_200_OK
+            )
+        except Build.DoesNotExist:
+            return Response(
+                {
+                    'error': 'invalid_build_id',
+                    'message': 'A build with that ID does not exist!'
+                },
+                status=HTTP_404_NOT_FOUND
+            )
+
+    return Response(
+        {
+            'error': 'missing_parameters',
+            'message': 'No parameters specified. Specify a file_name parameter or a build_id parameter.'
+        },
+        status=HTTP_400_BAD_REQUEST
+    )
+
+
+def build_increase_download_count(build):
+    build.download_count += 1
+    build.save()
+
+
 class MaintainerDashboardView(LoginRequiredMixin, ListView):
     template_name = 'shipper/maintainer_dashboard.html'
     model = Device

@@ -87,10 +87,13 @@
         }
     
         // Get all download buttons and add event listener
-        $(document).on('click', 'a.btn.btn-success.btn-sm', function(e) {
-            e.preventDefault();
-            increment_download_count($(this).attr('href'));
+        $(document).ready(function() {
+            $('a.btn.btn-success.btn-sm').on('click', function(e) {
+                e.preventDefault();
+                increment_download_count($(this).attr('href'));
+            });
         });
+
     </script>
 
 

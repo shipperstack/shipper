@@ -249,4 +249,4 @@ class Build(models.Model):
 # Register all models to audit log
 auditlog.register(Device)
 auditlog.register(MirrorServer)
-auditlog.register(Build)
+auditlog.register(Build, exclude_fields=['download_count'])

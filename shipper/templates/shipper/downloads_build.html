@@ -89,7 +89,7 @@
         downloadButtons.forEach(function(downloadButton) {
             downloadButton.addEventListener('click', function(btn) {
                 btn.preventDefault()
-                increment_download_count(btn.href)
+                increment_download_count(downloadButton.href)
             })
         })
     </script>

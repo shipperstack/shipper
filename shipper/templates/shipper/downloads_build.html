@@ -8,6 +8,15 @@
     <h1>Downloads for {{ object }}</h1>
     <br>
 
+    <!-- Check for debug mode -->
+    {% if DEBUG %}
+        <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">This is a development server!</h4>
+            <p class="mb-0">Please make sure you are connecting to the correct server!</p>
+            <p class="mb-0">If you believe you are on the correct server, please contact an admin.</p>
+        </div>
+    {% endif %}
+
     <!-- Donation alert -->
     {% if downloads_page_donation_url != "#" %}
         <div class="alert alert-secondary">

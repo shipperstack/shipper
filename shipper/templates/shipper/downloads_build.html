@@ -62,10 +62,7 @@
 
     <!-- Download counter script -->
     <script>
-        function increment_download_count(button) {
-            // Prevent button from executing until after POST request has completed
-            button.preventDefault()
-
+        function increment_download_count(download_url) {
             // Formulate data to send
             const build_data = {
                 file_name: "{{ object.file_name }}",
@@ -82,7 +79,7 @@
             })
             .then(response => response.json())
             .then(json => console.log(json))
-            .then(window.location.href = button.href)   // Now initiate download
+            .then(window.location.href = download_url)   // Now initiate download
             .catch(err => console.log(err))
         }
     
@@ -90,7 +87,10 @@
         const downloadButtons = document.querySelectorAll('a.btn.btn-success.btn-sm')
 
         downloadButtons.forEach(function(downloadButton) {
-            downloadButton.addEventListener('click', increment_download_count(downloadButton))
+            downloadButton.addEventListener('click', function(btn) {
+                btn.preventDefault()
+                increment_download_count(btn.href)
+            })
         })
     </script>
 

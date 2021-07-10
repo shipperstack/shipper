@@ -67,20 +67,23 @@ class APIV1TestCase(TestCase):
     def test_v1_updater_los_bullhead_vanilla(self):
         request = self.factory.get("/api/v1/updater/los/")
         request.user = AnonymousUser
-        with self.assertRaises(Http404):
-            v1_updater_los(request, "bullhead", "vanilla")
+        response = v1_updater_los(request, "bullhead", "vanilla")
+
+        self.assertEqual(response.status_code, 404)
 
     def test_v1_updater_los_bullhead_foss(self):
         request = self.factory.get("/api/v1/updater/los/")
         request.user = AnonymousUser
-        with self.assertRaises(Http404):
-            v1_updater_los(request, "bullhead", "foss")
+        response = v1_updater_los(request, "bullhead", "foss")
+
+        self.assertEqual(response.status_code, 404)
 
     def test_v1_updater_los_bullhead_goapps(self):
         request = self.factory.get("/api/v1/updater/los/")
         request.user = AnonymousUser
-        with self.assertRaises(Http404):
-            v1_updater_los(request, "bullhead", "goapps")
+        response = v1_updater_los(request, "bullhead", "goapps")
+
+        self.assertEqual(response.status_code, 404)
 
 
 class APIV2TestCase(TestCase):
@@ -106,17 +109,20 @@ class APIV2TestCase(TestCase):
     def test_v2_updater_bullhead_vanilla(self):
         request = self.factory.get("/api/v2/updater/")
         request.user = AnonymousUser()
-        with self.assertRaises(Http404):
-            v2_updater_device(request, "bullhead", "vanilla")
+        response = v2_updater_device(request, "bullhead", "vanilla")
+
+        self.assertEqual(response.status_code, 404)
 
     def test_v2_updater_bullhead_foss(self):
         request = self.factory.get("/api/v2/updater/")
         request.user = AnonymousUser()
-        with self.assertRaises(Http404):
-            v2_updater_device(request, "bullhead", "foss")
+        response = v2_updater_device(request, "bullhead", "foss")
+
+        self.assertEqual(response.status_code, 404)
 
     def test_v2_updater_bullhead_goapps(self):
         request = self.factory.get("/api/v2/updater/")
         request.user = AnonymousUser()
-        with self.assertRaises(Http404):
-            v2_updater_device(request, "bullhead", "goapps")
+        response = v2_updater_device(request, "bullhead", "goapps")
+
+        self.assertEqual(response.status_code, 404)

@@ -170,7 +170,7 @@ def get_codename_from_filename(filename):
 @csrf_exempt
 @api_view(["POST"])
 @permission_classes((AllowAny,))
-def maintainer_api_login(request):
+def v1_maintainers_login(request):
     username = request.data.get("username")
     password = request.data.get("password")
     if username is None or password is None:
@@ -212,7 +212,7 @@ def v1_system_info(request):
 
 @csrf_exempt
 @api_view(["GET"])
-def maintainer_api_token_check(request):
+def v1_maintainers_token_check(request):
     return Response(
         {
             'username': request.user.username
@@ -223,7 +223,7 @@ def maintainer_api_token_check(request):
 
 @csrf_exempt
 @api_view(["GET"])
-def maintainer_api_build_enabled_status_modify(request):
+def v1_maintainers_build_enabled_status_modify(request):
     build_id = request.data.get("build_id")
     enable = request.data.get("enable").lower() == "true"
     if build_id is None or enable is None:

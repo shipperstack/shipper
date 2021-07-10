@@ -26,7 +26,14 @@ def variant_check(variant):
 @permission_classes((AllowAny,))
 def v1_updater_los(request, codename, variant):
     """LOS-style endpoint used by updater app"""
-    device = get_object_or_404(Device, codename=codename)
+    try:
+        device = get_object_or_404(Device, codename=codename)
+    except Http404:
+        return Response(
+            {
+                'message': "The specified device does not exist!"
+            }, status=HTTP_404_NOT_FOUND
+        )
 
     ret = variant_check(variant)
     if ret:
@@ -79,7 +86,14 @@ def v1_updater_los(request, codename, variant):
 @permission_classes((AllowAny,))
 def v2_updater_device(request, codename, variant):
     """Updater endpoint used by the R updater"""
-    device = get_object_or_404(Device, codename=codename)
+    try:
+        device = get_object_or_404(Device, codename=codename)
+    except Http404:
+        return Response(
+            {
+                'message': "The specified device does not exist!"
+            }, status=HTTP_404_NOT_FOUND
+        )
 
     ret = variant_check(variant)
     if ret:

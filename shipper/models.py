@@ -256,6 +256,10 @@ class Statistics(models.Model):
         help_text='Download count for this date'
     )
 
+    class Meta:
+        verbose_name = "statistic"
+        verbose_name_plural = "statistics"
+
 
 # Register all models to audit log
 auditlog.register(Device)

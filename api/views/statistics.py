@@ -71,17 +71,7 @@ def v1_download_build_counter(request):
 def v1_download_count_day(_):
     # Download count from the past 24 hours
     stats = Statistics.objects.filter(date=datetime.date.today() - datetime.timedelta(days=7))
-
-    count = 0
-    for stat in stats:
-        count += stat.download_count
-
-    return Response(
-        {
-            'count': count
-        }, status=HTTP_200_OK
-    )
-
+    return download_count_response(stats)
 
 @csrf_exempt
 @api_view(["GET"])
@@ -89,16 +79,7 @@ def v1_download_count_day(_):
 def v1_download_count_week(_):
     # Get all objects from the past 7 days
     stats = Statistics.objects.filter(date__gte=datetime.date.today() - datetime.timedelta(days=7))
-
-    count = 0
-    for stat in stats:
-        count += stat.download_count
-
-    return Response(
-        {
-            'count': count
-        }, status=HTTP_200_OK
-    )
+    return download_count_response(stats)
 
 
 @csrf_exempt
@@ -107,16 +88,7 @@ def v1_download_count_week(_):
 def v1_download_count_month(_):
     # Get all objects from the past 31 days
     stats = Statistics.objects.filter(date__gte=datetime.date.today() - datetime.timedelta(days=31))
-
-    count = 0
-    for stat in stats:
-        count += stat.download_count
-
-    return Response(
-        {
-            'count': count
-        }, status=HTTP_200_OK
-    )
+    return download_count_response(stats)
 
 
 @csrf_exempt
@@ -125,7 +97,10 @@ def v1_download_count_month(_):
 def v1_download_count_all(_):
     # Get all objects
     stats = Statistics.objects.all()
+    return download_count_response(stats)
 
+
+def download_count_response(stats):
     count = 0
     for stat in stats:
         count += stat.download_count

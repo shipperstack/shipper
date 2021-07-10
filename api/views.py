@@ -202,7 +202,7 @@ def maintainer_api_login(request):
 @csrf_exempt
 @api_view(["GET"])
 @permission_classes((AllowAny,))
-def system_information(request):
+def v1_system_info(request):
     return Response(
         {
             'version': SHIPPER_VERSION

@@ -5,7 +5,7 @@ from .views import *
 # noinspection SpellCheckingInspection
 # remove this once to-do is gone
 urlpatterns = [
-    path('v1/system/', system_information, name='v1_system_information'),
+    path('v1/system/info/', v1_system_info, name='v1_system_info'),
     path('v1/download/build/counter/', v1_download_build_counter, name='v1_download_build_counter'),
     path('v1/maintainers/login/', maintainer_api_login, name='v1_maintainer_login'),
     path('v1/maintainers/token_check/', maintainer_api_token_check, name='v1_maintainer_token_check'),

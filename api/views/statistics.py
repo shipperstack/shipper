@@ -69,11 +69,12 @@ def v1_download_build_counter(request):
 @api_view(["GET"])
 @permission_classes((AllowAny,))
 def v1_download_count_day(_):
-    # Download count as of today
-    try:
-        count = Statistics.objects.get(date=datetime.date.today())
-    except Statistics.DoesNotExist:
-        count = 0
+    # Download count from the past 24 hours
+    stats = Statistics.objects.filter(date=datetime.date.today() - datetime.timedelta(days=7))
+
+    count = 0
+    for stat in stats:
+        count += stat.download_count
 
     return Response(
         {
@@ -104,8 +105,8 @@ def v1_download_count_week(_):
 @api_view(["GET"])
 @permission_classes((AllowAny,))
 def v1_download_count_month(_):
-    # Get all objects as of this month
-    stats = Statistics.objects.filter(date__year=datetime.date.today().year, date__month=datetime.date.today().month)
+    # Get all objects from the past 31 days
+    stats = Statistics.objects.filter(date__gte=datetime.date.today() - datetime.timedelta(days=31))
 
     count = 0
     for stat in stats:

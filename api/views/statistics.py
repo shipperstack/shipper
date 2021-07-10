@@ -3,7 +3,6 @@ import datetime
 from django.views.decorators.csrf import csrf_exempt
 
 from rest_framework.response import Response
-
 from rest_framework.decorators import permission_classes, api_view
 from rest_framework.permissions import AllowAny
 from rest_framework.status import HTTP_200_OK, HTTP_404_NOT_FOUND, HTTP_400_BAD_REQUEST
@@ -88,7 +87,7 @@ def v1_download_count_day(_):
 @permission_classes((AllowAny,))
 def v1_download_count_week(_):
     # Get all objects from the past 7 days
-    stats = Statistics.objects.filter(date__gte=datetime.date.today()-datetime.timedelta(days=7))
+    stats = Statistics.objects.filter(date__gte=datetime.date.today() - datetime.timedelta(days=7))
 
     count = 0
     for stat in stats:

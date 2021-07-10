@@ -3,6 +3,11 @@ import datetime
 
 from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
+from rest_framework.status import HTTP_404_NOT_FOUND, HTTP_200_OK
 
 from shipper.models import Build, Device
 
@@ -12,6 +17,9 @@ def variant_check(variant):
         raise Http404("Wrong parameter. Try with the correct parameters.")
 
 
+@csrf_exempt
+@api_view(["GET"])
+@permission_classes((AllowAny,))
 def v1_updater_los(request, codename, variant):
     """LOS-style endpoint used by updater app"""
     device = get_object_or_404(Device, codename=codename)
@@ -29,7 +37,11 @@ def v1_updater_los(request, codename, variant):
 
     # Check if list is empty and return a 404
     if not builds:
-        raise Http404("No builds exist for the specified variant yet!")
+        return Response(
+            {
+                'message': "No builds exist for the specified variant yet!"
+            }, status=HTTP_404_NOT_FOUND
+        )
 
     return_json = []
 
@@ -49,7 +61,10 @@ def v1_updater_los(request, codename, variant):
             "md5url": "https://" + request.get_host() + build.md5_file.url
         })
 
-    return HttpResponse(json.dumps({"response": return_json}), content_type='application/json')
+    return Response(
+        {"response": return_json},
+        status=HTTP_200_OK
+    )
 
 
 def v2_updater_device(request, codename, variant):

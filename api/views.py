@@ -192,7 +192,8 @@ def v2_all_builds(request):
                 "size": build.size,
                 "version": build.version,
                 "variant": build.variant,
-                "mirror_list_page": "{}://{}/download/{}/{}/".format(scheme, request.get_host(), device.codename, build.id)
+                "mirror_list_page": "{}://{}/download/{}/{}/".format(scheme, request.get_host(), device.codename,
+                                                                     build.id)
             }
 
             device_json["builds"].append(build_json)

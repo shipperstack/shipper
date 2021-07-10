@@ -69,7 +69,7 @@ def v1_download_build_counter(request):
 @csrf_exempt
 @api_view(["GET"])
 @permission_classes((AllowAny,))
-def v1_download_count_day(request):
+def v1_download_count_day(_):
     # Download count as of today
     try:
         count = Statistics.objects.get(date=datetime.date.today())
@@ -86,7 +86,7 @@ def v1_download_count_day(request):
 @csrf_exempt
 @api_view(["GET"])
 @permission_classes((AllowAny,))
-def v1_download_count_week(request):
+def v1_download_count_week(_):
     # Get all objects from the past 7 days
     stats = Statistics.objects.filter(date__gte=datetime.date.today()-datetime.timedelta(days=7))
 
@@ -104,7 +104,7 @@ def v1_download_count_week(request):
 @csrf_exempt
 @api_view(["GET"])
 @permission_classes((AllowAny,))
-def v1_download_count_month(request):
+def v1_download_count_month(_):
     # Get all objects as of this month
     stats = Statistics.objects.filter(date__year=datetime.date.today().year, date__month=datetime.date.today().month)
 
@@ -122,7 +122,7 @@ def v1_download_count_month(request):
 @csrf_exempt
 @api_view(["GET"])
 @permission_classes((AllowAny,))
-def v1_download_count_all(request):
+def v1_download_count_all(_):
     # Get all objects
     stats = Statistics.objects.all()
 

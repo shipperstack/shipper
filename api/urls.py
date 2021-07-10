@@ -9,8 +9,8 @@ urlpatterns = [
     path('v1/download/build/counter/', v1_download_build_counter, name='v1_download_build_counter'),
     path('v1/maintainers/login/', v1_maintainers_login, name='v1_maintainers_login'),
     path('v1/maintainers/token_check/', v1_maintainers_token_check, name='v1_maintainers_token_check'),
-    path('v1/maintainers/chunked_upload/', ChunkedBuildUpload.as_view(), name='v1_chunked_build_upload'),
-    path('v1/maintainers/chunked_upload/<uuid:pk>/', ChunkedBuildUpload.as_view(), name='chunkedupload-detail'),
+    path('v1/maintainers/chunked_upload/', V1MaintainersChunkedUpload.as_view(), name='v1_maintainers_chunked_upload'),
+    path('v1/maintainers/chunked_upload/<uuid:pk>/', V1MaintainersChunkedUpload.as_view(), name='chunkedupload-detail'),
     # TODO: rename `chunkedupload-detail` if we can
     path('v1/maintainers/build/enabled_status_modify/', v1_maintainers_build_enabled_status_modify,
          name='v1_maintainers_build_enabled_status_modify'),

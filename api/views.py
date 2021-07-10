@@ -90,7 +90,7 @@ def build_increase_download_count(build):
     stats.save()
 
 
-class ChunkedBuildUpload(ChunkedUploadView):
+class V1MaintainersChunkedUpload(ChunkedUploadView):
     def _post(self, request, pk=None, *args, **kwargs):
         chunked_upload = None
         if pk:

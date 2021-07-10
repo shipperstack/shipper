@@ -2,10 +2,9 @@ import datetime
 import json
 
 from django.contrib.auth.models import AnonymousUser
-from django.http import Http404
 from django.test import TestCase, RequestFactory
 
-from api.views import parse_build_date, v1_updater_los, v2_updater_device, variant_check, get_codename_from_filename,\
+from api.views import parse_build_date, v1_updater_los, v2_updater_device, variant_check, get_codename_from_filename, \
     v1_system_info
 from config.settings import SHIPPER_VERSION
 from shipper.tests import mock_devices_setup, mock_builds_setup

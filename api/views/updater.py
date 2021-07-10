@@ -128,49 +128,6 @@ def v2_updater_device(request, codename, variant):
     )
 
 
-@csrf_exempt
-@api_view(["GET"])
-@permission_classes((AllowAny,))
-def v2_all_builds(request):
-    """Giant JSON response of ALL the builds in shipper"""
-    return_json = {}
-
-    for device in Device.objects.all():
-        # Construct initial device JSON
-        device_json = {
-            "manufacturer": device.manufacturer,
-            "name": device.name,
-            "status": device.status,
-            "photo": device.get_photo_url(),
-            "builds": [],
-        }
-
-        # List builds for given device
-        builds = device.get_all_build_objects()
-
-        if not builds:
-            continue
-
-        for build in builds:
-            _, version, _, _, _, date = build.file_name.split('-')
-
-            date = parse_build_date(date)
-
-            build_json = {
-                "date": int(date.strftime("%s")),
-                "size": build.size,
-                "version": build.version,
-                "variant": build.variant,
-                "mirror_list_page": request.build_absolute_uri('/download/{}/{}/'.format(device.codename, build.id))
-            }
-
-            device_json["builds"].append(build_json)
-
-        return_json[device.codename] = device_json
-
-    return Response(return_json, status=HTTP_200_OK)
-
-
 def parse_build_date(date):
     year = int(date[:4])
     month = int(date[4:-2])

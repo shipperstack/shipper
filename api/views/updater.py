@@ -1,7 +1,6 @@
-import json
 import datetime
 
-from django.http import HttpResponse, Http404
+from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view, permission_classes
@@ -129,6 +128,9 @@ def v2_updater_device(request, codename, variant):
     )
 
 
+@csrf_exempt
+@api_view(["GET"])
+@permission_classes((AllowAny,))
 def v2_all_builds(request):
     """Giant JSON response of ALL the builds in shipper"""
     return_json = {}
@@ -169,7 +171,7 @@ def v2_all_builds(request):
 
         return_json[device.codename] = device_json
 
-    return HttpResponse(json.dumps(return_json), content_type='application/json')
+    return Response(return_json, status=HTTP_200_OK)
 
 
 def parse_build_date(date):

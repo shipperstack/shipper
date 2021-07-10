@@ -146,10 +146,9 @@ class ShippyTestCase(TestCase):
         request = self.factory.get("api/v1/system/info/")
         request.user = AnonymousUser()
         response = v1_system_info(request).render()
-        ret_json = json.loads(response.content)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(ret_json["version"], SHIPPER_VERSION)
+        self.assertEqual(response.data['version'], SHIPPER_VERSION)
 
     def test_v1_maintainers_login_invalid(self):
         incorrect_credentials = {

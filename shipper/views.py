@@ -100,6 +100,15 @@ def build_increase_download_count(build):
     build.download_count += 1
     build.save()
 
+    # Increase overall statistics
+    try:
+        stats = Statistics.objects.get(date=datetime.date.today())
+    except Statistics.DoesNotExist:
+        stats = Statistics.objects.create()
+
+    stats.download_count += 1
+    stats.save()
+
 
 class MaintainerDashboardView(LoginRequiredMixin, ListView):
     template_name = 'shipper/maintainer_dashboard.html'

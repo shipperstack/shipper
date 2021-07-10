@@ -4,29 +4,11 @@ from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, DeleteView
-from .forms import *
-from .handler import *
-from .models import *
 
-
-class DownloadsView(ListView):
-    template_name = 'shipper/downloads.html'
-    model = Device
-
-    ordering = ['-status', 'manufacturer', 'name']
-
-
-class DownloadsDeviceView(DetailView):
-    template_name = 'shipper/downloads_device.html'
-    model = Device
-
-    def get_object(self, queryset=None):
-        return get_object_or_404(Device, codename=self.kwargs.get("codename"))
-
-
-class DownloadsBuildView(DetailView):
-    template_name = 'shipper/downloads_build.html'
-    model = Build
+from shipper.exceptions import UploadException
+from shipper.forms import BuildUploadForm
+from shipper.handler import handle_build
+from shipper.models import Device, Build
 
 
 class MaintainerDashboardView(LoginRequiredMixin, ListView):

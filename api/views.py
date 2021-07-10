@@ -1,4 +1,3 @@
-import datetime
 import json
 
 from django.http import HttpResponse, Http404

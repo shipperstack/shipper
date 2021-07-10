@@ -14,7 +14,11 @@ from shipper.models import Build, Device
 
 def variant_check(variant):
     if variant not in ["gapps", "vanilla", "foss", "goapps"]:
-        raise Http404("Wrong parameter. Try with the correct parameters.")
+        return Response(
+            {
+                'message': "Wrong parameter. Try with the correct parameters."
+            }, status=HTTP_404_NOT_FOUND
+        )
 
 
 @csrf_exempt
@@ -24,7 +28,9 @@ def v1_updater_los(request, codename, variant):
     """LOS-style endpoint used by updater app"""
     device = get_object_or_404(Device, codename=codename)
 
-    variant_check(variant)
+    ret = variant_check(variant)
+    if ret:
+        return ret
 
     if variant == "gapps":
         builds = device.get_all_gapps_build_objects()

@@ -1,11 +1,11 @@
 import datetime
 import json
 
-from django.contrib.auth.models import AnonymousUser
+from django.contrib.auth.models import AnonymousUser, User
 from django.test import TestCase, RequestFactory
 
 from api.views import parse_build_date, v1_updater_los, v2_updater_device, variant_check, get_codename_from_filename, \
-    v1_system_info
+    v1_system_info, v1_maintainers_login
 from config.settings import SHIPPER_VERSION
 from shipper.tests import mock_devices_setup, mock_builds_setup
 
@@ -136,6 +136,11 @@ class UpdaterTestCase(TestCase):
 class ShippyTestCase(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
+        self.credentials = {
+            'username': 'maintainer_user_1',
+            'password': 'password',
+        }
+        User.objects.create_user(**self.credentials)
 
     def test_v1_system_info(self):
         request = self.factory.get("api/v1/system/info/")
@@ -145,3 +150,14 @@ class ShippyTestCase(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(ret_json["version"], SHIPPER_VERSION)
+
+    def test_v1_maintainers_login_invalid(self):
+        incorrect_credentials = {
+            'username': 'maintainer_user_1',
+            'password': 'incorrect'
+        }
+        request = self.factory.post("api/v1/maintainers/login/", data=incorrect_credentials)
+        response = v1_maintainers_login(request).render()
+
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.data['error'], 'invalid_credential')

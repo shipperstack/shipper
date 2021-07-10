@@ -9,7 +9,7 @@ from shipper.templatetags.build_extras import format_download_url
 from shipper.views import DownloadsView, DownloadsDeviceView, DownloadsBuildView, exception_to_message
 
 
-class DeviceTestCase(TestCase):
+class ShipperDeviceTestCase(TestCase):
     def setUp(self):
         mock_devices_setup()
 
@@ -26,7 +26,7 @@ class DeviceTestCase(TestCase):
         self.assertEqual(devices["dream2lte"].get_photo_url(), "#")
 
 
-class BuildTestCase(TestCase):
+class ShipperBuildTestCase(TestCase):
     def setUp(self):
         mock_devices_setup()
         mock_builds_setup()
@@ -53,7 +53,7 @@ class BuildTestCase(TestCase):
         self.assertEqual(len(build.get_enabled_downloadable_mirrors()),  0)
 
 
-class CombinedTestCase(TestCase):
+class ShipperCombinedTestCase(TestCase):
     def setUp(self):
         mock_devices_setup()
         mock_builds_setup()
@@ -83,7 +83,7 @@ class CombinedTestCase(TestCase):
         self.assertEqual(len(devices["dream2lte"].get_all_goapps_build_objects()), 0)
 
 
-class HandlerTestCase(TestCase):
+class ShipperHandlerTestCase(TestCase):
     def setUp(self):
         mock_devices_setup()
         mock_builds_setup()
@@ -124,7 +124,7 @@ class HandlerTestCase(TestCase):
             )
 
 
-class ViewTestCase(TestCase):
+class ShipperViewTestCase(TestCase):
     def setUp(self):
         mock_devices_setup()
         mock_builds_setup()
@@ -165,7 +165,7 @@ class ViewTestCase(TestCase):
             DownloadsBuildView.as_view()(request, codename="bullhead", pk=20)
 
 
-class HelperFunctionTestCase(TestCase):
+class ShipperHelperFunctionTestCase(TestCase):
     def test_exception_to_message(self):
         self.assertEqual("The file name does not match the checksum file name!",
                          exception_to_message(Exception('file_name_mismatch')))
@@ -183,7 +183,7 @@ class HelperFunctionTestCase(TestCase):
                          exception_to_message(Exception('unknown_error')))
 
 
-class TemplateTagsTestCase(TestCase):
+class ShipperTemplateTagsTestCase(TestCase):
     def test_format_download_url(self):
         self.assertEqual("https://mock/test/Bliss-v14.zip/download/",
                          format_download_url("https://mock/test/{}/download/", "Bliss-v14.zip"))

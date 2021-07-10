@@ -5,8 +5,8 @@ from django.contrib.auth.models import AnonymousUser
 from django.http import Http404
 from django.test import TestCase, RequestFactory
 
-from api.views import parse_build_date, v1_updater_los, v2_updater_device, variant_check, v2_all_builds, \
-    get_codename_from_filename, v1_system_info
+from api.views import parse_build_date, v1_updater_los, v2_updater_device, variant_check, get_codename_from_filename,\
+    v1_system_info
 from config.settings import SHIPPER_VERSION
 from shipper.tests import mock_devices_setup, mock_builds_setup
 
@@ -119,20 +119,3 @@ class APIV2TestCase(TestCase):
         request.user = AnonymousUser()
         with self.assertRaises(Http404):
             v2_updater_device(request, "bullhead", "goapps")
-
-    def test_v2_all_builds(self):
-        request = self.factory.get("/api/v2/all/")
-        request.user = AnonymousUser()
-        response = v2_all_builds(request)
-
-        ret_json = json.loads(response.content)
-
-        self.assertEqual(response.status_code, 200)
-
-        # Check JSON content
-        self.assertIn("bullhead", ret_json)
-        self.assertIn("angler", ret_json)
-        self.assertIn("dream2lte", ret_json)
-
-        self.assertIn("manufacturer", ret_json["bullhead"])
-        self.assertEqual("LG", ret_json["bullhead"]["manufacturer"])

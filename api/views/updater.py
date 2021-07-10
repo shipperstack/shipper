@@ -32,13 +32,14 @@ def v1_updater_los(request, codename, variant):
     if ret:
         return ret
 
+    builds = None
     if variant == "gapps":
         builds = device.get_all_gapps_build_objects()
     elif variant == "vanilla":
         builds = device.get_all_vanilla_build_objects()
     elif variant == "foss":
         builds = device.get_all_foss_build_objects()
-    else:  # elif variant == "goapps":
+    elif variant == "goapps":
         builds = device.get_all_goapps_build_objects()
 
     # Check if list is empty and return a 404

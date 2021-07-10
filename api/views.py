@@ -6,9 +6,9 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from drf_chunked_upload.exceptions import ChunkedUploadError
-from drf_chunked_upload.response import Response
 from drf_chunked_upload.settings import CHECKSUM_TYPE
 from drf_chunked_upload.views import ChunkedUploadView
+from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import permission_classes, api_view
 from rest_framework.permissions import AllowAny

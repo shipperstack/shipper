@@ -52,17 +52,30 @@ class APIV1TestCase(TestCase):
         request = self.factory.get("/api/v1/updater/los/")
         request.user = AnonymousUser()
         response = v1_updater_los(request, "bullhead", "gapps")
-        expected_response = b'{"response": [{"datetime": 1591574400, "filename": ' \
-                            b'"Bliss-v14-bullhead-OFFICIAL-gapps-20200608.zip", ' \
-                            b'"id": "b9566ebc192a4c27c72df19eae8a6eed6ea063226792e680fa0b2ede284e19f2", ' \
-                            b'"size": 857483855, "version": "v14", "variant": "gapps", ' \
-                            b'"url": "https://testserver/media/bullhead/Bliss-v14-bullhead-OFFICIAL-gapps-20200608' \
-                            b'.zip", "md5url": ' \
-                            b'"https://testserver/media/bullhead/Bliss-v14-bullhead-OFFICIAL-gapps-20200608.zip.md5' \
-                            b'"}]}'
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.content, expected_response)
+
+        self.assertIn("response", response.data)
+        self.assertIn("datetime", response.data['response'][0])
+        self.assertIn("filename", response.data['response'][0])
+        self.assertIn("id", response.data['response'][0])
+        self.assertIn("size", response.data['response'][0])
+        self.assertIn("version", response.data['response'][0])
+        self.assertIn("variant", response.data['response'][0])
+        self.assertIn("url", response.data['response'][0])
+        self.assertIn("md5url", response.data['response'][0])
+
+        self.assertEqual(1591574400, response.data['response'][0]['datetime'])
+        self.assertEqual("Bliss-v14-bullhead-OFFICIAL-gapps-20200608.zip", response.data['response'][0]['filename'])
+        self.assertEqual("b9566ebc192a4c27c72df19eae8a6eed6ea063226792e680fa0b2ede284e19f2",
+                         response.data['response'][0]['id'])
+        self.assertEqual(857483855, response.data['response'][0]['size'])
+        self.assertEqual("v14", response.data['response'][0]['version'])
+        self.assertEqual("gapps", response.data['response'][0]['variant'])
+        self.assertEqual("https://testserver/media/bullhead/Bliss-v14-bullhead-OFFICIAL-gapps-20200608.zip",
+                         response.data['response'][0]['url'])
+        self.assertEqual("https://testserver/media/bullhead/Bliss-v14-bullhead-OFFICIAL-gapps-20200608.zip.md5",
+                         response.data['response'][0]['md5url'])
 
     def test_v1_updater_los_bullhead_vanilla(self):
         request = self.factory.get("/api/v1/updater/los/")
@@ -96,15 +109,26 @@ class APIV2TestCase(TestCase):
         request = self.factory.get("/api/v2/updater/")
         request.user = AnonymousUser()
         response = v2_updater_device(request, "bullhead", "gapps")
-        expected_response = b'{"date": 1591574400, "file_name": "Bliss-v14-bullhead-OFFICIAL-gapps-20200608.zip", ' \
-                            b'"sha256": "b9566ebc192a4c27c72df19eae8a6eed6ea063226792e680fa0b2ede284e19f2", ' \
-                            b'"size": 857483855, "version": "v14", "zip_download_url": ' \
-                            b'"https://testserver/media/bullhead/Bliss-v14-bullhead-OFFICIAL-gapps-20200608.zip", ' \
-                            b'"md5_download_url": ' \
-                            b'"https://testserver/media/bullhead/Bliss-v14-bullhead-OFFICIAL-gapps-20200608.zip.md5"}'
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.content, expected_response)
+
+        self.assertIn("date", response.data)
+        self.assertIn("file_name", response.data)
+        self.assertIn("sha256", response.data)
+        self.assertIn("size", response.data)
+        self.assertIn("version", response.data)
+        self.assertIn("zip_download_url", response.data)
+        self.assertIn("md5_download_url", response.data)
+
+        self.assertEqual(1591574400, response.data['date'])
+        self.assertEqual("Bliss-v14-bullhead-OFFICIAL-gapps-20200608.zip", response.data['file_name'])
+        self.assertEqual("b9566ebc192a4c27c72df19eae8a6eed6ea063226792e680fa0b2ede284e19f2", response.data['sha256'])
+        self.assertEqual(857483855, response.data['size'])
+        self.assertEqual("v14", response.data['version'])
+        self.assertEqual("https://testserver/media/bullhead/Bliss-v14-bullhead-OFFICIAL-gapps-20200608.zip",
+                         response.data['zip_download_url'])
+        self.assertEqual("https://testserver/media/bullhead/Bliss-v14-bullhead-OFFICIAL-gapps-20200608.zip.md5",
+                         response.data['md5_download_url'])
 
     def test_v2_updater_bullhead_vanilla(self):
         request = self.factory.get("/api/v2/updater/")

@@ -144,7 +144,7 @@ class ShippyTestCase(APITestCase):
     def test_v1_system_info(self):
         request = self.factory.get("api/v1/system/info/")
         request.user = AnonymousUser()
-        response = v1_system_info(request).render()
+        response = v1_system_info(request)
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data['version'], SHIPPER_VERSION)
@@ -155,7 +155,7 @@ class ShippyTestCase(APITestCase):
             'password': 'incorrect'
         }
         request = self.factory.post("api/v1/maintainers/login/", data=incorrect_credentials)
-        response = v1_maintainers_login(request).render()
+        response = v1_maintainers_login(request)
 
         self.assertEqual(response.status_code, 404)
         self.assertEqual(response.data['error'], 'invalid_credential')

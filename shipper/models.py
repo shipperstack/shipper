@@ -1,3 +1,5 @@
+import datetime
+
 from auditlog.registry import auditlog
 from django.conf import settings
 from django.db import models
@@ -244,6 +246,15 @@ class Build(models.Model):
 
     def __str__(self):
         return self.file_name
+
+
+# Download statistics
+class Statistics(models.Model):
+    date = models.DateField(primary_key=True, default=datetime.date.today)
+    download_count = models.BigIntegerField(
+        default=0,
+        help_text='Download count for this date'
+    )
 
 
 # Register all models to audit log

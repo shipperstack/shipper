@@ -5,11 +5,13 @@ from django.contrib.auth.models import AnonymousUser
 from django.http import Http404
 from django.test import TestCase, RequestFactory
 
-from api.views import parse_build_date, v1_updater_los, v2_updater_device, variant_check, v2_all_builds
+from api.views import parse_build_date, v1_updater_los, v2_updater_device, variant_check, v2_all_builds, \
+    get_codename_from_filename, v1_system_info
+from config.settings import SHIPPER_VERSION
 from shipper.tests import mock_devices_setup, mock_builds_setup
 
 
-class APIGeneralTestCase(TestCase):
+class APIHelperMethodsTestCase(TestCase):
     def test_parse_build_date(self):
         self.assertEqual(parse_build_date("20200824"), datetime.date(2020, 8, 24))
         self.assertEqual(parse_build_date("20200824").strftime("%s"), "1598227200")
@@ -22,12 +24,28 @@ class APIGeneralTestCase(TestCase):
         variant_check("foss")
         variant_check("goapps")
 
+    def test_get_codename_from_filename(self):
+        self.assertEqual("bullhead", get_codename_from_filename("Bliss-v14.4-bullhead-OFFICIAL-gapps-20200408.zip"))
+        self.assertEqual("angler", get_codename_from_filename("Bliss-v14.4-angler-OFFICIAL-vanilla-20200508.zip"))
+        self.assertIsNone(get_codename_from_filename("BlissInvalidFileNameWithoutDashes"))
+        self.assertIsNone(get_codename_from_filename(""))
+        self.assertIsNone(get_codename_from_filename("Invalid-File-Name.zip.md5"))
+
 
 class APIV1TestCase(TestCase):
     def setUp(self):
         mock_devices_setup()
         mock_builds_setup()
         self.factory = RequestFactory()
+
+    def test_v1_system_info(self):
+        request = self.factory.get("maintainers/api/system/")
+        request.user = AnonymousUser()
+        response = v1_system_info(request).render()
+        ret_json = json.loads(response.content)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(ret_json["version"], SHIPPER_VERSION)
 
     def test_v1_updater_los_bullhead_gapps(self):
         request = self.factory.get("/api/v1/updater/los/")
@@ -118,4 +136,3 @@ class APIV2TestCase(TestCase):
 
         self.assertIn("manufacturer", ret_json["bullhead"])
         self.assertEqual("LG", ret_json["bullhead"]["manufacturer"])
-

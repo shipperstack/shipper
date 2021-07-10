@@ -1,16 +1,12 @@
-import json
-
 from django.contrib.auth.models import AnonymousUser
 from django.http import Http404
 from django.test import TestCase, RequestFactory
 
-from config.settings import SHIPPER_VERSION
 from shipper.exceptions import UploadException
 from shipper.handler import file_name_validity_check
 from shipper.models import Device, Build
 from shipper.templatetags.build_extras import format_download_url
-from shipper.views import DownloadsView, DownloadsDeviceView, DownloadsBuildView, get_codename_from_filename, \
-    exception_to_message, system_information
+from shipper.views import DownloadsView, DownloadsDeviceView, DownloadsBuildView, exception_to_message
 
 
 class DeviceTestCase(TestCase):
@@ -168,24 +164,8 @@ class ViewTestCase(TestCase):
         with self.assertRaises(Http404):
             DownloadsBuildView.as_view()(request, codename="bullhead", pk=20)
 
-    def test_system_information_view(self):
-        request = self.factory.get("maintainers/api/system/")
-        request.user = AnonymousUser()
-        response = system_information(request).render()
-        ret_json = json.loads(response.content)
-
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(ret_json["version"], SHIPPER_VERSION)
-
 
 class HelperFunctionTestCase(TestCase):
-    def test_get_codename_from_filename(self):
-        self.assertEqual("bullhead", get_codename_from_filename("Bliss-v14.4-bullhead-OFFICIAL-gapps-20200408.zip"))
-        self.assertEqual("angler", get_codename_from_filename("Bliss-v14.4-angler-OFFICIAL-vanilla-20200508.zip"))
-        self.assertIsNone(get_codename_from_filename("BlissInvalidFileNameWithoutDashes"))
-        self.assertIsNone(get_codename_from_filename(""))
-        self.assertIsNone(get_codename_from_filename("Invalid-File-Name.zip.md5"))
-
     def test_exception_to_message(self):
         self.assertEqual("The file name does not match the checksum file name!",
                          exception_to_message(Exception('file_name_mismatch')))

@@ -65,7 +65,7 @@ def v1_updater_los(request, codename, variant):
             "version": build.version,
             "variant": variant,
             "url": "https://" + request.get_host() + build.zip_file.url,
-            "md5url": "https://" + request.get_host() + build.md5_file.url
+            "md5url": "https://" + request.get_host() + build.md5_file.url,
         })
 
     return Response(
@@ -74,12 +74,18 @@ def v1_updater_los(request, codename, variant):
     )
 
 
+@csrf_exempt
+@api_view(["GET"])
+@permission_classes((AllowAny,))
 def v2_updater_device(request, codename, variant):
     """Updater endpoint used by the R updater"""
     device = get_object_or_404(Device, codename=codename)
 
-    variant_check(variant)
+    ret = variant_check(variant)
+    if ret:
+        return ret
 
+    build = None
     try:
         if variant == "gapps":
             build = device.get_latest_gapps_build_object()
@@ -87,7 +93,7 @@ def v2_updater_device(request, codename, variant):
             build = device.get_latest_vanilla_build_object()
         elif variant == "foss":
             build = device.get_latest_foss_build_object()
-        else:  # elif variant == "goapps":
+        elif variant == "goapps":
             build = device.get_latest_goapps_build_object()
     except Build.DoesNotExist:
         raise Http404("No builds exist for the specified variant yet!")
@@ -96,17 +102,17 @@ def v2_updater_device(request, codename, variant):
 
     date = parse_build_date(date)
 
-    return_json = {
-        "date": int(date.strftime("%s")),
-        "file_name": "{}.zip".format(build.file_name),
-        "sha256": build.sha256sum,
-        "size": build.size,
-        "version": build.version,
-        "zip_download_url": "https://" + request.get_host() + build.zip_file.url,
-        "md5_download_url": "https://" + request.get_host() + build.md5_file.url
-    }
-
-    return HttpResponse(json.dumps(return_json), content_type='application/json')
+    return Response(
+        {
+            "date": int(date.strftime("%s")),
+            "file_name": "{}.zip".format(build.file_name),
+            "sha256": build.sha256sum,
+            "size": build.size,
+            "version": build.version,
+            "zip_download_url": "https://" + request.get_host() + build.zip_file.url,
+            "md5_download_url": "https://" + request.get_host() + build.md5_file.url,
+        }, status=HTTP_200_OK
+    )
 
 
 def v2_all_builds(request):

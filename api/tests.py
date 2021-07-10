@@ -1,7 +1,7 @@
 import datetime
 
 from django.contrib.auth.models import AnonymousUser, User
-from django.test import TestCase, RequestFactory
+from rest_framework.test import APITestCase, APIRequestFactory
 
 from api.views import parse_build_date, v1_updater_los, v2_updater_device, variant_check, get_codename_from_filename, \
     v1_system_info, v1_maintainers_login
@@ -9,11 +9,11 @@ from config.settings import SHIPPER_VERSION
 from shipper.tests import mock_devices_setup, mock_builds_setup
 
 
-class UpdaterTestCase(TestCase):
+class UpdaterTestCase(APITestCase):
     def setUp(self):
         mock_devices_setup()
         mock_builds_setup()
-        self.factory = RequestFactory()
+        self.factory = APIRequestFactory()
 
     def test_parse_build_date(self):
         self.assertEqual(parse_build_date("20200824"), datetime.date(2020, 8, 24))
@@ -132,9 +132,9 @@ class UpdaterTestCase(TestCase):
         self.assertEqual(response.status_code, 404)
 
 
-class ShippyTestCase(TestCase):
+class ShippyTestCase(APITestCase):
     def setUp(self):
-        self.factory = RequestFactory()
+        self.factory = APIRequestFactory()
         self.credentials = {
             'username': 'maintainer_user_1',
             'password': 'password',

@@ -164,7 +164,7 @@ def get_codename_from_filename(filename):
     # Check field count
     if len(fields) != 6:
         return None
-    return fields[2]    # Codename
+    return fields[2]  # Codename
 
 
 @csrf_exempt

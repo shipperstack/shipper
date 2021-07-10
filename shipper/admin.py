@@ -11,6 +11,7 @@ class CustomUserAdmin(UserAdmin):
 
     def get_devices(self, obj):
         return [device.codename for device in Device.objects.filter(maintainers=obj)]
+
     get_devices.short_description = 'Devices'
 
 
@@ -22,6 +23,7 @@ class DeviceAdmin(admin.ModelAdmin):
 
     def get_maintainers(self, obj):
         return ",".join([maintainer.username for maintainer in obj.maintainers.all()])
+
     get_maintainers.short_description = 'Maintainers'
 
 
@@ -33,6 +35,7 @@ class BuildAdmin(admin.ModelAdmin):
 
     def is_processed(self, obj):
         return obj.sha256sum != ''
+
     is_processed.short_description = 'Processed'
     is_processed.boolean = True
 
@@ -42,16 +45,19 @@ class BuildAdmin(admin.ModelAdmin):
             return False
 
         return all(mirror in obj.mirrored_on.all() for mirror in list(MirrorServer.objects.filter(enabled=True)))
+
     is_backed_up.short_description = 'Backed Up'
     is_backed_up.boolean = True
 
     def get_device_name(self, obj):
         return str(obj.device)
+
     get_device_name.short_description = 'Device'
     get_device_name.admin_order_field = 'device_name'
 
     def get_build_device_maintainers(self, obj):
         return ",".join([maintainer.username for maintainer in obj.device.maintainers.all()])
+
     get_build_device_maintainers.short_description = 'Maintainers'
 
 

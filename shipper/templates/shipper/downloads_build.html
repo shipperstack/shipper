@@ -73,7 +73,7 @@
                 const downloadURL = $(this).attr("href");
 
                 $.ajax({
-                    url: "{% url 'downloads_api_build_counter' %}",
+                    url: "{% url 'v1_download_build_counter' %}",
                     type: "POST",
                     dataType: "json",
                     contentType: "application/json",

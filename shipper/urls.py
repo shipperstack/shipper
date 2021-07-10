@@ -5,7 +5,6 @@ urlpatterns = [
     path('', DownloadsView.as_view(), name='downloads'),
     path('download/<slug:codename>/', DownloadsDeviceView.as_view(), name='downloads_device'),
     path('download/<slug:codename>/<int:pk>/', DownloadsBuildView.as_view(), name='downloads_build'),
-    path('download/api/build/counter/', downloads_api_build_counter, name='downloads_api_build_counter'),
     path('maintainers/', MaintainerDashboardView.as_view(), name='maintainer_dashboard'),
     path('maintainers/device/<int:pk>/', DeviceDetailView.as_view(), name='device_detail'),
     path('maintainers/device/<int:pk>/upload/', build_upload, name='build_upload'),

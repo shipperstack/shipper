@@ -149,6 +149,13 @@ class ShippyTestCase(APITestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data['version'], SHIPPER_VERSION)
 
+    def test_v1_maintainers_login(self):
+        request = self.factory.post("api/v1/maintainers/login/", data=self.credentials)
+        response = v1_maintainers_login(request)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("token", response.data)
+
     def test_v1_maintainers_login_invalid(self):
         incorrect_credentials = {
             'username': 'maintainer_user_1',

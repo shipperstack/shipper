@@ -70,8 +70,9 @@ def v1_download_build_counter(request):
 @permission_classes((AllowAny,))
 def v1_download_count_day(_):
     # Download count from the past 24 hours
-    stats = Statistics.objects.filter(date=datetime.date.today() - datetime.timedelta(days=7))
+    stats = Statistics.objects.filter(date__gte=datetime.date.today() - datetime.timedelta(days=1))
     return download_count_response(stats)
+
 
 @csrf_exempt
 @api_view(["GET"])

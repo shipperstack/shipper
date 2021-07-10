@@ -7,6 +7,10 @@ from .views import *
 urlpatterns = [
     path('v1/system/info/', v1_system_info, name='v1_system_info'),
     path('v1/download/build/counter/', v1_download_build_counter, name='v1_download_build_counter'),
+    path('v1/download/count/day/', v1_download_count_day, name='v1_download_count_day'),
+    path('v1/download/count/week/', v1_download_count_week, name='v1_download_count_week'),
+    path('v1/download/count/month/', v1_download_count_month, name='v1_download_count_month'),
+    path('v1/download/count/all/', v1_download_count_all, name='v1_download_count_all'),
     path('v1/maintainers/login/', v1_maintainers_login, name='v1_maintainers_login'),
     path('v1/maintainers/token_check/', v1_maintainers_token_check, name='v1_maintainers_token_check'),
     path('v1/maintainers/chunked_upload/', V1MaintainersChunkedUpload.as_view(), name='v1_maintainers_chunked_upload'),

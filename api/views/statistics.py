@@ -66,6 +66,77 @@ def v1_download_build_counter(request):
     )
 
 
+@csrf_exempt
+@api_view(["GET"])
+@permission_classes((AllowAny,))
+def v1_download_count_day(request):
+    # Download count as of today
+    try:
+        count = Statistics.objects.get(date=datetime.date.today())
+    except Statistics.DoesNotExist:
+        count = 0
+
+    return Response(
+        {
+            'count': count
+        }, status=HTTP_200_OK
+    )
+
+
+@csrf_exempt
+@api_view(["GET"])
+@permission_classes((AllowAny,))
+def v1_download_count_week(request):
+    # Get all objects from the past 7 days
+    stats = Statistics.objects.filter(date__gte=datetime.date.today()-datetime.timedelta(days=7))
+
+    count = 0
+    for stat in stats:
+        count += stat.download_count
+
+    return Response(
+        {
+            'count': count
+        }, status=HTTP_200_OK
+    )
+
+
+@csrf_exempt
+@api_view(["GET"])
+@permission_classes((AllowAny,))
+def v1_download_count_month(request):
+    # Get all objects as of this month
+    stats = Statistics.objects.filter(date__year=datetime.date.today().year, date__month=datetime.date.today().month)
+
+    count = 0
+    for stat in stats:
+        count += stat.download_count
+
+    return Response(
+        {
+            'count': count
+        }, status=HTTP_200_OK
+    )
+
+
+@csrf_exempt
+@api_view(["GET"])
+@permission_classes((AllowAny,))
+def v1_download_count_all(request):
+    # Get all objects
+    stats = Statistics.objects.all()
+
+    count = 0
+    for stat in stats:
+        count += stat.download_count
+
+    return Response(
+        {
+            'count': count
+        }, status=HTTP_200_OK
+    )
+
+
 def build_increase_download_count(build):
     build.download_count += 1
     build.save()

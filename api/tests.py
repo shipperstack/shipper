@@ -138,7 +138,7 @@ class ShippyTestCase(TestCase):
         self.factory = RequestFactory()
 
     def test_v1_system_info(self):
-        request = self.factory.get("maintainers/api/system/")
+        request = self.factory.get("api/v1/system/info/")
         request.user = AnonymousUser()
         response = v1_system_info(request).render()
         ret_json = json.loads(response.content)

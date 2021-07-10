@@ -17,12 +17,13 @@ class APIHelperMethodsTestCase(TestCase):
         self.assertEqual(parse_build_date("20200824").strftime("%s"), "1598227200")
 
     def test_variant_check(self):
-        with self.assertRaises(Http404):
-            variant_check("unknown")
-        variant_check("gapps")
-        variant_check("vanilla")
-        variant_check("foss")
-        variant_check("goapps")
+        response = variant_check("unknown")
+        self.assertEqual(response.status_code, 400)
+
+        self.assertIsNone(variant_check("gapps"))
+        self.assertIsNone(variant_check("vanilla"))
+        self.assertIsNone(variant_check("foss"))
+        self.assertIsNone(variant_check("goapps"))
 
     def test_get_codename_from_filename(self):
         self.assertEqual("bullhead", get_codename_from_filename("Bliss-v14.4-bullhead-OFFICIAL-gapps-20200408.zip"))

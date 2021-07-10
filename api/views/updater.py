@@ -156,15 +156,12 @@ def v2_all_builds(request):
 
             date = parse_build_date(date)
 
-            scheme = request.is_secure() and "https" or "http"
-
             build_json = {
                 "date": int(date.strftime("%s")),
                 "size": build.size,
                 "version": build.version,
                 "variant": build.variant,
-                "mirror_list_page": "{}://{}/download/{}/{}/".format(scheme, request.get_host(), device.codename,
-                                                                     build.id)
+                "mirror_list_page": request.build_absolute_uri('/download/{}/{}/'.format(device.codename, build.id))
             }
 
             device_json["builds"].append(build_json)

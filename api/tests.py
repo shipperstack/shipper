@@ -97,7 +97,7 @@ class ShippyTestCase(APITestCase):
         User.objects.create_user(**self.credentials)
 
     def test_v1_system_info(self):
-        request = self.factory.get("api/v1/system/info/")
+        request = self.factory.get("/api/v1/system/info/")
         request.user = AnonymousUser()
         response = v1_system_info(request)
 
@@ -105,7 +105,7 @@ class ShippyTestCase(APITestCase):
         self.assertEqual(response.data['version'], SHIPPER_VERSION)
 
     def test_v1_maintainers_login(self):
-        request = self.factory.post("api/v1/maintainers/login/", data=self.credentials)
+        request = self.factory.post("/api/v1/maintainers/login/", data=self.credentials)
         response = v1_maintainers_login(request)
 
         self.assertEqual(response.status_code, 200)
@@ -116,7 +116,7 @@ class ShippyTestCase(APITestCase):
             'username': 'maintainer_user_1',
             'password': 'incorrect'
         }
-        request = self.factory.post("api/v1/maintainers/login/", data=incorrect_credentials)
+        request = self.factory.post("/api/v1/maintainers/login/", data=incorrect_credentials)
         response = v1_maintainers_login(request)
 
         self.assertEqual(response.status_code, 404)
@@ -126,7 +126,7 @@ class ShippyTestCase(APITestCase):
         missing_credentials = {
             'username': 'user1'
         }
-        request = self.factory.post("api/v1/maintainers/login/", data=missing_credentials)
+        request = self.factory.post("/api/v1/maintainers/login/", data=missing_credentials)
         response = v1_maintainers_login(request)
 
         self.assertEqual(response.status_code, 400)
@@ -136,7 +136,7 @@ class ShippyTestCase(APITestCase):
         missing_credentials = {
             'password': 'hunter2'
         }
-        request = self.factory.post("api/v1/maintainers/login/", data=missing_credentials)
+        request = self.factory.post("/api/v1/maintainers/login/", data=missing_credentials)
         response = v1_maintainers_login(request)
 
         self.assertEqual(response.status_code, 400)

@@ -123,3 +123,15 @@ class ShippyTestCase(APITestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.data['error'], 'missing_parameters')
+
+    def test_v1_maintainer_build_enabled_status_modify_insufficient_permissions(self):
+        self.client.credentials(HTTP_AUTHORIZATION='Token {}'.format(self.token[0]))
+        build = Build.objects.get(file_name="Bliss-v14-dream2lte-OFFICIAL-gapps-20200609")
+        data = {
+            'build_id': build.id,
+            'enable': False
+        }
+        response = self.client.post("/api/v1/maintainers/build/enabled_status_modify/", data=data)
+
+        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.data['error'], 'insufficient_permissions')

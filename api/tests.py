@@ -159,3 +159,48 @@ class ShippyTestCase(APITestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data['username'], self.credentials['username'])
+
+    def test_v1_maintainers_build_enabled_status_modify_disable(self):
+        self.client.credentials(HTTP_AUTHORIZATION='Token {}'.format(self.token[0]))
+        build = Build.objects.get(file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200608")
+        data = {
+            'build_id': build.id,
+            'enable': False
+        }
+        response = self.client.post("/api/v1/maintainers/build/enabled_status_modify/", data=data)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['message'], "Successfully disabled the build!")
+
+    def test_v1_maintainers_build_enabled_status_modify_enable(self):
+        self.client.credentials(HTTP_AUTHORIZATION='Token {}'.format(self.token[0]))
+        build = Build.objects.get(file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200608")
+        data = {
+            'build_id': build.id,
+            'enable': True
+        }
+        response = self.client.post("/api/v1/maintainers/build/enabled_status_modify/", data=data)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['message'], "Successfully enabled the build!")
+
+    def test_v1_maintainers_build_enabled_status_modify_missing_build_id(self):
+        self.client.credentials(HTTP_AUTHORIZATION='Token {}'.format(self.token[0]))
+        data = {
+            'enable': False
+        }
+        response = self.client.post("/api/v1/maintainers/build/enabled_status_modify/", data=data)
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.data['error'], 'missing_parameters')
+
+    def test_v1_maintainers_build_enabled_status_modify_missing_enable(self):
+        self.client.credentials(HTTP_AUTHORIZATION='Token {}'.format(self.token[0]))
+        build = Build.objects.get(file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200608")
+        data = {
+            'build_id': build.id
+        }
+        response = self.client.post("/api/v1/maintainers/build/enabled_status_modify/", data=data)
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.data['error'], 'missing_parameters')

@@ -21,7 +21,7 @@ def variant_check(variant):
 
 class V1UpdaterLOS(APIView):
     """
-    LOS-style endpoint used by updater app (possibly not used anymore?)
+    LOS-style updater endpoint
     """
     permission_classes = [AllowAny]
 

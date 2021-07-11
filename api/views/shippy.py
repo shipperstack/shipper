@@ -153,7 +153,7 @@ def v1_maintainers_token_check(request):
 
 
 @csrf_exempt
-@api_view(["GET"])
+@api_view(["POST"])
 def v1_maintainers_build_enabled_status_modify(request):
     build_id = request.data.get("build_id")
     enable = request.data.get("enable").lower() == "true"

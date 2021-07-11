@@ -1,9 +1,10 @@
 import datetime
 
 from django.contrib.auth.models import AnonymousUser, User
-from rest_framework.test import APITestCase, APIRequestFactory
+from rest_framework.authtoken.models import Token
+from rest_framework.test import APITestCase, APIRequestFactory, APIClient
 
-from api.views import parse_build_date, variant_check, get_codename_from_filename, v1_system_info,\
+from api.views import parse_build_date, variant_check, get_codename_from_filename, v1_system_info, \
     v1_maintainers_login, V1UpdaterLOS
 from config.settings import SHIPPER_VERSION
 from shipper.tests import mock_devices_setup, mock_builds_setup
@@ -90,11 +91,13 @@ class UpdaterTestCase(APITestCase):
 class ShippyTestCase(APITestCase):
     def setUp(self):
         self.factory = APIRequestFactory()
+        self.client = APIClient()
         self.credentials = {
             'username': 'maintainer_user_1',
             'password': 'password',
         }
-        User.objects.create_user(**self.credentials)
+        self.user = User.objects.create_user(**self.credentials)
+        self.token = Token.objects.get_or_create(user=self.user)
 
     def test_v1_system_info(self):
         request = self.factory.get("/api/v1/system/info/")
@@ -141,3 +144,10 @@ class ShippyTestCase(APITestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.data['error'], 'blank_username_or_password')
+
+    def test_v1_maintainers_token_check(self):
+        self.client.credentials(HTTP_AUTHORIZATION='Token {}'.format(self.token[0]))
+        response = self.client.get("/api/v1/maintainers/token_check/")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['username'], self.credentials['username'])

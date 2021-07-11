@@ -14,6 +14,8 @@ class UpdaterTestCase(APITestCase):
         mock_devices_setup()
         mock_builds_setup()
         self.factory = APIRequestFactory()
+        V1UpdaterLOS.throttle_classes = ()
+        V2UpdaterDevice.throttle_classes = ()
 
     def test_parse_build_date(self):
         self.assertEqual(parse_build_date("20200824"), datetime.date(2020, 8, 24))

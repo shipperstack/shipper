@@ -7,6 +7,7 @@ from rest_framework.test import APITestCase, APIRequestFactory, APIClient
 from api.views import parse_build_date, variant_check, get_codename_from_filename, v1_system_info, \
     v1_maintainers_login, V1UpdaterLOS
 from config.settings import SHIPPER_VERSION
+from shipper.models import Build, Device
 from shipper.tests import mock_devices_setup, mock_builds_setup
 
 
@@ -98,6 +99,13 @@ class ShippyTestCase(APITestCase):
         }
         self.user = User.objects.create_user(**self.credentials)
         self.token = Token.objects.get_or_create(user=self.user)
+
+        # Set up mock targets
+        mock_devices_setup()
+        mock_builds_setup()
+
+        # Add dummy user to mock device bullhead
+        Device.objects.get(codename="bullhead").maintainers.add(self.user)
 
     def test_v1_system_info(self):
         request = self.factory.get("/api/v1/system/info/")

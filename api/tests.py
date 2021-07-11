@@ -121,3 +121,23 @@ class ShippyTestCase(APITestCase):
 
         self.assertEqual(response.status_code, 404)
         self.assertEqual(response.data['error'], 'invalid_credential')
+
+    def test_v1_maintainers_login_missing_password_field(self):
+        missing_credentials = {
+            'username': 'user1'
+        }
+        request = self.factory.post("api/v1/maintainers/login/", data=missing_credentials)
+        response = v1_maintainers_login(request)
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.data['error'], 'blank_username_or_password')
+
+    def test_v1_maintainers_login_missing_username_field(self):
+        missing_credentials = {
+            'password': 'hunter2'
+        }
+        request = self.factory.post("api/v1/maintainers/login/", data=missing_credentials)
+        response = v1_maintainers_login(request)
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.data['error'], 'blank_username_or_password')

@@ -156,7 +156,7 @@ def v1_maintainers_token_check(request):
 @api_view(["POST"])
 def v1_maintainers_build_enabled_status_modify(request):
     build_id = request.data.get("build_id")
-    enable = request.data.get("enable").lower() == "true"
+    enable = request.data.get("enable")
     if build_id is None or enable is None:
         return Response(
             {
@@ -168,6 +168,7 @@ def v1_maintainers_build_enabled_status_modify(request):
         )
 
     build = get_object_or_404(Build, pk=build_id)
+    enable = enable.lower() == "true"
 
     # Check if maintainer has permission to modify this build/device
     if request.user not in build.device.maintainers.all():

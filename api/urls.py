@@ -23,6 +23,6 @@ urlpatterns = [
          name='v1_maintainers_build_enabled_status_modify'),
 
     # updater
-    path('v1/updater/los/<slug:codename>/<slug:variant>/', v1_updater_los, name='v1_updater_los'),
-    path('v2/updater/<slug:codename>/<slug:variant>/', v2_updater_device, name='v2_updater_device'),
+    path('v1/updater/los/<slug:codename>/<slug:variant>/', V1UpdaterLOS.as_view(), name='v1_updater_los'),
+    path('v2/updater/<slug:codename>/<slug:variant>/', V2UpdaterDevice.as_view(), name='v2_updater_device'),
 ]

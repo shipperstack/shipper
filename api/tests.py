@@ -3,8 +3,8 @@ import datetime
 from django.contrib.auth.models import AnonymousUser, User
 from rest_framework.test import APITestCase, APIRequestFactory
 
-from api.views import parse_build_date, v1_updater_los, v2_updater_device, variant_check, get_codename_from_filename, \
-    v1_system_info, v1_maintainers_login
+from api.views import parse_build_date, variant_check, get_codename_from_filename, v1_system_info,\
+    v1_maintainers_login, V1UpdaterLOS, V2UpdaterDevice
 from config.settings import SHIPPER_VERSION
 from shipper.tests import mock_devices_setup, mock_builds_setup
 
@@ -38,7 +38,7 @@ class UpdaterTestCase(APITestCase):
     def test_v1_updater_los_bullhead_gapps(self):
         request = self.factory.get("/api/v1/updater/los/")
         request.user = AnonymousUser()
-        response = v1_updater_los(request, "bullhead", "gapps")
+        response = V1UpdaterLOS.as_view()(request, "bullhead", "gapps")
 
         self.assertEqual(response.status_code, 200)
 
@@ -67,28 +67,28 @@ class UpdaterTestCase(APITestCase):
     def test_v1_updater_los_bullhead_vanilla(self):
         request = self.factory.get("/api/v1/updater/los/")
         request.user = AnonymousUser
-        response = v1_updater_los(request, "bullhead", "vanilla")
+        response = V1UpdaterLOS.as_view()(request, "bullhead", "vanilla")
 
         self.assertEqual(response.status_code, 404)
 
     def test_v1_updater_los_bullhead_foss(self):
         request = self.factory.get("/api/v1/updater/los/")
         request.user = AnonymousUser
-        response = v1_updater_los(request, "bullhead", "foss")
+        response = V1UpdaterLOS.as_view()(request, "bullhead", "foss")
 
         self.assertEqual(response.status_code, 404)
 
     def test_v1_updater_los_bullhead_goapps(self):
         request = self.factory.get("/api/v1/updater/los/")
         request.user = AnonymousUser
-        response = v1_updater_los(request, "bullhead", "goapps")
+        response = V1UpdaterLOS.as_view()(request, "bullhead", "goapps")
 
         self.assertEqual(response.status_code, 404)
 
     def test_v2_updater_bullhead_gapps(self):
         request = self.factory.get("/api/v2/updater/")
         request.user = AnonymousUser()
-        response = v2_updater_device(request, "bullhead", "gapps")
+        response = V2UpdaterDevice.as_view()(request, "bullhead", "gapps")
 
         self.assertEqual(response.status_code, 200)
 
@@ -113,21 +113,21 @@ class UpdaterTestCase(APITestCase):
     def test_v2_updater_bullhead_vanilla(self):
         request = self.factory.get("/api/v2/updater/")
         request.user = AnonymousUser()
-        response = v2_updater_device(request, "bullhead", "vanilla")
+        response = V2UpdaterDevice.as_view()(request, "bullhead", "vanilla")
 
         self.assertEqual(response.status_code, 404)
 
     def test_v2_updater_bullhead_foss(self):
         request = self.factory.get("/api/v2/updater/")
         request.user = AnonymousUser()
-        response = v2_updater_device(request, "bullhead", "foss")
+        response = V2UpdaterDevice.as_view()(request, "bullhead", "foss")
 
         self.assertEqual(response.status_code, 404)
 
     def test_v2_updater_bullhead_goapps(self):
         request = self.factory.get("/api/v2/updater/")
         request.user = AnonymousUser()
-        response = v2_updater_device(request, "bullhead", "goapps")
+        response = V2UpdaterDevice.as_view()(request, "bullhead", "goapps")
 
         self.assertEqual(response.status_code, 404)
 

@@ -133,7 +133,7 @@ def v1_maintainers_login(request):
 @csrf_exempt
 @api_view(["GET"])
 @permission_classes((AllowAny,))
-def v1_system_info(request):
+def v1_system_info(_):
     return Response(
         {
             'version': SHIPPER_VERSION

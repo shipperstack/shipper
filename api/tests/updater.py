@@ -83,3 +83,19 @@ class UpdaterTestCase(APITestCase):
         response = V1UpdaterLOS.as_view()(request, "bullhead", "goapps")
 
         self.assertEqual(response.status_code, 404)
+
+    def test_v1_updater_los_nonexistent_device(self):
+        request = self.factory.get("/api/v1/updater/los/")
+        request.user = AnonymousUser
+        response = V1UpdaterLOS.as_view()(request, "nonexistent", "gapps")
+
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.data['message'], "The specified device does not exist!")
+
+    def test_v1_updater_los_nonexistent_variant(self):
+        request = self.factory.get("/api/v1/updater/los/")
+        request.user = AnonymousUser
+        response = V1UpdaterLOS.as_view()(request, "bullhead", "milkshake")
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.data['message'], "Wrong parameter. Try with the correct parameters.")

@@ -17,4 +17,4 @@ class CustomUserAdmin(UserAdmin):
     get_devices.short_description = 'Devices'
 
 
-admin.site.register(User, UserAdmin)
+admin.site.register(User, CustomUserAdmin)

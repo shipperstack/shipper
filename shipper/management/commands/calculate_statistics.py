@@ -1,8 +1,10 @@
 import humanize
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.core.management import BaseCommand
 
 from shipper.models import Build, Device
+
+User = get_user_model()
 
 
 class Command(BaseCommand):

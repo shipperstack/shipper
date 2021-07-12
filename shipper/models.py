@@ -1,7 +1,7 @@
 import datetime
 
 from auditlog.registry import auditlog
-from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.db import models
 
 
@@ -19,7 +19,7 @@ class Device(models.Model):
     )
     status = models.BooleanField(default=True, help_text="Device is still maintained - uncheck if abandoned")
     maintainers = models.ManyToManyField(
-        settings.AUTH_USER_MODEL,
+        get_user_model(),
         related_name="devices",
         help_text="Choose the maintainers working on this device. Multiple maintainers can be selected.<br>",
         blank=True,

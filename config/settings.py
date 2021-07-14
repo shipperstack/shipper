@@ -121,6 +121,16 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Email for password reset
+EMAIL_BACKEND = os.environ.get("SHIPPER_EMAIL_BACKEND", default='django.core.mail.backends.console.EmailBackend')
+EMAIL_HOST = os.environ.get("SHIPPER_EMAIL_HOST", default='')
+EMAIL_PORT = os.environ.get("SHIPPER_EMAIL_PORT", default='')
+EMAIL_HOST_USER = os.environ.get("SHIPPER_EMAIL_HOST_USER", default='')
+EMAIL_HOST_PASSWORD = os.environ.get("SHIPPER_EMAIL_HOST_PASSWORD", default='')
+EMAIL_USE_TLS = int(os.environ.get("SHIPPER_EMAIL_USE_TLS", default=1))
+DEFAULT_FROM_EMAIL = os.environ.get("SHIPPER_DEFAULT_FROM_EMAIL", default='')
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 

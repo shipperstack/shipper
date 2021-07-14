@@ -1,5 +1,5 @@
 from django.contrib.auth import logout
-from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
+from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView, PasswordResetConfirmView
 from django.shortcuts import render
 from rest_framework.authtoken.models import Token
 
@@ -17,6 +17,13 @@ class PasswordChangeDone(PasswordChangeDoneView):
     def get(self, request, *args, **kwargs):
         logout(self.request)
         return super().get(request, *args, **kwargs)
+
+
+class PasswordResetConfirm(PasswordResetConfirmView):
+    def form_valid(self, form):
+        # Invalidate tokens for the user
+        Token.objects.filter(user=form.user).delete()
+        return super().form_valid(form)
 
 
 def register(request):

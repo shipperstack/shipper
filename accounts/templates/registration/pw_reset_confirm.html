@@ -1,0 +1,35 @@
+{% extends 'maintainer_base.html' %}
+{% block title %}Enter new password{% endblock %}
+
+{% block content %}
+
+    {% if validlink %}
+        <h3>Enter new password</h3>
+
+        <br>
+
+        <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">Warning</h4>
+            <p class="mb-0">
+                Resetting your password will invalidate the account token. You will have to login again to shippy to
+                resume
+                uploading builds.
+            </p>
+        </div>
+
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input class="btn btn-primary" type="submit" value="Change Password">
+        </form>
+    {% else %}
+        <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">Error</h4>
+            <p class="mb-0">
+                The password link is invalid, possibly because you already used it once or it expired.
+                Please <a href="{% url 'password_reset' %}">request a new password reset link here.</a>
+            </p>
+        </div>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'maintainer_base.html' %}
+{% block title %}Forgot Password?{% endblock %}
+
+{% block content %}
+    <h3>Forgot Password?</h3>
+
+    <br>
+
+    <p>Enter your email address below and we'll send you instructions on resetting your password.</p>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input class="btn btn-primary" type="submit" value="Send me an email">
+    </form>
+
+{% endblock %}

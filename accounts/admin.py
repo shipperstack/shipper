@@ -12,13 +12,12 @@ class CustomUserAdmin(UserAdmin):
                     'is_superuser']
     ordering = ['-is_active', '-last_login']
 
-    # noinspection PyMethodMayBeStatic
     def get_full_name(self, obj):
         return "{} {}".format(obj.first_name, obj.last_name)
+    get_full_name.short_description = 'Full Name'
 
     def get_devices(self, obj):
         return [device.codename for device in Device.objects.filter(maintainers=obj)]
-
     get_devices.short_description = 'Devices'
 
 

@@ -188,7 +188,7 @@ DRF_CHUNKED_UPLOAD_MAX_BYTES = 2_500_000_000   # 2.5GB
 
 # Celery
 CELERY_BROKER_URL = "pyamqp://rabbitmq:5672/"
-CELERY_TASK_TIME_LIMIT = 60 * 60     # 60 minutes
+CELERY_TASK_TIME_LIMIT = 600    # 10 minutes
 CELERY_RESULT_BACKEND = 'django-db'
 CELERY_RESULT_CACHE = 'django-cache'
 

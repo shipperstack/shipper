@@ -6,6 +6,7 @@ from contextlib import contextmanager
 import humanize
 import paramiko
 import pysftp
+from billiard.exceptions import TimeLimitExceeded
 from celery import shared_task
 from django.core.cache import cache
 from django.db import transaction
@@ -42,7 +43,7 @@ def process_incomplete_builds():
 
 
 # noinspection SpellCheckingInspection
-@shared_task(bind=True)
+@shared_task(bind=True, autoretry_for=TimeLimitExceeded)
 def backup_build(self, build_id):
     build = Build.objects.get(id=build_id)
     mirrors = MirrorServer.objects.filter(enabled=True)

@@ -117,8 +117,6 @@ def generate_sha256(build_id):
         for byte_block in iter(lambda: destination.read(4096), b""):
             sha256sum.update(byte_block)
 
-    # Fetch build one more time and lock until save completes
+    # Lock build and update SHA256 hash
     with transaction.atomic():
-        build = Build.objects.select_for_update().get(id=build_id)
-        build.sha256sum = sha256sum.hexdigest()
-        build.save()
+        Build.objects.select_for_update().get(id=build_id).update(sha256sum=sha256sum.hexdigest())

@@ -4,6 +4,20 @@
 
 {% block title %}Downloads for {{ object }}{% endblock %}
 
+{% block head %}
+    <!-- Load Font Awesome -->
+    <!--suppress JSUnresolvedLibraryURL -->
+    <script defer src="https://use.fontawesome.com/releases/v5.15.3/js/solid.js"
+            integrity="sha384-9xA4r2/2cctd+IZZKLvI1hmeHZ5Yp8xXkS6J8inDtdyZCqhEHVcTGmSUCbNED5Ae"
+            crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.15.3/js/regular.js"
+            integrity="sha384-bPKzNk+f6IzEi89cU+jf3bwWzJQqo+U1/QYUijuD7XD9WO3MSrrAVVEglIOCo6VD"
+            crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.15.3/js/fontawesome.js"
+            integrity="sha384-hD97VKS04Rv8VYShf782apVZOVP6bVH/ubzrWXIIbKOwnD6gsDIcB29K03FL1A9J"
+            crossorigin="anonymous"></script>
+{% endblock %}
+
 {% block content %}
     <h1>Downloads for {{ object }}</h1>
     <br>
@@ -39,9 +53,15 @@
                 <td>Main</td>
                 <td>Download builds from the main website.</td>
                 <td><a href="{{ object.zip_file.url }}"
-                       class="btn btn-success btn-sm" title="">Download</a>
+                       class="btn btn-success btn-sm" title="">
+                    <i class="fa fa-file-archive" aria-hidden="true"></i>
+                    Download
+                </a>
                     <a href="{{ object.md5_file.url }}"
-                       class="btn btn-link btn-sm">MD5</a>
+                       class="btn btn-link btn-sm">
+                        <i class="fa fa-hashtag" aria-hidden="true"></i>
+                        MD5
+                    </a>
                 </td>
             </tr>
 

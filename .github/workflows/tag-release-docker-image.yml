@@ -9,6 +9,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Extract tag version
+        run: echo "TAG_VERSION=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_ENV
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set up QEMU
@@ -25,4 +27,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ericswpark/shipper:${GITHUB_REF/refs\/tags\//}
+          tags: ericswpark/shipper:${{ env.GIT_VERSION }}

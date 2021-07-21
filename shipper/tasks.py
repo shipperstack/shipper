@@ -42,7 +42,6 @@ def process_incomplete_builds():
         backup_build.delay(build.id)
 
 
-# noinspection SpellCheckingInspection
 @shared_task(bind=True, default_retry_delay=60 * 60, autoretry_for=TimeLimitExceeded, retry_backoff=True)
 def backup_build(self, build_id):
     build = Build.objects.get(id=build_id)

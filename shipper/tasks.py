@@ -43,7 +43,7 @@ def process_incomplete_builds():
 
 
 # noinspection SpellCheckingInspection
-@shared_task(bind=True, autoretry_for=TimeLimitExceeded)
+@shared_task(bind=True, autoretry_for=TimeLimitExceeded, retry_backoff=True)
 def backup_build(self, build_id):
     build = Build.objects.get(id=build_id)
     mirrors = MirrorServer.objects.filter(enabled=True)

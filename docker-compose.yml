@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   web:
-    image: ericswpark/shipper:release-${VERSION_TAG}
+    image: ericswpark/shipper:${VERSION_TAG}
     command: gunicorn config.wsgi:application --bind 0.0.0.0:8000 --capture-output --timeout 360 --log-level debug
     volumes:
     - media_volume:/home/shipper/web/media

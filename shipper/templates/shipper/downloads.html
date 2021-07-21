@@ -35,7 +35,7 @@
                         <td>
                             {% if device.has_gapps_builds %}
                                 <a href="download/{{ device.codename }}/{{ device.get_latest_gapps_build_object.id }}/"
-                                   class="btn btn-primary btn-sm" title="">GApps</a>
+                                   class="btn btn-primary btn-sm">GApps</a>
                             {% endif %}
                             {% if device.has_vanilla_builds %}
                                 <a href="download/{{ device.codename }}/{{ device.get_latest_vanilla_build_object.id }}"

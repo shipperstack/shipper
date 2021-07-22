@@ -114,7 +114,7 @@ def download_count_response(stats):
 
 
 def build_increase_download_count(build):
-    build.update(download_count=F('download_count') + 1)
+    Build.objects.select_for_update().filter(id=build.id).update(download_count=F('download_count') + 1)
 
     # Increase overall statistics
     try:
@@ -122,4 +122,4 @@ def build_increase_download_count(build):
     except Statistics.DoesNotExist:
         stats = Statistics.objects.create()
 
-    stats.update(download_count=F('download_count') + 1)
+    Statistics.objects.select_for_update().filter(date=stats.date).update(download_count=F('download_count') + 1)

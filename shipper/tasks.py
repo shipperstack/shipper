@@ -118,4 +118,4 @@ def generate_sha256(build_id):
 
     # Lock build and update SHA256 hash
     with transaction.atomic():
-        Build.objects.select_for_update().get(id=build_id).update(sha256sum=sha256sum.hexdigest())
+        Build.objects.select_for_update().filter(id=build_id).update(sha256sum=sha256sum.hexdigest())

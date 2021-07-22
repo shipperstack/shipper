@@ -43,10 +43,9 @@ jobs:
         pip install coverage
     - name: Generate coverage report
       run: |
-        coverage run --source='.' manage.py test
+        coverage xml --source='.' manage.py test
     - name: Upload coverage report
       uses: codecov/codecov-action@v2.0.1
       with:
-        files: .coverage
         verbose: true
         fail_ci_if_error: true

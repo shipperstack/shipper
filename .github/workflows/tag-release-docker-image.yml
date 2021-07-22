@@ -27,4 +27,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ericswpark/shipper:${{ env.GIT_VERSION }}
+          tags: ericswpark/shipper:${{ env.TAG_VERSION }}

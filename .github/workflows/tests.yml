@@ -58,9 +58,10 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: coverage-data
-      - name: Combine coverage reports
+      - name: Combine coverage reports and generate Cobertura XML report
         run: |
           coverage combine
+          coverage xml
       - name: Upload finalized coverage report
         uses: codecov/codecov-action@v2.0.1
         with:

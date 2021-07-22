@@ -53,7 +53,7 @@
                 <td>Main</td>
                 <td>Download builds from the main website.</td>
                 <td><a href="{{ object.zip_file.url }}"
-                       class="btn btn-success btn-sm" title="">
+                       class="btn btn-success btn-sm">
                     <i class="fa fa-file-archive" aria-hidden="true"></i>
                     Download
                 </a>
@@ -70,7 +70,7 @@
                     <td>{{ mirror.name }}</td>
                     <td>{{ mirror.description }}</td>
                     <td><a href="{{ mirror.download_url_base|format_download_url:object.zip_file.name }}"
-                           class="btn btn-success btn-sm" title="">Download</a>
+                           class="btn btn-success btn-sm">Download</a>
                         <a href="{{ mirror.download_url_base|format_download_url:object.md5_file.name }}"
                            class="btn btn-link btn-sm">MD5</a>
                     </td>

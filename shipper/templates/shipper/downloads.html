@@ -33,30 +33,41 @@
                             </td>
                         {% endif %}
                         <td>
-                            {% if device.has_gapps_builds %}
-                                <a href="download/{{ device.codename }}/{{ device.get_latest_gapps_build_object.id }}/"
-                                   class="btn btn-primary btn-sm">GApps</a>
-                            {% else %}
-                                <a style="visibility: hidden" class="btn btn-primary btn-sm">GApps</a>
-                            {% endif %}
-                            {% if device.has_vanilla_builds %}
-                                <a href="download/{{ device.codename }}/{{ device.get_latest_vanilla_build_object.id }}"
-                                   class="btn btn-secondary btn-sm">Non-GApps</a>
-                            {% else %}
-                                <a style="visibility: hidden" class="btn btn-secondary btn-sm">Non-GApps</a>
-                            {% endif %}
-                            {% if device.has_foss_builds %}
-                                <a href="download/{{ device.codename }}/{{ device.get_latest_foss_build_object.id }}"
-                                   class="btn btn-warning btn-sm">FOSS</a>
-                            {% else %}
-                                <a style="visibility: hidden" class="btn btn-warning btn-sm">FOSS</a>
-                            {% endif %}
-                            {% if device.has_goapps_builds %}
-                                <a href="download/{{ device.codename }}/{{ device.get_latest_goapps_build_object.id }}"
-                                   class="btn btn-dark btn-sm">Go Apps</a>
-                            {% else %}
-                                <a style="visibility: hidden" class="btn btn-dark btn-sm">Go Apps</a>
-                            {% endif %}
+                            <!-- GApps -->
+                            <a class="btn btn-primary btn-sm"
+                                    {% if device.has_gapps_builds %}
+                               href="download/{{ device.codename }}/{{ device.get_latest_gapps_build_object.id }}/"
+                                    {% else %}
+                               style="visibility: hidden"
+                                    {% endif %}
+                            >GApps</a>
+
+                            <!-- Non-GApps -->
+                            <a class="btn btn-secondary btn-sm"
+                                    {% if device.has_vanilla_builds %}
+                               href="download/{{ device.codename }}/{{ device.get_latest_vanilla_build_object.id }}"
+                                    {% else %}
+                               style="visibility: hidden"
+                                    {% endif %}
+                            >Non-GApps</a>
+
+                            <!-- FOSS -->
+                            <a class="btn btn-warning btn-sm"
+                                    {% if device.has_foss_builds %}
+                               href="download/{{ device.codename }}/{{ device.get_latest_foss_build_object.id }}"
+                                    {% else %}
+                               style="visibility: hidden"
+                                    {% endif %}
+                            >FOSS</a>
+
+                            <!-- Go Apps -->
+                            <a class="btn btn-dark btn-sm"
+                                    {% if device.has_goapps_builds %}
+                               href="download/{{ device.codename }}/{{ device.get_latest_goapps_build_object.id }}"
+                                    {% else %}
+                               style="visibility: hidden"
+                                    {% endif %}
+                            >Go Apps</a>
                         </td>
                     {% endif %}
                 </tr>

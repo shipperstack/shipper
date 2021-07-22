@@ -34,38 +34,50 @@
                         {% endif %}
                         <td>
                             <!-- GApps -->
-                            <a class="btn btn-primary btn-sm"
+                            <a
                                     {% if device.has_gapps_builds %}
-                               href="download/{{ device.codename }}/{{ device.get_latest_gapps_build_object.id }}/"
+                                        class="btn btn-primary btn-sm"
+                                        href="download/{{ device.codename }}/{{ device.get_latest_gapps_build_object.id }}/"
                                     {% else %}
-                               style="visibility: hidden"
+                                        class="btn btn-primary btn-sm disabled"
+                                        href="#"
+                                        tabindex="-1"
                                     {% endif %}
                             >GApps</a>
 
                             <!-- Non-GApps -->
-                            <a class="btn btn-secondary btn-sm"
+                            <a
                                     {% if device.has_vanilla_builds %}
-                               href="download/{{ device.codename }}/{{ device.get_latest_vanilla_build_object.id }}"
+                                        class="btn btn-secondary btn-sm"
+                                        href="download/{{ device.codename }}/{{ device.get_latest_vanilla_build_object.id }}"
                                     {% else %}
-                               style="visibility: hidden"
+                                        class="btn btn-secondary btn-sm disabled"
+                                        href="#"
+                                        tabindex="-1"
                                     {% endif %}
                             >Non-GApps</a>
 
                             <!-- FOSS -->
-                            <a class="btn btn-warning btn-sm"
+                            <a
                                     {% if device.has_foss_builds %}
-                               href="download/{{ device.codename }}/{{ device.get_latest_foss_build_object.id }}"
+                                        class="btn btn-warning btn-sm"
+                                        href="download/{{ device.codename }}/{{ device.get_latest_foss_build_object.id }}"
                                     {% else %}
-                               style="visibility: hidden"
+                                        class="btn btn-warning btn-sm disabled"
+                                        href="#"
+                                        tabindex="-1"
                                     {% endif %}
                             >FOSS</a>
 
                             <!-- Go Apps -->
-                            <a class="btn btn-dark btn-sm"
+                            <a
                                     {% if device.has_goapps_builds %}
-                               href="download/{{ device.codename }}/{{ device.get_latest_goapps_build_object.id }}"
+                                        class="btn btn-dark btn-sm"
+                                        href="download/{{ device.codename }}/{{ device.get_latest_goapps_build_object.id }}"
                                     {% else %}
-                               style="visibility: hidden"
+                                        class="btn btn-dark btn-sm disabled"
+                                        href="#"
+                                        tabindex="-1"
                                     {% endif %}
                             >Go Apps</a>
                         </td>

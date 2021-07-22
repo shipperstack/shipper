@@ -1,4 +1,4 @@
-name: Django Tests
+name: Tests
 
 on:
   push:
@@ -7,8 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
-
+  test-runners:
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
@@ -44,8 +43,26 @@ jobs:
     - name: Generate coverage report
       run: |
         coverage run manage.py test
-    - name: Upload coverage report
-      uses: codecov/codecov-action@v2.0.1
+    - name: Upload coverage reports from all runners
+      uses: actions/upload-artifact@v2
       with:
-        verbose: true
-        fail_ci_if_error: true
+        name: coverage-data
+        path: ${{ github.workspace }}/.coverage.*
+
+  codecov-coverage:
+    runs-on: ubuntu-latest
+    needs: test-runners
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download coverage reports from all runners
+        uses: actions/download-artifact@v2
+        with:
+          name: coverage-data
+      - name: Combine coverage reports
+        run: |
+          coverage combine
+      - name: Upload finalized coverage report
+        uses: codecov/codecov-action@v2.0.1
+        with:
+          verbose: true
+          fail_ci_if_error: true

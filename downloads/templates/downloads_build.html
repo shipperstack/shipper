@@ -24,13 +24,7 @@
 
     {% include 'debug_warning.html' %}
 
-    <!-- Donation alert -->
-    {% if downloads_page_donation_url != "#" %}
-        <div class="alert alert-secondary">
-            Please <a href="{{ downloads_page_donation_url }}" class="alert-link">consider donating</a> to support the
-            team. Thank you!
-        </div>
-    {% endif %}
+    {% include 'donation_alert.html' %}
 
     <!-- Build information -->
     <div>

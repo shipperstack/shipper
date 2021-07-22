@@ -1,12 +1,9 @@
-from django.contrib.auth.models import AnonymousUser
-from django.http import Http404
-from django.test import TestCase, RequestFactory
+from django.test import TestCase
+
 
 from shipper.exceptions import UploadException
 from shipper.handler import file_name_validity_check
 from shipper.models import Device, Build
-from downloads.templatetags.build_extras import format_download_url
-from shipper.views import DownloadsView, DownloadsDeviceView, DownloadsBuildView, exception_to_message
 
 
 class ShipperDeviceTestCase(TestCase):
@@ -122,65 +119,6 @@ class ShipperHandlerTestCase(TestCase):
                 codename="bullhead",
                 variant="unknown",
             )
-
-
-class ShipperViewTestCase(TestCase):
-    def setUp(self):
-        mock_devices_setup()
-        mock_builds_setup()
-        self.factory = RequestFactory()
-
-    def test_downloads_view(self):
-        request = self.factory.get("")
-        request.user = AnonymousUser()
-        response = DownloadsView.as_view()(request)
-
-        self.assertEqual(response.status_code, 200)
-
-    def test_downloads_device_bullhead_view(self):
-        request = self.factory.get("download/bullhead/")
-        request.user = AnonymousUser()
-        response = DownloadsDeviceView.as_view()(request, codename="bullhead")
-
-        self.assertEqual(response.status_code, 200)
-
-    def test_downloads_device_invalid_view(self):
-        request = self.factory.get("download/invalid/")
-        request.user = AnonymousUser()
-
-        with self.assertRaises(Http404):
-            DownloadsDeviceView.as_view()(request, codename="invalid")
-
-    def test_downloads_build_bullhead_view(self):
-        request = self.factory.get("download/bullhead/1/")
-        request.user = AnonymousUser()
-        response = DownloadsBuildView.as_view()(request, codename="bullhead", pk=1)
-
-        self.assertEqual(response.status_code, 200)
-
-    def test_downloads_invalid_build_bullhead_view(self):
-        request = self.factory.get("download/bullhead/20/")
-        request.user = AnonymousUser()
-        with self.assertRaises(Http404):
-            DownloadsBuildView.as_view()(request, codename="bullhead", pk=20)
-
-
-class ShipperHelperFunctionTestCase(TestCase):
-    def test_exception_to_message(self):
-        self.assertEqual("The file name does not match the checksum file name!",
-                         exception_to_message(Exception('file_name_mismatch')))
-        self.assertEqual("The file name was malformed. Please do not edit the file name!",
-                         exception_to_message(Exception('invalid_file_name')))
-        self.assertEqual("Only official builds are allowed.",
-                         exception_to_message(Exception('not_official')))
-        self.assertEqual("The codename does not match the file!",
-                         exception_to_message(Exception('codename_mismatch')))
-        self.assertEqual("The build already exists in the system!",
-                         exception_to_message(Exception('duplicate_build')))
-        self.assertEqual("An unknown error occurred.",
-                         exception_to_message(Exception('some_weird_random_error')))
-        self.assertEqual("An unknown error occurred.",
-                         exception_to_message(Exception('unknown_error')))
 
 
 def mock_devices_setup():

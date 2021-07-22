@@ -100,18 +100,3 @@ def build_upload(request, pk):
         'form': form,
         'device': device
     })
-
-
-def exception_to_message(e):
-    e = str(e)
-    if e == 'file_name_mismatch':
-        return "The file name does not match the checksum file name!"
-    if e == 'invalid_file_name':
-        return "The file name was malformed. Please do not edit the file name!"
-    if e == 'not_official':
-        return "Only official builds are allowed."
-    if e == 'codename_mismatch':
-        return "The codename does not match the file!"
-    if e == 'duplicate_build':
-        return "The build already exists in the system!"
-    return "An unknown error occurred."

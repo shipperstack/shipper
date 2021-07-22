@@ -3,7 +3,7 @@ from django.contrib.auth.models import AnonymousUser
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APITestCase, APIRequestFactory, APIClient
 
-from api.views import v1_system_info, v1_maintainers_login
+from api.views import v1_system_info, v1_maintainers_login, exception_to_message
 from config.settings import SHIPPER_VERSION
 from shipper.models import Build, Device
 from shipper.tests import mock_devices_setup, mock_builds_setup
@@ -138,3 +138,19 @@ class ShippyTestCase(APITestCase):
 
         self.assertEqual(response.status_code, 401)
         self.assertEqual(response.data['error'], 'insufficient_permissions')
+
+    def test_exception_to_message(self):
+        self.assertEqual("The file name does not match the checksum file name!",
+                         exception_to_message(Exception('file_name_mismatch')))
+        self.assertEqual("The file name was malformed. Please do not edit the file name!",
+                         exception_to_message(Exception('invalid_file_name')))
+        self.assertEqual("Only official builds are allowed.",
+                         exception_to_message(Exception('not_official')))
+        self.assertEqual("The codename does not match the file!",
+                         exception_to_message(Exception('codename_mismatch')))
+        self.assertEqual("The build already exists in the system!",
+                         exception_to_message(Exception('duplicate_build')))
+        self.assertEqual("An unknown error occurred.",
+                         exception_to_message(Exception('some_weird_random_error')))
+        self.assertEqual("An unknown error occurred.",
+                         exception_to_message(Exception('unknown_error')))

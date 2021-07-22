@@ -54,6 +54,14 @@ jobs:
     needs: test-runners
     steps:
       - uses: actions/checkout@v2
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install coverage
       - name: Download coverage reports from all runners
         uses: actions/download-artifact@v2
         with:

@@ -5,7 +5,7 @@ from django.test import TestCase, RequestFactory
 from shipper.exceptions import UploadException
 from shipper.handler import file_name_validity_check
 from shipper.models import Device, Build
-from shipper.templatetags.build_extras import format_download_url
+from downloads.templatetags.build_extras import format_download_url
 from shipper.views import DownloadsView, DownloadsDeviceView, DownloadsBuildView, exception_to_message
 
 
@@ -181,12 +181,6 @@ class ShipperHelperFunctionTestCase(TestCase):
                          exception_to_message(Exception('some_weird_random_error')))
         self.assertEqual("An unknown error occurred.",
                          exception_to_message(Exception('unknown_error')))
-
-
-class ShipperTemplateTagsTestCase(TestCase):
-    def test_format_download_url(self):
-        self.assertEqual("https://mock/test/Bliss-v14.zip/download/",
-                         format_download_url("https://mock/test/{}/download/", "Bliss-v14.zip"))
 
 
 def mock_devices_setup():

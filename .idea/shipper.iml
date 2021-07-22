@@ -15,6 +15,7 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/venv" />
+      <excludeFolder url="file://$MODULE_DIR$/ssh" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.9 (shipper)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -26,6 +27,7 @@
         <option value="$MODULE_DIR$/shipper/templates" />
         <option value="$MODULE_DIR$/templates" />
         <option value="$MODULE_DIR$/accounts/templates" />
+        <option value="$MODULE_DIR$/downloads/templates" />
       </list>
     </option>
   </component>

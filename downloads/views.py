@@ -5,14 +5,14 @@ from shipper.models import Device, Build
 
 
 class DownloadsView(ListView):
-    template_name = 'shipper/downloads.html'
+    template_name = 'downloads.html'
     model = Device
 
     ordering = ['-status', 'manufacturer', 'name']
 
 
 class DownloadsDeviceView(DetailView):
-    template_name = 'shipper/downloads_device.html'
+    template_name = 'downloads_device.html'
     model = Device
 
     def get_object(self, queryset=None):
@@ -20,5 +20,5 @@ class DownloadsDeviceView(DetailView):
 
 
 class DownloadsBuildView(DetailView):
-    template_name = 'shipper/downloads_build.html'
+    template_name = 'downloads_build.html'
     model = Build

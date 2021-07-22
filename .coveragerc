@@ -2,6 +2,7 @@
 
 [run]
 source = .
+parallel = True
 
 omit =
     */venv/*

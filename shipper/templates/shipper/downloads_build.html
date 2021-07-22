@@ -39,6 +39,14 @@
         </div>
     {% endif %}
 
+    <!-- Build information -->
+    <div>
+    <p>Device: {{ object.device }}</p>
+    <p>Build: {{ object.get_user_friendly_name }}</p>
+    <p>Build size: {{ object.get_human_readable_size }}</p>
+    </div>
+
+    <!-- Mirrors -->
     <div class="container">
         <table class="table">
             <thead>

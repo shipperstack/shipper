@@ -70,9 +70,15 @@
                     <td>{{ mirror.name }}</td>
                     <td>{{ mirror.description }}</td>
                     <td><a href="{{ mirror.download_url_base|format_download_url:object.zip_file.name }}"
-                           class="btn btn-success btn-sm">Download</a>
+                           class="btn btn-success btn-sm">
+                        <i class="fa fa-file-archive" aria-hidden="true"></i>
+                        Download
+                    </a>
                         <a href="{{ mirror.download_url_base|format_download_url:object.md5_file.name }}"
-                           class="btn btn-link btn-sm">MD5</a>
+                           class="btn btn-link btn-sm">
+                            <i class="fa fa-hashtag" aria-hidden="true"></i>
+                            MD5
+                        </a>
                     </td>
                 </tr>
             {% endfor %}

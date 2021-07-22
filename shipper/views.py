@@ -12,7 +12,7 @@ from shipper.models import Device, Build
 
 
 class MaintainerDashboardView(LoginRequiredMixin, ListView):
-    template_name = 'shipper/maintainer_dashboard.html'
+    template_name = 'maintainer_dashboard.html'
     model = Device
 
     # Override devices shown to maintainers
@@ -21,7 +21,7 @@ class MaintainerDashboardView(LoginRequiredMixin, ListView):
 
 
 class DeviceDetailView(LoginRequiredMixin, DetailView):
-    template_name = 'shipper/device_detail.html'
+    template_name = 'device_detail.html'
     model = Device
 
     # Override devices shown to maintainers
@@ -30,7 +30,7 @@ class DeviceDetailView(LoginRequiredMixin, DetailView):
 
 
 class BuildDeleteView(LoginRequiredMixin, DeleteView):
-    template_name = 'shipper/build_delete.html'
+    template_name = 'build_delete.html'
     model = Build
 
     def get_success_url(self):
@@ -75,20 +75,20 @@ def build_upload(request, pk):
             try:
                 build_id = handle_build(device, request.FILES["zip_file"], request.FILES["md5_file"])
             except UploadException as exception:
-                return render(request, 'shipper/build_upload.html', {
+                return render(request, 'build_upload.html', {
                     'upload_succeeded': False,
                     'error_reason': str(exception),
                     'device': device,
                     'form': form
                 })
 
-            return render(request, 'shipper/build_upload.html', {
+            return render(request, 'build_upload.html', {
                 'upload_succeeded': True,
                 'device': device,
                 'form': form,
                 'build_id': build_id
             })
-        return render(request, 'shipper/build_upload.html', {
+        return render(request, 'build_upload.html', {
             'upload_succeeded': False,
             'error_reason': 'invalid_form',
             'device': device,
@@ -96,7 +96,7 @@ def build_upload(request, pk):
         })
 
     form = BuildUploadForm()
-    return render(request, 'shipper/build_upload.html', {
+    return render(request, 'build_upload.html', {
         'form': form,
         'device': device
     })

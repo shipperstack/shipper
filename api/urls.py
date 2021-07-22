@@ -4,6 +4,7 @@ from .views import *
 
 # noinspection SpellCheckingInspection
 # remove this once to-do is gone
+
 urlpatterns = [
     # statistics
     path('v1/download/build/counter/', v1_download_build_counter, name='v1_download_build_counter'),
@@ -24,4 +25,9 @@ urlpatterns = [
 
     # updater
     path('v1/updater/los/<slug:codename>/<slug:variant>/', V1UpdaterLOS.as_view(), name='v1_updater_los'),
+
+    # general
+    path('v1/general/device/all/', V1GeneralDeviceAll.as_view(), name='v1_general_device_all'),
+    path('v1/general/build/latest/<slug:codename>/<slug:variant>/', V1GeneralBuildLatest.as_view(),
+         name='v1_general_build_latest'),
 ]

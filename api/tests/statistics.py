@@ -3,7 +3,7 @@ import datetime
 from django.contrib.auth.models import AnonymousUser
 from rest_framework.test import APITestCase, APIRequestFactory
 
-from api.views import v1_download_count_day, v1_download_count_week, v1_download_count_month
+from api.views import v1_download_count_day, v1_download_count_week, v1_download_count_month, v1_download_count_all
 from shipper.models import Statistics
 from shipper.tests import mock_devices_setup, mock_builds_setup
 
@@ -35,6 +35,14 @@ class StatisticsTestCase(APITestCase):
         request = self.factory.get("/api/v1/download/count/month/")
         request.user = AnonymousUser()
         response = v1_download_count_month(request)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['count'], 2100)
+
+    def test_v1_download_count_all(self):
+        request = self.factory.get("/api/v1/download/count/all/")
+        request.user = AnonymousUser()
+        response = v1_download_count_all(request)
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data['count'], 2100)

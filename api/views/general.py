@@ -6,7 +6,7 @@ from rest_framework.status import HTTP_200_OK, HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
 
 from api.views import variant_check, parse_build_date
-from shipper.models import Device
+from shipper.models import Device, Build
 
 
 class V1GeneralDeviceAll(APIView):
@@ -63,17 +63,16 @@ class V1GeneralBuildLatest(APIView):
             return ret
 
         build = None
-        if variant == "gapps":
-            build = device.get_latest_gapps_build_object()
-        elif variant == "vanilla":
-            build = device.get_latest_vanilla_build_object()
-        elif variant == "foss":
-            build = device.get_latest_foss_build_object()
-        elif variant == "goapps":
-            build = device.get_latest_goapps_build_object()
-
-        # Check if list is empty and return a 404
-        if not build:
+        try:
+            if variant == "gapps":
+                build = device.get_latest_gapps_build_object()
+            elif variant == "vanilla":
+                build = device.get_latest_vanilla_build_object()
+            elif variant == "foss":
+                build = device.get_latest_foss_build_object()
+            elif variant == "goapps":
+                build = device.get_latest_goapps_build_object()
+        except Build.DoesNotExist:
             return Response(
                 {
                     'message': "No builds exist for the specified variant yet!"

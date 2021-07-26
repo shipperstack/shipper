@@ -4,7 +4,7 @@ from django.contrib.auth.models import AnonymousUser
 from rest_framework.test import APITestCase, APIRequestFactory
 
 from api.views import v1_download_count_day, v1_download_count_week, v1_download_count_month, v1_download_count_all, \
-    v1_download_build_counter
+    V1DownloadBuildCounter
 from shipper.models import Statistics, Build
 from shipper.tests import mock_devices_setup, mock_builds_setup
 
@@ -55,13 +55,14 @@ class StatisticsIncrementTestCase(APITestCase):
         mock_builds_setup()
         mock_statistics_setup()
         self.factory = APIRequestFactory()
+        V1DownloadBuildCounter.throttle_classes = ()
 
     def test_v1_download_build_counter(self):
         request = self.factory.post("/api/v1/download/build/counter/", data={
             "file_name": "Bliss-v14-angler-OFFICIAL-vanilla-20200608"
         })
         request.user = AnonymousUser()
-        response = v1_download_build_counter(request)
+        response = V1DownloadBuildCounter.as_view()(request)
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Build.objects.get(file_name="Bliss-v14-angler-OFFICIAL-vanilla-20200608").download_count, 61)

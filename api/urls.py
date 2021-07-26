@@ -4,7 +4,7 @@ from .views import *
 
 urlpatterns = [
     # statistics
-    path('v1/download/build/counter/', v1_download_build_counter, name='v1_download_build_counter'),
+    path('v1/download/build/counter/', V1DownloadBuildCounter.as_view(), name='v1_download_build_counter'),
     path('v1/download/count/day/', v1_download_count_day, name='v1_download_count_day'),
     path('v1/download/count/week/', v1_download_count_week, name='v1_download_count_week'),
     path('v1/download/count/month/', v1_download_count_month, name='v1_download_count_month'),

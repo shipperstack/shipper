@@ -67,6 +67,16 @@ class StatisticsIncrementTestCase(APITestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Build.objects.get(file_name="Bliss-v14-angler-OFFICIAL-vanilla-20200608").download_count, 61)
 
+    def test_v1_download_build_counter_invalid_build_name(self):
+        request = self.factory.post("/api/v1/download/build/counter/", data={
+            "file_name": "Bliss-v14-unknown-OFFICIAL-vanilla-20200608"
+        })
+        request.user = AnonymousUser()
+        response = V1DownloadBuildCounter.as_view()(request)
+
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.data['error'], 'invalid_build_name')
+
 
 def mock_statistics_setup():
     Statistics.objects.create(

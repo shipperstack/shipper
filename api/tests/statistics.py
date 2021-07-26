@@ -87,6 +87,15 @@ class StatisticsIncrementTestCase(APITestCase):
         self.assertEqual(response.status_code, 404)
         self.assertEqual(response.data['error'], 'invalid_build_id')
 
+    def test_v1_download_build_counter_invalid_missing_parameters(self):
+        request = self.factory.post("/api/v1/download/build/counter/")
+        request.user = AnonymousUser()
+        response = V1DownloadBuildCounter.as_view()(request)
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.data['error'], 'missing_parameters')
+
+
 def mock_statistics_setup():
     Statistics.objects.create(
         date=datetime.date.today(),

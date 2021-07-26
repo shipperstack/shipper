@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 
 from drf_chunked_upload.exceptions import ChunkedUploadError
+from drf_chunked_upload.serializers import ChunkedUploadSerializer
 from drf_chunked_upload.settings import CHECKSUM_TYPE
 from drf_chunked_upload.views import ChunkedUploadView
 from rest_framework.authtoken.models import Token
@@ -20,7 +21,14 @@ from shipper.handler import handle_chunked_build
 from shipper.models import Device, Build
 
 
+# Serializer for overriding success url
+class V1MaintainersChunkedUploadSerializer(ChunkedUploadSerializer):
+    viewname = 'v1_maintainers_chunked_upload_detail'
+
+
 class V1MaintainersChunkedUpload(ChunkedUploadView):
+    serializer_class = V1MaintainersChunkedUploadSerializer
+
     def _post(self, request, pk=None, *args, **kwargs):
         chunked_upload = None
         if pk:

@@ -77,6 +77,15 @@ class StatisticsIncrementTestCase(APITestCase):
         self.assertEqual(response.status_code, 404)
         self.assertEqual(response.data['error'], 'invalid_build_name')
 
+    def test_v1_download_build_counter_invalid_build_id(self):
+        request = self.factory.post("/api/v1/download/build/counter/", data={
+            "build_id": 999999999
+        })
+        request.user = AnonymousUser()
+        response = V1DownloadBuildCounter.as_view()(request)
+
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.data['error'], 'invalid_build_id')
 
 def mock_statistics_setup():
     Statistics.objects.create(

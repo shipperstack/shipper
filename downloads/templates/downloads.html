@@ -26,8 +26,8 @@
             </thead>
             <tbody>
             {% for device in object_list %}
-                <tr>
-                    {% if device.has_builds %}
+                {% if device.has_builds %}
+                    <tr>
                         {% if device.status %}
                             <td><a href="download/{{ device.codename }}/">{{ device }}</a></td>
                         {% else %}
@@ -90,8 +90,8 @@
                                     {% endif %}
                             >Go Apps</a>
                         </td>
-                    {% endif %}
-                </tr>
+                    </tr>
+                {% endif %}
             {% endfor %}
             </tbody>
         </table>

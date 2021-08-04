@@ -4,8 +4,8 @@ from django.views.generic import ListView, DetailView
 from shipper.models import Device, Build
 
 
-class DownloadsView(ListView):
-    template_name = 'downloads.html'
+class DownloadsMainView(ListView):
+    template_name = 'downloads_main.html'
     model = Device
 
     ordering = ['-status', 'manufacturer', 'name']

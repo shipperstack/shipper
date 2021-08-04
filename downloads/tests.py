@@ -3,7 +3,7 @@ from django.http import Http404
 from django.test import TestCase, RequestFactory
 
 from downloads.templatetags.build_extras import format_download_url
-from downloads.views import DownloadsBuildView, DownloadsDeviceView, DownloadsView
+from downloads.views import DownloadsBuildView, DownloadsDeviceView, DownloadsMainView
 from shipper.tests import mock_devices_setup, mock_builds_setup
 
 
@@ -22,7 +22,7 @@ class DownloadsViewTestCase(TestCase):
     def test_downloads_view(self):
         request = self.factory.get("")
         request.user = AnonymousUser()
-        response = DownloadsView.as_view()(request)
+        response = DownloadsMainView.as_view()(request)
 
         self.assertEqual(response.status_code, 200)
 

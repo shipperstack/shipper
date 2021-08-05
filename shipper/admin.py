@@ -57,7 +57,7 @@ class MirrorServerAdmin(admin.ModelAdmin):
 
 class StatisticsAdmin(admin.ModelAdmin):
     list_display = ['date', 'download_count']
-    ordering = ['date']
+    ordering = ['-date']
 
 
 admin.site.register(Device, DeviceAdmin)

@@ -86,11 +86,15 @@
                     }
                     return myXhr;
                 },
-                success: function (response) {
-                    $("html").html(response);
+                success: function (data) {
+                    document.open();
+                    document.write(data);
+                    document.close();
                 },
-                error: function (response) {
-                    $("html").html(response.responseText);
+                error: function (data) {
+                    document.open();
+                    document.write(data.responseText);
+                    document.close();
                 }
             });
         });

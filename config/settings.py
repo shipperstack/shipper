@@ -207,11 +207,16 @@ def before_send(event, hint):
     return event
 
 
+if DEBUG == 1:
+    sentry_transaction_rate = 1.0
+else:
+    sentry_transaction_rate = 0.2
+
 sentry_sdk.init(
     dsn=os.environ.get("SHIPPER_SENTRY_SDK_DSN", default=""),
     integrations=[DjangoIntegration()],
     release="{}".format(SHIPPER_VERSION),
-    traces_sample_rate=1.0,
+    traces_sample_rate=sentry_transaction_rate,
     send_default_pii=os.environ.get("SHIPPER_SENTRY_SDK_PII", default=False),
     before_send=before_send,
 )

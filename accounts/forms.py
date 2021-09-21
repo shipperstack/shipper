@@ -25,3 +25,8 @@ class RegisterForm(forms.ModelForm):
         if cd['password'] != cd['password_verify']:
             raise forms.ValidationError('The passwords do not match!')
         return cd['password_verify']
+
+    def clean_email(self):
+        if User.objects.filter(email=self.cleaned_data['email']).exists():
+            raise forms.ValidationError('This email address is already registered and cannot be used!')
+        return self.cleaned_data['email']

@@ -61,44 +61,34 @@
     <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
 
     <script>
-        $(':button').on('click', function () {
-            // Disable button
-            $(':button').attr("disabled", true);
-            $('.spinner-border').attr("hidden", false);
+        let uploadBtn = document.querySelector('button[type="button"]');
 
-            $.ajax({
-                url: '',
-                type: 'POST',
-                data: new FormData($('form')[0]),
-                cache: false,
-                contentType: false,
-                processData: false,
-                xhr: function () {
-                    let myXhr = $.ajaxSettings.xhr();
-                    let bar = $('.progress-bar');
-                    if (myXhr.upload) {
-                        myXhr.upload.addEventListener('progress', function (e) {
-                            if (e.lengthComputable) {
-                                let percentVal = e.loaded * 100 / e.total;
-                                bar.width(percentVal + '%');
-                                bar.attr("aria-valuenow", percentVal | 0);
-                                bar.text(parseInt(percentVal, 10) + "%");
-                            }
-                        }, false);
-                    }
-                    return myXhr;
-                },
-                success: function (data) {
-                    document.open();
-                    document.write(data);
-                    document.close();
-                },
-                error: function (data) {
-                    document.open();
-                    document.write(data.responseText);
-                    document.close();
+        async function sendRequest() {
+            const response = await fetch('', {
+                method: 'POST',
+                body: new FormData(document.querySelector('form')[0]),
+                cache: 'no-cache',
+                headers: {
+                    'Content-Type': false
                 }
             });
+
+            return response.json();
+        }
+
+        uploadBtn.addEventListener("click", () => {
+            // Disable upload button
+            uploadBtn.setAttribute("disabled", "");
+
+            // Show spinner to indicate progress
+            document.querySelector('.spinner-border').removeAttribute("hidden");
+
+            sendRequest()
+            .then(data => {
+                document.open();
+                document.write(data);
+                document.close();
+            })
         });
     </script>
 

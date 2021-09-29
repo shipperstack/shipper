@@ -45,11 +45,15 @@
     </table>
 
     <script>
-        document.querySelector('.confirm-enable').addEventListener("click", () => {
-            return window.confirm("Are you sure you want to enable this build?");
-        })
-        document.querySelector('.confirm-disable').addEventListener("click", () => {
-            return window.confirm("Are you sure you want to disable this build?");
-        })
+        if (document.querySelector('.confirm-enable')) {
+            document.querySelector('.confirm-enable').addEventListener("click", (e) => {
+                if (!window.confirm("Are you sure you want to enable this build?")) e.preventDefault();
+            });
+        }
+        if (document.querySelector('.confirm-disable')) {
+            document.querySelector('.confirm-disable').addEventListener("click", (e) => {
+                if (!window.confirm("Are you sure you want to disable this build?")) e.preventDefault();
+            });
+        }
     </script>
 {% endblock %}

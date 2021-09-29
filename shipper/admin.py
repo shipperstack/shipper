@@ -16,7 +16,7 @@ class DeviceAdmin(admin.ModelAdmin):
 
 
 class BuildAdmin(admin.ModelAdmin):
-    list_display = ['id', 'enabled', 'file_name', 'get_device_name', 'size', 'version', 'variant',
+    list_display = ['id', 'enabled', 'file_name', 'get_device_name', 'get_human_readable_size', 'version', 'variant',
                     'get_build_device_maintainers', 'download_count', 'is_processed', 'is_backed_up', 'created']
     list_filter = ['enabled']
     ordering = ['-created']
@@ -47,6 +47,11 @@ class BuildAdmin(admin.ModelAdmin):
         return ",".join([maintainer.username for maintainer in obj.device.maintainers.all()])
 
     get_build_device_maintainers.short_description = 'Maintainers'
+
+    def get_human_readable_size(self, obj):
+        return obj.get_human_readable_size()
+
+    get_human_readable_size.short_description = 'Size'
 
 
 class MirrorServerAdmin(admin.ModelAdmin):

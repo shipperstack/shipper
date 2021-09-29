@@ -1,0 +1,21 @@
+{% extends 'maintainer_base.html' %}
+
+{% block title %}Admin statistics{% endblock %}
+
+{% block content %}
+
+    <h1>Maintainer/device statistics</h1>
+
+    <p>{{ enabled_devices_count }} devices maintained by {{ active_maintainers_count }} maintainers.</p>
+    <p>{{ disabled_devices_count }} unsupported devices, {{ inactive_maintainers_count }} inactive maintainers.</p>
+
+
+    <h1>Build statistics</h1>
+
+    <p>{{ builds_count }} builds ({{ builds_size }})</p>
+    <p>Vanilla: {{ vanilla_builds_count }} builds ({{ vanilla_builds_size }})</p>
+    <p>GApps: {{ gapps_builds_count }} builds ({{ gapps_builds_size }})</p>
+    <p>FOSS: {{ foss_builds_count }} builds ({{ foss_builds_size }})</p>
+    <p>GoApps: {{ goapps_builds_count }} builds ({{ goapps_builds_size }})</p>
+
+{% endblock %}

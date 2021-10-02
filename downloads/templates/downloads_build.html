@@ -75,35 +75,31 @@
         </table>
     </div>
 
-    <!-- TODO: Remove JQuery -->
-
-    <!--suppress JSUnresolvedLibraryURL -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-
     <!-- Download counter script -->
     <script>
-        // Get all download buttons and add event listener
-        $(document).ready(function () {
-            $('a.btn.btn-success.btn-sm').on('click', function (e) {
+    document.addEventListener("DOMContentLoaded", () => {
+        const downloadButtonList = document.querySelectorAll('a.btn.btn-success.btn-sm');
+        downloadButtonList.forEach((element) => {
+            element.addEventListener("click", (e) => {
                 e.preventDefault();
-                const downloadURL = $(this).attr("href");
+                const downloadURL = element.getAttribute("href");
 
-                $.ajax({
-                    url: "{% url 'v1_download_build_counter' %}",
-                    type: "POST",
-                    dataType: "json",
-                    contentType: "application/json",
-                    data: JSON.stringify({
-                        file_name: "{{ object.file_name }}",
-                        build_id: {{ object.id }}
-                    })
-                })
-                    .always(function () {
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', "{% url 'v1_download_build_counter' %}", true);
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        // Redirect even if request did not succeed
                         window.location.href = downloadURL;
-                    });
-            });
+                    }
+                }
+                xhr.send(JSON.stringify({
+                    file_name: "{{ object.file_name }}",
+                    build_id: {{ object.id }},
+                }));
+            })
         });
+    });
     </script>
 
 

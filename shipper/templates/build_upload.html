@@ -58,11 +58,11 @@
 
     <script>
         // Constants
-        let uploadButton = document.getElementById('upload-button');
-        let progressBar = document.querySelector('.progress-bar');
+        const uploadButton = document.getElementById('upload-button');
+        const progressBar = document.querySelector('.progress-bar');
 
         // Initialize connection to server
-        let xhr = new XMLHttpRequest();
+        const xhr = new XMLHttpRequest();
         xhr.open('POST', '', true);
 
         xhr.onreadystatechange = function () {
@@ -81,7 +81,7 @@
 
         xhr.onprogress = function (event) {
             if (event.lengthComputable) {
-                let percentVal = event.loaded * 100 / event.total;
+                const percentVal = event.loaded * 100 / event.total;
                 progressBar.width(percentVal + '%');
                 progressBar.setAttribute("aria-valuenow", (percentVal | 0).toString());
                 progressBar.text(parseInt((percentVal).toString(), 10) + "%");

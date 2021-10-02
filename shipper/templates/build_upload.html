@@ -74,6 +74,8 @@
 
         xhr.onerror = function () {
             alert("A network error occurred.");
+            spinner.setAttribute("hidden", "");
+            progressBar.setAttribute("style", progressBar.getAttribute("style") + "; background-color: red;")
         };
 
         // Upload button

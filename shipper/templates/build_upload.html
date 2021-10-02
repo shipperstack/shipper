@@ -9,32 +9,7 @@
 
     <br>
 
-    {% if upload_succeeded == True %}
-        <div class="alert alert-success">Your build was successfully uploaded!</div>
-    {% elif upload_succeeded == False %}
-        <div class="alert alert-warning">
-            {% if error_reason == 'invalid_form' %}
-                The form is invalid!
-            {% elif error_reason == 'file_name_mismatch' %}
-                The build file and the checksum file names do not match!
-            {% elif error_reason == 'not_official' %}
-                The build is not official!
-            {% elif error_reason == 'invalid_file_name' %}
-                The build file name was malformed. Do not change the build file name after compilation.
-            {% elif error_reason == 'codename_mismatch' %}
-                The device codename does not match the build codename. Are you sure you meant to upload for {{ device }}
-                ?
-            {% elif error_reason == 'duplicate_build' %}
-                The build already exists in the system!
-            {% else %}
-                An undefined error occurred and there was a problem uploading your build. Please contact the
-                administrators.
-                Error reason: {{ error_reason }}
-            {% endif %}
-        </div>
-    {% endif %}
-
-    {{ form.errors }}
+    <div id='status-alert' class="alert" hidden></div>
 
     <form action="" method="post" enctype="multipart/form-data" onsubmit="startUpload(); return false;">
         {% csrf_token %}
@@ -60,23 +35,32 @@
         const uploadButton = document.getElementById('upload-button');
         const progressBar = document.querySelector('.progress-bar');
         const spinner = document.querySelector('.spinner-border');
+        const statusAlert = document.getElementById('status-alert');
 
         // Initialize connection to server
         const xhr = new XMLHttpRequest();
         xhr.open('POST', '', true);
+        xhr.responseType = 'json';
 
         xhr.onreadystatechange = function () {
             if (xhr.readyState === XMLHttpRequest.DONE) {
                 const status = xhr.status;
                 if (status === 0 || (status >= 200 && status < 400)) {
-                    document.open();
-                    document.write(xhr.response);
-                    document.close();
+                    statusAlert.classList.add("alert-success");
+                    statusAlert.innerText = xhr.response['message'];
                 } else {
-                    alert("The server sent back an error.");
-                    console.error("Status code: ", xhr.status);
-                    console.error("Status text: ", xhr.statusText);
+                    statusAlert.classList.add("alert-warning");
+                    if (status === 400)
+                        statusAlert.innerText = xhr.response['message'];
+                    else
+                        statusAlert.innerText = "An unexpected error occurred.";
                 }
+
+                // Show status alert
+                statusAlert.removeAttribute("hidden");
+
+                // Hide spinner as upload has completed
+                spinner.setAttribute("hidden", "");
             }
         };
 

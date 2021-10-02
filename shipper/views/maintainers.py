@@ -1,11 +1,12 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, DeleteView
 
+from api.views import exception_to_message
 from shipper.exceptions import UploadException
 from shipper.forms import BuildUploadForm
 from shipper.handler import handle_build
@@ -75,33 +76,22 @@ def build_upload(request, pk):
         if form.is_valid():
             try:
                 build_id = handle_build(device, request.FILES["zip_file"], request.FILES["md5_file"])
-            # TODO: add status code
             except UploadException as exception:
-                return render(request, 'build_upload.html', {
-                    'upload_succeeded': False,
-                    'error_reason': str(exception),
-                    'device': device,
-                    'form': form
-                })
+                return JsonResponse({
+                    'error': str(exception),
+                    'message': exception_to_message(exception),
+                }, status=400)
 
-            # TODO: add status code
-            return render(request, 'build_upload.html', {
-                'upload_succeeded': True,
-                'device': device,
-                'form': form,
-                'build_id': build_id
-            })
+            return JsonResponse({
+                'message': 'Build has been uploaded for device {}!'.format(device.codename),
+                'build_id': build_id,
+            }, status=200)
 
-        # TODO: add status code
-        return render(request, 'build_upload.html', {
-            'upload_succeeded': False,
-            'error_reason': 'invalid_form',
-            'device': device,
-            'form': form
-        })
+        return JsonResponse({
+            'error': 'invalid_form',
+        }, status=400)
 
     form = BuildUploadForm()
-    # TODO: add status code
     return render(request, 'build_upload.html', {
         'form': form,
         'device': device

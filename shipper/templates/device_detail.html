@@ -45,17 +45,18 @@
     </table>
 
     <script>
-        // TODO: use foreach to add event listener to ALL elements
-        if (document.querySelector('.confirm-enable')) {
-            document.querySelector('.confirm-enable').addEventListener("click", (e) => {
+        const enableButtonList = document.querySelectorAll('.confirm-enable');
+        enableButtonList.forEach((element) => {
+            element.addEventListener("click", (e) => {
                 if (!window.confirm("Are you sure you want to enable this build?")) e.preventDefault();
-            });
-        }
-        // TODO: use foreach to add event listener to ALL elements
-        if (document.querySelector('.confirm-disable')) {
-            document.querySelector('.confirm-disable').addEventListener("click", (e) => {
+            })
+        });
+
+        const disableButtonList = document.querySelectorAll('.confirm-disable');
+        disableButtonList.forEach((element) => {
+            element.addEventListener("click", (e) => {
                 if (!window.confirm("Are you sure you want to disable this build?")) e.preventDefault();
-            });
-        }
+            })
+        });
     </script>
 {% endblock %}

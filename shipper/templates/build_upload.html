@@ -69,7 +69,8 @@
             if (xhr.readyState === 4) {
                 if (xhr.status !== 200) {
                     alert("The server sent back an error.");
-                    console.log(xhr.statusText);
+                    console.error("Status code: ", xhr.status);
+                    console.error("Status text: ", xhr.statusText);
                 } else {
                     document.open();
                     document.write(xhr.response);

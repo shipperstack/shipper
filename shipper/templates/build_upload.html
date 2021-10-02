@@ -59,6 +59,7 @@
         // Constants
         const uploadButton = document.getElementById('upload-button');
         const progressBar = document.querySelector('.progress-bar');
+        const spinner = document.querySelector('.spinner-border');
 
         // Initialize connection to server
         const xhr = new XMLHttpRequest();
@@ -98,7 +99,7 @@
             uploadButton.setAttribute("disabled", "");
 
             // Show spinner to indicate progress
-            document.querySelector('.spinner-border').removeAttribute("hidden");
+            spinner.removeAttribute("hidden");
 
             // Send request
             xhr.send(new FormData(document.querySelector('form')));

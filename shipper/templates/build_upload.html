@@ -63,7 +63,30 @@
 
         // Initialize connection to server
         let xhr = new XMLHttpRequest();
-        xhr.open('POST', '', false, null, null);
+        xhr.open('POST', '', true, null, null);
+
+        xhr.onload = function () {
+            if (xhr.status !== 200) {
+                alert("The server sent back an error.");
+            } else {
+                document.open();
+                document.write(xhr.response);
+                document.close();
+            }
+        };
+
+        xhr.onprogress = function (event) {
+            if (event.lengthComputable) {
+                let percentVal = event.loaded * 100 / event.total;
+                progressBar.width(percentVal + '%');
+                progressBar.setAttribute("aria-valuenow", (percentVal | 0).toString());
+                progressBar.text(parseInt((percentVal).toString(), 10) + "%");
+            }
+        };
+
+        xhr.onerror = function () {
+            alert("An error occurred while uploading the build. Please check your Internet connection.");
+        };
 
         // Upload button
         uploadButton.addEventListener("click", () => {
@@ -75,30 +98,6 @@
 
             // Send request
             xhr.send(new FormData(document.querySelector('form')[0]));
-
-            // XHR functions
-            xhr.onload = function() {
-                if (xhr.status !== 200) {
-                    alert("The server sent back an error.");
-                } else {
-                    document.open();
-                    document.write(xhr.response);
-                    document.close();
-                }
-            };
-
-            xhr.onprogress = function(event) {
-                if (event.lengthComputable) {
-                    let percentVal = event.loaded * 100 / event.total;
-                    progressBar.width(percentVal + '%');
-                    progressBar.setAttribute("aria-valuenow", (percentVal | 0).toString());
-                    progressBar.text(parseInt((percentVal).toString(), 10) + "%");
-                }
-            };
-
-            xhr.onerror = function() {
-                alert("An error occurred while uploading the build. Please check your Internet connection.");
-            };
         });
     </script>
 

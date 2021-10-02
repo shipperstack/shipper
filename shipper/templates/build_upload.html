@@ -58,8 +58,7 @@
                 // Show status alert
                 statusAlert.removeAttribute("hidden");
 
-                // Hide spinner as upload has completed
-                spinner.setAttribute("hidden", "");
+                cleanup();
             }
         };
 
@@ -74,9 +73,21 @@
 
         xhr.onerror = function () {
             alert("A network error occurred.");
-            spinner.setAttribute("hidden", "");
+            cleanup();
+
+            // Show red progress bar to indicate failure
             progressBar.setAttribute("style", progressBar.getAttribute("style") + "; background-color: red;")
         };
+
+        function warnBeforeLeaving() { return ''; }
+
+        function cleanup() {
+            // Hide spinner
+            spinner.setAttribute("hidden", "");
+
+            // Disable warning before leaving the page
+            window.onbeforeunload = null;
+        }
 
         // Upload button
         function startUpload() {
@@ -85,6 +96,9 @@
             buttonList.forEach((element) => {
                 element.setAttribute("disabled", "");
             });
+
+            // Warn user if exiting before upload complete
+            window.onbeforeunload = warnBeforeLeaving;
 
             // Show spinner to indicate progress
             spinner.removeAttribute("hidden");

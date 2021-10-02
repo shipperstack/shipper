@@ -65,13 +65,16 @@
         let xhr = new XMLHttpRequest();
         xhr.open('POST', '', true, null, null);
 
-        xhr.onload = function () {
-            if (xhr.status !== 200) {
-                alert("The server sent back an error.");
-            } else {
-                document.open();
-                document.write(xhr.response);
-                document.close();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status !== 200) {
+                    alert("The server sent back an error.");
+                    console.log(xhr.statusText);
+                } else {
+                    document.open();
+                    document.write(xhr.response);
+                    document.close();
+                }
             }
         };
 

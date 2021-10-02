@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseRedirect, Http404
+from django.core.exceptions import PermissionDenied
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, DeleteView
@@ -52,7 +53,7 @@ def build_enabled_status_modify(request, pk):
 
     # Check if maintainer is in device's approved maintainers list
     if request.user not in build.device.maintainers.all():
-        raise Http404
+        raise PermissionDenied
 
     # Switch build status
     build.enabled = not build.enabled
@@ -67,7 +68,7 @@ def build_upload(request, pk):
 
     # Check if maintainer is in device's approved maintainers list
     if request.user not in device.maintainers.all():
-        raise Http404
+        raise PermissionDenied
 
     if request.method == 'POST':
         form = BuildUploadForm(request.POST, request.FILES)

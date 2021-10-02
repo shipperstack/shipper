@@ -80,7 +80,7 @@
             }
         };
 
-        xhr.onprogress = function (event) {
+        xhr.upload.onprogress = function (event) {
             if (event.lengthComputable) {
                 const percentVal = event.loaded * 100 / event.total;
                 progressBar.width(percentVal + '%');

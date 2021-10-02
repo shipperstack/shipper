@@ -3,13 +3,6 @@
 {% block title %}Downloads{% endblock %}
 
 {% block head %}
-
-    <style>
-        .btn.disabled {
-            opacity: .15;
-        }
-    </style>
-
 {% endblock %}
 
 {% block content %}
@@ -17,83 +10,30 @@
     {% include 'debug_warning.html' %}
 
     <div class="container">
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">Device</th>
-                <th scope="col">Download Latest</th>
-            </tr>
-            </thead>
-            <tbody>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+
             {% for device in object_list %}
                 {% if device.has_builds %}
-                    <tr>
-                        {% if device.status %}
-                            <td><a href="download/{{ device.codename }}/">{{ device }}</a></td>
-                        {% else %}
-                            <td class="text-reset text-decoration-line-through"
-                                title="This device is no longer supported.">
-                                <a class="text-reset text-decoration-line-through"
-                                   href="download/{{ device.codename }}/">{{ device }}</a>
-                            </td>
-                        {% endif %}
-                        <td>
-                            <!-- GApps -->
-                            <a
-                                    {% if device.has_gapps_builds %}
-                                        class="btn btn-primary btn-sm"
-                                        href="download/{{ device.codename }}/{{ device.get_latest_gapps_build_object.id }}/"
-                                    {% else %}
-                                        class="btn btn-primary btn-sm disabled"
-                                        href="#"
-                                        tabindex="-1"
-                                        aria-disabled="true"
-                                    {% endif %}
-                            >GApps</a>
-
-                            <!-- Non-GApps -->
-                            <a
-                                    {% if device.has_vanilla_builds %}
-                                        class="btn btn-secondary btn-sm"
-                                        href="download/{{ device.codename }}/{{ device.get_latest_vanilla_build_object.id }}"
-                                    {% else %}
-                                        class="btn btn-secondary btn-sm disabled"
-                                        href="#"
-                                        tabindex="-1"
-                                        aria-disabled="true"
-                                    {% endif %}
-                            >Non-GApps</a>
-
-                            <!-- FOSS -->
-                            <a
-                                    {% if device.has_foss_builds %}
-                                        class="btn btn-warning btn-sm"
-                                        href="download/{{ device.codename }}/{{ device.get_latest_foss_build_object.id }}"
-                                    {% else %}
-                                        class="btn btn-warning btn-sm disabled"
-                                        href="#"
-                                        tabindex="-1"
-                                        aria-disabled="true"
-                                    {% endif %}
-                            >FOSS</a>
-
-                            <!-- Go Apps -->
-                            <a
-                                    {% if device.has_goapps_builds %}
-                                        class="btn btn-dark btn-sm"
-                                        href="download/{{ device.codename }}/{{ device.get_latest_goapps_build_object.id }}"
-                                    {% else %}
-                                        class="btn btn-dark btn-sm disabled"
-                                        href="#"
-                                        tabindex="-1"
-                                        aria-disabled="true"
-                                    {% endif %}
-                            >Go Apps</a>
-                        </td>
-                    </tr>
+                    <div class="col">
+                        <div class="card h-100">
+                            {% if device.photo %}
+                                <img src="{{ device.photo.url }}" class="card-img-top" alt="Device photo">
+                            {% else %}
+                                <!-- TODO: Add placeholder image here! -->
+                                <img src="#" class="card-img-top" alt="Device photo placeholder image">
+                            {% endif %}
+                            <div class="card-body">
+                                {% if device.status %}
+                                    <h5 class="card-title">{{ device }}</h5>
+                                {% else %}
+                                    <h5 class="card-title text-reset text-decoration-line-through"
+                                        title="This device is no longer supported.">{{ device }}</h5>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
                 {% endif %}
             {% endfor %}
-            </tbody>
-        </table>
+        </div>
     </div>
 {% endblock %}

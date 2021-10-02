@@ -29,13 +29,6 @@ class Device(models.Model):
     def __str__(self):
         return "{} {} ({})".format(self.manufacturer, self.name, self.codename)
 
-    def get_photo_url(self):
-        if not self.photo:
-            # Return a generic image
-            return "#"  # TODO: add URL to generic photo here
-        else:
-            return self.photo
-
     def get_enabled_builds(self):
         return self.builds.filter(enabled=True)
 

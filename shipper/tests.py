@@ -16,12 +16,6 @@ class ShipperDeviceTestCase(TestCase):
         self.assertEqual(str(devices["angler"]), "Huawei Nexus 6P (angler)")
         self.assertEqual(str(devices["dream2lte"]), "Samsung Galaxy S8+ (dream2lte)")
 
-    def test_image_url(self):
-        devices = get_mock_devices()
-        self.assertEqual(devices["bullhead"].get_photo_url(), "https://fdn2.gsmarena.com/vv/bigpic/lg-nexus-5x-.jpg")
-        self.assertEqual(devices["angler"].get_photo_url(), "https://fdn2.gsmarena.com/vv/bigpic/huawei-nexus-6p-.jpg")
-        self.assertEqual(devices["dream2lte"].get_photo_url(), "#")
-
 
 class ShipperBuildTestCase(TestCase):
     def setUp(self):

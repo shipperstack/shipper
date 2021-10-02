@@ -80,8 +80,11 @@
 
         // Upload button
         function startUpload() {
-            // Disable upload button
-            uploadButton.setAttribute("disabled", "");
+            // Disable all buttons
+            const buttonList = document.querySelectorAll('input');
+            buttonList.forEach((element) => {
+                element.setAttribute("disabled", "");
+            });
 
             // Show spinner to indicate progress
             spinner.removeAttribute("hidden");

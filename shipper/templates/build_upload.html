@@ -85,7 +85,7 @@
                 const percentVal = event.loaded * 100 / event.total;
                 progressBar.setAttribute("style", "width: " + (percentVal + '%'));
                 progressBar.setAttribute("aria-valuenow", (percentVal | 0).toString());
-                progressBar.text(parseInt((percentVal).toString(), 10) + "%");
+                progressBar.innerHTML = parseInt((percentVal).toString(), 10) + "%";
             }
         };
 

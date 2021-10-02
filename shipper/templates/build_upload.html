@@ -63,7 +63,7 @@
 
         // Initialize connection to server
         let xhr = new XMLHttpRequest();
-        xhr.open('POST', '', true, null, null);
+        xhr.open('POST', '', true);
 
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {

@@ -74,6 +74,7 @@ def build_upload(request, pk):
         if form.is_valid():
             try:
                 build_id = handle_build(device, request.FILES["zip_file"], request.FILES["md5_file"])
+            # TODO: add status code
             except UploadException as exception:
                 return render(request, 'build_upload.html', {
                     'upload_succeeded': False,
@@ -82,12 +83,15 @@ def build_upload(request, pk):
                     'form': form
                 })
 
+            # TODO: add status code
             return render(request, 'build_upload.html', {
                 'upload_succeeded': True,
                 'device': device,
                 'form': form,
                 'build_id': build_id
             })
+
+        # TODO: add status code
         return render(request, 'build_upload.html', {
             'upload_succeeded': False,
             'error_reason': 'invalid_form',
@@ -96,6 +100,7 @@ def build_upload(request, pk):
         })
 
     form = BuildUploadForm()
+    # TODO: add status code
     return render(request, 'build_upload.html', {
         'form': form,
         'device': device

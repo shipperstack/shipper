@@ -66,15 +66,16 @@
         xhr.open('POST', '', true);
 
         xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4) {
-                if (xhr.status !== 200) {
-                    alert("The server sent back an error.");
-                    console.error("Status code: ", xhr.status);
-                    console.error("Status text: ", xhr.statusText);
-                } else {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                const status = xhr.status;
+                if (status === 0 || (status >= 200 && status < 400)) {
                     document.open();
                     document.write(xhr.response);
                     document.close();
+                } else {
+                    alert("The server sent back an error.");
+                    console.error("Status code: ", xhr.status);
+                    console.error("Status text: ", xhr.statusText);
                 }
             }
         };

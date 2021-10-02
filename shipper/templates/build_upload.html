@@ -58,7 +58,7 @@
 
     <script>
         // Constants
-        let uploadBtn = document.querySelector('button[type="button"]');
+        let uploadButton = document.querySelector('button[type="button"]');
         let progressBar = document.querySelector('.progress-bar');
 
         // Initialize connection to server
@@ -66,9 +66,9 @@
         xhr.open('POST', '', false, null, null);
 
         // Upload button
-        uploadBtn.addEventListener("click", () => {
+        uploadButton.addEventListener("click", () => {
             // Disable upload button
-            uploadBtn.setAttribute("disabled", "");
+            uploadButton.setAttribute("disabled", "");
 
             // Show spinner to indicate progress
             document.querySelector('.spinner-border').removeAttribute("hidden");

@@ -40,21 +40,24 @@
         {% csrf_token %}
         {{ form.as_p }}
 
-        <div class="progress">
-            <div class="progress-bar progress-bar-striped active" role="progressbar"
-                 aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-            </div>
-        </div>
-
         <br>
 
         <!-- TODO: refactor to use input/submit button -->
         <button id="upload-button" class="btn btn-primary btn-sm" type="button">Upload</button>
-        <div class="spinner-border spinner-border-sm" role="status" hidden>
-            <span class="sr-only visually-hidden-focusable">Uploading...</span>
-        </div>
-
     </form>
+
+    <!-- Spinner -->
+    <div class="spinner-border spinner-border-sm" role="status" hidden>
+        <span class="sr-only visually-hidden-focusable">Uploading...</span>
+    </div>
+
+    <!-- Progress bar -->
+    <!-- TODO: Rewrite in HTML5 -->
+    <div class="progress">
+        <div class="progress-bar progress-bar-striped active" role="progressbar"
+             aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+        </div>
+    </div>
 
     <script>
         // Constants

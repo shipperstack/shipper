@@ -57,21 +57,15 @@
     </form>
 
     <script>
+        // Constants
         let uploadBtn = document.querySelector('button[type="button"]');
+        let progressBar = document.querySelector('.progress-bar');
 
-        async function sendRequest() {
-            const response = await fetch('', {
-                method: 'POST',
-                body: new FormData(document.querySelector('form')[0]),
-                cache: 'no-cache',
-                headers: {
-                    'Content-Type': false
-                }
-            });
+        // Initialize connection to server
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', '', false, null, null);
 
-            return response.json();
-        }
-
+        // Upload button
         uploadBtn.addEventListener("click", () => {
             // Disable upload button
             uploadBtn.setAttribute("disabled", "");
@@ -79,12 +73,32 @@
             // Show spinner to indicate progress
             document.querySelector('.spinner-border').removeAttribute("hidden");
 
-            sendRequest()
-            .then(data => {
-                document.open();
-                document.write(data);
-                document.close();
-            })
+            // Send request
+            xhr.send(new FormData(document.querySelector('form')[0]));
+
+            // XHR functions
+            xhr.onload = function() {
+                if (xhr.status !== 200) {
+                    alert("The server sent back an error.");
+                } else {
+                    document.open();
+                    document.write(xhr.response);
+                    document.close();
+                }
+            };
+
+            xhr.onprogress = function(event) {
+                if (event.lengthComputable) {
+                    let percentVal = event.loaded * 100 / event.total;
+                    progressBar.width(percentVal + '%');
+                    progressBar.setAttribute("aria-valuenow", (percentVal | 0).toString());
+                    progressBar.text(parseInt((percentVal).toString(), 10) + "%");
+                }
+            };
+
+            xhr.onerror = function() {
+                alert("An error occurred while uploading the build. Please check your Internet connection.");
+            };
         });
     </script>
 

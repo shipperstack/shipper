@@ -22,7 +22,7 @@
             {% for device in object_list %}
                 {% if device.has_builds %}
                     <div class="col">
-                        <a href="{% url 'downloads_device' codename='{{ device.codename }}' %}">
+                        <a href="{% url 'downloads_device' codename=device.codename %}">
                             <div class="card h-100">
                                 {% if device.photo %}
                                     <img src="{{ device.photo }}" class="card-img-top" alt="Device photo">

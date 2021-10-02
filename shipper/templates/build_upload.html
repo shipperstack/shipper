@@ -49,7 +49,7 @@
         <br>
 
         <!-- TODO: refactor to use input/submit button -->
-        <button class="btn btn-primary btn-sm" type="button">Upload</button>
+        <button id="upload-button" class="btn btn-primary btn-sm" type="button">Upload</button>
         <div class="spinner-border spinner-border-sm" role="status" hidden>
             <span class="sr-only visually-hidden-focusable">Uploading...</span>
         </div>
@@ -58,7 +58,7 @@
 
     <script>
         // Constants
-        let uploadButton = document.querySelector('button[type="button"]');
+        let uploadButton = document.getElementById('upload-button');
         let progressBar = document.querySelector('.progress-bar');
 
         // Initialize connection to server

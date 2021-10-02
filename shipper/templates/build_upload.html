@@ -83,7 +83,7 @@
         xhr.upload.onprogress = function (event) {
             if (event.lengthComputable) {
                 const percentVal = event.loaded * 100 / event.total;
-                progressBar.width(percentVal + '%');
+                progressBar.setAttribute("style", "width: " + (percentVal + '%'));
                 progressBar.setAttribute("aria-valuenow", (percentVal | 0).toString());
                 progressBar.text(parseInt((percentVal).toString(), 10) + "%");
             }

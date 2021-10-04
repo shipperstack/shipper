@@ -51,8 +51,11 @@
                     statusAlert.classList.add("alert-warning");
                     if (status === 400)
                         statusAlert.innerText = xhr.response['message'];
-                    else
+                    else {
                         statusAlert.innerText = "An unexpected error occurred.";
+                        console.log("Response code: ", status);
+                        console.log("Response: ", xhr.response);
+                    }
                 }
 
                 // Show status alert

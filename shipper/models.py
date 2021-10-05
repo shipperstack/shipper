@@ -225,9 +225,8 @@ class Build(models.Model):
     )
 
     def get_user_friendly_name(self):
-        from datetime import datetime
-        _, version, _, _, _, date = self.file_name.split('-')
-        date = datetime.strptime(date, '%Y%m%d').strftime('%B %-d, %Y')
+        _, version, _, _, _, _ = self.file_name.split('-')
+        date = self.get_build_date().strftime('%B %-d, %Y')
         return "{} - {}".format(version, date)
 
     def get_human_readable_size(self):
@@ -236,6 +235,11 @@ class Build(models.Model):
 
     def get_enabled_downloadable_mirrors(self):
         return self.mirrored_on.filter(enabled=True, downloadable=True).all().order_by('priority')
+
+    def get_build_date(self):
+        from datetime import datetime
+        _, _, _, _, _, date = self.file_name.split('-')
+        return datetime.strptime(date, '%Y%m%d')
 
     def __str__(self):
         return self.file_name

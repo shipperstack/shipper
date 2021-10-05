@@ -63,20 +63,20 @@ class Device(models.Model):
         return self.get_enabled_builds().exclude(sha256sum__exact='').all()
 
     def get_all_gapps_build_objects(self):
-        return self.get_enabled_builds().filter(variant="gapps").exclude(sha256sum__exact='').all() \
-            .order_by('-get_build_time')
+        return self.get_all_build_objects_of_variant(variant="gapps")
 
     def get_all_vanilla_build_objects(self):
-        return self.get_enabled_builds().filter(variant="vanilla").exclude(sha256sum__exact='').all() \
-            .order_by('-get_build_time')
+        return self.get_all_build_objects_of_variant(variant="vanilla")
 
     def get_all_foss_build_objects(self):
-        return self.get_enabled_builds().filter(variant="foss").exclude(sha256sum__exact='').all() \
-            .order_by('-get_build_time')
+        return self.get_all_build_objects_of_variant(variant="foss")
 
     def get_all_goapps_build_objects(self):
-        return self.get_enabled_builds().filter(variant="goapps").exclude(sha256sum__exact='').all() \
-            .order_by('-get_build_time')
+        return self.get_all_build_objects_of_variant(variant="goapps")
+
+    def get_all_build_objects_of_variant(self, variant):
+        return sorted(self.get_enabled_builds().filter(variant=variant).exclude(sha256sum__exact='').all(),
+                      key=lambda p: p.get_build_time)
 
 
 # Mirror Server Model

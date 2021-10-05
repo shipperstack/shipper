@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+# To use this file, run `source activate` and `helpme` to view usage.
+
+helpme () {
+  cat <<HELP_USAGE
+  Production:
+    dc => docker-compose
+    dcup => docker-compose up -d
+    dcdown => docker-compose down
+    dcrestart => docker-compose down && docker-compose up -d
+
+  Development:
+    dcd => docker-compose -f docker-compose.dev.yml
+    dcdup => docker-compose -f docker-compose.dev.yml up -d --build
+    dcddown => docker-compose -f docker-compose.dev.yml down
+    dcdrestart => docker-compose -f docker-compose.dev.yml down && docker-compose -f docker-compose.dev.yml up -d --build
+    dcdsetup => docker-compose -f docker-compose.dev.yml exec web python3 manage.py migrate --noinput && docker-compose -f docker-compose.dev.yml exec web python3 manage.py collectstatic --no-input --clear
+HELP_USAGE
+}
+
+alias dc='docker-compose'
+alias dcup='docker-compose up -d'
+alias dcdown='docker-compose down'
+alias dcrestart='docker-compose down && docker-compose up -d'
+alias dcd='docker-compose -f docker-compose.dev.yml'
+alias dcdup='docker-compose -f docker-compose.dev.yml up -d --build'
+alias dcddown='docker-compose -f docker-compose.dev.yml down'
+alias dcdrestart='docker-compose -f docker-compose.dev.yml down && docker-compose -f docker-compose.dev.yml up -d --build'
+alias dcdsetup='docker-compose -f docker-compose.dev.yml exec web python3 manage.py migrate --noinput && docker-compose -f docker-compose.dev.yml exec web python3 manage.py collectstatic --no-input --clear'

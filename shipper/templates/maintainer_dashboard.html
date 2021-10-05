@@ -2,39 +2,59 @@
 
 {% block title %}Shipper{% endblock %}
 
+{% block head %}
+    <style>
+        .card-img-top {
+            width: 100%;
+            height: 200px;
+            object-fit: scale-down;
+        }
+
+        .card-url {
+            color: var(--bs-body-color);
+            text-decoration: none;
+        }
+    </style>
+{% endblock %}
+
 {% block content %}
     {% if not object_list %}
         <h1>No devices</h1>
 
         <p>
-        It seems like your account has not been set up completely yet. Ask an admin to add/associate devices to your
-        account so you can start uploading new builds.
+            It seems like your account has not been set up completely yet. Ask an admin to add/associate devices to your
+            account so you can start uploading new builds.
         </p>
 
     {% else %}
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">Device</th>
-                <th scope="col">Upload</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for device in object_list %}
-                <tr>
-                    {% if device.status %}
-                        <td><a href="{% url 'device_detail' pk=device.id %}">{{ device }}</a></td>
-                    {% else %}
-                        <td class="text-reset text-decoration-line-through"><a
-                                class="text-reset text-decoration-line-through"
-                                href="{% url 'device_detail' pk=device.id %}">{{ device }}</a></td>
+
+        <div class="container">
+            <div class="row row-cols-1 row-cols-md-4 g-4">
+                {% for device in object_list %}
+                    {% if device.has_builds %}
+                        <div class="col">
+                            <a class="card-url" href="{% url 'device_detail' pk=device.id %}">
+                                <div class="card h-100">
+                                    {% if device.photo %}
+                                        <img src="{{ device.photo }}" class="card-img-top" alt="Device photo">
+                                    {% else %}
+                                        <!-- TODO: Add placeholder image here! -->
+                                        <img src="#" class="card-img-top" alt="Device photo placeholder image">
+                                    {% endif %}
+                                    <div class="card-body">
+                                        {% if device.status %}
+                                            <h5 class="card-title">{{ device }}</h5>
+                                        {% else %}
+                                            <h5 class="card-title text-reset text-decoration-line-through"
+                                                title="This device is no longer supported.">{{ device }}</h5>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
                     {% endif %}
-                    <td><a href="{% url 'build_upload' pk=device.id %}" class="btn btn-success btn-sm">Upload new
-                        build</a>
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+                {% endfor %}
+            </div>
+        </div>
     {% endif %}
 {% endblock %}

@@ -76,7 +76,7 @@ class Device(models.Model):
 
     def get_all_build_objects_of_variant(self, variant):
         return sorted(self.get_enabled_builds().filter(variant=variant).exclude(sha256sum__exact='').all(),
-                      key=lambda p: p.get_build_date.strftime("%s"), reverse=True)
+                      key=lambda p: p.get_build_date(), reverse=True)
 
 
 # Mirror Server Model

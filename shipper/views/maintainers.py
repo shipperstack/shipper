@@ -1,15 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
-from django.http import HttpResponseRedirect, JsonResponse
-from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, DeleteView
 
-from api.views import exception_to_message
-from shipper.exceptions import UploadException
-from shipper.forms import BuildUploadForm
-from shipper.handler import handle_build
 from shipper.models import Device, Build
 
 
@@ -61,38 +57,3 @@ def build_enabled_status_modify(request, pk):
     build.save()
 
     return redirect(reverse('device_detail', kwargs={'pk': build.device.id}))
-
-
-@login_required
-def build_upload(request, pk):
-    device = get_object_or_404(Device, pk=pk)
-
-    # Check if maintainer is in device's approved maintainers list
-    if request.user not in device.maintainers.all():
-        raise PermissionDenied
-
-    if request.method == 'POST':
-        form = BuildUploadForm(request.POST, request.FILES)
-        if form.is_valid():
-            try:
-                build_id = handle_build(device, request.FILES["zip_file"], request.FILES["md5_file"])
-            except UploadException as exception:
-                return JsonResponse({
-                    'error': str(exception),
-                    'message': exception_to_message(exception),
-                }, status=400)
-
-            return JsonResponse({
-                'message': 'Build has been uploaded for device {}!'.format(device.codename),
-                'build_id': build_id,
-            }, status=200)
-
-        return JsonResponse({
-            'error': 'invalid_form',
-        }, status=400)
-
-    form = BuildUploadForm()
-    return render(request, 'build_upload.html', {
-        'form': form,
-        'device': device
-    })

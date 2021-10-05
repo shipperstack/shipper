@@ -2,44 +2,6 @@ from .exceptions import *
 from .tasks import *
 
 
-def handle_build(device, zip_file, md5_file):
-    # Confirm file names of build and checksum files match
-    checksum_file_name, checksum_file_ext = os.path.splitext(md5_file.name)
-    if zip_file.name != checksum_file_name:
-        raise UploadException('file_name_mismatch')
-
-    build_file_name, build_file_ext = os.path.splitext(zip_file.name)
-    try:
-        _, version, codename, build_type, variant, date = build_file_name.split('-')
-    except ValueError:
-        raise UploadException('invalid_file_name')
-
-    file_name_validity_check(device, build_file_name, build_type, codename, variant)
-
-    # See if a file exists from a previous failed attempt
-    if os.path.exists(os.path.join(settings.MEDIA_ROOT, device.codename, zip_file.name)):
-        os.remove(os.path.join(settings.MEDIA_ROOT, device.codename, zip_file.name))
-    if os.path.exists(os.path.join(settings.MEDIA_ROOT, device.codename, md5_file.name)):
-        os.remove(os.path.join(settings.MEDIA_ROOT, device.codename, md5_file.name))
-
-    build = Build(
-        device=device,
-        file_name=build_file_name,
-        size=zip_file.size,
-        version=version,
-        variant=variant,
-        zip_file=zip_file,
-        md5_file=md5_file,
-        enabled=True
-    )
-    build.save()
-
-    # Execute background tasks
-    build_background_processing(build.id)
-
-    return build.id
-
-
 def handle_chunked_build(device, chunked_file, md5_value):
     build_file_name, build_file_ext = os.path.splitext(chunked_file.filename)
     try:

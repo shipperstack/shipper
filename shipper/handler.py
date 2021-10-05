@@ -66,5 +66,5 @@ def file_name_validity_check(device, build_file_name, build_type, codename, vari
     if Build.objects.filter(file_name=build_file_name).count() >= 1:
         raise UploadException('duplicate_build')
 
-    if variant not in ["gapps", "vanilla", "foss", "goapps"]:
+    if variant not in settings.SHIPPER_UPLOAD_VARIANTS:
         raise UploadException('invalid_file_name')

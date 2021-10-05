@@ -7,11 +7,12 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_404_NOT_FOUND, HTTP_200_OK, HTTP_400_BAD_REQUEST
 from rest_framework.views import APIView
 
+from config import settings
 from shipper.models import Device
 
 
 def variant_check(variant):
-    if variant not in ["gapps", "vanilla", "foss", "goapps"]:
+    if variant not in settings.SHIPPER_UPLOAD_VARIANTS:
         return Response(
             {
                 'message': "Wrong parameter. Try with the correct parameters."

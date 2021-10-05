@@ -34,6 +34,9 @@ SHIPPER_DOWNLOADS_PAGE_DONATION_URL = os.environ.get("SHIPPER_DOWNLOADS_PAGE_DON
 SHIPPER_DOWNLOADS_PAGE_DONATION_MESSAGE = os.environ.get("SHIPPER_DOWNLOADS_PAGE_DONATION_MESSAGE",
                                                          default="Please consider donating, thank you!")
 
+# Upload
+SHIPPER_UPLOAD_VARIANTS = os.environ.get("SHIPPER_UPLOAD_VARIANTS", default="gapps,vanilla,foss,goapps").split(",")
+
 
 # Application definition
 INSTALLED_APPS = [

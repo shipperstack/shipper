@@ -1,9 +1,7 @@
-import datetime
-
 from django.contrib.auth.models import AnonymousUser
 from rest_framework.test import APITestCase, APIRequestFactory
 
-from api.views import V1UpdaterLOS, parse_build_date, variant_check, get_codename_from_filename
+from api.views import V1UpdaterLOS, variant_check, get_codename_from_filename
 from shipper.tests import mock_devices_setup, mock_builds_setup
 
 
@@ -13,10 +11,6 @@ class UpdaterTestCase(APITestCase):
         mock_builds_setup()
         self.factory = APIRequestFactory()
         V1UpdaterLOS.throttle_classes = ()
-
-    def test_parse_build_date(self):
-        self.assertEqual(parse_build_date("20200824"), datetime.date(2020, 8, 24))
-        self.assertEqual(parse_build_date("20200824").strftime("%s"), "1598227200")
 
     def test_variant_check(self):
         response = variant_check("unknown")

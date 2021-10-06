@@ -14,5 +14,5 @@ class Command(BaseCommand):
             self.stdout.write("Queueing re-calculation of SHA256 hash for build {}...".format(build.file_name))
             generate_sha256.delay(build.id)
 
-        self.stdout.write("All incompleted builds have been queued for processing. Please check the admin panel for "
+        self.stdout.write("All incomplete builds have been queued for processing. Please check the admin panel for "
                           "status updates.")

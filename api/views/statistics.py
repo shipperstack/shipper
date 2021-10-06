@@ -18,8 +18,8 @@ class V1DownloadBuildCounter(APIView):
     """
     permission_classes = [AllowAny]
 
-    def post(self):
-        file_name = self.request.data.get("file_name")
+    def post(self, request):
+        file_name = request.data.get("file_name")
 
         if file_name:
             try:
@@ -40,7 +40,7 @@ class V1DownloadBuildCounter(APIView):
                     status=HTTP_404_NOT_FOUND
                 )
 
-        build_id = self.request.data.get("build_id")
+        build_id = request.data.get("build_id")
 
         if build_id:
             try:

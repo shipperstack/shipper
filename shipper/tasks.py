@@ -4,12 +4,15 @@ import time
 from contextlib import contextmanager
 
 import humanize
+# noinspection PyPackageRequirements
 import paramiko
 import pysftp
+# noinspection PyPackageRequirements
 from billiard.exceptions import TimeLimitExceeded
 from celery import shared_task
 from django.core.cache import cache
 from django.db import transaction
+# noinspection PyPackageRequirements
 from paramiko.py3compat import decodebytes
 
 from config import settings

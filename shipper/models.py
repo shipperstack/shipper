@@ -1,5 +1,6 @@
 import datetime
 
+# noinspection PyPackageRequirements
 from auditlog.registry import auditlog
 from django.contrib.auth import get_user_model
 from django.db import models

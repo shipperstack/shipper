@@ -98,6 +98,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+# noinspection PyUnresolvedReferences
 DATABASES = {
     'default': {
         'ENGINE': os.environ.get("SHIPPER_SQL_ENGINE", default='django.db.backends.sqlite3'),

@@ -202,7 +202,7 @@ class Build(models.Model):
 
     def get_user_friendly_name(self):
         _, version, _, _, _, _ = self.file_name.split('-')
-        date = self.get_build_date().strftime('%B %-d, %Y')
+        date = self.get_build_date().strftime('%Y-%m-%d')
         return "{} - {}".format(version, date)
 
     def get_human_readable_size(self):

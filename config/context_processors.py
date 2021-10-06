@@ -1,7 +1,7 @@
 from django.conf import settings
 
 
-def download_page_processor(request):
+def download_page_processor():
     return {
             'main_website_url': settings.SHIPPER_MAIN_WEBSITE_URL,
             'downloads_page_main_branding': settings.SHIPPER_DOWNLOADS_PAGE_MAIN_BRANDING,
@@ -10,9 +10,9 @@ def download_page_processor(request):
     }
 
 
-def version_processor(request):
+def version_processor():
     return {'SHIPPER_VERSION': settings.SHIPPER_VERSION}
 
 
-def debug_mode_processor(request):
+def debug_mode_processor():
     return {'DEBUG': settings.DEBUG}

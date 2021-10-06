@@ -28,8 +28,8 @@ services:
     - media_volume:/home/shipper/web/media
     - static_volume:/home/shipper/web/static
     ports:
-      - 9200:80
-      - 9201:81
+      - "9200:80"
+      - "9201:81"
     depends_on:
       - web
       - flower

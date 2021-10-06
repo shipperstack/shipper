@@ -31,28 +31,26 @@
         <div class="container">
             <div class="row row-cols-1 row-cols-md-4 g-4">
                 {% for device in object_list %}
-                    {% if device.has_enabled_hashed_builds %}
-                        <div class="col">
-                            <a class="card-url" href="{% url 'device_detail' pk=device.id %}">
-                                <div class="card h-100">
-                                    {% if device.photo %}
-                                        <img src="{{ device.photo }}" class="card-img-top" alt="Device photo">
+                    <div class="col">
+                        <a class="card-url" href="{% url 'device_detail' pk=device.id %}">
+                            <div class="card h-100">
+                                {% if device.photo %}
+                                    <img src="{{ device.photo }}" class="card-img-top" alt="Device photo">
+                                {% else %}
+                                    <!-- TODO: Add placeholder image here! -->
+                                    <img src="#" class="card-img-top" alt="Device photo placeholder image">
+                                {% endif %}
+                                <div class="card-body">
+                                    {% if device.status %}
+                                        <h5 class="card-title">{{ device }}</h5>
                                     {% else %}
-                                        <!-- TODO: Add placeholder image here! -->
-                                        <img src="#" class="card-img-top" alt="Device photo placeholder image">
+                                        <h5 class="card-title text-reset text-decoration-line-through"
+                                            title="This device is no longer supported.">{{ device }}</h5>
                                     {% endif %}
-                                    <div class="card-body">
-                                        {% if device.status %}
-                                            <h5 class="card-title">{{ device }}</h5>
-                                        {% else %}
-                                            <h5 class="card-title text-reset text-decoration-line-through"
-                                                title="This device is no longer supported.">{{ device }}</h5>
-                                        {% endif %}
-                                    </div>
                                 </div>
-                            </a>
-                        </div>
-                    {% endif %}
+                            </div>
+                        </a>
+                    </div>
                 {% endfor %}
             </div>
         </div>

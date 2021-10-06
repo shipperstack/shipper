@@ -20,10 +20,9 @@
 
     {% include 'donation_alert.html' %}
 
-    {% device_variant_section device=object variant="gapps" variant_name="GApps" %}
-    {% device_variant_section device=object variant="vanilla" variant_name="Vanilla (no GApps)" %}
-    {% device_variant_section device=object variant="foss" variant_name="FOSS" %}
-    {% device_variant_section device=object variant="goapps" variant_name="GoApps (Android Go Edition GApps)" %}
+    {% for variant in upload_variants %}
+        {% device_variant_section device=object variant=variant %}
+    {% endfor %}
 
     {% if not object.has_builds %}
         <h2>Sorry, this device currently has no builds. Check back later!</h2>

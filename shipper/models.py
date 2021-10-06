@@ -7,6 +7,9 @@ from django.db import models
 
 
 # Device Model
+from config import settings
+
+
 class Device(models.Model):
     name = models.TextField(max_length=100, help_text="Example: 'Nexus 5X', 'Nexus 6P'")
     codename = models.TextField(max_length=20, help_text="Example: 'bullhead', 'angler'")
@@ -204,6 +207,12 @@ class Build(models.Model):
         _, version, _, _, _, _ = self.file_name.split('-')
         date = self.get_build_date().strftime('%Y-%m-%d')
         return "{} - {}".format(version, date)
+
+    def get_user_friendly_variant_name(self):
+        if self.variant in settings.SHIPPER_UPLOAD_VARIANTS:
+            return settings.SHIPPER_UPLOAD_VARIANTS[self.variant]
+        else:
+            return self.variant
 
     def get_human_readable_size(self):
         import humanize

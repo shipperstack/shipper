@@ -2,14 +2,14 @@
 
 if [ "$SHIPPER_SQL_ENGINE" = "django.db.backends.postgresql" ]
 then
-    echo "Waiting for postgres..."
+    echo "Waiting for PostgreSQL"
 
     while ! nc -z "$SHIPPER_SQL_HOST" "$SHIPPER_SQL_PORT"; do
       sleep 0.1
-      echo "Still waiting... If you see this multiple times then we can't find postgresql."
+      echo "Still waiting on PostgreSQL"
     done
 
-    echo "PostgreSQL started"
+    echo "PostgreSQL started!"
 fi
 
 exec "$@"

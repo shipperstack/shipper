@@ -1,22 +1,24 @@
-<h2>{{ variant_name }} build downloads </h2>
-<table class="table">
-    <thead>
-    <tr>
-        <th scope="col">Builds</th>
-        <th scope="col">Size</th>
-        <th scope="col">Download</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for build in build_objects %}
+{% if build_objects %}
+    <h2>{{ variant_name }} build downloads </h2>
+    <table class="table">
+        <thead>
         <tr>
-            <td title="{{ build }}">{{ build.get_user_friendly_name }}</td>
-            <td title="{{ build.size }} bytes">{{ build.get_human_readable_size }}</td>
-            <td>
-                <a href="{% url 'downloads_build' codename=device.codename pk=build.id %}"
-                   class="btn btn-success btn-sm" title="">Download</a>
-            </td>
+            <th scope="col">Builds</th>
+            <th scope="col">Size</th>
+            <th scope="col">Download</th>
         </tr>
-    {% endfor %}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        {% for build in build_objects %}
+            <tr>
+                <td title="{{ build }}">{{ build.get_user_friendly_name }}</td>
+                <td title="{{ build.size }} bytes">{{ build.get_human_readable_size }}</td>
+                <td>
+                    <a href="{% url 'downloads_build' codename=device.codename pk=build.id %}"
+                       class="btn btn-success btn-sm" title="">Download</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endif %}

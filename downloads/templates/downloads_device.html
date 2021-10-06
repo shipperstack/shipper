@@ -1,4 +1,5 @@
 {% extends 'user_base.html' %}
+{% load build_extras %}
 
 {% block title %}Downloads for {{ object }}{% endblock %}
 
@@ -19,25 +20,10 @@
 
     {% include 'donation_alert.html' %}
 
-    <!-- GApps section -->
-    {% if object.has_gapps_builds %}
-        {% include 'downloads_device_variant.html' with variant_name="GApps" build_objects=object.get_all_gapps_build_objects device=object %}
-    {% endif %}
-
-    <!-- Vanilla section -->
-    {% if object.has_vanilla_builds %}
-        {% include 'downloads_device_variant.html' with variant_name="Vanilla (no GApps)" build_objects=object.get_all_vanilla_build_objects device=object %}
-    {% endif %}
-
-    <!-- FOSS section -->
-    {% if object.has_foss_builds %}
-        {% include 'downloads_device_variant.html' with variant_name="FOSS" build_objects=object.get_all_foss_build_objects device=object %}
-    {% endif %}
-
-    <!-- GoApps section -->
-    {% if object.has_goapps_builds %}
-        {% include 'downloads_device_variant.html' with variant_name="GoApps (Android Go Edition GApps)" build_objects=object.get_all_goapps_build_objects device=object %}
-    {% endif %}
+    {% device_variant_section device=object variant="gapps" variant_name="GApps" %}
+    {% device_variant_section device=object variant="vanilla" variant_name="Vanilla (no GApps)" %}
+    {% device_variant_section device=object variant="foss" variant_name="FOSS" %}
+    {% device_variant_section device=object variant="goapps" variant_name="GoApps (Android Go Edition GApps)" %}
 
     {% if not object.has_builds %}
         <h2>Sorry, this device currently has no builds. Check back later!</h2>

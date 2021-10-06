@@ -32,20 +32,11 @@ class Device(models.Model):
     def get_enabled_builds(self):
         return self.builds.filter(enabled=True)
 
-    def has_gapps_builds(self):
-        return self.get_enabled_builds().filter(variant="gapps").exclude(sha256sum__exact='').count() > 0
-
-    def has_vanilla_builds(self):
-        return self.get_enabled_builds().filter(variant="vanilla").exclude(sha256sum__exact='').count() > 0
-
-    def has_foss_builds(self):
-        return self.get_enabled_builds().filter(variant="foss").exclude(sha256sum__exact='').count() > 0
-
-    def has_goapps_builds(self):
-        return self.get_enabled_builds().filter(variant="goapps").exclude(sha256sum__exact='').count() > 0
-
     def has_builds(self):
         return self.get_enabled_builds().exclude(sha256sum__exact='').count() > 0
+
+    def has_builds_of_variant(self, variant):
+        return self.get_enabled_builds().filter(variant=variant).exclude(sha256sum__exact='').count() > 0
 
     def get_latest_gapps_build_object(self):
         return self.get_enabled_builds().filter(variant="gapps").exclude(sha256sum__exact='').latest('id')

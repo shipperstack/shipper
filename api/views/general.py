@@ -6,6 +6,7 @@ from rest_framework.status import HTTP_200_OK, HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
 
 from api.views import variant_check, parse_build_date
+from config import settings
 from shipper.models import Device, Build
 
 
@@ -21,17 +22,9 @@ class V1GeneralDeviceAll(APIView):
         for device in Device.objects.all():
             variants = []
 
-            if device.has_gapps_builds():
-                variants.append("gapps")
-
-            if device.has_vanilla_builds():
-                variants.append("vanilla")
-
-            if device.has_foss_builds():
-                variants.append("foss")
-
-            if device.has_goapps_builds():
-                variants.append("goapps")
+            for variant in settings.SHIPPER_UPLOAD_VARIANTS:
+                if device.has_builds_of_variant(variant=variant):
+                    variants.append(variant)
 
             return_json[device.codename] = {
                 'status': device.status,

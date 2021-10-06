@@ -20,14 +20,14 @@
 
     {% include 'donation_alert.html' %}
 
-    <!-- Build information -->
+    <h2>Build information</h2>
     <div>
-        <p>Device: {{ object.device }}</p>
-        <p>Build: {{ object.get_user_friendly_name }}</p>
-        <p>Build size: {{ object.get_human_readable_size }}</p>
+        <p><strong>Device</strong> {{ object.device }}</p>
+        <p><strong>Version/date</strong> {{ object.get_user_friendly_name }}</p>
+        <p><strong>Size</strong> {{ object.get_human_readable_size }}</p>
     </div>
 
-    <!-- Mirrors -->
+    <h2>Mirrors</h2>
     <div class="container">
         <table class="table">
             <thead>

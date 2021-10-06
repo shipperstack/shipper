@@ -39,7 +39,7 @@ SHIPPER_UPLOAD_VARIANTS = json.loads(os.environ.get("SHIPPER_UPLOAD_VARIANTS", d
                                                                                        '"Vanilla (no GApps)",'
                                                                                        '"foss": "FOSS",'
                                                                                        '"goapps": "GoApps (Android Go '
-                                                                                       'Edition GApps)",}'))
+                                                                                       'Edition GApps)"}'))
 
 
 # Application definition

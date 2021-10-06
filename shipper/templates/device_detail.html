@@ -28,13 +28,11 @@
                 <td>{{ build.download_count }}</td>
                 <td>
                     {% if build.enabled %}
-                        ✅
-                        <a href="{% url 'build_enabled_status_modify' pk=build.id %}"
-                           class="btn btn-danger btn-sm confirm-disable">Disable</a>
+                        <!--suppress HtmlFormInputWithoutLabel -->
+                        <input type="checkbox" value="{{ build.id }}" onchange="switchEnable(this);" checked>
                     {% else %}
-                        ❌
-                        <a href="{% url 'build_enabled_status_modify' pk=build.id %}"
-                           class="btn btn-success btn-sm confirm-enable">Enable</a>
+                        <!--suppress HtmlFormInputWithoutLabel -->
+                        <input type="checkbox" value="{{ build.id }}" onchange="switchEnable(this);">
                     {% endif %}
                 </td>
                 <td><a href="{% url 'build_delete' pk=build.id %}" class="btn btn-danger btn-sm">Delete</a></td>
@@ -44,18 +42,16 @@
     </table>
 
     <script>
-        const enableButtonList = document.querySelectorAll('.confirm-enable');
-        enableButtonList.forEach((element) => {
-            element.addEventListener("click", (e) => {
-                if (!window.confirm("Are you sure you want to enable this build?")) e.preventDefault();
-            })
-        });
+        function switchEnable(cb) {
+            let action_verb = "";
+            if (cb.checked)
+                action_verb = "enable";
+            else
+                action_verb = "disable";
 
-        const disableButtonList = document.querySelectorAll('.confirm-disable');
-        disableButtonList.forEach((element) => {
-            element.addEventListener("click", (e) => {
-                if (!window.confirm("Are you sure you want to disable this build?")) e.preventDefault();
-            })
-        });
+            if (window.confirm("Are you sure you want to " + action_verb + " this build?")) {
+                window.location.replace("{% url 'build_enabled_status_modify' pk=cb.value %}");
+            }
+        }
     </script>
 {% endblock %}

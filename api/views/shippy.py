@@ -21,6 +21,7 @@ from shipper.models import Device, Build
 
 # Serializer for overriding success url
 class V1MaintainersChunkedUploadSerializer(ChunkedUploadSerializer):
+    # noinspection SpellCheckingInspection
     viewname = 'v1_maintainers_chunked_upload_detail'
 
 

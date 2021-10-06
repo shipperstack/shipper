@@ -51,6 +51,7 @@ class Device(models.Model):
 
 
 # Mirror Server Model
+# noinspection SpellCheckingInspection
 class MirrorServer(models.Model):
     name = models.TextField(
         max_length=100,

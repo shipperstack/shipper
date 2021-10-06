@@ -136,6 +136,7 @@ def mock_devices_setup():
         manufacturer="Samsung",
         status=True,
     )
+    # noinspection SpellCheckingInspection
     Device.objects.create(
         name="No Builds",
         codename="nobuild",

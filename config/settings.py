@@ -39,6 +39,7 @@ SHIPPER_UPLOAD_VARIANTS = os.environ.get("SHIPPER_UPLOAD_VARIANTS", default="gap
 
 
 # Application definition
+# noinspection SpellCheckingInspection
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',

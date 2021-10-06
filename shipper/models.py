@@ -40,7 +40,7 @@ class Device(models.Model):
         return self.get_enabled_builds().filter(variant=variant).exclude(sha256sum__exact='').count() > 0
 
     def get_latest_build_object_of_variant(self, variant):
-        return self.get_enabled_builds().filter(variant=variant).exclude(sha256sum__exact='').latest('id')
+        return self.get_all_build_objects_of_variant(variant=variant)[0]
 
     def get_all_build_objects(self):
         return sorted(self.get_enabled_builds().exclude(sha256sum__exact='').all(), key=lambda p: p.get_build_date(),

@@ -55,16 +55,8 @@ class V1GeneralBuildLatest(APIView):
         if ret:
             return ret
 
-        build = None
         try:
-            if variant == "gapps":
-                build = device.get_latest_gapps_build_object()
-            elif variant == "vanilla":
-                build = device.get_latest_vanilla_build_object()
-            elif variant == "foss":
-                build = device.get_latest_foss_build_object()
-            elif variant == "goapps":
-                build = device.get_latest_goapps_build_object()
+            build = device.get_latest_build_object_of_variant(variant=variant)
         except Build.DoesNotExist:
             return Response(
                 {

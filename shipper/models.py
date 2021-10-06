@@ -38,17 +38,8 @@ class Device(models.Model):
     def has_builds_of_variant(self, variant):
         return self.get_enabled_builds().filter(variant=variant).exclude(sha256sum__exact='').count() > 0
 
-    def get_latest_gapps_build_object(self):
-        return self.get_enabled_builds().filter(variant="gapps").exclude(sha256sum__exact='').latest('id')
-
-    def get_latest_vanilla_build_object(self):
-        return self.get_enabled_builds().filter(variant="vanilla").exclude(sha256sum__exact='').latest('id')
-
-    def get_latest_foss_build_object(self):
-        return self.get_enabled_builds().filter(variant="foss").exclude(sha256sum__exact='').latest('id')
-
-    def get_latest_goapps_build_object(self):
-        return self.get_enabled_builds().filter(variant="goapps").exclude(sha256sum__exact='').latest('id')
+    def get_latest_build_object_of_variant(self, variant):
+        return self.get_enabled_builds().filter(variant=variant).exclude(sha256sum__exact='').latest('id')
 
     def get_all_build_objects(self):
         return sorted(self.get_enabled_builds().exclude(sha256sum__exact='').all(), key=lambda p: p.get_build_date(),

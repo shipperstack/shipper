@@ -41,17 +41,8 @@ class V1UpdaterLOS(APIView):
         if ret:
             return ret
 
-        builds = None
-        if variant == "gapps":
-            builds = device.get_all_gapps_build_objects()
-        elif variant == "vanilla":
-            builds = device.get_all_vanilla_build_objects()
-        elif variant == "foss":
-            builds = device.get_all_foss_build_objects()
-        elif variant == "goapps":
-            builds = device.get_all_goapps_build_objects()
+        builds = device.get_all_build_objects_of_variant(variant=variant)
 
-        # Check if list is empty and return a 404
         if not builds:
             return Response(
                 {

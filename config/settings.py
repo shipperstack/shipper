@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'django_cleanup.apps.CleanupConfig',  # must be last in order for successful deletions
 ]
 
+# noinspection SpellCheckingInspection
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -197,6 +198,7 @@ DRF_CHUNKED_UPLOAD_MAX_BYTES = 2_500_000_000   # 2.5GB
 
 
 # Celery
+# noinspection SpellCheckingInspection
 CELERY_BROKER_URL = "pyamqp://rabbitmq:5672/"
 CELERY_TASK_TIME_LIMIT = 600    # 10 minutes
 CELERY_RESULT_BACKEND = 'django-db'

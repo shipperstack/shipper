@@ -31,7 +31,7 @@
         <div class="container">
             <div class="row row-cols-1 row-cols-md-4 g-4">
                 {% for device in object_list %}
-                    {% if device.has_builds %}
+                    {% if device.has_enabled_hashed_builds %}
                         <div class="col">
                             <a class="card-url" href="{% url 'device_detail' pk=device.id %}">
                                 <div class="card h-100">

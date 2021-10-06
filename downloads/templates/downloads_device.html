@@ -24,7 +24,7 @@
         {% device_variant_section device=object variant=variant %}
     {% endfor %}
 
-    {% if not object.has_builds %}
+    {% if not object.has_enabled_hashed_builds %}
         <h2>Sorry, this device currently has no builds. Check back later!</h2>
     {% endif %}
 {% endblock %}

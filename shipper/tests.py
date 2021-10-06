@@ -51,27 +51,27 @@ class ShipperCombinedTestCase(TestCase):
 
     def test_gapps_build_count(self):
         devices = get_mock_devices()
-        self.assertEqual(len(devices["bullhead"].get_all_build_objects_of_variant(variant="gapps")), 1)
-        self.assertEqual(len(devices["angler"].get_all_build_objects_of_variant(variant="gapps")), 0)
-        self.assertEqual(len(devices["dream2lte"].get_all_build_objects_of_variant(variant="gapps")), 1)
+        self.assertEqual(len(devices["bullhead"].get_all_enabled_hashed_builds_of_variant(variant="gapps")), 1)
+        self.assertEqual(len(devices["angler"].get_all_enabled_hashed_builds_of_variant(variant="gapps")), 0)
+        self.assertEqual(len(devices["dream2lte"].get_all_enabled_hashed_builds_of_variant(variant="gapps")), 1)
 
     def test_vanilla_build_count(self):
         devices = get_mock_devices()
-        self.assertEqual(len(devices["bullhead"].get_all_build_objects_of_variant(variant="vanilla")), 0)
-        self.assertEqual(len(devices["angler"].get_all_build_objects_of_variant(variant="vanilla")), 1)
-        self.assertEqual(len(devices["dream2lte"].get_all_build_objects_of_variant(variant="vanilla")), 0)
+        self.assertEqual(len(devices["bullhead"].get_all_enabled_hashed_builds_of_variant(variant="vanilla")), 0)
+        self.assertEqual(len(devices["angler"].get_all_enabled_hashed_builds_of_variant(variant="vanilla")), 1)
+        self.assertEqual(len(devices["dream2lte"].get_all_enabled_hashed_builds_of_variant(variant="vanilla")), 0)
 
     def test_foss_build_count(self):
         devices = get_mock_devices()
-        self.assertEqual(len(devices["bullhead"].get_all_build_objects_of_variant(variant="foss")), 0)
-        self.assertEqual(len(devices["angler"].get_all_build_objects_of_variant(variant="foss")), 0)
-        self.assertEqual(len(devices["dream2lte"].get_all_build_objects_of_variant(variant="foss")), 0)
+        self.assertEqual(len(devices["bullhead"].get_all_enabled_hashed_builds_of_variant(variant="foss")), 0)
+        self.assertEqual(len(devices["angler"].get_all_enabled_hashed_builds_of_variant(variant="foss")), 0)
+        self.assertEqual(len(devices["dream2lte"].get_all_enabled_hashed_builds_of_variant(variant="foss")), 0)
 
     def test_goapps_build_count(self):
         devices = get_mock_devices()
-        self.assertEqual(len(devices["bullhead"].get_all_build_objects_of_variant(variant="goapps")), 0)
-        self.assertEqual(len(devices["angler"].get_all_build_objects_of_variant(variant="goapps")), 0)
-        self.assertEqual(len(devices["dream2lte"].get_all_build_objects_of_variant(variant="goapps")), 0)
+        self.assertEqual(len(devices["bullhead"].get_all_enabled_hashed_builds_of_variant(variant="goapps")), 0)
+        self.assertEqual(len(devices["angler"].get_all_enabled_hashed_builds_of_variant(variant="goapps")), 0)
+        self.assertEqual(len(devices["dream2lte"].get_all_enabled_hashed_builds_of_variant(variant="goapps")), 0)
 
 
 class ShipperHandlerTestCase(TestCase):

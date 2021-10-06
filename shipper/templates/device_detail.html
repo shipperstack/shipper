@@ -20,7 +20,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for build in object.get_all_build_objects %}
+        {% for build in object.get_all_enabled_hashed_builds %}
             <tr>
                 <td>{{ build.file_name }}</td>
                 <td title="{{ build.size }} bytes">{{ build.get_human_readable_size }}</td>

@@ -23,7 +23,7 @@ class V1GeneralDeviceAll(APIView):
             variants = []
 
             for variant in settings.SHIPPER_UPLOAD_VARIANTS:
-                if device.has_builds_of_variant(variant=variant):
+                if device.has_enabled_hashed_builds_of_variant(variant=variant):
                     variants.append(variant)
 
             return_json[device.codename] = {
@@ -56,7 +56,7 @@ class V1GeneralBuildLatest(APIView):
             return ret
 
         try:
-            build = device.get_latest_build_object_of_variant(variant=variant)
+            build = device.get_latest_enabled_hashed_build_of_variant(variant=variant)
         except Build.DoesNotExist:
             return Response(
                 {

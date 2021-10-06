@@ -16,5 +16,5 @@ def device_variant_section(device, variant):
     return {
         'device': device,
         'variant_name': settings.SHIPPER_UPLOAD_VARIANTS[variant],
-        'build_objects': device.get_all_build_objects_of_variant(variant=variant),
+        'build_objects': device.get_all_enabled_hashed_builds_of_variant(variant=variant),
     }

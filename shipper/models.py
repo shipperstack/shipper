@@ -36,20 +36,20 @@ class Device(models.Model):
     def get_enabled_builds(self):
         return self.builds.filter(enabled=True)
 
-    def has_builds(self):
+    def has_enabled_hashed_builds(self):
         return self.get_enabled_builds().exclude(sha256sum__exact='').count() > 0
 
-    def has_builds_of_variant(self, variant):
+    def has_enabled_hashed_builds_of_variant(self, variant):
         return self.get_enabled_builds().filter(variant=variant).exclude(sha256sum__exact='').count() > 0
 
-    def get_latest_build_object_of_variant(self, variant):
-        return self.get_all_build_objects_of_variant(variant=variant)[0]
+    def get_latest_enabled_hashed_build_of_variant(self, variant):
+        return self.get_all_enabled_hashed_builds_of_variant(variant=variant)[0]
 
-    def get_all_build_objects(self):
+    def get_all_enabled_hashed_builds(self):
         return sorted(self.get_enabled_builds().exclude(sha256sum__exact='').all(), key=lambda p: p.get_build_date(),
                       reverse=True)
 
-    def get_all_build_objects_of_variant(self, variant):
+    def get_all_enabled_hashed_builds_of_variant(self, variant):
         return sorted(self.get_enabled_builds().filter(variant=variant).exclude(sha256sum__exact='').all(),
                       key=lambda p: p.get_build_date(), reverse=True)
 

@@ -20,7 +20,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for build in object.builds.all %}
+        {% for build in object.get_all_build_objects %}
             <tr>
                 <td>{{ build.file_name }}</td>
                 <td title="{{ build.size }} bytes">{{ build.get_human_readable_size }}</td>

@@ -18,11 +18,6 @@ jobs:
       SHIPPER_SECRET_KEY: "duk4hvedu3zxnmw@shnjw7z^)x#wcm@cj05t5f&#90rx-g44d2"
       SHIPPER_DEBUG: 1
       SHIPPER_ALLOWED_HOSTS: "localhost 127.0.0.1"
-      SHIPPER_MAIN_WEBSITE_URL: "https://example.com"
-      SHIPPER_DOWNLOADS_PAGE_MAIN_BRANDING: "User Downloads"
-      SHIPPER_DOWNLOADS_PAGE_DONATION_URL: "https://paypal.com/test"
-      SHIPPER_SENTRY_SDK_DSN: "https://34fd99861ec84ad2bd731c50267dc5f6@o444286.ingest.sentry.io/5418995"
-      SHIPPER_SENTRY_SDK_PII: False
 
     steps:
     - uses: actions/checkout@v2

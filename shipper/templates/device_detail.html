@@ -29,10 +29,10 @@
                 <td>
                     {% if build.enabled %}
                         <!--suppress HtmlFormInputWithoutLabel -->
-                        <input type="checkbox" value="{{ build.id }}" onchange="switchEnable(this);" checked>
+                        <input type="checkbox" data-url="{% url 'build_enabled_status_modify' pk=build.id %}" onchange="switchEnable(this);" checked>
                     {% else %}
                         <!--suppress HtmlFormInputWithoutLabel -->
-                        <input type="checkbox" value="{{ build.id }}" onchange="switchEnable(this);">
+                        <input type="checkbox" data-url="{% url 'build_enabled_status_modify' pk=build.id %}" onchange="switchEnable(this);">
                     {% endif %}
                 </td>
                 <td><a href="{% url 'build_delete' pk=build.id %}" class="btn btn-danger btn-sm">Delete</a></td>
@@ -50,7 +50,7 @@
                 action_verb = "disable";
 
             if (window.confirm("Are you sure you want to " + action_verb + " this build?")) {
-                window.location.replace("{% url 'build_enabled_status_modify' pk=cb.value %}");
+                window.location.replace(cb.getAttribute('data-url'));
             }
         }
     </script>

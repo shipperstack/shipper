@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
-import json
+import ast
 import os
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
@@ -35,11 +35,13 @@ SHIPPER_DOWNLOADS_PAGE_DONATION_MESSAGE = os.environ.get("SHIPPER_DOWNLOADS_PAGE
                                                          default="Please consider donating, thank you!")
 
 # Upload
-SHIPPER_UPLOAD_VARIANTS = json.loads(os.environ.get("SHIPPER_UPLOAD_VARIANTS", default='{"gapps": "GApps","vanilla": '
-                                                                                       '"Vanilla (no GApps)",'
-                                                                                       '"foss": "FOSS",'
-                                                                                       '"goapps": "GoApps (Android Go '
-                                                                                       'Edition GApps)"}'))
+SHIPPER_UPLOAD_VARIANTS = ast.literal_eval(os.environ.get("SHIPPER_UPLOAD_VARIANTS", default='{"gapps": "GApps",'
+                                                                                             '"vanilla": "Vanilla (no'
+                                                                                             ' GApps)",'
+                                                                                             '"foss": "FOSS",'
+                                                                                             '"goapps": "GoApps ('
+                                                                                             'Android Go Edition '
+                                                                                             'GApps)"}'))
 
 
 # Application definition

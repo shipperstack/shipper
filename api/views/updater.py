@@ -26,8 +26,7 @@ class V1UpdaterLOS(APIView):
     """
     permission_classes = [AllowAny]
 
-    # noinspection PyMethodMayBeStatic
-    def get(self, request, codename, variant):
+    def get(self, codename, variant):
         try:
             device = get_object_or_404(Device, codename=codename)
         except Http404:
@@ -64,8 +63,8 @@ class V1UpdaterLOS(APIView):
                 "size": build.size,
                 "version": build.version,
                 "variant": variant,
-                "url": "https://" + request.get_host() + build.zip_file.url,
-                "md5url": "https://" + request.get_host() + build.md5_file.url,
+                "url": "https://" + self.request.get_host() + build.zip_file.url,
+                "md5url": "https://" + self.request.get_host() + build.md5_file.url,
             })
 
         return Response(

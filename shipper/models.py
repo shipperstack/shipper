@@ -45,6 +45,9 @@ class Device(models.Model):
     def get_latest_enabled_hashed_build_of_variant(self, variant):
         return self.get_all_enabled_hashed_builds_of_variant(variant=variant)[0]
 
+    def get_all_builds(self):
+        return sorted(self.builds.all(), key=lambda p: p.get_build_date(), reverse=True)
+
     def get_all_enabled_hashed_builds(self):
         return sorted(self.get_enabled_builds().exclude(sha256sum__exact='').all(), key=lambda p: p.get_build_date(),
                       reverse=True)

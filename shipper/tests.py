@@ -33,7 +33,7 @@ class ShipperBuildTestCase(TestCase):
 
     def test_user_friendly_name(self):
         build = Build.objects.get(file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200608")
-        self.assertEqual(build.get_user_friendly_name(), "v14 - June 8, 2020")
+        self.assertEqual(build.get_user_friendly_name(), "v14 - 2020-06-08")
 
     def test_human_readable_size(self):
         build = Build.objects.get(file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200608")

@@ -1,5 +1,3 @@
-import datetime
-
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import AllowAny
@@ -53,12 +51,8 @@ class V1UpdaterLOS(APIView):
         return_json = []
 
         for build in builds:
-            _, version, codename, build_type, variant, date = build.file_name.split('-')
-
-            date = parse_build_date(date)
-
             return_json.append({
-                "datetime": int(date.strftime("%s")),
+                "datetime": int(build.get_build_date().strftime("%s")),
                 "filename": "{}.zip".format(build.file_name),
                 "id": build.sha256sum,  # WHY
                 "size": build.size,
@@ -73,10 +67,3 @@ class V1UpdaterLOS(APIView):
             status=HTTP_200_OK
         )
 
-
-def parse_build_date(date):
-    year = int(date[:4])
-    month = int(date[4:-2])
-    day = int(date[6:])
-
-    return datetime.date(year, month, day)

@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
 
-from api.views import variant_check, parse_build_date
+from api.views import variant_check
 from config import settings
 from shipper.models import Device, Build
 
@@ -64,11 +64,9 @@ class V1GeneralBuildLatest(APIView):
                 }, status=HTTP_404_NOT_FOUND
             )
 
-        _, version, codename, build_type, variant, date = build.file_name.split('-')
-
         return Response(
             {
-                "datetime": int(parse_build_date(date).strftime("%s")),
+                "datetime": int(build.get_build_date().strftime("%s")),
                 "filename": "{}.zip".format(build.file_name),
                 "sha256": build.sha256sum,
                 "size": build.size,

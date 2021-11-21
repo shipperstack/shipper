@@ -9,6 +9,8 @@ helpme () {
     dcup => docker-compose up -d
     dcdown => docker-compose down
     dcrestart => docker-compose down && docker-compose up -d
+    
+  setversion <version number> => sets the VERSION_TAG environment variable
 
   Development:
     dcd => docker-compose -f docker-compose.dev.yml
@@ -28,3 +30,7 @@ alias dcdup='docker-compose -f docker-compose.dev.yml up -d --build'
 alias dcddown='docker-compose -f docker-compose.dev.yml down'
 alias dcdrestart='docker-compose -f docker-compose.dev.yml down && docker-compose -f docker-compose.dev.yml up -d --build'
 alias dcdsetup='docker-compose -f docker-compose.dev.yml exec web python3 manage.py migrate --noinput && docker-compose -f docker-compose.dev.yml exec web python3 manage.py collectstatic --no-input --clear'
+
+function setversion {
+  export VERSION_TAG=$1
+}

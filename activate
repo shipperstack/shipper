@@ -11,6 +11,9 @@ helpme () {
     dcrestart => docker-compose down && docker-compose up -d
     
   setversion <version number> => sets the VERSION_TAG environment variable
+  setlatest => sets the VERSION_TAG environment variable to the latest version available on GitHub
+  
+  The setlatest command requires curl and python to be installed.
 
   Development:
     dcd => docker-compose -f docker-compose.dev.yml
@@ -34,3 +37,4 @@ alias dcdsetup='docker-compose -f docker-compose.dev.yml exec web python3 manage
 function setversion {
   export VERSION_TAG=$1
 }
+alias setlatest='export VERSION_TAG=$(curl https://api.github.com/repos/ericswpark/shipper/releases/latest | python -c "import sys, json; print json.load(sys.stdin)['name']")'

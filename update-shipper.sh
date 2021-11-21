@@ -10,7 +10,7 @@ curl https://raw.githubusercontent.com/ericswpark/shipper/master/nginx/nginx.con
 curl https://raw.githubusercontent.com/ericswpark/shipper/master/activate > activate
 
 # Source activate alias file
-. activate
+. ./activate
 
 # Set latest version tag
 setlatest

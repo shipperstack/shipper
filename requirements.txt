@@ -1,4 +1,4 @@
-Celery==5.2.1
+Celery==5.2.3
 Django==3.2.9
 django-auditlog==1.0a1
 django-celery-beat==2.2.1

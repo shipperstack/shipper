@@ -4,7 +4,7 @@ django-auditlog==1.0a1
 django-celery-beat==2.2.1
 django-celery-results==2.2.0
 django-cleanup==5.2.0
-djangorestframework==3.12.4
+djangorestframework==3.13.1
 drf-chunked-upload==0.5.1
 gunicorn==20.1.0
 humanize==3.12.0

@@ -39,6 +39,6 @@ function setversion {
 }
 
 function setlatest {
-    VERSION_TAG=$(curl https://api.github.com/repos/ericswpark/shipper/releases/latest | python -c "import sys, json; print json.load(sys.stdin)['name']")
+    export VERSION_TAG=$(curl https://api.github.com/repos/ericswpark/shipper/releases/latest | python -c "import sys, json; print json.load(sys.stdin)['name']")
     echo "GitHub: latest version available is $VERSION_TAG"
 }

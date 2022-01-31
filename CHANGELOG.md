@@ -379,7 +379,266 @@ This release contains a database migration.
 
 # [1.6.15] - 2021-06-18
 
+This release contains an API change.
+
+## Changed
+- Fixed a bug with the codename detection where invalid file names could result in an invalid codename being detected
+- The internal statistics command now shows more information to the administrator
+- Fixed a bug with the template order being processed incorrectly
+- The navbar in the maintainer section has been cleaned up
+- Many miscellaneous improvements and fixes
+- General code cleanup
+
+## Removed
+- The `hasBuilds` field has been removed from the v2 all builds API endpoint since it is redundant (only devices with builds are shown in the endpoint
+- The shippy notice in the upload menu has been removed, since we're planning to add chunked upload support to the webUI
+
+
+# [1.6.14] - 2021-06-06
+
+This release contains an API change.
+
+## Changed
+- Miscellaneous code cleanup
+
+## Removed
+- Some of the unused fields in the v2 all builds API endpoint have been removed
+
+
+# [1.6.13] - 2021-06-05
+
+This release contains an API change.
+
+## Added
+- shipper now has a download favicon
+
+## Changed
+- The v2 API for all builds and devices has been expanded in preparation for interfacing with other services and websites
+- A bug with the template system has been fixed, and the CSS stylesheet should now function correctly
+- Fixed a visual bug on the upload screen: the loading symbol should now display properly for both users with and without screen readers
+- Fixed a bug with the API displaying the incorrect connectiono secure schema
+
+## Removed
+- The direct upload option through the API has been removed. Old shippy versions that use the direct connection method to upload will no longer function with this release
+
+
+# [1.6.12] - 2021-05-31
+
+## Changed
+- shipper now has a priority field for mirro servers so you can set the priority of the server in the list of mirrors. This field affects the ordering when showing the list of mirrors to the user
+- shipper now warns maintaienrs if their account does not have any devices assigned yet
+- Fixed a bug with the uploads page not working
+
+
+# [1.6.11] - 2021-05-26
+
+## Added
+- A new all builds APi endpoint has been added
+
+## Changed
+- The admin page for MirrorServer now shows more information in the columns and sorts by default
+- The main download page no longer puts buttons on separate lines
+
+
+# [1.6.10] - 2021-05-26
+
+This release contains an API change.
+
+## Changed
+- The backup command now queues backups instead of executing them simultaneously
+- shipper now displays a mirror page should mirrors exist
+- API code has been cleaned
+
+## Removed
+- Removed internal API
+
+
+# [1.6.9] - 2021-05-26
+
+## Added
+- Added new management command to get the statistics of shipper (`calculate_statistics`)
+- Added new mirror server table
+
+## Changed
+- shipper now sorts users by active status first
+- Fixed incorrect verbose names for models
+- shipper now prints uplaod progress while mirroring a build to a mirror server
+
+
+# [1.6.8] - 2021-05-25
+
+## Changed
+- Fixed a race condition when processing an uploaded build
+
+
+# [1.6.7] - 2021-05-24
+
+## Changed
+- The admin panel shows pretty boolean icons for the "processed" column
+- Fixed SHA256 field emptiness detection
+
+
+# [1.6.6] - 2021-05-24
+
+## Added
+- Added locks to prevent multiple backup tasks with the same file from running concurrently
+- Added a task to periodically finalize incomplete builds
+
+## Changed
+- Correctly display a 401 error instead of a 404 error
+- Show column in build admin for "processed" builds
+
+
+# [1.6.5] - 2021-05-24
+
+## Added
+- Added command to finalize incomplete builds
+- Added Flower for monitoring tasks
+
+## Changed
+- shipper tries to prevent tasks from duplicating the workload
+
+
+# [1.6.4] - 2021-05-24
+
+## Changed
+- The `docker-compose` script now uses the version defined in the environment variable `VERSION_TAG`
+- Fixed a bug with the build count
+
+
+# [1.6.3] - 2021-05-24
+
+This release contains a database migration.
+This release contains configuration key changes.
+
+## Added
+- Added a docker-compose configuration file for developers
+- Added Makefile for developers (used for command alias)
+- shipper now supports backing up builds to SourceForge in case the downloads server unexpectedly dies.
+- Added library dependencies for shipper (Celery and RabbitMQ)
+
+## Changed
+- All shipper configuration variables now start with `SHIPPER_`
+- Changed base image (Ubuntu 20.04)
+- Docker now copies less files into the image, saving space
+- The admin panel now shows the backed up field as a column
+- The admin panel now sorts users by last login time
+- Sign-ups for new users now require an email address
+- SHA256 generation now happens in the background, improving the upload experience
+
+
+# [1.6.2] - 2021-05-19
+
+## Changed
+- Fixed a server error when retrieving an invalid device
+
+
+# [1.6.1] - 2021-05-19
+
+## Changed
+- Devices are now sorted on the main page
+- Devices are now sorted on the maintainer page
+- Upgraded entire site to Bootstrap v5
+- Code cleanup and refactoring
+
+
+# [1.6.0] - 2021-05-19
+
+This release contains API changes.
+
+## Added
+- Added a mini-guide on how to get started with shippy
+- Added chunked uploads
+
+## Changed
+- shipper now reports the server version in the maintainer API
+- Changed maintainer API schema. Old versions of shippy are now incompatible with shipper (and vice versa)
+- Changed version information display for normal users
+- Changed build name display for normal users
+- Fixed styling issue on device page
+- Lots and lots of code cleanup and general fix-ups
+
+## Removed
+- Removed useless build detail page
+- Removed useless notice from password change screen
+
+
+# [1.5.3] - 2021-05-17
+
+## Changed
+- shipper now warns users if the device is not maintained
+- shipper now supports showing an alert to ask users for donations. If you want to turn this off, set the `DOWNLOADS_PAGE_DONATION_URL` variable to a single `#`, or omit the variable entirely
+
+## Removed
+- Removed some unused fields from the database
+
+
+# [1.5.2] - 2021-05-17
+
+## Changed
+- shipper now shows the creation date column for builds.
+- Fixed a bug with creation date ordering
+- Users can now download from shipper by going to the relevant device codename page
+
+
+# [1.5.1] - 2021-04-30
+
+## Changed
+- shipper now displays more information about builds
+
+
+# [1.5.0] - 2021-04-30
+
+This release contains a database migration.
+
+## Changed
+- shipper now supports two more variants: FOSS and GoApps
+
+
+# [1.4.4] - 2021-04-30
+
+## Changed
+- shipper now displays the correct download URl to API clients
+
+
+# [1.4.3] - 2021-04-29
+
+## Changed
+- Fixed a small bug with incomplete uploads
+
+
+# [1.4.2] - 2021-04-28
+
+## Changed
+- The API has been fixed to properly throw a 404 if no builds exist for a given variant
+
+
+# [1.4.1] - 2021-04-28
+
+This release contains a database migration.
+
+## Added
+- A new API has been added for LOS-style updater apps. It's not 100% up-to-spec but should require minimal tweaks on the app-side
+
+## Changed
+- With the upgrade to Django 3.2, the default ID setting has been changed
+- General code cleanup
+
+
+# [1.4.0] - 2021-04-27
+
+This release contains a security vulnerability patch.
+
+## Changed
+- Fixed security vulnerability regarding exceptions
+- An incorrect import statement was fixed in the API portion of shipper
+
+
+# [1.3.1] - 2021-04-27
+
 (WIP)
+
+
 
 
 

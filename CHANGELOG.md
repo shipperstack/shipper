@@ -636,10 +636,88 @@ This release contains a security vulnerability patch.
 
 # [1.3.1] - 2021-04-27
 
-(WIP)
+## Changed
+- shipper will strictly enforce the build type and reject any unofficial builds
+- Fixed server-side error in API by adding a missing check for the GApps variant
+- The upload timeout has been increased to 6 minutes in order to prevent failed uploads
 
 
+# [1.3.0] - 2021-04-01
 
+## Changed
+- Disabled an error metric that has nothing to do with shipper
+
+
+# [1.2.5] - 2021-02-21
+
+## Changed
+- Sentry now reports the version of shipper
+- Gunicorn now reports Django errors
+- General code cleanup
+
+
+# [1.2.4] - 2021-02-16
+
+This release contains a configuration key change.
+
+## Changed
+- Unified production and development Dockerfiles and configurations. This requires a file name edit - please refer to the wiki for more information
+- nginx is now directly downloaded and used without building.
+- shipper is now built on Docker Hub and pulled on deployment
+
+## Removed
+- shippy is no longer included with the main repository
+
+
+# [1.2.3] - 2021-02-15
+
+## Changed
+- Fixed a UI bug shown to clients
+
+
+# [1.2.2] - 2021-02-15
+
+## Changed
+- shipper finally shows you the upload progress
+
+
+# [1.2.1] - 2021-02-15
+
+## Added
+- Added devcie historical builds page
+
+## Changed
+- Fixed nginx configuration to allow large files
+- General code cleanup
+
+
+# [1.2.0] - 2021-02-14
+
+## Added
+- Created an internal API for directly manipulating devices/user objects
+- Added throttling to the REST API
+- Added proper column view to the user admin page
+
+## Changed
+- Fixed a bug where the `DEBUG` flag would not register
+- Corrected the static file directory configuration
+- Fixed a database flushing bug in the development environment
+- shipper now shows you its own version at the footer of the maintainer page
+
+
+# [1.1.0] - 2020-11-21
+
+## Added
+- New v2 updater API
+
+## Changed
+- Now ships on Docker, with nginx, gunicorn, and Postgres!
+- Now supports local storage of files!
+
+
+# [1.0.0] - 2020-10-26
+
+Initial release
 
 
 [Unreleased]: https://github.com/ericswpark/shipper/compare/1.12.0...HEAD
@@ -703,4 +781,17 @@ This release contains a security vulnerability patch.
 [1.4.2]: https://github.com/ericswpark/shipper/compare/1.4.1...1.4.2
 [1.4.1]: https://github.com/ericswpark/shipper/compare/1.4.0...1.4.1
 [1.4.0]: https://github.com/ericswpark/shipper/compare/1.3.1...1.4.0
+[1.3.1]: https://github.com/ericswpark/shipper/compare/1.3.0...1.3.1
+[1.3.0]: https://github.com/ericswpark/shipper/compare/1.2.5...1.3.0
+[1.2.5]: https://github.com/ericswpark/shipper/compare/1.2.4...1.2.5
+[1.2.4]: https://github.com/ericswpark/shipper/compare/1.2.3...1.2.4
+[1.2.3]: https://github.com/ericswpark/shipper/compare/1.2.2...1.2.3
+[1.2.2]: https://github.com/ericswpark/shipper/compare/1.2.1...1.2.2
+[1.2.1]: https://github.com/ericswpark/shipper/compare/1.2.0...1.2.1
+[1.2.0]: https://github.com/ericswpark/shipper/compare/1.1.0...1.2.0
+[1.1.0]: https://github.com/ericswpark/shipper/compare/1.0.0...1.1.0
+[1.0.0]: https://github.com/ericswpark/shipper/compare/85a2753f7f234052b8bdf28e0dae98e5042fb99d...1.0.0
+
+
+
 

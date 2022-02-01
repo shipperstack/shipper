@@ -176,7 +176,9 @@ class Build(models.Model):
     mirrored_on = models.ManyToManyField(
         MirrorServer,
         related_name="builds",
-        help_text="Servers this build is mirrored on. Do not edit manually unless you know what you are doing!<br>",
+        help_text='Servers this build is mirrored on. Do NOT edit manually.<br>'
+                  'Incorrectly modifying this field may result in mirror servers showing for a given build, even if '
+                  'the build is not mirrored on said mirror server.',
         blank=True,
     )
     enabled = models.BooleanField(

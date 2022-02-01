@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
             name='build_date',
             field=models.DateField(null=True, help_text='Build date'),
         ),
-        migrations.RunPython(migrate_dates_from_build),
+        migrations.RunPython(migrate_dates_from_build, migrations.RunPython.noop),
         migrations.AlterField(
             model_name='build',
             name='build_date',

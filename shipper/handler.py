@@ -5,7 +5,7 @@ from .tasks import *
 def handle_chunked_build(device, chunked_file, md5_value):
     build_file_name, build_file_ext = os.path.splitext(chunked_file.filename)
     try:
-        _, version, codename, build_type, variant, date = build_file_name.split('-')
+        _, version, codename, build_type, variant, date = build_file_name.split(settings.SHIPPER_FILE_NAME_FORMAT_DELIMITER)
     except ValueError:
         raise UploadException('invalid_file_name')
 

@@ -19,6 +19,8 @@ from shipper.handler import handle_chunked_build
 from shipper.models import Device, Build
 
 
+from config import settings
+
 # Serializer for overriding success url
 class V1MaintainersChunkedUploadSerializer(ChunkedUploadSerializer):
     # noinspection SpellCheckingInspection
@@ -68,7 +70,7 @@ class V1MaintainersChunkedUpload(ChunkedUploadView):
 
 
 def get_codename_from_filename(filename):
-    fields = os.path.splitext(filename)[0].split('-')
+    fields = os.path.splitext(filename)[0].split(settings.SHIPPER_FILE_NAME_FORMAT_DELIMITER)
     # Check field count
     if len(fields) != 6:
         return None

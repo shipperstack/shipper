@@ -209,7 +209,7 @@ class Build(models.Model):
     )
 
     def get_user_friendly_name(self):
-        _, version, _, _, _, _ = self.file_name.split('-')
+        _, version, _, _, _, _ = self.file_name.split(settings.SHIPPER_FILE_NAME_FORMAT_DELIMITER)
         date = self.get_build_date().strftime('%Y-%m-%d')
         return "{} - {}".format(version, date)
 
@@ -228,7 +228,7 @@ class Build(models.Model):
 
     def get_build_date(self):
         from datetime import datetime
-        _, _, _, _, _, date = self.file_name.split('-')
+        _, _, _, _, _, date = self.file_name.split(settings.SHIPPER_FILE_NAME_FORMAT_DELIMITER)
         return datetime.strptime(date, '%Y%m%d')
 
     def __str__(self):

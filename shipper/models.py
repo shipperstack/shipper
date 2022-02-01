@@ -173,6 +173,9 @@ class Build(models.Model):
         max_length=20,
         help_text="One of the following variants: gapps, vanilla, goapps, foss"
     )
+    build_date = models.DateField(
+        help_text="Build date"
+    )
     mirrored_on = models.ManyToManyField(
         MirrorServer,
         related_name="builds",

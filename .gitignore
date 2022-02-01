@@ -150,3 +150,6 @@ ssh/
 
 # Ignore nginx htpasswd file
 nginx/.htpasswd
+
+# VS Code
+.vscode/

@@ -153,3 +153,6 @@ nginx/.htpasswd
 
 # VS Code
 .vscode/
+
+# Static folder
+static/

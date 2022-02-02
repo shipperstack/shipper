@@ -10,10 +10,9 @@ class DeviceAdmin(admin.ModelAdmin):
     search_fields = ['name', 'codename', 'manufacturer']
     ordering = ['-status', 'manufacturer', 'name']
 
+    @admin.display(description='Maintainers')
     def get_maintainers(self, obj):
         return ",".join([maintainer.username for maintainer in obj.maintainers.all()])
-
-    get_maintainers.short_description = 'Maintainers'
 
 
 class BuildAdmin(admin.ModelAdmin):

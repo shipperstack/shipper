@@ -21,21 +21,20 @@ class BuildAdmin(admin.ModelAdmin):
     list_filter = ['enabled']
     ordering = ['-created']
 
+    @admin.display(
+        description='Device',
+        ordering='device_name',
+    )
     def get_device_name(self, obj):
         return str(obj.device)
 
-    get_device_name.short_description = 'Device'
-    get_device_name.admin_order_field = 'device_name'
-
+    @admin.display(description='Maintainers')
     def get_build_device_maintainers(self, obj):
         return ",".join([maintainer.username for maintainer in obj.device.maintainers.all()])
 
-    get_build_device_maintainers.short_description = 'Maintainers'
-
+    @admin.display(description='Size')
     def get_human_readable_size(self, obj):
         return obj.get_human_readable_size()
-
-    get_human_readable_size.short_description = 'Size'
 
 
 class MirrorServerAdmin(admin.ModelAdmin):

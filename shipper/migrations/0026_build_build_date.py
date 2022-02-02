@@ -12,6 +12,7 @@ def migrate_dates_from_build(apps, schema_editor):
     for build in Builds.objects.all():
         _, _, _, _, _, date = build.file_name.split(settings.SHIPPER_FILE_NAME_FORMAT_DELIMITER)
         build.build_date = datetime.strptime(date, '%Y%m%d')
+        build.save()
 
 class Migration(migrations.Migration):
 

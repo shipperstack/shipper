@@ -32,16 +32,10 @@ def memcache_lock(lock_id, oid):
 
 @shared_task
 def process_incomplete_builds():
-    builds = Build.objects.filter(sha256sum__exact='')
-
-    for build in builds:
+    for build in Build.objects.filter(sha256sum__exact=''):
         generate_sha256.delay(build.id)
 
-    # Get all builds that are not mirrored on all enabled mirrors
-    enabled_mirrors = list(MirrorServer.objects.filter(enabled=True))
-    builds = Build.objects.exclude(mirrored_on__in=enabled_mirrors)
-
-    for build in builds:
+    for build in Build.objects.exclude(is_mirrored=True):
         backup_build.delay(build.id)
 
 

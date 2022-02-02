@@ -6,6 +6,26 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
+
+# [1.13.0] - 2022-02-02
+
+This release contains a database migration.
+This release contains a new configuration key.
+
+## Added
+- Added configuration key for file name delimiter
+- Added `build_date` field to Build model
+- Added target versions field to MirrorServer model for targeting build versions during mirroring
+- Added configuration key for admin emails
+
+## Changed
+- Updated `mirrored_on` description warning for the Build model
+- Allow for uploads up to 5 GB
+- Ignore SSH exceptions and authentication errors stemming from paramiko when reporting to Sentry
+- General code cleanup
+- Updated library dependencies
+
+
 # [1.12.0] - 2022-01-28
 
 This release contains a database migration.
@@ -720,7 +740,8 @@ This release contains a configuration key change.
 Initial release
 
 
-[Unreleased]: https://github.com/ericswpark/shipper/compare/1.12.0...HEAD
+[Unreleased]: https://github.com/ericswpark/shipper/compare/1.13.0...HEAD
+[1.13.0]: https://github.com/ericswpark/shipper/compare/1.12.0...1.13.0
 [1.12.0]: https://github.com/ericswpark/shipper/compare/1.11.2...1.12.0
 [1.11.2]: https://github.com/ericswpark/shipper/compare/1.11.1...1.11.2
 [1.11.1]: https://github.com/ericswpark/shipper/compare/1.11.0...1.11.1

@@ -62,7 +62,7 @@ def backup_build(self, build_id):
                 if mirror.target_versions == "":
                     continue
                 elif (mirror.target_versions != "*" and
-                      build.version not in mirror.target_versions.split(settings.SHIPPER_FILE_NAME_FORMAT_DELIMITER)):
+                      build.version not in mirror.target_versions.splitlines()):
                     continue
 
                 keydata = str.encode(mirror.ssh_host_fingerprint)

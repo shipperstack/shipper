@@ -142,13 +142,8 @@ class MirrorServer(models.Model):
         verbose_name='Target versions',
         blank=True,
         help_text='Build versions to mirror to this server.<br>'
-                  '* will mirror all versions. Specify multiple versions using the delimiter set in settings.<br>'
-                  'For example, if your delimiter setting is -, then you would specify multiple versions like '
-                  'VERSION8-VERSION9. <br>'
-                  'Warning: this field does not take a version range! For example, VERSION7-VERSION9 will not '
-                  'mirror versions 7 through 9. Rather, it will only mirror versions 7 and 9 and leave out '
-                  'version 8.<br>'
-                  'Example: v12.8, v12.8-v12.9, *, ...',
+                  '* will mirror all versions. Specify multiple versions on each line.<br>'
+                  'Example: v12.8, *, ...',
     )
 
     def __str__(self):
@@ -275,7 +270,7 @@ class Build(models.Model):
                 else:
                     has_mirror = True
             else:
-                if obj.version in target_versions.split(settings.SHIPPER_FILE_NAME_FORMAT_DELIMITER):
+                if self.version in target_versions.splitlines():
                     if mirror not in self.mirrored_on.all():
                         return False
                     else:

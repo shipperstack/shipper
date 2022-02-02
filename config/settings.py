@@ -148,7 +148,7 @@ EMAIL_HOST_PASSWORD = os.environ.get("SHIPPER_EMAIL_HOST_PASSWORD", default='')
 EMAIL_USE_TLS = int(os.environ.get("SHIPPER_EMAIL_USE_TLS", default=1))
 DEFAULT_FROM_EMAIL = os.environ.get("SHIPPER_DEFAULT_FROM_EMAIL", default='')
 
-ADMINS = os.environ.get("SHIPPER_ADMIN_EMAILS", default="").split(";")
+ADMINS = [tuple(i.split(":")) for i in os.environ.get("SHIPPER_ADMIN_EMAILS", default="").split(";")]
 MANAGERS = ADMINS
 
 # Internationalization

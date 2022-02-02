@@ -9,6 +9,7 @@ class DeviceAdmin(admin.ModelAdmin):
     list_filter = ['status']
     search_fields = ['name', 'codename', 'manufacturer']
     ordering = ['-status', 'manufacturer', 'name']
+    save_as = True
 
     @admin.display(description='Maintainers')
     def get_maintainers(self, obj):
@@ -41,6 +42,7 @@ class MirrorServerAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'description', 'hostname', 'enabled', 'downloadable']
     list_filter = ['enabled', 'downloadable']
     ordering = ['-enabled', '-downloadable']
+    save_as=True
 
 
 class StatisticsAdmin(admin.ModelAdmin):

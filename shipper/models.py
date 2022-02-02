@@ -249,6 +249,10 @@ class Build(models.Model):
     def is_processed(self):
         return self.sha256sum != ''
 
+    @admin.display(
+        description='Mirrored',
+        boolean=True,
+    )
     def is_mirrored(self):
         if self.mirrored_on.count() == 0:
             return False

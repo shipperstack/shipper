@@ -37,11 +37,11 @@ def process_incomplete_builds():
         generate_sha256.delay(build.id)
 
     for build in Build.objects.exclude(is_mirrored=True):
-        backup_build.delay(build.id)
+        mirror_build.delay(build.id)
 
 
 @shared_task(bind=True, default_retry_delay=60 * 60, autoretry_for=(TimeLimitExceeded,), retry_backoff=True)
-def backup_build(self, build_id):
+def mirror_build(self, build_id):
     build = Build.objects.get(id=build_id)
 
     # Setup lock
@@ -51,7 +51,7 @@ def backup_build(self, build_id):
             mirrors = MirrorServer.objects.filter(enabled=True)
 
             if len(mirrors) == 0:
-                print("No mirror servers found to back up to. Exiting...")
+                print("No mirror servers found to mirror to. Exiting...")
                 return
 
             for mirror in mirrors:
@@ -99,7 +99,7 @@ def backup_build(self, build_id):
                     build.mirrored_on.add(mirror)
                     build.save()
         else:
-            print(f"Build {build.file_name} is already being backed up by another process, exiting!")
+            print(f"Build {build.file_name} is already being mirrored by another process, exiting!")
 
 
 @shared_task

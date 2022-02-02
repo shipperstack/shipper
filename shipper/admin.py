@@ -2,8 +2,6 @@ from django.contrib import admin
 
 from .models import Device, Build, MirrorServer, Statistics
 
-from config import settings
-
 class DeviceAdmin(admin.ModelAdmin):
     list_display = ['id', 'manufacturer', 'name', 'codename', 'get_maintainers', 'status', 'created']
     list_filter = ['status']

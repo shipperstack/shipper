@@ -101,7 +101,7 @@ def backup_build(self, build_id):
                     build.mirrored_on.add(mirror)
                     build.save()
         else:
-            print("Build {} is already being backed up by another process, exiting!".format(build.file_name))
+            print(f"Build {build.file_name} is already being backed up by another process, exiting!")
 
 
 @shared_task

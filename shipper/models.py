@@ -9,6 +9,8 @@ from django.urls import reverse
 
 from config import settings
 
+from .utils import is_version_in_target_versions
+
 # Device Model
 class Device(models.Model):
     name = models.TextField(max_length=100, help_text="Example: 'Nexus 5X', 'Nexus 6P'")
@@ -144,10 +146,9 @@ class MirrorServer(models.Model):
         max_length=100,
         verbose_name='Target versions',
         blank=True,
-        help_text='Build versions to mirror to this server.<br>'
-                  '* will mirror all versions. Specify multiple versions on each line.<br>'
-                  'Warning: wildcarding is not supported. For example, v12.* will not work.<br>'
-                  'Example: v12.8, *, ...',
+        help_text='Build versions to mirror to this server. Specify multiple versions on each line.<br>'
+                  'Wildcards are supported with the "*" character.<br>'
+                  'Example: *, v12.*, v12.5, ...',
     )
 
     def __str__(self):
@@ -265,20 +266,11 @@ class Build(models.Model):
                 continue
 
             # Compare target version string
-            target_versions = mirror.target_versions
-            if target_versions == "":
-                continue
-            elif target_versions == "*":
+            if is_version_in_target_versions(self.version, mirror.target_versions):
                 if mirror not in self.mirrored_on.all():
                     return False
                 else:
                     has_mirror = True
-            else:
-                if self.version in target_versions.splitlines():
-                    if mirror not in self.mirrored_on.all():
-                        return False
-                    else:
-                        has_mirror = True
 
         return has_mirror
 

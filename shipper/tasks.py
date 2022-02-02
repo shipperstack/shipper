@@ -16,8 +16,9 @@ from django.db import transaction
 from paramiko.py3compat import decodebytes
 
 from config import settings
-from shipper.models import Build, MirrorServer
 
+from .models import Build, MirrorServer
+from .utils import is_version_in_target_versions
 
 @contextmanager
 def memcache_lock(lock_id, oid):
@@ -58,11 +59,7 @@ def backup_build(self, build_id):
                 if mirror in build.mirrored_on.all():
                     continue
 
-                # Check if mirror's target version matches that of the build
-                if mirror.target_versions == "":
-                    continue
-                elif (mirror.target_versions != "*" and
-                      build.version not in mirror.target_versions.splitlines()):
+                if not is_version_in_target_versions(build.version, mirror.target_versions):
                     continue
 
                 keydata = str.encode(mirror.ssh_host_fingerprint)

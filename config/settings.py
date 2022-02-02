@@ -225,6 +225,8 @@ if DEBUG == 1:
 else:
     sentry_transaction_rate = 0.2
 
+from paramiko import SSHException, AuthenticationException
+
 sentry_sdk.init(
     dsn=os.environ.get("SHIPPER_SENTRY_SDK_DSN", default=""),
     integrations=[DjangoIntegration()],
@@ -232,4 +234,5 @@ sentry_sdk.init(
     traces_sample_rate=sentry_transaction_rate,
     send_default_pii=os.environ.get("SHIPPER_SENTRY_SDK_PII", default=False),
     before_send=before_send,
+    ignore_errors=[SSHException, AuthenticationException],
 )

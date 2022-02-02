@@ -46,15 +46,15 @@ class Device(models.Model):
         return self.get_all_enabled_hashed_builds_of_variant(variant=variant)[0]
 
     def get_all_builds(self):
-        return sorted(self.builds.all(), key=lambda p: p.get_build_date(), reverse=True)
+        return sorted(self.builds.all(), key=lambda p: p.build_date, reverse=True)
 
     def get_all_enabled_hashed_builds(self):
-        return sorted(self.get_enabled_builds().exclude(sha256sum__exact='').all(), key=lambda p: p.get_build_date(),
+        return sorted(self.get_enabled_builds().exclude(sha256sum__exact='').all(), key=lambda p: p.build_date,
                       reverse=True)
 
     def get_all_enabled_hashed_builds_of_variant(self, variant):
         return sorted(self.get_enabled_builds().filter(variant=variant).exclude(sha256sum__exact='').all(),
-                      key=lambda p: p.get_build_date(), reverse=True)
+                      key=lambda p: p.build_date, reverse=True)
 
 
 # Mirror Server Model
@@ -213,7 +213,7 @@ class Build(models.Model):
 
     def get_user_friendly_name(self):
         _, version, _, _, _, _ = self.file_name.split(settings.SHIPPER_FILE_NAME_FORMAT_DELIMITER)
-        date = self.get_build_date().strftime('%Y-%m-%d')
+        date = self.build_date.strftime('%Y-%m-%d')
         return "{} - {}".format(version, date)
 
     def get_user_friendly_variant_name(self):
@@ -228,11 +228,6 @@ class Build(models.Model):
 
     def get_enabled_downloadable_mirrors(self):
         return self.mirrored_on.filter(enabled=True, downloadable=True).all().order_by('priority')
-
-    def get_build_date(self):
-        from datetime import datetime
-        _, _, _, _, _, date = self.file_name.split(settings.SHIPPER_FILE_NAME_FORMAT_DELIMITER)
-        return datetime.strptime(date, '%Y%m%d')
 
     def __str__(self):
         return self.file_name

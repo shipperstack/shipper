@@ -52,7 +52,7 @@ class V1UpdaterLOS(APIView):
 
         for build in builds:
             return_json.append({
-                "datetime": int(build.get_build_date().strftime("%s")),
+                "datetime": int(build.build_date.strftime("%s")),
                 "filename": "{}.zip".format(build.file_name),
                 "id": build.sha256sum,  # WHY
                 "size": build.size,

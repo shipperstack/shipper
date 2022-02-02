@@ -66,7 +66,7 @@ class V1GeneralBuildLatest(APIView):
 
         return Response(
             {
-                "datetime": int(build.get_build_date().strftime("%s")),
+                "datetime": int(build.build_date.strftime("%s")),
                 "filename": "{}.zip".format(build.file_name),
                 "sha256": build.sha256sum,
                 "size": build.size,

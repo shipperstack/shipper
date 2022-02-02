@@ -4,7 +4,7 @@ import datetime
 from auditlog.registry import auditlog
 from django.contrib.auth import get_user_model
 from django.db import models
-
+from django.contrib import admin
 
 # Device Model
 from config import settings
@@ -137,6 +137,19 @@ class MirrorServer(models.Model):
                   'Note: the main server does not have a priority value and will always be the first in the mirror '
                   'list.'
     )
+    target_versions = models.TextField(
+        max_length=100,
+        verbose_name='Target versions',
+        blank=True,
+        help_text='Build versions to mirror to this server.<br>'
+                  '* will mirror all versions. Specify multiple versions using the delimiter set in settings.<br>'
+                  'For example, if your delimiter setting is -, then you would specify multiple versions like '
+                  'VERSION8-VERSION9. <br>'
+                  'Warning: this field does not take a version range! For example, VERSION7-VERSION9 will not '
+                  'mirror versions 7 through 9. Rather, it will only mirror versions 7 and 9 and leave out '
+                  'version 8.<br>'
+                  'Example: v12.8, v12.8-v12.9, *, ...',
+    )
 
     def __str__(self):
         return self.name
@@ -228,6 +241,37 @@ class Build(models.Model):
 
     def get_downloadable_mirrors(self):
         return self.mirrored_on.filter(downloadable=True).all().order_by('priority')
+
+    @admin.display(boolean=True)
+    def is_mirrored(self):
+        if self.mirrored_on.count() == 0:
+            return False
+
+        has_mirror = False
+
+        for mirror in list(MirrorServer.objects.filter(enabled=True)):
+            # See if already mirrored
+            if mirror in self.mirrored_on.all():
+                has_mirror = True
+                continue
+
+            # Compare target version string
+            target_versions = mirror.target_versions
+            if target_versions == "":
+                continue
+            elif target_versions == "*":
+                if mirror not in self.mirrored_on.all():
+                    return False
+                else:
+                    has_mirror = True
+            else:
+                if obj.version in target_versions.split(settings.SHIPPER_FILE_NAME_FORMAT_DELIMITER):
+                    if mirror not in self.mirrored_on.all():
+                        return False
+                    else:
+                        has_mirror = True
+
+        return has_mirror
 
     def __str__(self):
         return self.file_name

@@ -146,6 +146,7 @@ class MirrorServer(models.Model):
         blank=True,
         help_text='Build versions to mirror to this server.<br>'
                   '* will mirror all versions. Specify multiple versions on each line.<br>'
+                  'Warning: wildcarding is not supported. For example, v12.* will not work.<br>'
                   'Example: v12.8, *, ...',
     )
 

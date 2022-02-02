@@ -42,20 +42,27 @@ def process_incomplete_builds():
 @shared_task(bind=True, default_retry_delay=60 * 60, autoretry_for=(TimeLimitExceeded,), retry_backoff=True)
 def backup_build(self, build_id):
     build = Build.objects.get(id=build_id)
-    mirrors = MirrorServer.objects.filter(enabled=True)
-
-    # Check if there are any servers to back up to
-    if len(mirrors) == 0:
-        print("No mirror servers found to back up to. Exiting...")
-        return
 
     # Setup lock
     lock_id = '{}-lock-{}'.format(self.name, build.id)
     with memcache_lock(lock_id, self.app.oid) as acquired:
         if acquired:
+            mirrors = MirrorServer.objects.filter(enabled=True)
+
+            if len(mirrors) == 0:
+                print("No mirror servers found to back up to. Exiting...")
+                return
+
             for mirror in mirrors:
                 # Check if a previous run has already completed a backup
                 if mirror in build.mirrored_on.all():
+                    continue
+
+                # Check if mirror's target version matches that of the build
+                if mirror.target_versions == "":
+                    continue
+                elif (mirror.target_versions != "*" and
+                      build.version not in mirror.target_versions.split(settings.SHIPPER_FILE_NAME_FORMAT_DELIMITER)):
                     continue
 
                 keydata = str.encode(mirror.ssh_host_fingerprint)

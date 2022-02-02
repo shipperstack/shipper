@@ -225,9 +225,7 @@ class Build(models.Model):
     )
 
     def get_user_friendly_name(self):
-        _, version, _, _, _, _ = self.file_name.split(settings.SHIPPER_FILE_NAME_FORMAT_DELIMITER)
-        date = self.build_date.strftime('%Y-%m-%d')
-        return "{} - {}".format(version, date)
+        return "{} - {}".format(self.version, self.build_date.strftime('%Y-%m-%d'))
 
     def get_user_friendly_variant_name(self):
         if self.variant in settings.SHIPPER_UPLOAD_VARIANTS:

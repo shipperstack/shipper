@@ -55,7 +55,7 @@
                 </td>
             </tr>
 
-            {% for mirror in object.get_enabled_downloadable_mirrors %}
+            {% for mirror in object.get_downloadable_mirrors %}
                 <tr>
                     <td>{{ mirror.name }}</td>
                     <td>{{ mirror.description }}</td>

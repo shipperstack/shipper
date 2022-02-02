@@ -7,6 +7,14 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
+# [1.13.2] - 2022-02-02
+
+This release contains a configuration key change.
+
+## Changed
+- Fixed an incorrect configuration option (`ADMINS`)
+
+
 # [1.13.1] - 2022-02-02
 
 This release contains a database migration.
@@ -749,7 +757,8 @@ This release contains a configuration key change.
 Initial release
 
 
-[Unreleased]: https://github.com/ericswpark/shipper/compare/1.13.1...HEAD
+[Unreleased]: https://github.com/ericswpark/shipper/compare/1.13.2...HEAD
+[1.13.2]: https://github.com/ericswpark/shipper/compare/1.13.1...1.13.2
 [1.13.1]: https://github.com/ericswpark/shipper/compare/1.13.0...1.13.1
 [1.13.0]: https://github.com/ericswpark/shipper/compare/1.12.0...1.13.0
 [1.12.0]: https://github.com/ericswpark/shipper/compare/1.11.2...1.12.0

@@ -7,7 +7,7 @@ from config import settings
 
 def migrate_dates_from_build(apps, schema_editor):
     from datetime import datetime
-    Builds = apps.get_model('shipper', 'Build')
+    Builds = apps.get_model('shipper', 'build')
     
     for build in Builds.objects.all():
         _, _, _, _, _, date = self.file_name.split(settings.SHIPPER_FILE_NAME_FORMAT_DELIMITER)

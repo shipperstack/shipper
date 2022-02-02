@@ -5,6 +5,7 @@ from auditlog.registry import auditlog
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.contrib import admin
+from django.urls import reverse
 
 from config import settings
 
@@ -54,6 +55,9 @@ class Device(models.Model):
     def get_all_enabled_hashed_builds_of_variant(self, variant):
         return sorted(self.get_enabled_builds().filter(variant=variant).exclude(sha256sum__exact='').all(),
                       key=lambda p: p.build_date, reverse=True)
+
+    def get_absolute_url(self):
+        return reverse('downloads_device', kwargs={'codename': self.codename})
 
 
 # Mirror Server Model
@@ -279,6 +283,9 @@ class Build(models.Model):
 
     def __str__(self):
         return self.file_name
+
+    def get_absolute_url(self):
+        return reverse('downloads_build', kwargs={'codename': self.device.codename, 'pk': self.id})
 
 
 # Download statistics

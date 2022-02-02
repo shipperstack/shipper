@@ -242,7 +242,13 @@ class Build(models.Model):
     def get_downloadable_mirrors(self):
         return self.mirrored_on.filter(downloadable=True).all().order_by('priority')
 
-    @admin.display(boolean=True)
+    @admin.display(
+        description='Processed',
+        boolean=True,
+    )
+    def is_processed(self):
+        return self.sha256sum != ''
+
     def is_mirrored(self):
         if self.mirrored_on.count() == 0:
             return False

@@ -21,12 +21,6 @@ class BuildAdmin(admin.ModelAdmin):
     list_filter = ['enabled']
     ordering = ['-created']
 
-    def is_processed(self, obj):
-        return obj.sha256sum != ''
-
-    is_processed.short_description = 'Processed'
-    is_processed.boolean = True
-
     def get_device_name(self, obj):
         return str(obj.device)
 

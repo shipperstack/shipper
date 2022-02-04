@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from .exceptions import *
 from .tasks import *
 
@@ -36,6 +38,7 @@ def handle_chunked_build(device, chunked_file, md5_value):
         size=os.path.getsize(target_file_full_path),
         version=version,
         variant=variant,
+        build_date=datetime.strptime(date, '%Y%m%d'),
         zip_file="{}/{}".format(device.codename, chunked_file.filename),
         md5_file="{}/{}.md5".format(device.codename, chunked_file.filename),
         enabled=True,

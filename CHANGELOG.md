@@ -7,6 +7,12 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
+# [1.13.3] - 2022-02-04
+
+## Changed
+- Fixed a bug with the build file handler preventing saving to the database and consequently all uploads
+
+
 # [1.13.2] - 2022-02-02
 
 This release contains a configuration key change.
@@ -757,7 +763,8 @@ This release contains a configuration key change.
 Initial release
 
 
-[Unreleased]: https://github.com/ericswpark/shipper/compare/1.13.2...HEAD
+[Unreleased]: https://github.com/ericswpark/shipper/compare/1.13.3...HEAD
+[1.13.3]: https://github.com/ericswpark/shipper/compare/1.13.2...1.13.3
 [1.13.2]: https://github.com/ericswpark/shipper/compare/1.13.1...1.13.2
 [1.13.1]: https://github.com/ericswpark/shipper/compare/1.13.0...1.13.1
 [1.13.0]: https://github.com/ericswpark/shipper/compare/1.12.0...1.13.0

@@ -36,9 +36,8 @@ def process_incomplete_builds():
     for build in Build.objects.filter(sha256sum__exact=''):
         generate_sha256.delay(build.id)
 
-    for build in Build.objects.all():
-        if not build.is_mirrored():
-            mirror_build.delay(build.id)
+    for build in [build for build in Build.objects.all() if not build.is_mirrored()]:
+        mirror_build.delay(build.id)
 
 
 @shared_task(bind=True, default_retry_delay=60 * 60, autoretry_for=(TimeLimitExceeded,), retry_backoff=True)

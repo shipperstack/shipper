@@ -1,6 +1,7 @@
 import os
 
 from django.contrib.auth import authenticate
+from django.contrib.auth.models import update_last_login
 
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
@@ -60,6 +61,9 @@ class V1MaintainersChunkedUpload(ChunkedUploadView):
                 status=HTTP_400_BAD_REQUEST
             )
 
+        # Upload was successful, update user's last login timestamp
+        update_last_login(None, self.request.user)
+
         return Response(
             {
                 'message': 'Build has been uploaded for device {}!'.format(device),
@@ -99,6 +103,11 @@ def v1_maintainers_login(request):
         },
             status=HTTP_404_NOT_FOUND
         )
+
+    # Update login timestamp
+    update_last_login(None, user)
+
+    # Generate and return token
     token, _ = Token.objects.get_or_create(user=user)
     return Response(
         {
@@ -123,6 +132,9 @@ def v1_system_info(_):
 @csrf_exempt
 @api_view(["GET"])
 def v1_maintainers_token_check(request):
+    # Update login timestamp
+    update_last_login(None, request.user)
+
     return Response(
         {
             'username': request.user.username
@@ -162,6 +174,9 @@ def v1_maintainers_build_enabled_status_modify(request):
     # Switch build status
     build.enabled = enable
     build.save()
+
+    # Update login timestamp
+    update_last_login(None, request.user)
 
     if enable:
         return Response(

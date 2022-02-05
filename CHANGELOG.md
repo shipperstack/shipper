@@ -7,6 +7,12 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
+# [1.13.6] - 2022-02-05
+
+## Changed
+- Fixed a bug with the build size display in the admin statistics page
+
+
 # [1.13.5] - 2022-02-05
 
 ## Changed
@@ -782,7 +788,8 @@ This release contains a configuration key change.
 Initial release
 
 
-[Unreleased]: https://github.com/ericswpark/shipper/compare/1.13.5...HEAD
+[Unreleased]: https://github.com/ericswpark/shipper/compare/1.13.6...HEAD
+[1.13.6]: https://github.com/ericswpark/shipper/compare/1.13.5...1.13.6
 [1.13.5]: https://github.com/ericswpark/shipper/compare/1.13.4...1.13.5
 [1.13.4]: https://github.com/ericswpark/shipper/compare/1.13.3...1.13.4
 [1.13.3]: https://github.com/ericswpark/shipper/compare/1.13.2...1.13.3

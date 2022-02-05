@@ -7,7 +7,7 @@ User = get_user_model()
 
 
 class Command(BaseCommand):
-    help = "De-initializes a full user by removing access to all enabled devices."
+    help = "De-initializes a full user by removing access to all devices."
 
     def add_arguments(self, parser):
         parser.add_argument('username', nargs=1, action='store', help='Username of user to be de-init')
@@ -27,9 +27,7 @@ class Command(BaseCommand):
                 return
 
             # Remove user from all existing devices
-            devices = Device.objects.filter(status=True)
-
-            for device in devices:
+            for device in Device.objects.all():
                 self.stdout.write("Removing device {}... ".format(device), ending='')
 
                 # Check if user is already a maintainer
@@ -39,7 +37,7 @@ class Command(BaseCommand):
                     device.maintainers.remove(user)
                     self.stdout.write(self.style.SUCCESS("Removed"))
 
-            self.stdout.write("The specified user has been removed from all enabled devices!")
+            self.stdout.write("The specified user has been removed from all devices!")
         else:
             self.stdout.write("Exiting...")
             return

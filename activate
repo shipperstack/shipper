@@ -9,6 +9,7 @@ helpme () {
     dcup => docker-compose up -d
     dcdown => docker-compose down
     dcrestart => docker-compose down && docker-compose up -d
+    dcx <subsystem> <command> => docker-compose exec <subsystem> <command>
     
   setversion <version number> => sets the VERSION_TAG environment variable
   setlatest => sets the VERSION_TAG environment variable to the latest version available on GitHub
@@ -20,6 +21,7 @@ helpme () {
     dcdup => docker-compose -f docker-compose.dev.yml up -d --build
     dcddown => docker-compose -f docker-compose.dev.yml down
     dcdrestart => docker-compose -f docker-compose.dev.yml down && docker-compose -f docker-compose.dev.yml up -d --build
+    dcdx <subsystem> <command> => docker-compose -f docker-compose.dev.yml exec <subsystem> <command>
     dcdsetup => docker-compose -f docker-compose.dev.yml exec web python3 manage.py migrate --noinput && docker-compose -f docker-compose.dev.yml exec web python3 manage.py collectstatic --no-input --clear
 HELP_USAGE
 }
@@ -28,10 +30,12 @@ alias dc='docker-compose'
 alias dcup='docker-compose up -d'
 alias dcdown='docker-compose down'
 alias dcrestart='docker-compose down && docker-compose up -d'
+alias dcx='docker-compose exec'
 alias dcd='docker-compose -f docker-compose.dev.yml'
 alias dcdup='docker-compose -f docker-compose.dev.yml up -d --build'
 alias dcddown='docker-compose -f docker-compose.dev.yml down'
 alias dcdrestart='docker-compose -f docker-compose.dev.yml down && docker-compose -f docker-compose.dev.yml up -d --build'
+alias dcdx='docker-compose -f docker-compose.dev.yml exec'
 alias dcdsetup='docker-compose -f docker-compose.dev.yml exec web python3 manage.py migrate --noinput && docker-compose -f docker-compose.dev.yml exec web python3 manage.py collectstatic --no-input --clear'
 
 function setversion {

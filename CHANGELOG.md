@@ -7,6 +7,17 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
+# [1.13.4] - 2022-02-05
+
+## Changed
+- Fixed an incorrect database query searching for unmirrored builds preventing the mirroring of builds
+- Fixed an incorrect database query searching for unmirrored builds preventing the manual mirroring of builds through admin commands
+- shipper now updates the login timestamps on all authenticated API actions
+- Fixed admin page to show all possible variants given by the configuration
+- The `deinit_full_user` command now includes disabled devices for removal
+- General code cleanup
+
+
 # [1.13.3] - 2022-02-04
 
 ## Changed

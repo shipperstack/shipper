@@ -184,7 +184,7 @@ class Build(models.Model):
     )
     variant = models.TextField(
         max_length=20,
-        help_text="One of the following variants: gapps, vanilla, goapps, foss"
+        help_text="Variant of the build. Allowed values are set in the server configuration."
     )
     build_date = models.DateField(
         help_text="Build date"

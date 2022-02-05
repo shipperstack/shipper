@@ -7,6 +7,12 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
+# [1.13.5] - 2022-02-05
+
+## Changed
+- Fixed a 500 server error in the admin statistics page
+
+
 # [1.13.4] - 2022-02-05
 
 This release contains a database migration.
@@ -776,7 +782,8 @@ This release contains a configuration key change.
 Initial release
 
 
-[Unreleased]: https://github.com/ericswpark/shipper/compare/1.13.4...HEAD
+[Unreleased]: https://github.com/ericswpark/shipper/compare/1.13.5...HEAD
+[1.13.5]: https://github.com/ericswpark/shipper/compare/1.13.4...1.13.5
 [1.13.4]: https://github.com/ericswpark/shipper/compare/1.13.3...1.13.4
 [1.13.3]: https://github.com/ericswpark/shipper/compare/1.13.2...1.13.3
 [1.13.2]: https://github.com/ericswpark/shipper/compare/1.13.1...1.13.2
@@ -852,7 +859,3 @@ Initial release
 [1.2.0]: https://github.com/ericswpark/shipper/compare/1.1.0...1.2.0
 [1.1.0]: https://github.com/ericswpark/shipper/compare/1.0.0...1.1.0
 [1.0.0]: https://github.com/ericswpark/shipper/compare/85a2753f7f234052b8bdf28e0dae98e5042fb99d...1.0.0
-
-
-
-

@@ -776,7 +776,8 @@ This release contains a configuration key change.
 Initial release
 
 
-[Unreleased]: https://github.com/ericswpark/shipper/compare/1.13.3...HEAD
+[Unreleased]: https://github.com/ericswpark/shipper/compare/1.13.4...HEAD
+[1.13.4]: https://github.com/ericswpark/shipper/compare/1.13.3...1.13.4
 [1.13.3]: https://github.com/ericswpark/shipper/compare/1.13.2...1.13.3
 [1.13.2]: https://github.com/ericswpark/shipper/compare/1.13.1...1.13.2
 [1.13.1]: https://github.com/ericswpark/shipper/compare/1.13.0...1.13.1

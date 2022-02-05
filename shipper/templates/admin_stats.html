@@ -21,26 +21,9 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td><strong>Vanilla</strong></td>
-            <td>{{ vanilla_builds_count }} builds</td>
-            <td>{{ vanilla_builds_size }}</td>
-        </tr>
-        <tr>
-            <td><strong>GApps</strong></td>
-            <td>{{ gapps_builds_count }} builds</td>
-            <td>{{ gapps_builds_size }}</td>
-        </tr>
-        <tr>
-            <td><strong>FOSS</strong></td>
-            <td>{{ foss_builds_count }} builds</td>
-            <td>{{ foss_builds_size }}</td>
-        </tr>
-        <tr>
-            <td><strong>GoApps</strong></td>
-            <td>{{ goapps_builds_count }} builds</td>
-            <td>{{ goapps_builds_size }}</td>
-        </tr>
+        {% for variant in upload_variants %}
+            {% admin_stats_variant_row variant=variant %}
+        {% endfor %}
         </tbody>
         <tfoot>
         <tr>

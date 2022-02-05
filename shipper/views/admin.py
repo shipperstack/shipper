@@ -10,12 +10,12 @@ from shipper.models import Device, Build
 User = get_user_model()
 
 
-def get_total_size(build_list):
+def get_humanized_total_size(build_list):
     total_size = 0
     for build in build_list:
         total_size += build.size
 
-    return total_size
+    return humanize.naturalsize(total_size)
 
 
 class AdminStatisticsView(PermissionRequiredMixin, TemplateView):
@@ -26,7 +26,6 @@ class AdminStatisticsView(PermissionRequiredMixin, TemplateView):
         devices = Device.objects.all()
         maintainers = User.objects.all()
         builds = Build.objects.all()
-        builds_size = get_total_size(builds)
 
         data = {
             'enabled_devices_count': devices.filter(status=True).count(),
@@ -34,7 +33,7 @@ class AdminStatisticsView(PermissionRequiredMixin, TemplateView):
             'disabled_devices_count': devices.filter(status=False).count(),
             'inactive_maintainers_count': maintainers.filter(is_active=False).count(),
             'builds_count': builds.count(),
-            'builds_size': humanize.naturalsize(builds_size),
+            'builds_size': get_humanized_total_size(builds),
         }
 
         return render(request, self.template_name, data)

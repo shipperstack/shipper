@@ -9,6 +9,8 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [1.13.4] - 2022-02-05
 
+This release contains a database migration.
+
 ## Changed
 - Fixed an incorrect database query searching for unmirrored builds preventing the mirroring of builds
 - Fixed an incorrect database query searching for unmirrored builds preventing the manual mirroring of builds through admin commands

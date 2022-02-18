@@ -36,7 +36,17 @@ class V1MaintainersChunkedUpload(ChunkedUploadView):
         Validates chunked upload and transfers to handler
         """
         device_codename = get_codename_from_filename(chunked_upload.filename)
-        device = get_object_or_404(Device, codename=device_codename)
+        try:
+            device = Device.objects.get(codename=device_codename)
+        except Device.DoesNotExist:
+            chunked_upload.delete()
+            return Response(
+                {
+                    'error': 'unknown_device',
+                    'message': 'The specified device does not exist!'
+                },
+                status=HTTP_404_NOT_FOUND
+            )
 
         # Check if maintainer is in device's approved maintainers list
         if self.request.user not in device.maintainers.all():

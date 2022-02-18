@@ -5,11 +5,17 @@ from .tasks import *
 
 
 def handle_chunked_build(device, chunked_file, md5_value):
-    build_file_name, build_file_ext = os.path.splitext(chunked_file.filename)
-    try:
-        _, version, codename, build_type, variant, date = build_file_name.split(settings.SHIPPER_FILE_NAME_FORMAT_DELIMITER)
-    except ValueError:
+    # Use regexp to match sections of the filename
+    pattern = re.compile(settings.SHIPPER_FILE_NAME_FORMAT)
+    m = p.search(chunked_file.filename)
+
+    if not m:
         raise UploadException('invalid_file_name')
+
+    version = m.group("version")
+    codename = m.group("codename")
+    variant = m.group("variant")
+    date = m.group("date")
 
     file_name_validity_check(device, build_file_name, build_type, codename, variant)
 

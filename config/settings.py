@@ -42,7 +42,7 @@ SHIPPER_UPLOAD_VARIANTS = ast.literal_eval(os.environ.get("SHIPPER_UPLOAD_VARIAN
                                                                                              '"goapps": "GoApps ('
                                                                                              'Android Go Edition '
                                                                                              'GApps)"}'))
-SHIPPER_FILE_NAME_FORMAT_DELIMITER = os.environ.get("SHIPPER_FILE_NAME_FORMAT_DELIMITER", default="-")
+SHIPPER_FILE_NAME_FORMAT = os.environ.get("SHIPPER_FILE_NAME_FORMAT")
 
 # Application definition
 # noinspection SpellCheckingInspection

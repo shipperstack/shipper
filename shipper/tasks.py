@@ -14,8 +14,7 @@ from django.core.cache import cache
 from django.db import transaction
 # noinspection PyPackageRequirements
 from paramiko.py3compat import decodebytes
-
-from config import settings
+from django.conf import settings
 
 from .models import Build, MirrorServer
 from .utils import is_version_in_target_versions

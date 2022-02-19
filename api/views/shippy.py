@@ -2,7 +2,7 @@ import os
 
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import update_last_login
-
+from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 
@@ -14,13 +14,12 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.status import HTTP_401_UNAUTHORIZED, HTTP_400_BAD_REQUEST, HTTP_200_OK, HTTP_404_NOT_FOUND
 
-from config.settings import SHIPPER_VERSION
 from shipper.exceptions import *
 from shipper.handler import handle_chunked_build
 from shipper.models import Device, Build
 
 
-from config import settings
+from django.conf import settings
 
 # Serializer for overriding success url
 class V1MaintainersChunkedUploadSerializer(ChunkedUploadSerializer):
@@ -134,7 +133,7 @@ def v1_maintainers_login(request):
 def v1_system_info(_):
     return Response(
         {
-            'version': SHIPPER_VERSION
+            'version': settings.SHIPPER_VERSION
         }
     )
 

@@ -1,8 +1,8 @@
 import re
 
 from fnmatch import fnmatch
+from django.conf import settings
 
-from config import settings
 
 def is_version_in_target_versions(version, target_versions):
     if target_versions == "":

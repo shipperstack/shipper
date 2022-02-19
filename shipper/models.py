@@ -7,7 +7,7 @@ from django.db import models
 from django.contrib import admin
 from django.urls import reverse
 
-from config import settings
+from django.conf import settings
 
 from .utils import is_version_in_target_versions
 

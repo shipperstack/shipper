@@ -6,7 +6,7 @@ from rest_framework.status import HTTP_200_OK, HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
 
 from api.views import variant_check
-from config import settings
+from django.conf import settings
 from shipper.models import Device, Build
 
 

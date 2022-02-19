@@ -1,6 +1,6 @@
 from django import template
 
-from config import settings
+from django.conf import settings
 
 from shipper.views import get_humanized_total_size
 from shipper.models import Build

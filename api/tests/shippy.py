@@ -1,10 +1,10 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
+from django.conf import settings
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APITestCase, APIRequestFactory, APIClient
 
 from api.views import v1_system_info, v1_maintainers_login, exception_to_message
-from config.settings import SHIPPER_VERSION
 from shipper.models import Build, Device
 from shipper.tests import mock_devices_setup, mock_builds_setup
 
@@ -35,7 +35,7 @@ class ShippyTestCase(APITestCase):
         response = v1_system_info(request)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data['version'], SHIPPER_VERSION)
+        self.assertEqual(response.data['version'], settings.SHIPPER_VERSION)
 
     def test_v1_maintainers_login(self):
         request = self.factory.post("/api/v1/maintainers/login/", data=self.credentials)

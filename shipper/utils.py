@@ -11,6 +11,10 @@ def is_version_in_target_versions(version, target_versions):
     if target_versions == "*":
         return True
 
+    # Raise exception if supplied version includes a wildcard character
+    if "*" in version:
+        raise Exception
+
     target_versions = target_versions.splitlines()
     for target_version in target_versions:
         if "*" in target_version:

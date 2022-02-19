@@ -17,7 +17,7 @@ def handle_chunked_build(device, chunked_file, md5_value):
     variant = m.group("variant")
     date = m.group("date")
 
-    file_name_validity_check(device, build_file_name, build_type, codename, variant)
+    file_name_validity_check(build_file_name, variant)
 
     target_file_full_path = os.path.join(settings.MEDIA_ROOT, device.codename, chunked_file.filename)
 
@@ -65,13 +65,7 @@ def build_background_processing(build_id):
     mirror_build.delay(build_id)
 
 
-def file_name_validity_check(device, build_file_name, build_type, codename, variant):
-    if build_type != "OFFICIAL":
-        raise UploadException('not_official')
-
-    if codename != device.codename:
-        raise UploadException('codename_mismatch')
-
+def file_name_validity_check(build_file_name, variant):
     if Build.objects.filter(file_name=build_file_name).count() >= 1:
         raise UploadException('duplicate_build')
 

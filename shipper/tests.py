@@ -80,37 +80,9 @@ class ShipperHandlerTestCase(TestCase):
         mock_builds_setup()
 
     def test_file_name_validity_check(self):
-        devices = get_mock_devices()
         with self.assertRaises(UploadException):
             file_name_validity_check(
-                device=devices["bullhead"],
                 build_file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200609",
-                build_type="official",
-                codename="bullhead",
-                variant="gapps",
-            )
-        with self.assertRaises(UploadException):
-            file_name_validity_check(
-                device=devices["bullhead"],
-                build_file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200609",
-                build_type="OFFICIAL",
-                codename="angler",
-                variant="gapps",
-            )
-        with self.assertRaises(UploadException):
-            file_name_validity_check(
-                device=devices["bullhead"],
-                build_file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200608",
-                build_type="OFFICIAL",
-                codename="bullhead",
-                variant="gapps",
-            )
-        with self.assertRaises(UploadException):
-            file_name_validity_check(
-                device=devices["bullhead"],
-                build_file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200609",
-                build_type="OFFICIAL",
-                codename="bullhead",
                 variant="unknown",
             )
 

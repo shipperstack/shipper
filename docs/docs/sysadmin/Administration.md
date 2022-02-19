@@ -6,9 +6,9 @@
 
 Calculates build hashes for builds that do not have them (maybe interrupted mid-upload)
 
-### `upload_backups`
+### `mirror_builds`
 
-Uploads build backups to all enabled mirror servers if the builds have not been backed up before
+Mirrors builds that have not been mirrored yet to the appropriate mirror servers
 
 ### `init_full_user` <`username`>
 

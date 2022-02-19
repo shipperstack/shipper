@@ -50,6 +50,9 @@ Copy the `.env.example` file and set the values:
     - Allowed upload variant pairing in JSON format
     - Format: `{"variant": "variant_friendly_name", "different_variant": "different_variant_friendly_name", ...}`
     - Default: `{"gapps": "GApps","vanilla": "Vanilla (no GApps)","foss": "FOSS","goapps": "GoApps (Android Go Edition GApps)"}`
+  - `SHIPPER_FILE_NAME_FORMAT_DELIMITER`
+    - Delimiter to use when splitting and parsing filenames
+    - Default: `-`
 
 ### Database
   - `SHIPPER_SQL_ENGINE`

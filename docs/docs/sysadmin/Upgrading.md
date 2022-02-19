@@ -10,23 +10,38 @@ Run the `update-shipper.sh` script located at the root of the repository. Note t
 
 If you are on release version ______ and would like to upgrade...
 
+### ≤ 1.13.1
+
+Changed the format of the configuration key `SHIPPER_ADMIN_EMAILS`: now it requires you to specify the admin name as well.
+
+Please [refer to the wiki for more information][configuration].
+
+### ≤ 1.12.0
+
+Several new configuration keys have been added:
+
+- `SHIPPER_FILE_NAME_FORMAT_DELIMITER`
+- `SHIPPER_ADMIN_EMAILS`
+
+Please [refer to the wiki for more information][configuration].
+
 ### ≤ 1.10.3
 
 The `SHIPPER_UPLOAD_VARIANTS` key has been changed to accept a JSON of variants and user-friendly variant names. In addition, the `SHIPPER_MAIN_WEBSITE_URL` default has been changed, and the default value will prevent the button from showing.
 
-Please [refer to the wiki for more information](Configuration).
+Please [refer to the wiki for more information][configuration].
 
 ### ≤ 1.9.16
 
 A key to configure the variants shipper accepts when uploading builds (`SHIPPER_UPLOAD_VARIANTS`) has been added.
 
-Please [refer to the wiki for more information](Configuration).
+Please [refer to the wiki for more information][configuration].
 
 ### ≤ 1.9.9
 
 Two new security keys have been added to the configuration, `SHIPPER_CSRF_COOKIE_SECURE` and `SHIPPER_SESSION_COOKIE_SECURE`. Please set them to 0 for development and 1 for production. If you forget to set them, they will default to 1, which is great for production but not for development (unless you have HTTPS set up).
 
-Please [refer to the wiki for more information](Configuration).
+Please [refer to the wiki for more information][configuration].
 
 ### ≤ 1.9.3
 
@@ -46,7 +61,7 @@ shipper now has more configuration keys regarding email. You need to add the fol
  - `SHIPPER_EMAIL_USE_TLS`
  - `SHIPPER_DEFAULT_FROM_EMAIL`
 
-Please [refer to the wiki for more information](Configuration).
+Please [refer to the wiki for more information][configuration].
 
 ### ≤ 1.8.2
 
@@ -103,7 +118,7 @@ docker-compose exec web python manage.py migrate --noinput # should be changed f
 docker-compose exec web python3 manage.py migrate --noinput # should be changed to
 ```
 
-Please [refer to the wiki for more information](Configuration).
+Please [refer to the wiki for more information][configuration].
 
 ### ≤ 1.4.4
 
@@ -113,3 +128,6 @@ Please [refer to the wiki for more information](Configuration).
 
  - Rename `.env.prod` to `.env` and `.env.prod.db` to `.env.db`.
  - If any of your deployment scripts uses the flags `-f docker-compose.prod.yml --build`, remove these two flags. They are no longer necessary.
+
+
+[configuration]: Configuration.md

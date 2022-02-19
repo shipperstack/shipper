@@ -14,11 +14,11 @@ Before installing, create the configuration files by [following the instructions
 * `shipper/.env`
 * `shipper/.env.db`
 * `shipper/nginx/nginx.conf`
-* `shipper/ssh/ssh_key` (only required if `SHIPPER_ENABLE_SF_BACKUP` is set, otherwise just leave the `ssh` directory empty)
+* `shipper/ssh/ssh_keys_here` (required if you will use mirror servers to mirror your builds, otherwise leave the `shipper/ssh/` directory empty)
 
 Once you have everything set up, run the following commands inside the `shipper/` directory:
 
-    export VERSION_TAG=1.6.4 # or latest version from release tab
+    export VERSION_TAG=1.13.6 # or latest version from release tab
     docker-compose up -d
 
 By the time you're reading this it's possible there is a new release, so change the `VERSION_TAG` variable above with the latest release found in [GitHub's release tab.](https://github.com/ericswpark/shipper/releases/latest/)

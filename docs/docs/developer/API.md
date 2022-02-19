@@ -1,9 +1,13 @@
-# Warning!
-shipper/shippy's API schema is not stable and can change at any time. Please proceed with caution when using these API endpoints, and keep in mind that they may change or disappear in the future.
+# API
 
-# v1 endpoints
+This page documents the API endpoints exposed by shipper.
 
-## Statistics
+!!! warning
+    shipper/shippy's API schema is currently not stable and can change at any time. Please proceed with caution when using these API endpoints, and keep in mind that they may change or disappear in the future.
+
+## v1 endpoints
+
+### Statistics
 
  - `https://host/api/v1/download/build/counter/`
 
@@ -27,7 +31,7 @@ Returns the number of downloads shipper has served in the last 31 days.
 
 Returns the number of downloads shipper has served, all time.
 
-## shippy
+### shippy
 
 The following endpoints are used by [shippy, a tool to help maintainers upload builds to shipper.](https://github.com/ericswpark/shippy)
 
@@ -61,7 +65,7 @@ Returns a 200 with the enable/disable status if successful.
 
 This endpoint will throw a 400 if one or more of the required fields are missing and a 401 if you are unauthorized to modify builds.
 
-## Updater
+### Updater
 
  - `https://host/api/v1/updater/los/<slug:codename>/<slug:variant>/`
 
@@ -69,7 +73,7 @@ This fetches all build objects for the device with the specified `codename` and 
 
 This endpoint will throw a 404 if the device is not found or if there are no builds for the specified variant and a 400 if the supplied variant name is invalid.
 
-## General
+### General
 
 These are general endpoints used to query information on devices and builds.
 

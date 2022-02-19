@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from .exceptions import *
+from .exceptions import UploadException
 from .tasks import *
 
 

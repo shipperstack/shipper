@@ -3,8 +3,6 @@
 from django.db import migrations, models
 import django.utils.timezone
 
-from config import settings
-
 def migrate_dates_from_build(apps, schema_editor):
     from datetime import datetime
     Builds = apps.get_model('shipper', 'build')

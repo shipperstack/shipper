@@ -15,7 +15,7 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_401_UNAUTHORIZED, HTTP_400_BAD_REQUEST, HTTP_200_OK, HTTP_404_NOT_FOUND
 
 from config.settings import SHIPPER_VERSION
-from shipper.exceptions import UploadException
+from shipper.exceptions import *
 from shipper.handler import handle_chunked_build
 from shipper.models import Device, Build
 
@@ -61,7 +61,7 @@ class V1MaintainersChunkedUpload(ChunkedUploadView):
 
         try:
             build_id = handle_chunked_build(device, chunked_upload, request.POST.get('md5'))
-        except UploadException as exception:
+        except (UploadException, RegexParseException) as exception:
             chunked_upload.delete()
             return Response(
                 {

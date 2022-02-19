@@ -142,4 +142,4 @@ Run the following within the `nginx/` configuration directory:
 htpasswd -c .htpasswd admin # or any username you prefer
 ```
 
-Once you're done configuring shipper, [move to the Installation section to install with Docker](Installation)!
+Once you're done configuring shipper, [move to the Installation section to install with Docker](Installation.md)!

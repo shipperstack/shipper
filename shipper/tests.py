@@ -4,6 +4,7 @@ from django.test import TestCase
 from shipper.exceptions import UploadException
 from shipper.handler import file_name_validity_check
 from shipper.models import Device, Build
+from .utils import *
 
 
 class ShipperDeviceTestCase(TestCase):
@@ -85,6 +86,34 @@ class ShipperHandlerTestCase(TestCase):
                 build_file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200609",
                 variant="unknown",
             )
+
+
+class ShipperUtilsTestCase(TestCase):
+    def test_is_version_in_target_versions_empty_target_versions(self):
+        self.assertFalse(is_version_in_target_versions("v12.5", ""))
+
+    def test_is_version_in_target_versions_all_target_versions(self):
+        self.assertTrue(is_version_in_target_versions("v12.5", "*"))
+        self.assertTrue(is_version_in_target_versions("v10.1", "*"))
+
+    def test_is_version_in_target_versions_wildcard_matching(self):
+        self.assertTrue(is_version_in_target_versions("v12.5", "v12.*"))
+        self.assertTrue(is_version_in_target_versions("v12.20", "v12.*"))
+        self.assertTrue(is_version_in_target_versions("v12.108", "v12.*"))
+        self.assertTrue(is_version_in_target_versions("v12.5", "v12.*\nv11.8"))
+        self.assertTrue(is_version_in_target_versions("v12.20", "v12.*\nv11.8"))
+        self.assertTrue(is_version_in_target_versions("v12.108", "v12.*\nv11.8"))
+        self.assertFalse(is_version_in_target_versions("v12.5", "v11.*"))
+        self.assertFalse(is_version_in_target_versions("v12.20", "v11.*"))
+        self.assertFalse(is_version_in_target_versions("v12.108", "v11.*"))
+
+    def test_is_version_in_target_versions_exact_matching(self):
+        self.assertTrue(is_version_in_target_versions("v12.5", "v12.5"))
+        self.assertFalse(is_version_in_target_versions("v12.5", "v12.6"))
+
+    def test_is_version_in_target_versions_invalid_wildcard_version(self):
+        with self.assertRaises(Exception):
+            is_version_in_target_versions("v12.*", "v12.*")
 
 
 def mock_devices_setup():

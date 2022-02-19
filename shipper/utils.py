@@ -37,7 +37,7 @@ def parse_filename_with_regex(filename):
 
     return {
         'version': matches.group("version"),
-        'codename': m.group("codename"),
-        'variant': m.group("variant"),
-        'date': m.group("date")
+        'codename': matches.group("codename"),
+        'variant': matches.group("variant"),
+        'date': matches.group("date")
     }

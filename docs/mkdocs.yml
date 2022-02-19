@@ -17,6 +17,14 @@ nav:
         - 'Development': 'developer/Development.md'
         - 'API': 'developer/API.md'
 
+extra:
+  version:
+    provider: mike
+
+plugins:
+  - mike:
+      version_selector: true
+
 markdown_extensions:
     - toc:
         permalink: "#"

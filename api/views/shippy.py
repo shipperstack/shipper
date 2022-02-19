@@ -84,7 +84,7 @@ class V1MaintainersChunkedUpload(ChunkedUploadView):
 
 
 def get_codename_from_filename(filename):
-    fields = os.path.splitext(filename)[0].split(settings.SHIPPER_FILE_NAME_FORMAT_DELIMITER)
+    fields = os.path.splitext(filename)[0].split('-')
     # Check field count
     if len(fields) != 6:
         return None

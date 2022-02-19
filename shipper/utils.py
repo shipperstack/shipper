@@ -3,6 +3,7 @@ import re
 from fnmatch import fnmatch
 from django.conf import settings
 
+from .exceptions import RegexParseException
 
 def is_version_in_target_versions(version, target_versions):
     if target_versions == "":
@@ -29,9 +30,14 @@ def is_version_in_target_versions(version, target_versions):
 
 def parse_filename_with_regex(filename):
     pattern = re.compile(settings.SHIPPER_FILE_NAME_FORMAT)
-    m = p.search(filename)
+    matches = pattern.search(filename)
 
-    if not m:
+    if not matches:
         raise RegexParseException('invalid_file_name')
 
-    return {'version': m.group("version"), 'codename': m.group("codename"), 'variant': m.group("variant"), 'date': m.group("date")}
+    return {
+        'version': matches.group("version"),
+        'codename': m.group("codename"),
+        'variant': m.group("variant"),
+        'date': m.group("date")
+    }

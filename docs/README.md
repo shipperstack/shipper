@@ -16,7 +16,7 @@ mike serve
 Deploy new versions with the following commands:
 
 ```
-mike deploy --push --update-aliases 1.2.3 latest        # substitute 1.2.3 with version string
+mike deploy --push --update-aliases 1.2 latest        # substitute 1.2 with version string
 ```
 
 ## Contributing

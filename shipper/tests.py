@@ -115,14 +115,14 @@ class ShipperUtilsTestCase(TestCase):
         with self.assertRaises(Exception):
             is_version_in_target_versions("v12.*", "v12.*")
 
+    @override_settings(SHIPPER_FILE_NAME_FORMAT='[A-Za-z]*-(?P<version>[a-z0-9.]*)-(?P<codename>[A-Za-z]*)-OFFICIAL-(?P<variant>[a-z]*)-(?P<date>[0-9]*).zip')
     def test_parse_filename_with_regex_invalid_filename(self):
-        with self.settings(SHIPPER_FILE_NAME_FORMAT='[A-Za-z]*-(?P<version>[a-z0-9.]*)-(?P<codename>[A-Za-z]*)-OFFICIAL-(?P<variant>[a-z]*)-(?P<date>[0-9]*).zip'):
-            with self.assertRaises(RegexParseException):
-                parse_filename_with_regex("whatever.zip")
-            with self.assertRaises(RegexParseException):
-                parse_filename_with_regex("Bliss-v12.8-bullhead-OFFICIAL-gapps-20210820.mp4")
-            with self.assertRaises(RegexParseException):
-                parse_filename_with_regex("Bliss-bullhead-v12.8-OFFICIAL-gapps-20210820.zip")
+        with self.assertRaises(RegexParseException):
+            parse_filename_with_regex("whatever.zip")
+        with self.assertRaises(RegexParseException):
+            parse_filename_with_regex("Bliss-v12.8-bullhead-OFFICIAL-gapps-20210820.mp4")
+        with self.assertRaises(RegexParseException):
+            parse_filename_with_regex("Bliss-bullhead-v12.8-OFFICIAL-gapps-20210820.zip")
 
 
 def mock_devices_setup():

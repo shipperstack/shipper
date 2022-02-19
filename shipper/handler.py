@@ -2,22 +2,13 @@ from datetime import datetime
 
 from .exceptions import UploadException
 from .tasks import *
+from .utils import parse_filename_with_regex
 
 
 def handle_chunked_build(device, chunked_file, md5_value):
-    # Use regexp to match sections of the filename
-    pattern = re.compile(settings.SHIPPER_FILE_NAME_FORMAT)
-    m = p.search(chunked_file.filename)
+    filename_parts = parse_filename_with_regex(chunked_file.filename)
 
-    if not m:
-        raise UploadException('invalid_file_name')
-
-    version = m.group("version")
-    codename = m.group("codename")
-    variant = m.group("variant")
-    date = m.group("date")
-
-    file_name_validity_check(build_file_name, variant)
+    file_name_validity_check(os.path.splitext(chunked_file.filename)[0], filename_parts['variant'])
 
     target_file_full_path = os.path.join(settings.MEDIA_ROOT, device.codename, chunked_file.filename)
 
@@ -42,9 +33,9 @@ def handle_chunked_build(device, chunked_file, md5_value):
         device=device,
         file_name=build_file_name,
         size=os.path.getsize(target_file_full_path),
-        version=version,
-        variant=variant,
-        build_date=datetime.strptime(date, '%Y%m%d'),
+        version=filename_parts['version'],
+        variant=filename_parts['variant'],
+        build_date=datetime.strptime(filename_parts['date'], '%Y%m%d'),
         zip_file="{}/{}".format(device.codename, chunked_file.filename),
         md5_file="{}/{}.md5".format(device.codename, chunked_file.filename),
         enabled=True,

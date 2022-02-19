@@ -1,0 +1,22 @@
+site_name: shipper documentation
+
+theme:
+  name: material
+
+nav:
+    - Home: 'index.md'
+    - 'For sysadmins':
+        - 'Configuration': 'sysadmin/Configuration.md'
+        - 'Customization': 'sysadmin/Customization.md'
+        - 'Installation': 'sysadmin/Installation.md'
+        - 'Upgrading': 'sysadmin/Upgrading.md'
+        - 'Administration': 'sysadmin/Administration.md'
+        - 'FAQ': 'sysadmin/FAQ.md'
+        - 'Troubleshooting': 'sysadmin/Troubleshooting.md'
+    - 'For developers':
+        - 'Development': 'developer/Development.md'
+        - 'API': 'developer/API.md'
+
+markdown_extensions:
+    - toc:
+        permalink: "#"

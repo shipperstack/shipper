@@ -2,6 +2,14 @@ site_name: shipper documentation
 
 theme:
   name: material
+  custom_dir: overrides
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - toc.integrate
+    - navigation.top
 
 nav:
     - Home: 'index.md'

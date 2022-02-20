@@ -10,6 +10,12 @@ Run the `update-shipper.sh` script located at the root of the repository. Note t
 
 If you are on release version ______ and would like to upgrade...
 
+### ≤ 1.13.6
+
+The `SHIPPER_FILE_NAME_FORMAT_DELIMITER` configuration key has been removed and a `SHIPPER_FILE_NAME_FORMAT` configuration key has been added for regex matching of the file name of uploaded artifacts.
+
+Please [refer to the wiki for more information][configuration].
+
 ### ≤ 1.13.1
 
 Changed the format of the configuration key `SHIPPER_ADMIN_EMAILS`: now it requires you to specify the admin name as well.

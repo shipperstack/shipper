@@ -50,9 +50,14 @@ Copy the `.env.example` file and set the values:
     - Allowed upload variant pairing in JSON format
     - Format: `{"variant": "variant_friendly_name", "different_variant": "different_variant_friendly_name", ...}`
     - Default: `{"gapps": "GApps","vanilla": "Vanilla (no GApps)","foss": "FOSS","goapps": "GoApps (Android Go Edition GApps)"}`
-  - `SHIPPER_FILE_NAME_FORMAT_DELIMITER`
-    - Delimiter to use when splitting and parsing filenames
-    - Default: `-`
+  - `SHIPPER_FILE_NAME_FORMAT`
+    - Regex pattern to use when parsing file names of uploaded artifacts
+    - The pattern must include the following four named match groups in order to be considered valid; otherwise an `ImproperlyConfigured` exception will be raised:
+      - `version`
+      - `codename`
+      - `variant`
+      - `date`
+    - Format: `[A-Za-z]*-(?P<version>[a-z0-9.]*)-(?P<codename>[A-Za-z]*)-OFFICIAL-(?P<variant>[a-z]*)-(?P<date>[0-9]*).zip`
 
 ### Database
   - `SHIPPER_SQL_ENGINE`

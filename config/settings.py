@@ -12,7 +12,9 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import ast
 import os
 import sentry_sdk
+
 from sentry_sdk.integrations.django import DjangoIntegration
+from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -43,6 +45,19 @@ SHIPPER_UPLOAD_VARIANTS = ast.literal_eval(os.environ.get("SHIPPER_UPLOAD_VARIAN
                                                                                              'Android Go Edition '
                                                                                              'GApps)"}'))
 SHIPPER_FILE_NAME_FORMAT = os.environ.get("SHIPPER_FILE_NAME_FORMAT")
+
+
+def is_matched_name_group_in_regex(match_name, regex_pattern):
+    return f"?P<{match_name}>" in regex_pattern
+
+if not (
+    is_matched_name_group_in_regex("variant", SHIPPER_FILE_NAME_FORMAT) and
+    is_matched_name_group_in_regex("codename", SHIPPER_FILE_NAME_FORMAT) and
+    is_matched_name_group_in_regex("date", SHIPPER_FILE_NAME_FORMAT) and
+    is_matched_name_group_in_regex("version", SHIPPER_FILE_NAME_FORMAT)
+):
+    raise ImproperlyConfigured("The regex pattern specified in SHIPPER_FILE_NAME_FORMAT is incorrect!")
+
 
 # Application definition
 # noinspection SpellCheckingInspection

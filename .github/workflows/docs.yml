@@ -1,0 +1,26 @@
+name: Documentation
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+      - name: Install documentation dependencies
+        working-directory: ./docs
+        run: |
+          pip install -r requirements.txt
+      - name: Deploy documentation
+        working-directory: ./docs
+        run: |
+          git config --global user.name GitHubActions
+          git config --global user.email githubactions@shipper
+          mike deploy --push --update-aliases master latest

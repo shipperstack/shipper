@@ -18,6 +18,7 @@ jobs:
       SHIPPER_SECRET_KEY: "duk4hvedu3zxnmw@shnjw7z^)x#wcm@cj05t5f&#90rx-g44d2"
       SHIPPER_DEBUG: 1
       SHIPPER_ALLOWED_HOSTS: "localhost 127.0.0.1"
+      SHIPPER_FILE_NAME_FORMAT: "[A-Za-z]*-(?P<version>[a-z0-9.]*)-(?P<codename>[A-Za-z]*)-OFFICIAL-(?P<variant>[a-z]*)-(?P<date>[0-9]*).zip"
 
     steps:
     - uses: actions/checkout@v2

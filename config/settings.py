@@ -15,6 +15,7 @@ import sentry_sdk
 
 from sentry_sdk.integrations.django import DjangoIntegration
 from django.core.exceptions import ImproperlyConfigured
+from paramiko import SSHException, AuthenticationException
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -242,7 +243,6 @@ if DEBUG == 1:
 else:
     sentry_transaction_rate = 0.2
 
-from paramiko import SSHException, AuthenticationException
 
 sentry_sdk.init(
     dsn=os.environ.get("SHIPPER_SENTRY_SDK_DSN", default=""),

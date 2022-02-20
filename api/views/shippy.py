@@ -17,7 +17,7 @@ from rest_framework.status import HTTP_401_UNAUTHORIZED, HTTP_400_BAD_REQUEST, H
 from shipper.exceptions import *
 from shipper.handler import handle_chunked_build
 from shipper.models import Device, Build
-
+from shipper.utils import parse_filename_with_regex
 
 from django.conf import settings
 
@@ -34,10 +34,10 @@ class V1MaintainersChunkedUpload(ChunkedUploadView):
         """
         Validates chunked upload and transfers to handler
         """
-        device_codename = get_codename_from_filename(chunked_upload.filename)
         try:
+            device_codename = parse_filename_with_regex(chunked_upload.filename)['codename']
             device = Device.objects.get(codename=device_codename)
-        except Device.DoesNotExist:
+        except (RegexParseException, Device.DoesNotExist):
             chunked_upload.delete()
             return Response(
                 {
@@ -80,14 +80,6 @@ class V1MaintainersChunkedUpload(ChunkedUploadView):
             },
             status=HTTP_200_OK
         )
-
-
-def get_codename_from_filename(filename):
-    fields = os.path.splitext(filename)[0].split('-')
-    # Check field count
-    if len(fields) != 6:
-        return None
-    return fields[2]  # Codename
 
 
 @csrf_exempt

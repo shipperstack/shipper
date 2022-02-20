@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AnonymousUser
 from rest_framework.test import APITestCase, APIRequestFactory
 
-from api.views import V1UpdaterLOS, variant_check, get_codename_from_filename
+from api.views import V1UpdaterLOS, variant_check
 from shipper.tests import mock_devices_setup, mock_builds_setup
 
 
@@ -20,13 +20,6 @@ class UpdaterTestCase(APITestCase):
         self.assertIsNone(variant_check("vanilla"))
         self.assertIsNone(variant_check("foss"))
         self.assertIsNone(variant_check("goapps"))
-
-    def test_get_codename_from_filename(self):
-        self.assertEqual("bullhead", get_codename_from_filename("Bliss-v14.4-bullhead-OFFICIAL-gapps-20200408.zip"))
-        self.assertEqual("angler", get_codename_from_filename("Bliss-v14.4-angler-OFFICIAL-vanilla-20200508.zip"))
-        self.assertIsNone(get_codename_from_filename("BlissInvalidFileNameWithoutDashes"))
-        self.assertIsNone(get_codename_from_filename(""))
-        self.assertIsNone(get_codename_from_filename("Invalid-File-Name.zip.md5"))
 
     def test_v1_updater_los_bullhead_gapps(self):
         request = self.factory.get("/api/v1/updater/los/")

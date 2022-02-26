@@ -29,6 +29,7 @@ class RegisterFormTestCase(TestCase):
                 }
         )
 
+        self.assertFalse(form.is_valid())
         self.assertEqual(form.errors["password_verify"], ["The passwords do not match!"])
 
     def test_missing_email(self):
@@ -42,6 +43,7 @@ class RegisterFormTestCase(TestCase):
             }
         )
 
+        self.assertFalse(form.is_valid())
         self.assertEqual(form.errors["email"], ["This field is required."])
 
     def test_missing_username(self):
@@ -55,6 +57,7 @@ class RegisterFormTestCase(TestCase):
             }
         )
 
+        self.assertFalse(form.is_valid())
         self.assertEqual(form.errors["username"], ["This field is required."])
     
     def test_duplicate_email(self):

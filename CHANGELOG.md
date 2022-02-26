@@ -7,6 +7,15 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
+# [1.14.1] - 2022-02-26
+
+## Added
+- Added a missing dependency in Docker that prevented translations from being compiled properly
+
+## Changed
+- Fixed a bug with the debug tag that was causing a 500 server error for all pages
+
+
 # [1.14.0] - 2022-02-26
 
 This release contains a database migration.
@@ -811,7 +820,8 @@ This release contains a configuration key change.
 Initial release
 
 
-[Unreleased]: https://github.com/ericswpark/shipper/compare/1.14.0...HEAD
+[Unreleased]: https://github.com/ericswpark/shipper/compare/1.14.1...HEAD
+[1.14.1]: https://github.com/ericswpark/shipper/compare/1.14.0...1.14.1
 [1.14.0]: https://github.com/ericswpark/shipper/compare/1.13.6...1.14.0
 [1.13.6]: https://github.com/ericswpark/shipper/compare/1.13.5...1.13.6
 [1.13.5]: https://github.com/ericswpark/shipper/compare/1.13.4...1.13.5

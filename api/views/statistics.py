@@ -3,6 +3,8 @@ import datetime
 from django.utils import timezone
 from django.db.models import F
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.cache import cache_page
+
 
 from rest_framework.response import Response
 from rest_framework.decorators import permission_classes, api_view
@@ -77,6 +79,7 @@ class V1DownloadBuildCounter(APIView):
 @csrf_exempt
 @api_view(["GET"])
 @permission_classes((AllowAny,))
+@cache_page(60 * 5)     # cached for 5 minutes
 def v1_download_count_day(_):
     return download_count_by_days_response(1)
 
@@ -84,6 +87,7 @@ def v1_download_count_day(_):
 @csrf_exempt
 @api_view(["GET"])
 @permission_classes((AllowAny,))
+@cache_page(60 * 60)    # cached for 1 hour
 def v1_download_count_week(_):
     return download_count_by_days_response(7)
 
@@ -91,6 +95,7 @@ def v1_download_count_week(_):
 @csrf_exempt
 @api_view(["GET"])
 @permission_classes((AllowAny,))
+@cache_page(60 * 60 * 5)    # cached for 5 hours
 def v1_download_count_month(_):
     return download_count_by_days_response(31)
 
@@ -98,6 +103,7 @@ def v1_download_count_month(_):
 @csrf_exempt
 @api_view(["GET"])
 @permission_classes((AllowAny,))
+@cache_page(60 * 60 * 24)   # cached for 1 day
 def v1_download_count_all(_):
     return Response(
         {'count': Statistics.objects.all().count()}

@@ -1,18 +1,18 @@
 # Korean translation for shipper
 # Copyright (C) 2022 ericswpark
 # This file is distributed under the same license as the shipper package.
-# Eric Park <me@ericswpark.com>, 2022.
 #
-#, fuzzy
+# Translators:
+# Eric Park <me@ericswpark.com>, 2022.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: shipper\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-02-26 03:36+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2022-02-26 12:56+0900\n"
 "Last-Translator: Eric Park <me@ericswpark.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language-Team: Korean <ko@li.org>\n"
+"Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"

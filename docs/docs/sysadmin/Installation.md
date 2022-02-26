@@ -25,15 +25,20 @@ By the time you're reading this it's possible there is a new release, so change 
 
 To set up your web server to forward requests to shipper, [follow this reverse proxy guide for nginx](Reverse-Proxy).
 
-If this is the first time you are installing shipper, you may need to run migration on your database and collect the static files:
+To finish installation, run the following commands to migrate the database, generate translation files, and collect static files:
 
-    docker-compose exec web python manage.py migrate --noinput
-    docker-compose exec web python manage.py collectstatic --no-input --clear
+```
+docker-compose exec web python manage.py migrate --noinput
+docker-compose exec web python manage.py compilemessages
+docker-compose exec web python manage.py collectstatic --no-input --clear
+```
 
 This will create a shipper instance with Docker. Once the instance is running, set up a reverse proxy with nginx to the port you specified during configuration.
 
 Set up a superuser within shipper:
 
-    docker-compose exec web python manage.py createsuperuser
+```
+docker-compose exec web python manage.py createsuperuser
+```
 
 Done! Set up shipper in the admin panel.

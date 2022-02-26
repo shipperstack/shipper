@@ -1,6 +1,7 @@
 {% extends 'maintainer_base.html' %}
 
-{% block title %}{% translate "Register" %}{% endblock %}
+{% translate "Register" as page_title %}
+{% block title %}{{ page_title }}{% endblock %}
 
 {% block content %}
     <div class="row">

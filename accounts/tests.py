@@ -1,10 +1,23 @@
-from django.test import TestCase
+from django.contrib.auth.models import AnonymousUser
+from django.test import TestCase, RequestFactory
 from django.contrib.auth import get_user_model
 
-from accounts.forms import RegisterForm
+from .forms import RegisterForm
+from .views import register
 
 
 User = get_user_model()
+
+class RegisterViewTestCase(TestCase):
+    def setUp(self):
+        self.factory = RequestFactory()
+    
+    def test_register_view_get(self):
+        request = self.factory.get("register/")
+        request.user = AnonymousUser()
+        response = register(request=request)
+
+        self.assertEqual(response.status_code, 200)
 
 
 class RegisterFormTestCase(TestCase):

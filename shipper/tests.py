@@ -183,7 +183,6 @@ def mock_builds_setup():
         build_date=date(2020, 6, 8),
         zip_file="bullhead/Bliss-v14-bullhead-OFFICIAL-gapps-20200608.zip",
         md5_file="bullhead/Bliss-v14-bullhead-OFFICIAL-gapps-20200608.zip.md5",
-        download_count=20,
     )
     Build.objects.create(
         device=Device.objects.get(codename="dream2lte"),
@@ -195,7 +194,6 @@ def mock_builds_setup():
         build_date=date(2020, 6, 9),
         zip_file="dream2lte/Bliss-v14-dream2lte-OFFICIAL-gapps-20200609.zip",
         md5_file="dream2lte/Bliss-v14-dream2lte-OFFICIAL-gapps-20200609.zip.md5",
-        download_count=40,
     )
     Build.objects.create(
         device=Device.objects.get(codename="angler"),
@@ -207,5 +205,4 @@ def mock_builds_setup():
         build_date=date(2020, 6, 8),
         zip_file="angler/Bliss-v14-angler-OFFICIAL-vanilla-20200608.zip",
         md5_file="angler/Bliss-v14-angler-OFFICIAL-vanilla-20200608.zip.md5",
-        download_count=60,
     )

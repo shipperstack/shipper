@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Device, Build, MirrorServer
+from .models import Device, Build, MirrorServer, Statistics
 
 class DeviceAdmin(admin.ModelAdmin):
     list_display = ['id', 'manufacturer', 'name', 'codename', 'get_maintainers', 'status', 'created']
@@ -47,6 +47,13 @@ class MirrorServerAdmin(admin.ModelAdmin):
     save_as=True
 
 
+class StatisticsAdmin(admin.ModelAdmin):
+    readonly_fields = ['time', 'device', 'build', 'ip']
+    list_display = ['time', 'device', 'build', 'ip']
+    ordering = ['time']
+
+
 admin.site.register(Device, DeviceAdmin)
 admin.site.register(Build, BuildAdmin)
 admin.site.register(MirrorServer, MirrorServerAdmin)
+admin.site.register(Statistics, StatisticsAdmin)

@@ -10,6 +10,7 @@ theme:
     - navigation.tabs.sticky
     - toc.integrate
     - navigation.top
+  language: en
 
 nav:
     - Home: 'index.md'

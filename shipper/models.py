@@ -235,6 +235,9 @@ class Build(models.Model):
 
     def get_downloadable_mirrors(self):
         return self.mirrored_on.filter(downloadable=True).all().order_by('priority')
+    
+    def get_download_count(self):
+        return self.build_stats.count()
 
     @admin.display(
         description='Processed',

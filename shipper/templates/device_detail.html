@@ -25,7 +25,7 @@
                 <td>{{ build.file_name }}</td>
                 <td title="{{ build.size }} bytes">{{ build.get_human_readable_size }}</td>
                 <td>{{ build.variant }}</td>
-                <td>{{ build.download_count }}</td>
+                <td>{{ build.get_download_count }}</td>
                 <td>
                     {% if build.enabled %}
                         <!--suppress HtmlFormInputWithoutLabel -->

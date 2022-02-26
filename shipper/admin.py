@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Device, Build, MirrorServer, Statistics
+from .models import Device, Build, MirrorServer
 
 class DeviceAdmin(admin.ModelAdmin):
     list_display = ['id', 'manufacturer', 'name', 'codename', 'get_maintainers', 'status', 'created']
@@ -43,12 +43,6 @@ class MirrorServerAdmin(admin.ModelAdmin):
     save_as=True
 
 
-class StatisticsAdmin(admin.ModelAdmin):
-    list_display = ['date', 'download_count']
-    ordering = ['-date']
-
-
 admin.site.register(Device, DeviceAdmin)
 admin.site.register(Build, BuildAdmin)
 admin.site.register(MirrorServer, MirrorServerAdmin)
-admin.site.register(Statistics, StatisticsAdmin)

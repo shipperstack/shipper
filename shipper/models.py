@@ -279,19 +279,6 @@ class Build(models.Model):
         return reverse('downloads_build', kwargs={'codename': self.device.codename, 'pk': self.id})
 
 
-# Download statistics
-class Statistics(models.Model):
-    date = models.DateField(primary_key=True, default=datetime.date.today)
-    download_count = models.BigIntegerField(
-        default=0,
-        help_text='Download count for this date'
-    )
-
-    class Meta:
-        verbose_name = "statistic"
-        verbose_name_plural = "statistics"
-
-
 # Register all models to audit log
 auditlog.register(Device)
 auditlog.register(MirrorServer)

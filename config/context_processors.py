@@ -14,3 +14,6 @@ def download_page_processor(_):
 def version_processor(_):
     return {'SHIPPER_VERSION': settings.SHIPPER_VERSION}
 
+
+def debug_mode_processor(_):
+    return {'DEBUG': settings.DEBUG}

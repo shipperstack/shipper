@@ -105,6 +105,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'config.context_processors.download_page_processor',
                 'config.context_processors.version_processor',
+                'config.context_processors.debug_mode_processor',
             ],
         },
     },

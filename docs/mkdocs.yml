@@ -23,6 +23,7 @@ nav:
         - 'Troubleshooting': 'sysadmin/Troubleshooting.md'
     - 'For developers':
         - 'Development': 'developer/Development.md'
+        - 'Translation': 'developer/Translation.md'
         - 'API': 'developer/API.md'
 
 extra:

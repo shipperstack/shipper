@@ -71,3 +71,35 @@ class V1DownloadBuildCounter(APIView):
             },
             status=HTTP_400_BAD_REQUEST
         )
+
+
+@csrf_exempt
+@api_view(["GET"])
+@permission_classes((AllowAny,))
+def v1_download_count_day(_):
+    return download_count_by_days_response(1)
+
+
+@csrf_exempt
+@api_view(["GET"])
+@permission_classes((AllowAny,))
+def v1_download_count_week(_):
+    return download_count_by_days_response(7)
+
+
+@csrf_exempt
+@api_view(["GET"])
+@permission_classes((AllowAny,))
+def v1_download_count_month(_):
+    return download_count_by_days_response(31)
+
+
+@csrf_exempt
+@api_view(["GET"])
+@permission_classes((AllowAny,))
+def v1_download_count_all(_):
+    return Statistics.objects.all().count()
+
+
+def download_count_by_days_response(days):
+    return Statistics.objects.filter(time__gte=django.util.timezone.now() - datetime.timedelta(days=days)).count()

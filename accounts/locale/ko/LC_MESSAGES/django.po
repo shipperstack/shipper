@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shipper\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-26 13:56+0000\n"
+"POT-Creation-Date: 2022-02-26 14:30+0000\n"
 "PO-Revision-Date: 2022-02-26 23:00+0900\n"
 "Last-Translator: Eric Park <me@ericswpark.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
 #: accounts/forms.py:14
 msgid "Required."
 msgstr "필수."
@@ -36,3 +37,23 @@ msgstr "비밀번호가 일치하지 않습니다!"
 #: accounts/forms.py:32
 msgid "This email address is already registered and cannot be used!"
 msgstr "이 이메일 주소는 이미 사용되고 있어 사용하실 수 없습니다!"
+
+#: accounts/templates/registration/register.html:3
+msgid "Register"
+msgstr "회원가입"
+
+#: accounts/templates/registration/register.html:9
+msgid "Create a new maintainer account."
+msgstr "새로운 관리 계정을 만듭니다."
+
+#: accounts/templates/registration/register.html:10
+msgid ""
+"If you did not file a maintainer application or if you were not accepted as "
+"a maintainer, please do not fill out this form."
+msgstr ""
+"만약 관리 가입서를 작성하지 않았거나 관리 가입서가 수락되지 않았다면, 이 양식을 "
+"작성하지 말아주시기 바랍니다."
+
+#: accounts/templates/registration/register.html:16
+msgid "Create Account"
+msgstr "회원가입"

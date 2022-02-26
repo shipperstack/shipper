@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shipper\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-26 13:56+0000\n"
+"POT-Creation-Date: 2022-02-26 14:30+0000\n"
 "PO-Revision-Date: 2022-02-26 23:00+0900\n"
 "Last-Translator: Eric Park <me@ericswpark.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -17,10 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-#: config/settings.py:188
+
+#: config/settings.py:187
 msgid "Korean"
 msgstr "한국어"
 
-#: config/settings.py:189
+#: config/settings.py:188
 msgid "English"
 msgstr "영어"

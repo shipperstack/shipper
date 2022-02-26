@@ -17,12 +17,19 @@ LANGUAGES = [
 2. Use `django-admin` to generate message files for your language:
 
 ```
-django-admin makemessages -l YOUR_LANGUAGE_CODE_HERE --ignore=venv
+django-admin makemessages -l YOUR_LANGUAGE_CODE_HERE --ignore=docs --ignore=venv
 ```
 
-`--ignore=venv` is important, because without it Django will happily search through all the dependencies of shipper and fetch translation strings for them as well.
+The `--ignore` parameters are important, because without it Django will happily search through all the dependencies and documentation of shipper and fetch translation strings for them as well. (Documentation strings are translated separately.)
 
-3. Translate the files in `locale/YOUR_LANGUAGE_CODE_HERE/LC_MESSAGES`
+3. Translate the files in `<app>/locale/YOUR_LANGUAGE_CODE_HERE/LC_MESSAGES`, where `<app>` refers to the following apps in the shipper project:
+
+- accounts
+- api
+- config
+- downloads
+- shipper
+
 4. Submit a pull request!
 
 ## Updating an existing language

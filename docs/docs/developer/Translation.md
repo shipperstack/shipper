@@ -39,13 +39,13 @@ If you are trying to update strings of an existing language, follow the steps be
 1. Use `django-admin` to add new strings to the message files for an existing language:
 
 ```
-django-admin makemessages -l ko --ignore=venv
+django-admin makemessages -l ko --ignore=docs --ignore=venv
 ```
 
 Optionally, create messages for all languages:
 
 ```
-django-admin makemessages -a --ignore=venv
+django-admin makemessages -a --ignore=docs --ignore=venv
 ```
 
 2. Translate the updated files.

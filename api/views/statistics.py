@@ -71,15 +71,3 @@ class V1DownloadBuildCounter(APIView):
             },
             status=HTTP_400_BAD_REQUEST
         )
-
-
-def download_count_response(stats):
-    count = 0
-    for stat in stats:
-        count += stat.download_count
-
-    return Response(
-        {
-            'count': count
-        }, status=HTTP_200_OK
-    )

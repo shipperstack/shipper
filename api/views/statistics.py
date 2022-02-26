@@ -9,7 +9,9 @@ from rest_framework.permissions import AllowAny
 from rest_framework.status import HTTP_200_OK, HTTP_404_NOT_FOUND, HTTP_400_BAD_REQUEST
 from rest_framework.views import APIView
 
-from shipper.models import Build
+from shipper.models import Build, Statistics
+
+from .utils import get_client_ip
 
 
 class V1DownloadBuildCounter(APIView):
@@ -25,7 +27,7 @@ class V1DownloadBuildCounter(APIView):
         if file_name:
             try:
                 build = Build.objects.get(file_name=file_name)
-                build_increase_download_count(build)
+                Statistics.objects.create(device=build.device, build=build, ip=get_client_ip(request=request))
                 return Response(
                     {
                         'message': 'The request was successful!'
@@ -46,7 +48,7 @@ class V1DownloadBuildCounter(APIView):
         if build_id:
             try:
                 build = Build.objects.get(pk=int(build_id))
-                build_increase_download_count(build)
+                Statistics.objects.create(device=build.device, build=build, ip=get_client_ip(request=request))
                 return Response(
                     {
                         'message': 'The request was successful!'

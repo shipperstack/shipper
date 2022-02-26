@@ -49,6 +49,10 @@ This endpoint will throw a 400 if either the `username` or `password` field is b
 
 Checks if a REST authentication token is still valid and returns the username of the token bearer if it is. The authentication token must be supplied in the REST header.
 
+ - `https://host/api/v1/maintainers/upload_filename_regex_pattern`
+
+Returns the regex pattern used to match uploaded build artifacts. The authentication token must be supplied in the REST header.
+
  - `https://host/api/v1/maintainers/device/chunked_upload/`
 
 Allows you to upload a build object in chunks given the build file and the corresponding checksum. Multiple fields must be supplied via REST. The authentication token must be supplied in the REST header. This endpoint only accepts the initial chunk, and subsequent chunks must be sent using the endpoint below. Please refer to the shippy project for implementation details.

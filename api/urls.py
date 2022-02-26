@@ -14,6 +14,7 @@ urlpatterns = [
     path('v1/system/info/', v1_system_info, name='v1_system_info'),
     path('v1/maintainers/login/', v1_maintainers_login, name='v1_maintainers_login'),
     path('v1/maintainers/token_check/', v1_maintainers_token_check, name='v1_maintainers_token_check'),
+    path('v1/maintainers/upload_filename_regex_pattern', v1_maintainers_upload_filename_regex_pattern, name='v1_maintainers_upload_filename_regex_pattern'),
     path('v1/maintainers/chunked_upload/', V1MaintainersChunkedUpload.as_view(), name='v1_maintainers_chunked_upload'),
     path('v1/maintainers/chunked_upload/<uuid:pk>/', V1MaintainersChunkedUpload.as_view(),
          name='v1_maintainers_chunked_upload_detail'),

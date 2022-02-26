@@ -19,7 +19,6 @@ CSRF_COOKIE_SECURE = int(os.environ.get("SHIPPER_CSRF_COOKIE_SECURE", default=1)
 SESSION_COOKIE_SECURE = int(os.environ.get("SHIPPER_SESSION_COOKIE_SECURE", default=1))
 
 SECURE_HSTS_SECONDS = int(os.environ.get("SHIPPER_SECURE_HSTS_SECONDS", default=0))
-SECURE_SSL_REDIRECT = int(os.environ.get("SHIPPER_SECURE_SSL_REDIRECT", default=1))
 
 with open("version.txt") as v_file:
     SHIPPER_VERSION = v_file.read().rstrip()

@@ -36,11 +36,7 @@ Copy the `.env.example` file and set the values:
     - Setting this key to any value other than 0 will enable HSTS for the specified duration (in seconds)
     - Warning: make sure you know what you are doing! Improper settings may block you from accessing your instance.
     - Default: `0`
-  - `SHIPPER_SECURE_SSL_REDIRECT`
-    - Internal Django security option to enable HTTPS redirects
-    - `1` -> enabled, Django automatically redirects HTTP traffic to HTTPS (recommended for production)
-    - `0` -> disabled
-    - Default: `1`
+
 
 ### Downloads Page
   - `SHIPPER_MAIN_WEBSITE_URL`

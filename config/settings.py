@@ -39,13 +39,12 @@ SHIPPER_DOWNLOADS_PAGE_DONATION_MESSAGE = os.environ.get("SHIPPER_DOWNLOADS_PAGE
                                                          default="Please consider donating, thank you!")
 
 # Upload
-SHIPPER_UPLOAD_VARIANTS = ast.literal_eval(os.environ.get("SHIPPER_UPLOAD_VARIANTS", default='{"gapps": "GApps",'
-                                                                                             '"vanilla": "Vanilla (no'
-                                                                                             ' GApps)",'
-                                                                                             '"foss": "FOSS",'
-                                                                                             '"goapps": "GoApps ('
-                                                                                             'Android Go Edition '
-                                                                                             'GApps)"}'))
+SHIPPER_UPLOAD_VARIANTS = ast.literal_eval(
+    os.environ.get(
+        "SHIPPER_UPLOAD_VARIANTS",
+        default='{"gapps": "GApps", "vanilla": "Vanilla (no GApps)", "foss": "FOSS", "goapps": "GoApps (Android Go Edition GApps)"}'
+    )
+)
 SHIPPER_FILE_NAME_FORMAT = os.environ.get("SHIPPER_FILE_NAME_FORMAT")
 
 

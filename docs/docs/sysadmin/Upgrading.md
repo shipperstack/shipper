@@ -18,6 +18,8 @@ If you are on release version ______ and would like to upgrade...
 
 ### ≤ 1.13.6
 
+Note that from 1.14.x onwards, a new Statistics model is used. Upgrading past 1.13.6 will delete your existing statistics, so be careful!
+
 The `SHIPPER_FILE_NAME_FORMAT_DELIMITER` configuration key has been removed.
 
 The following new keys have been added:

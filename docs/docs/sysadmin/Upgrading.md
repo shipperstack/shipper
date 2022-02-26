@@ -21,6 +21,7 @@ If you are on release version ______ and would like to upgrade...
 The `SHIPPER_FILE_NAME_FORMAT_DELIMITER` configuration key has been removed.
 
 The following new keys have been added:
+
 - `SHIPPER_FILE_NAME_FORMAT`
 - `SHIPPER_SECURE_HSTS_SECONDS`
 - `SHIPPER_SECURE_SSL_REDIRECT`

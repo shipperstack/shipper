@@ -29,8 +29,10 @@ services:
     - static_volume:/home/shipper/web/static
     ports:
       - "9200:80"
+      - "9201:81"
     depends_on:
       - web
+      - flower
   celery:
     restart: always
     image: ericswpark/shipper:${VERSION_TAG}
@@ -59,6 +61,11 @@ services:
       - web
   rabbitmq:
     image: rabbitmq:3.8.16-alpine
+  flower:
+    image: mher/flower:latest
+    command: celery --broker=pyamqp://rabbitmq:5672/ flower --port=5555 --purge_offline_workers=5
+    depends_on:
+      - rabbitmq
 
 volumes:
   postgres_data:

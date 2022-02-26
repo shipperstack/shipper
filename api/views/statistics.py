@@ -1,5 +1,6 @@
 import datetime
 
+from django.utils import timezone
 from django.db.models import F
 from django.views.decorators.csrf import csrf_exempt
 
@@ -98,8 +99,12 @@ def v1_download_count_month(_):
 @api_view(["GET"])
 @permission_classes((AllowAny,))
 def v1_download_count_all(_):
-    return Statistics.objects.all().count()
+    return Response(
+        {'count': Statistics.objects.all().count()}
+    )
 
 
 def download_count_by_days_response(days):
-    return Statistics.objects.filter(time__gte=django.util.timezone.now() - datetime.timedelta(days=days)).count()
+    return Response(
+        {'count': Statistics.objects.filter(time__gte=timezone.now() - datetime.timedelta(days=days)).count()}
+    )

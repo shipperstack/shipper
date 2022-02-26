@@ -1,4 +1,4 @@
-# Korean translation for shipper
+# Korean translation for shipper: accounts
 # Copyright (C) 2022 ericswpark
 # This file is distributed under the same license as the shipper package.
 #
@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shipper\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-26 03:36+0000\n"
-"PO-Revision-Date: 2022-02-26 12:56+0900\n"
+"POT-Creation-Date: 2022-02-26 13:56+0000\n"
+"PO-Revision-Date: 2022-02-26 23:00+0900\n"
 "Last-Translator: Eric Park <me@ericswpark.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "Language: ko\n"
@@ -17,10 +17,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-
 #: accounts/forms.py:14
 msgid "Required."
-msgstr "필수"
+msgstr "필수."
 
 #: accounts/forms.py:16
 msgid "Password"
@@ -36,12 +35,4 @@ msgstr "비밀번호가 일치하지 않습니다!"
 
 #: accounts/forms.py:32
 msgid "This email address is already registered and cannot be used!"
-msgstr "이 이메일 주소는 이미 등록되어 사용하실 수 없습니다!"
-
-#: config/settings.py:182
-msgid "Korean"
-msgstr "한국어"
-
-#: config/settings.py:183
-msgid "English"
-msgstr "영어"
+msgstr "이 이메일 주소는 이미 사용되고 있어 사용하실 수 없습니다!"

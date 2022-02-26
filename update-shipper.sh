@@ -18,7 +18,8 @@ setlatest
 # Start Docker images
 docker-compose up -d --no-build
 
-# Migrate database and collect static files
+# Migrate database, compile translations, and collect static files
 docker-compose exec web python3 manage.py migrate --noinput
+docker-compose exec web python3 manage.py compilemessages
 docker-compose exec web python3 manage.py collectstatic --no-input --clear
 

@@ -275,6 +275,14 @@ class Build(models.Model):
         return reverse('downloads_build', kwargs={'codename': self.device.codename, 'pk': self.id})
 
 
+# Statistics model
+class Statistics(models.Model):
+    time = models.DateTimeField(auto_now_add=True, editable=False)
+    device = models.ForeignKey(Device, related_name="device_stats", on_delete=models.CASCADE)
+    build = models.ForeignKey(Build, related_name="build_stats", on_delete=models.CASCADE)
+    ip = models.GenericIPAddressField(unpack_ipv4=True)
+
+
 # Register all models to audit log
 auditlog.register(Device)
 auditlog.register(MirrorServer)

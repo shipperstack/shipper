@@ -11,7 +11,7 @@ from rest_framework.views import APIView
 
 from shipper.models import Build, Statistics
 
-from .utils import get_client_ip
+from api.utils import get_client_ip
 
 
 class V1DownloadBuildCounter(APIView):

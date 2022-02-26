@@ -7,6 +7,29 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
+# [1.14.0] - 2022-02-26
+
+This release contains a database migration.
+This release contains a security vulnerability patch.
+This release contains a configuration key change.
+
+## Added
+- Added functionality to regex match the uploaded build artifact filename
+- Added configuration keys for the regex match pattern
+- Added localization mechanism for shipper
+- Added API endpoint to fetch the regex match pattern
+- Added cache mechanism configuration to reduce server load
+
+## Changed
+- Fixed upload API to delete chunked build if the device does not exist
+- Changed statistics model to be more generic
+- General code cleanup
+- Updated library dependencies
+
+## Removed
+- Removed redundant configuration key (`SHIPPER_FILE_NAME_FORMAT_DELIMITER`)
+
+
 # [1.13.6] - 2022-02-05
 
 ## Changed
@@ -788,7 +811,8 @@ This release contains a configuration key change.
 Initial release
 
 
-[Unreleased]: https://github.com/ericswpark/shipper/compare/1.13.6...HEAD
+[Unreleased]: https://github.com/ericswpark/shipper/compare/1.14.0...HEAD
+[1.14.0]: https://github.com/ericswpark/shipper/compare/1.13.6...1.14.0
 [1.13.6]: https://github.com/ericswpark/shipper/compare/1.13.5...1.13.6
 [1.13.5]: https://github.com/ericswpark/shipper/compare/1.13.4...1.13.5
 [1.13.4]: https://github.com/ericswpark/shipper/compare/1.13.3...1.13.4

@@ -15,7 +15,7 @@ import sentry_sdk
 
 from sentry_sdk.integrations.django import DjangoIntegration
 from django.core.exceptions import ImproperlyConfigured
-from django.utils.translation import gettext
+from django.utils.translation import gettext_lazy
 from paramiko import SSHException, AuthenticationException
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -179,8 +179,8 @@ USE_L10N = True
 USE_TZ = True
 
 LANGUAGES = [
-    ('ko', gettext('Korean')),
-    ('en', gettext('English')),
+    ('ko', gettext_lazy('Korean')),
+    ('en', gettext_lazy('English')),
 ]
 
 LOCALE_PATHS=[os.path.join(BASE_DIR, "locale")]

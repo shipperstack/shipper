@@ -9,7 +9,7 @@ Run the `update-shipper.sh` script located at the root of the repository. Note t
 If you want to execute the latest version of the `update-shipper.sh` script every time, use the following alias:
 
 ```
-alias update-shipper='bash < (curl -s https://raw.githubusercontent.com/ericswpark/shipper/master/update-shipper.sh)'
+alias update-shipper='bash <(curl -s https://raw.githubusercontent.com/ericswpark/shipper/master/update-shipper.sh)'
 ```
 
 ## Version specific changes

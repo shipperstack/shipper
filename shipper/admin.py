@@ -16,7 +16,7 @@ class DeviceAdmin(admin.ModelAdmin):
 
 class BuildAdmin(admin.ModelAdmin):
     list_display = ['id', 'enabled', 'file_name', 'get_device_name', 'get_human_readable_size', 'version', 'variant',
-                    'get_build_device_maintainers', 'is_processed', 'is_mirrored', 'created']
+                    'get_build_device_maintainers', 'get_download_count', 'is_processed', 'is_mirrored', 'created']
     list_filter = ['enabled']
     ordering = ['-created']
 
@@ -34,6 +34,10 @@ class BuildAdmin(admin.ModelAdmin):
     @admin.display(description='Size')
     def get_human_readable_size(self, obj):
         return obj.get_human_readable_size()
+
+    @admin.display(description='Download Count')
+    def get_download_count(self, obj):
+        return obj.get_download_count()
 
 
 class MirrorServerAdmin(admin.ModelAdmin):

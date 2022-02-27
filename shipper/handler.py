@@ -43,7 +43,7 @@ def handle_chunked_build(device, chunked_file, md5_value):
 
     build = Build(
         device=device,
-        file_name=build_file_name,
+        file_name=os.path.splitext(chunked_file.filename)[0],
         size=os.path.getsize(target_file_full_path),
         version=filename_parts["version"],
         variant=filename_parts["variant"],

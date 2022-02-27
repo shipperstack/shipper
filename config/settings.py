@@ -62,7 +62,6 @@ if not (
 
 
 # Application definition
-# noinspection SpellCheckingInspection
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -83,7 +82,6 @@ INSTALLED_APPS = [
     "django_cleanup.apps.CleanupConfig",  # must be last for successful deletions
 ]
 
-# noinspection SpellCheckingInspection
 MIDDLEWARE = [
     "django.middleware.cache.UpdateCacheMiddleware",
     "django.middleware.security.SecurityMiddleware",
@@ -123,8 +121,6 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
-# noinspection PyUnresolvedReferences
 DATABASES = {
     "default": {
         "ENGINE": os.environ.get(
@@ -147,8 +143,6 @@ AUTH_USER_MODEL = "accounts.User"
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
-
-
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": f"django.contrib.auth.password_validation.{name}"}
     for name in [
@@ -191,7 +185,6 @@ MANAGERS = ADMINS
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
-
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
 USE_I18N = True
@@ -208,12 +201,10 @@ LOCALE_PATHS = [os.path.join(BASE_DIR, "locale")]
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 STATIC_URL = "/static/"
-# noinspection PyUnresolvedReferences
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 # Media
 MEDIA_URL = "/media/"
-# noinspection PyUnresolvedReferences
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Login
@@ -241,7 +232,6 @@ DRF_CHUNKED_UPLOAD_MAX_BYTES = 5_000_000_000  # 5 GB
 
 
 # Celery
-# noinspection SpellCheckingInspection
 CELERY_BROKER_URL = "pyamqp://rabbitmq:5672/"
 CELERY_TASK_TIME_LIMIT = 600  # 10 minutes
 CELERY_RESULT_BACKEND = "django-db"

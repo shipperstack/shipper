@@ -14,7 +14,7 @@ from .statistics import (
     v1_download_count_month,
     v1_download_count_week,
 )
-from .updater import V1UpdaterLOS, variant_check
+from .updater import V1UpdaterLOS
 
 __all__ = [
     "V1GeneralDeviceAll",
@@ -31,5 +31,4 @@ __all__ = [
     "v1_download_count_month",
     "v1_download_count_all",
     "V1UpdaterLOS",
-    "variant_check",
 ]

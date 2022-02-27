@@ -1,19 +1,19 @@
+from api.utils import variant_check
+from django.conf import settings
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
-
-from api.views import variant_check
-from django.conf import settings
-from shipper.models import Device, Build
+from shipper.models import Build, Device
 
 
 class V1GeneralDeviceAll(APIView):
     """
     General endpoint to list all devices in shipper
     """
+
     permission_classes = [AllowAny]
 
     # noinspection PyMethodMayBeStatic
@@ -27,8 +27,8 @@ class V1GeneralDeviceAll(APIView):
                     variants.append(variant)
 
             return_json[device.codename] = {
-                'status': device.status,
-                'variants': variants
+                "status": device.status,
+                "variants": variants,
             }
 
         return Response(return_json, status=HTTP_200_OK)
@@ -38,6 +38,7 @@ class V1GeneralBuildLatest(APIView):
     """
     General endpoint for build information
     """
+
     permission_classes = [AllowAny]
 
     # noinspection PyMethodMayBeStatic
@@ -46,9 +47,8 @@ class V1GeneralBuildLatest(APIView):
             device = get_object_or_404(Device, codename=codename)
         except Http404:
             return Response(
-                {
-                    'message': "The specified device does not exist!"
-                }, status=HTTP_404_NOT_FOUND
+                {"message": "The specified device does not exist!"},
+                status=HTTP_404_NOT_FOUND,
             )
 
         ret = variant_check(variant)
@@ -59,9 +59,8 @@ class V1GeneralBuildLatest(APIView):
             build = device.get_latest_enabled_hashed_build_of_variant(variant=variant)
         except Build.DoesNotExist:
             return Response(
-                {
-                    'message': "No builds exist for the specified variant yet!"
-                }, status=HTTP_404_NOT_FOUND
+                {"message": "No builds exist for the specified variant yet!"},
+                status=HTTP_404_NOT_FOUND,
             )
 
         return Response(
@@ -74,5 +73,5 @@ class V1GeneralBuildLatest(APIView):
                 "variant": variant,
                 "mirror_url": "https://" + request.get_host() + build.zip_file.url,
             },
-            status=HTTP_200_OK
+            status=HTTP_200_OK,
         )

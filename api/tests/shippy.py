@@ -1,12 +1,12 @@
+from api.utils import exception_to_message
+from api.views import v1_maintainers_login, v1_system_info
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
-from django.conf import settings
 from rest_framework.authtoken.models import Token
-from rest_framework.test import APITestCase, APIRequestFactory, APIClient
-
-from api.views import v1_system_info, v1_maintainers_login, exception_to_message
+from rest_framework.test import APIClient, APIRequestFactory, APITestCase
 from shipper.models import Build, Device
-from shipper.tests import mock_devices_setup, mock_builds_setup
+from shipper.tests import mock_builds_setup, mock_devices_setup
 
 User = get_user_model()
 

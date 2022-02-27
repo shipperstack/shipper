@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404
 from django.views.generic import DetailView, ListView, TemplateView
+from django.shortcuts import render
 from shipper.models import Build, Device
 
 
@@ -25,3 +26,11 @@ class DownloadsBuildView(DetailView):
 
 class LanguageSwitchView(TemplateView):
     template_name = "language_switch.html"
+
+    def get(self, request, *args, **kwargs):
+        redirect_url = request.GET.get("next", None)
+        if not redirect_url:
+            redirect_url = request.META.get("HTTP_REFERER", None)
+        if not redirect_url:
+            redirect_url = "/"
+        return render(request, self.template_name, {"redirect_to": redirect_url})

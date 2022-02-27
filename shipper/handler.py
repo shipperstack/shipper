@@ -1,7 +1,11 @@
+import os
 from datetime import datetime
 
+from django.conf import settings
+
 from .exceptions import UploadException
-from .tasks import *
+from .models import Build
+from .tasks import generate_sha256, mirror_build
 from .utils import parse_filename_with_regex
 
 

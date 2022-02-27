@@ -1,4 +1,4 @@
-from .admin import AdminStatisticsView
+from .admin import AdminStatisticsView, get_humanized_total_size
 from .maintainers import (
     BuildDeleteView,
     DeviceDetailView,
@@ -12,4 +12,5 @@ __all__ = [
     "BuildDeleteView",
     "build_enabled_status_modify",
     "AdminStatisticsView",
+    "get_humanized_total_size",
 ]

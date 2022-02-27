@@ -8,9 +8,13 @@ from .utils import parse_filename_with_regex
 def handle_chunked_build(device, chunked_file, md5_value):
     filename_parts = parse_filename_with_regex(chunked_file.filename)
 
-    file_name_validity_check(os.path.splitext(chunked_file.filename)[0], filename_parts['variant'])
+    file_name_validity_check(
+        os.path.splitext(chunked_file.filename)[0], filename_parts["variant"]
+    )
 
-    target_file_full_path = os.path.join(settings.MEDIA_ROOT, device.codename, chunked_file.filename)
+    target_file_full_path = os.path.join(
+        settings.MEDIA_ROOT, device.codename, chunked_file.filename
+    )
 
     # See if the build exists from a previous failed attempt
     if os.path.exists(target_file_full_path):
@@ -25,17 +29,21 @@ def handle_chunked_build(device, chunked_file, md5_value):
 
     # Generate MD5 file
     md5_file_contents = "{}  {}".format(md5_value, chunked_file.filename)
-    with open(os.path.join(settings.MEDIA_ROOT, device.codename, "{}.md5".format(chunked_file.filename)), 'w') \
-            as target_md5:
+    with open(
+        os.path.join(
+            settings.MEDIA_ROOT, device.codename, "{}.md5".format(chunked_file.filename)
+        ),
+        "w",
+    ) as target_md5:
         target_md5.write(md5_file_contents)
 
     build = Build(
         device=device,
         file_name=build_file_name,
         size=os.path.getsize(target_file_full_path),
-        version=filename_parts['version'],
-        variant=filename_parts['variant'],
-        build_date=datetime.strptime(filename_parts['date'], '%Y%m%d'),
+        version=filename_parts["version"],
+        variant=filename_parts["variant"],
+        build_date=datetime.strptime(filename_parts["date"], "%Y%m%d"),
         zip_file="{}/{}".format(device.codename, chunked_file.filename),
         md5_file="{}/{}.md5".format(device.codename, chunked_file.filename),
         enabled=True,
@@ -58,7 +66,7 @@ def build_background_processing(build_id):
 
 def file_name_validity_check(build_file_name, variant):
     if Build.objects.filter(file_name=build_file_name).count() >= 1:
-        raise UploadException('duplicate_build')
+        raise UploadException("duplicate_build")
 
     if variant not in settings.SHIPPER_UPLOAD_VARIANTS:
-        raise UploadException('invalid_file_name')
+        raise UploadException("invalid_file_name")

@@ -1,6 +1,21 @@
 from django.urls import path
 
-from .views import *
+from .views import (
+    V1DownloadBuildCounter,
+    V1GeneralBuildLatest,
+    V1GeneralDeviceAll,
+    V1MaintainersChunkedUpload,
+    V1UpdaterLOS,
+    v1_download_count_all,
+    v1_download_count_day,
+    v1_download_count_month,
+    v1_download_count_week,
+    v1_maintainers_build_enabled_status_modify,
+    v1_maintainers_login,
+    v1_maintainers_token_check,
+    v1_maintainers_upload_filename_regex_pattern,
+    v1_system_info,
+)
 
 urlpatterns = [
     # statistics

@@ -39,7 +39,8 @@ SHIPPER_DOWNLOADS_PAGE_DONATION_MESSAGE = os.environ.get(
 SHIPPER_UPLOAD_VARIANTS = ast.literal_eval(
     os.environ.get(
         "SHIPPER_UPLOAD_VARIANTS",
-        default='{"gapps": "GApps", "vanilla": "Vanilla (no GApps)", "foss": "FOSS", "goapps": "GoApps (Android Go Edition GApps)"}',
+        default='{"gapps": "GApps", "vanilla": "Vanilla (no GApps)", "foss": "FOSS", '
+        '"goapps": "GoApps (Android Go Edition GApps)"}',
     )
 )
 SHIPPER_FILE_NAME_FORMAT = os.environ.get("SHIPPER_FILE_NAME_FORMAT")
@@ -79,7 +80,7 @@ INSTALLED_APPS = [
     "auditlog",
     "django_celery_beat",
     "django_celery_results",
-    "django_cleanup.apps.CleanupConfig",  # must be last in order for successful deletions
+    "django_cleanup.apps.CleanupConfig",  # must be last for successful deletions
 ]
 
 # noinspection SpellCheckingInspection
@@ -147,20 +148,17 @@ AUTH_USER_MODEL = "accounts.User"
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
+
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
+    {"NAME": f"django.contrib.auth.password_validation.{name}"}
+    for name in [
+        "UserAttributeSimilarityValidator",
+        "MinimumLengthValidator",
+        "CommonPasswordValidator",
+        "NumericPasswordValidator",
+    ]
 ]
+
 
 # Cache
 CACHES = {

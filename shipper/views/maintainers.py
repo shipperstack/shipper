@@ -4,22 +4,23 @@ from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
-from django.views.generic import ListView, DetailView, DeleteView
-
-from shipper.models import Device, Build
+from django.views.generic import DeleteView, DetailView, ListView
+from shipper.models import Build, Device
 
 
 class MaintainerDashboardView(LoginRequiredMixin, ListView):
-    template_name = 'maintainer_dashboard.html'
+    template_name = "maintainer_dashboard.html"
     model = Device
 
     # Override devices shown to maintainers
     def get_queryset(self):
-        return Device.objects.filter(maintainers=self.request.user).order_by('-status', 'manufacturer', 'name')
+        return Device.objects.filter(maintainers=self.request.user).order_by(
+            "-status", "manufacturer", "name"
+        )
 
 
 class DeviceDetailView(LoginRequiredMixin, DetailView):
-    template_name = 'device_detail.html'
+    template_name = "device_detail.html"
     model = Device
 
     # Override devices shown to maintainers
@@ -28,11 +29,11 @@ class DeviceDetailView(LoginRequiredMixin, DetailView):
 
 
 class BuildDeleteView(LoginRequiredMixin, DeleteView):
-    template_name = 'build_delete.html'
+    template_name = "build_delete.html"
     model = Build
 
     def get_success_url(self):
-        return reverse('device_detail', kwargs={'pk': self.get_object().device.id})
+        return reverse("device_detail", kwargs={"pk": self.get_object().device.id})
 
     def delete(self, request, *args, **kwargs):
         success_url = self.get_success_url()
@@ -56,4 +57,4 @@ def build_enabled_status_modify(request, pk):
     build.enabled = not build.enabled
     build.save()
 
-    return redirect(reverse('device_detail', kwargs={'pk': build.device.id}))
+    return redirect(reverse("device_detail", kwargs={"pk": build.device.id}))

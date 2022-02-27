@@ -1,11 +1,10 @@
 import ast
 import os
-import sentry_sdk
 
+import sentry_sdk
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import gettext_lazy
-
-from paramiko import SSHException, AuthenticationException
+from paramiko import AuthenticationException, SSHException
 from sentry_sdk.integrations.django import DjangoIntegration
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -25,16 +24,22 @@ with open("version.txt") as v_file:
 
 # Downloads Page
 SHIPPER_MAIN_WEBSITE_URL = os.environ.get("SHIPPER_MAIN_WEBSITE_URL", default="#")
-SHIPPER_DOWNLOADS_PAGE_MAIN_BRANDING = os.environ.get("SHIPPER_DOWNLOADS_PAGE_MAIN_BRANDING", default="Downloads")
-SHIPPER_DOWNLOADS_PAGE_DONATION_URL = os.environ.get("SHIPPER_DOWNLOADS_PAGE_DONATION_URL", default="#")
-SHIPPER_DOWNLOADS_PAGE_DONATION_MESSAGE = os.environ.get("SHIPPER_DOWNLOADS_PAGE_DONATION_MESSAGE",
-                                                         default="Please consider donating, thank you!")
+SHIPPER_DOWNLOADS_PAGE_MAIN_BRANDING = os.environ.get(
+    "SHIPPER_DOWNLOADS_PAGE_MAIN_BRANDING", default="Downloads"
+)
+SHIPPER_DOWNLOADS_PAGE_DONATION_URL = os.environ.get(
+    "SHIPPER_DOWNLOADS_PAGE_DONATION_URL", default="#"
+)
+SHIPPER_DOWNLOADS_PAGE_DONATION_MESSAGE = os.environ.get(
+    "SHIPPER_DOWNLOADS_PAGE_DONATION_MESSAGE",
+    default="Please consider donating, thank you!",
+)
 
 # Upload
 SHIPPER_UPLOAD_VARIANTS = ast.literal_eval(
     os.environ.get(
         "SHIPPER_UPLOAD_VARIANTS",
-        default='{"gapps": "GApps", "vanilla": "Vanilla (no GApps)", "foss": "FOSS", "goapps": "GoApps (Android Go Edition GApps)"}'
+        default='{"gapps": "GApps", "vanilla": "Vanilla (no GApps)", "foss": "FOSS", "goapps": "GoApps (Android Go Edition GApps)"}',
     )
 )
 SHIPPER_FILE_NAME_FORMAT = os.environ.get("SHIPPER_FILE_NAME_FORMAT")
@@ -43,91 +48,98 @@ SHIPPER_FILE_NAME_FORMAT = os.environ.get("SHIPPER_FILE_NAME_FORMAT")
 def is_matched_name_group_in_regex(match_name, regex_pattern):
     return f"?P<{match_name}>" in regex_pattern
 
+
 if not (
-    is_matched_name_group_in_regex("variant", SHIPPER_FILE_NAME_FORMAT) and
-    is_matched_name_group_in_regex("codename", SHIPPER_FILE_NAME_FORMAT) and
-    is_matched_name_group_in_regex("date", SHIPPER_FILE_NAME_FORMAT) and
-    is_matched_name_group_in_regex("version", SHIPPER_FILE_NAME_FORMAT)
+    is_matched_name_group_in_regex("variant", SHIPPER_FILE_NAME_FORMAT)
+    and is_matched_name_group_in_regex("codename", SHIPPER_FILE_NAME_FORMAT)
+    and is_matched_name_group_in_regex("date", SHIPPER_FILE_NAME_FORMAT)
+    and is_matched_name_group_in_regex("version", SHIPPER_FILE_NAME_FORMAT)
 ):
-    raise ImproperlyConfigured("The regex pattern specified in SHIPPER_FILE_NAME_FORMAT is incorrect!")
+    raise ImproperlyConfigured(
+        "The regex pattern specified in SHIPPER_FILE_NAME_FORMAT is incorrect!"
+    )
 
 
 # Application definition
 # noinspection SpellCheckingInspection
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'accounts',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'rest_framework',
-    'rest_framework.authtoken',
-    'shipper',
-    'downloads',
-    'api',
-    'drf_chunked_upload',
-    'auditlog',
-    'django_celery_beat',
-    'django_celery_results',
-    'django_cleanup.apps.CleanupConfig',  # must be last in order for successful deletions
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "accounts",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "rest_framework",
+    "rest_framework.authtoken",
+    "shipper",
+    "downloads",
+    "api",
+    "drf_chunked_upload",
+    "auditlog",
+    "django_celery_beat",
+    "django_celery_results",
+    "django_cleanup.apps.CleanupConfig",  # must be last in order for successful deletions
 ]
 
 # noinspection SpellCheckingInspection
 MIDDLEWARE = [
-    'django.middleware.cache.UpdateCacheMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.cache.FetchFromCacheMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'auditlog.middleware.AuditlogMiddleware',
+    "django.middleware.cache.UpdateCacheMiddleware",
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.cache.FetchFromCacheMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "auditlog.middleware.AuditlogMiddleware",
 ]
 
-ROOT_URLCONF = 'config.urls'
+ROOT_URLCONF = "config.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, "templates")],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-                'config.context_processors.download_page_processor',
-                'config.context_processors.version_processor',
-                'config.context_processors.debug_mode_processor',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+                "config.context_processors.download_page_processor",
+                "config.context_processors.version_processor",
+                "config.context_processors.debug_mode_processor",
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'config.wsgi.application'
+WSGI_APPLICATION = "config.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 # noinspection PyUnresolvedReferences
 DATABASES = {
-    'default': {
-        'ENGINE': os.environ.get("SHIPPER_SQL_ENGINE", default='django.db.backends.sqlite3'),
-        'NAME': os.environ.get("SHIPPER_SQL_DATABASE", default=os.path.join(BASE_DIR, 'db.sqlite3')),
-        'USER': os.environ.get("SHIPPER_SQL_USER", default="user"),
-        'PASSWORD': os.environ.get("SHIPPER_SQL_PASSWORD", default="password"),
-        'HOST': os.environ.get("SHIPPER_SQL_HOST", default="localhost"),
-        'PORT': os.environ.get("SHIPPER_SQL_PORT", default="5432"),
+    "default": {
+        "ENGINE": os.environ.get(
+            "SHIPPER_SQL_ENGINE", default="django.db.backends.sqlite3"
+        ),
+        "NAME": os.environ.get(
+            "SHIPPER_SQL_DATABASE", default=os.path.join(BASE_DIR, "db.sqlite3")
+        ),
+        "USER": os.environ.get("SHIPPER_SQL_USER", default="user"),
+        "PASSWORD": os.environ.get("SHIPPER_SQL_PASSWORD", default="password"),
+        "HOST": os.environ.get("SHIPPER_SQL_HOST", default="localhost"),
+        "PORT": os.environ.get("SHIPPER_SQL_PORT", default="5432"),
     }
 }
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Custom user model
 AUTH_USER_MODEL = "accounts.User"
@@ -137,115 +149,111 @@ AUTH_USER_MODEL = "accounts.User"
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
 
 # Cache
 CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': 'shipper-cache',
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "shipper-cache",
     }
 }
-CACHE_MIDDLEWARE_ALIAS='default'
-CACHE_MIDDLEWARE_SECONDS=300    # 5 minutes
-CACHE_MIDDLEWARE_KEY_PREFIX='shipper'
+CACHE_MIDDLEWARE_ALIAS = "default"
+CACHE_MIDDLEWARE_SECONDS = 300  # 5 minutes
+CACHE_MIDDLEWARE_KEY_PREFIX = "shipper"
 
 
 # Email
-EMAIL_BACKEND = os.environ.get("SHIPPER_EMAIL_BACKEND", default='django.core.mail.backends.console.EmailBackend')
-EMAIL_HOST = os.environ.get("SHIPPER_EMAIL_HOST", default='')
-EMAIL_PORT = os.environ.get("SHIPPER_EMAIL_PORT", default='')
-EMAIL_HOST_USER = os.environ.get("SHIPPER_EMAIL_HOST_USER", default='')
-EMAIL_HOST_PASSWORD = os.environ.get("SHIPPER_EMAIL_HOST_PASSWORD", default='')
+EMAIL_BACKEND = os.environ.get(
+    "SHIPPER_EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend"
+)
+EMAIL_HOST = os.environ.get("SHIPPER_EMAIL_HOST", default="")
+EMAIL_PORT = os.environ.get("SHIPPER_EMAIL_PORT", default="")
+EMAIL_HOST_USER = os.environ.get("SHIPPER_EMAIL_HOST_USER", default="")
+EMAIL_HOST_PASSWORD = os.environ.get("SHIPPER_EMAIL_HOST_PASSWORD", default="")
 EMAIL_USE_TLS = int(os.environ.get("SHIPPER_EMAIL_USE_TLS", default=1))
-DEFAULT_FROM_EMAIL = os.environ.get("SHIPPER_DEFAULT_FROM_EMAIL", default='')
+DEFAULT_FROM_EMAIL = os.environ.get("SHIPPER_DEFAULT_FROM_EMAIL", default="")
 
-ADMINS = [tuple(i.split(":")) for i in os.environ.get("SHIPPER_ADMIN_EMAILS", default="").split(";")]
+ADMINS = [
+    tuple(i.split(":"))
+    for i in os.environ.get("SHIPPER_ADMIN_EMAILS", default="").split(";")
+]
 MANAGERS = ADMINS
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
+LANGUAGE_CODE = "en-us"
+TIME_ZONE = "UTC"
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
 LANGUAGES = [
-    ('ko', gettext_lazy('Korean')),
-    ('en', gettext_lazy('English')),
+    ("ko", gettext_lazy("Korean")),
+    ("en", gettext_lazy("English")),
 ]
 
-LOCALE_PATHS = [
-    os.path.join(BASE_DIR, 'locale')
-]
+LOCALE_PATHS = [os.path.join(BASE_DIR, "locale")]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
 # noinspection PyUnresolvedReferences
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 # Media
-MEDIA_URL = '/media/'
+MEDIA_URL = "/media/"
 # noinspection PyUnresolvedReferences
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Login
-LOGIN_REDIRECT_URL = '/maintainers/'
+LOGIN_REDIRECT_URL = "/maintainers/"
 
 # Django REST Framework
 REST_FRAMEWORK = {
-    'DEFAULT_RENDERER_CLASSES': (
-        'rest_framework.renderers.JSONRenderer',
+    "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.TokenAuthentication",
     ),
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
-    ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
-    'DEFAULT_THROTTLE_CLASSES': [
-        'rest_framework.throttling.AnonRateThrottle',
-        'rest_framework.throttling.UserRateThrottle'
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    "DEFAULT_THROTTLE_CLASSES": [
+        "rest_framework.throttling.AnonRateThrottle",
+        "rest_framework.throttling.UserRateThrottle",
     ],
-    'DEFAULT_THROTTLE_RATES': {
-        'anon': '10/minute',
-        'user': '10/second'
-    }
+    "DEFAULT_THROTTLE_RATES": {"anon": "10/minute", "user": "10/second"},
 }
 
 
 # drf-chunked-upload
-DRF_CHUNKED_UPLOAD_COMPLETE_EXT = ''
+DRF_CHUNKED_UPLOAD_COMPLETE_EXT = ""
 DRF_CHUNKED_UPLOAD_ABSTRACT_MODEL = False
-DRF_CHUNKED_UPLOAD_MAX_BYTES = 5_000_000_000   # 5 GB
+DRF_CHUNKED_UPLOAD_MAX_BYTES = 5_000_000_000  # 5 GB
 
 
 # Celery
 # noinspection SpellCheckingInspection
 CELERY_BROKER_URL = "pyamqp://rabbitmq:5672/"
-CELERY_TASK_TIME_LIMIT = 600    # 10 minutes
-CELERY_RESULT_BACKEND = 'django-db'
-CELERY_RESULT_CACHE = 'django-cache'
+CELERY_TASK_TIME_LIMIT = 600  # 10 minutes
+CELERY_RESULT_BACKEND = "django-db"
+CELERY_RESULT_CACHE = "django-cache"
 
 
 # Sentry SDK
 def before_send(event, hint):
-    if 'log_record' in hint:
-        if hint['log_record'].name == 'django.security.DisallowedHost':
+    if "log_record" in hint:
+        if hint["log_record"].name == "django.security.DisallowedHost":
             return None
     return event
 

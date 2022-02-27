@@ -1,4 +1,3 @@
-# noinspection PyPackageRequirements
 from auditlog.registry import auditlog
 from django.contrib.auth.models import AbstractUser
 

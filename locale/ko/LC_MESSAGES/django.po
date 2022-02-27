@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shipper\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-27 14:16+0000\n"
+"POT-Creation-Date: 2022-02-27 14:33+0000\n"
 "PO-Revision-Date: 2022-02-27 14:09+0900\n"
 "Last-Translator: Eric Park <me@ericswpark.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -39,7 +39,7 @@ msgid "This email address is already registered and cannot be used!"
 msgstr "이 이메일 주소는 이미 사용되고 있어 사용하실 수 없습니다!"
 
 #: accounts/templates/registration/register.html:5
-#: templates/maintainer_base.html:41
+#: templates/maintainer_base.html:42
 msgid "Register"
 msgstr "회원가입"
 
@@ -67,30 +67,46 @@ msgstr "한국어"
 msgid "English"
 msgstr "영어"
 
+#: downloads/templates/downloads_main.html:5
+msgid "Downloads"
+msgstr "다운로드들"
+
+#: downloads/templates/downloads_main.html:35
+msgid "Device photo"
+msgstr "기기 사진"
+
+#: downloads/templates/downloads_main.html:38
+msgid "Device photo placeholder image"
+msgstr "기기 사진 대체용 임시 사진"
+
+#: downloads/templates/downloads_main.html:45
+msgid "This device is no longer supported."
+msgstr "이 기기는 더 이상 지원되지 않습니다."
+
 #: templates/language_switch.html:7
 msgid "Set your language preferences here:"
 msgstr "여기에서 선호하는 언어를 설정하세요:"
 
-#: templates/maintainer_base.html:30
+#: templates/maintainer_base.html:31
 msgid "Account"
 msgstr "계정"
 
-#: templates/maintainer_base.html:34
+#: templates/maintainer_base.html:35
 msgid "Change Password"
 msgstr "비밀번호 변경"
 
-#: templates/maintainer_base.html:38
+#: templates/maintainer_base.html:39
 msgid "Logout"
 msgstr "로그아웃"
 
-#: templates/maintainer_base.html:40
+#: templates/maintainer_base.html:41
 msgid "Login"
 msgstr "로그인"
 
-#: templates/maintainer_base.html:45
+#: templates/maintainer_base.html:46
 msgid "Forgot Password?"
 msgstr "비밀번호 찾기"
 
-#: templates/maintainer_base.html:60
+#: templates/maintainer_base.html:61
 msgid "Version"
 msgstr "버전"

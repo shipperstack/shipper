@@ -2,8 +2,6 @@
 # Copyright (C) 2022 ericswpark
 # This file is distributed under the same license as the shipper package.
 # Eric Park <me@ericswpark.com>, 2022.
-msgid ""
-msgstr ""
 "Project-Id-Version: shipper\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-02-27 05:05+0000\n"

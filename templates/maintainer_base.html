@@ -27,22 +27,22 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                            Account
+                            {% translate "Account" %}
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             {% if user.is_authenticated %}
-                            <li><a class="dropdown-item" href="{% url 'password_change' %}">Change Password</a></li>
+                            <li><a class="dropdown-item" href="{% url 'password_change' %}">{% translate "Change Password" %}</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">{% translate "Logout" %}</a></li>
                             {% else %}
-                            <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
-                            <li><a class="dropdown-item" href="{% url 'register' %}">Register</a></li>
+                            <li><a class="dropdown-item" href="{% url 'login' %}">{% translate "Login" %}</a></li>
+                            <li><a class="dropdown-item" href="{% url 'register' %}">{% translate "Register" %}</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="{% url 'password_reset' %}">Forgot Password?</a></li>
+                            <li><a class="dropdown-item" href="{% url 'password_reset' %}">{% translate "Forgot Password?" %}</a></li>
                             {% endif %}
                         </ul>
                     </li>
@@ -57,7 +57,7 @@
     <hr>
 
     <footer class="footer">
-        Version {{ SHIPPER_VERSION }}
+        {% translate "Version" %} {{ SHIPPER_VERSION }}
     </footer>
 </div>
 {% endblock %}

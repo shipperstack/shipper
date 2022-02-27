@@ -19,4 +19,6 @@ To see all commands, run `helpme`.
 
 ## Coding standards
 
+shipper development uses `flake8` with `mccabe` for linting.
+
 shipper development uses the `black` formatter for formatting all Python code. Make sure to use `black` to format code before sending it in for PR.

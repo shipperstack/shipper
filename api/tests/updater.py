@@ -1,9 +1,8 @@
-from django.contrib.auth.models import AnonymousUser
-from rest_framework.test import APITestCase, APIRequestFactory
-
-from api.views import V1UpdaterLOS
 from api.utils import variant_check
-from shipper.tests import mock_devices_setup, mock_builds_setup
+from api.views import V1UpdaterLOS
+from django.contrib.auth.models import AnonymousUser
+from rest_framework.test import APIRequestFactory, APITestCase
+from shipper.tests import mock_builds_setup, mock_devices_setup
 
 
 class UpdaterTestCase(APITestCase):

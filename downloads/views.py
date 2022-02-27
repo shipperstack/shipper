@@ -1,18 +1,17 @@
 from django.shortcuts import get_object_or_404
-from django.views.generic import ListView, DetailView
-
-from shipper.models import Device, Build
+from django.views.generic import DetailView, ListView
+from shipper.models import Build, Device
 
 
 class DownloadsMainView(ListView):
-    template_name = 'downloads_main.html'
+    template_name = "downloads_main.html"
     model = Device
 
-    ordering = ['-status', 'manufacturer', 'name']
+    ordering = ["-status", "manufacturer", "name"]
 
 
 class DownloadsDeviceView(DetailView):
-    template_name = 'downloads_device.html'
+    template_name = "downloads_device.html"
     model = Device
 
     def get_object(self, queryset=None):
@@ -20,5 +19,5 @@ class DownloadsDeviceView(DetailView):
 
 
 class DownloadsBuildView(DetailView):
-    template_name = 'downloads_build.html'
+    template_name = "downloads_build.html"
     model = Build

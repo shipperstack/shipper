@@ -1,16 +1,18 @@
 from django.contrib.auth.models import AnonymousUser
 from django.http import Http404
-from django.test import TestCase, RequestFactory
+from django.test import RequestFactory, TestCase
+from shipper.tests import mock_builds_setup, mock_devices_setup
 
 from downloads.templatetags.build_extras import format_download_url
 from downloads.views import DownloadsBuildView, DownloadsDeviceView, DownloadsMainView
-from shipper.tests import mock_devices_setup, mock_builds_setup
 
 
 class ShipperTemplateTagsTestCase(TestCase):
     def test_format_download_url(self):
-        self.assertEqual("https://mock/test/Bliss-v14.zip/download/",
-                         format_download_url("https://mock/test/{}/download/", "Bliss-v14.zip"))
+        self.assertEqual(
+            "https://mock/test/Bliss-v14.zip/download/",
+            format_download_url("https://mock/test/{}/download/", "Bliss-v14.zip"),
+        )
 
 
 class DownloadsViewTestCase(TestCase):

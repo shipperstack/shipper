@@ -1,7 +1,6 @@
 import datetime
 
 from api.utils import get_client_ip
-from django.db.models import F
 from django.utils import timezone
 from django.views.decorators.cache import cache_page
 from django.views.decorators.csrf import csrf_exempt

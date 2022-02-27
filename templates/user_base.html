@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load i18n %}
+
 {% block base_head %}
 
 <style>
@@ -42,7 +44,8 @@
 
 <footer class="footer">
     <div class="container">
-        <a class="language-switch" href="{% url 'language_switch' %}">en</a>
+        {% get_current_language as LANGUAGE_CODE %}
+        <a class="language-switch" href="{% url 'language_switch' %}">{{ LANGUAGE_CODE }}</a>
     </div>
 </footer>
 {% endblock %}

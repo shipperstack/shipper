@@ -45,7 +45,7 @@
 <footer class="footer">
     <div class="container">
         {% get_current_language as LANGUAGE_CODE %}
-        <a class="language-switch" href="{% url 'language_switch' %}">{{ LANGUAGE_CODE }}</a>
+        <a class="language-switch" href="{% url 'language_switch' %}?next={{ request.path }}">{{ LANGUAGE_CODE }}</a>
     </div>
 </footer>
 {% endblock %}

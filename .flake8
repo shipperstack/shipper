@@ -2,5 +2,7 @@
 exclude =
     .git,
     __pycache__,
-    venv
+    venv,
+    docs,
+    migrations
 max-complexity = 10

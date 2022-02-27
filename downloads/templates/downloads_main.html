@@ -1,6 +1,8 @@
 {% extends 'user_base.html' %}
 
-{% block title %}Downloads{% endblock %}
+{% load i18n %}
+
+{% block title %}{% translate "Downloads" %}{% endblock %}
 
 {% block head %}
     <style>
@@ -30,17 +32,17 @@
                         <a class="card-url" href="{% url 'downloads_device' codename=device.codename %}">
                             <div class="card h-100">
                                 {% if device.photo %}
-                                    <img src="{{ device.photo }}" class="card-img-top" alt="Device photo">
+                                    <img src="{{ device.photo }}" class="card-img-top" alt='{% translate "Device photo" %}'>
                                 {% else %}
                                     <!-- TODO: Add placeholder image here! -->
-                                    <img src="#" class="card-img-top" alt="Device photo placeholder image">
+                                    <img src="#" class="card-img-top" alt='{% translate "Device photo placeholder image" %}'>
                                 {% endif %}
                                 <div class="card-body">
                                     {% if device.status %}
                                         <h5 class="card-title">{{ device }}</h5>
                                     {% else %}
                                         <h5 class="card-title text-reset text-decoration-line-through"
-                                            title="This device is no longer supported.">{{ device }}</h5>
+                                            title='{% translate "This device is no longer supported." %}'>{{ device }}</h5>
                                     {% endif %}
                                 </div>
                             </div>

@@ -7,6 +7,17 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
+# [1.14.2] - 2022-02-27
+
+This release contains a configuration key change.
+
+## Added
+- Added a statistics admin view to see all statistic entries
+
+## Changed
+- Fixed a bug that prevented uploads with shippy
+
+
 # [1.14.1] - 2022-02-26
 
 ## Added
@@ -820,7 +831,8 @@ This release contains a configuration key change.
 Initial release
 
 
-[Unreleased]: https://github.com/ericswpark/shipper/compare/1.14.1...HEAD
+[Unreleased]: https://github.com/ericswpark/shipper/compare/1.14.2...HEAD
+[1.14.2]: https://github.com/ericswpark/shipper/compare/1.14.1...1.14.2
 [1.14.1]: https://github.com/ericswpark/shipper/compare/1.14.0...1.14.1
 [1.14.0]: https://github.com/ericswpark/shipper/compare/1.13.6...1.14.0
 [1.13.6]: https://github.com/ericswpark/shipper/compare/1.13.5...1.13.6

@@ -1,6 +1,3 @@
-import datetime
-
-# noinspection PyPackageRequirements
 from auditlog.registry import auditlog
 from django.conf import settings
 from django.contrib import admin

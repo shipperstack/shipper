@@ -1,23 +1,23 @@
 {% extends 'base.html' %}
 
 {% block base_head %}
-    {% block head %}
-    {% endblock %}
+{% block head %}
+{% endblock %}
 {% endblock %}
 
 {% block base_content %}
-    <div class="container">
-        <header class="header clearfix">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="/">{{ downloads_page_main_branding }}</a>
-                {% if main_website_url != "#" %}
-                    <a class="btn btn-outline-secondary" href="{{ main_website_url }}">Back to main website</a>
-                {% endif %}
-            </nav>
-        </header>
+<div class="container">
+    <header class="header clearfix">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/">{{ downloads_page_main_branding }}</a>
+            {% if main_website_url != "#" %}
+            <a class="btn btn-outline-secondary" href="{{ main_website_url }}">Back to main website</a>
+            {% endif %}
+        </nav>
+    </header>
 
-        {% block content %}
-        {% endblock %}
+    {% block content %}
+    {% endblock %}
 
-    </div>
+</div>
 {% endblock %}

@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView, ListView, TemplateView
 from shipper.models import Build, Device
 
 
@@ -21,3 +21,7 @@ class DownloadsDeviceView(DetailView):
 class DownloadsBuildView(DetailView):
     template_name = "downloads_build.html"
     model = Build
+
+
+class LanguageSwitchView(TemplateView):
+    template_name = "language_switch.html"

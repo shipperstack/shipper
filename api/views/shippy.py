@@ -1,5 +1,3 @@
-import os
-
 from django.conf import settings
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import update_last_login

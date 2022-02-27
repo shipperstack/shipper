@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shipper\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-27 14:16+0000\n"
+"POT-Creation-Date: 2022-02-27 14:33+0000\n"
 "PO-Revision-Date: 2022-02-27 14:08+0900\n"
 "Last-Translator: Eric Park <me@ericswpark.com>\n"
 "Language-Team: English <en@li.org>\n"
@@ -37,7 +37,7 @@ msgid "This email address is already registered and cannot be used!"
 msgstr "This email address is already registered and cannot be used!"
 
 #: accounts/templates/registration/register.html:5
-#: templates/maintainer_base.html:41
+#: templates/maintainer_base.html:42
 msgid "Register"
 msgstr "Register"
 
@@ -65,30 +65,46 @@ msgstr "Korean"
 msgid "English"
 msgstr "English"
 
+#: downloads/templates/downloads_main.html:5
+msgid "Downloads"
+msgstr "Downloads"
+
+#: downloads/templates/downloads_main.html:35
+msgid "Device photo"
+msgstr "Device photo"
+
+#: downloads/templates/downloads_main.html:38
+msgid "Device photo placeholder image"
+msgstr "Device photo placeholder image"
+
+#: downloads/templates/downloads_main.html:45
+msgid "This device is no longer supported."
+msgstr "This device is no longer supported."
+
 #: templates/language_switch.html:7
 msgid "Set your language preferences here:"
 msgstr "Set your language preferences here:"
 
-#: templates/maintainer_base.html:30
+#: templates/maintainer_base.html:31
 msgid "Account"
 msgstr "Account"
 
-#: templates/maintainer_base.html:34
+#: templates/maintainer_base.html:35
 msgid "Change Password"
 msgstr "Change Password"
 
-#: templates/maintainer_base.html:38
+#: templates/maintainer_base.html:39
 msgid "Logout"
 msgstr "Logout"
 
-#: templates/maintainer_base.html:40
+#: templates/maintainer_base.html:41
 msgid "Login"
 msgstr "Login"
 
-#: templates/maintainer_base.html:45
+#: templates/maintainer_base.html:46
 msgid "Forgot Password?"
 msgstr "Forgot Password?"
 
-#: templates/maintainer_base.html:60
+#: templates/maintainer_base.html:61
 msgid "Version"
 msgstr "Version"

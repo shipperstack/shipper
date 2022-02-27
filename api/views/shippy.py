@@ -15,7 +15,7 @@ from rest_framework.status import (
     HTTP_401_UNAUTHORIZED,
     HTTP_404_NOT_FOUND,
 )
-from shipper.exceptions import *
+from shipper.exceptions import RegexParseException, UploadException
 from shipper.handler import handle_chunked_build
 from shipper.models import Build, Device
 from shipper.utils import parse_filename_with_regex

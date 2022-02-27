@@ -20,7 +20,6 @@ class V1DownloadBuildCounter(APIView):
 
     permission_classes = [AllowAny]
 
-    # noinspection PyMethodMayBeStatic
     def post(self, request):
         file_name = request.data.get("file_name")
 

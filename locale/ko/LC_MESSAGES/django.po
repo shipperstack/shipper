@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shipper\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-27 14:33+0000\n"
+"POT-Creation-Date: 2022-02-27 14:40+0000\n"
 "PO-Revision-Date: 2022-02-27 14:09+0900\n"
 "Last-Translator: Eric Park <me@ericswpark.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -66,6 +66,18 @@ msgstr "한국어"
 #: config/settings.py:196
 msgid "English"
 msgstr "영어"
+
+#: downloads/templates/debug_warning.html:5
+msgid "This is a development server!"
+msgstr "현재 개발용 서버에 접속하고 계십니다!"
+
+#: downloads/templates/debug_warning.html:6
+msgid "Please make sure you are connecting to the correct server!"
+msgstr "올바른 서버에 접속하고 계신지 확인하시기 바랍니다!"
+
+#: downloads/templates/debug_warning.html:7
+msgid "If you believe you are on the correct server, please contact an admin."
+msgstr "만약 정확한 서버에 접속하였다고 생각하신다면, 관리자에게 문의하여 주십시오."
 
 #: downloads/templates/downloads_main.html:5
 msgid "Downloads"

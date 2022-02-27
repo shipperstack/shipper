@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shipper\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-27 14:33+0000\n"
+"POT-Creation-Date: 2022-02-27 14:40+0000\n"
 "PO-Revision-Date: 2022-02-27 14:08+0900\n"
 "Last-Translator: Eric Park <me@ericswpark.com>\n"
 "Language-Team: English <en@li.org>\n"
@@ -64,6 +64,18 @@ msgstr "Korean"
 #: config/settings.py:196
 msgid "English"
 msgstr "English"
+
+#: downloads/templates/debug_warning.html:5
+msgid "This is a development server!"
+msgstr "This is a development server!"
+
+#: downloads/templates/debug_warning.html:6
+msgid "Please make sure you are connecting to the correct server!"
+msgstr "Please make sure you are connecting to the correct server!"
+
+#: downloads/templates/debug_warning.html:7
+msgid "If you believe you are on the correct server, please contact an admin."
+msgstr "If you believe you are on the correct server, please contact an admin."
 
 #: downloads/templates/downloads_main.html:5
 msgid "Downloads"

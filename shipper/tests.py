@@ -1,10 +1,9 @@
 from django.test import TestCase, override_settings
 
-
-from .exceptions import *
+from .exceptions import RegexParseException, UploadException
 from .handler import file_name_validity_check
-from .models import Device, Build
-from .utils import *
+from .models import Build, Device
+from .utils import is_version_in_target_versions, parse_filename_with_regex
 
 
 class ShipperDeviceTestCase(TestCase):
@@ -24,24 +23,34 @@ class ShipperBuildTestCase(TestCase):
         mock_builds_setup()
 
     def test_build_string(self):
-        build = Build.objects.get(file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200608")
+        build = Build.objects.get(
+            file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200608"
+        )
         self.assertEqual(str(build), "Bliss-v14-bullhead-OFFICIAL-gapps-20200608")
 
     def test_upload_path(self):
-        build = Build.objects.get(file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200608")
+        build = Build.objects.get(
+            file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200608"
+        )
         self.assertEqual(build.get_upload_path("example"), "bullhead/example")
         self.assertEqual(build.get_upload_path(""), "bullhead/")
 
     def test_user_friendly_name(self):
-        build = Build.objects.get(file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200608")
+        build = Build.objects.get(
+            file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200608"
+        )
         self.assertEqual(build.get_user_friendly_name(), "v14 - 2020-06-08")
 
     def test_human_readable_size(self):
-        build = Build.objects.get(file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200608")
+        build = Build.objects.get(
+            file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200608"
+        )
         self.assertEqual(build.get_human_readable_size(), "857.5 MB")
 
     def test_mirrors(self):
-        build = Build.objects.get(file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200608")
+        build = Build.objects.get(
+            file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200608"
+        )
         self.assertEqual(len(build.get_downloadable_mirrors()), 0)
 
 
@@ -52,27 +61,111 @@ class ShipperCombinedTestCase(TestCase):
 
     def test_gapps_build_count(self):
         devices = get_mock_devices()
-        self.assertEqual(len(devices["bullhead"].get_all_enabled_hashed_builds_of_variant(variant="gapps")), 1)
-        self.assertEqual(len(devices["angler"].get_all_enabled_hashed_builds_of_variant(variant="gapps")), 0)
-        self.assertEqual(len(devices["dream2lte"].get_all_enabled_hashed_builds_of_variant(variant="gapps")), 1)
+        self.assertEqual(
+            len(
+                devices["bullhead"].get_all_enabled_hashed_builds_of_variant(
+                    variant="gapps"
+                )
+            ),
+            1,
+        )
+        self.assertEqual(
+            len(
+                devices["angler"].get_all_enabled_hashed_builds_of_variant(
+                    variant="gapps"
+                )
+            ),
+            0,
+        )
+        self.assertEqual(
+            len(
+                devices["dream2lte"].get_all_enabled_hashed_builds_of_variant(
+                    variant="gapps"
+                )
+            ),
+            1,
+        )
 
     def test_vanilla_build_count(self):
         devices = get_mock_devices()
-        self.assertEqual(len(devices["bullhead"].get_all_enabled_hashed_builds_of_variant(variant="vanilla")), 0)
-        self.assertEqual(len(devices["angler"].get_all_enabled_hashed_builds_of_variant(variant="vanilla")), 1)
-        self.assertEqual(len(devices["dream2lte"].get_all_enabled_hashed_builds_of_variant(variant="vanilla")), 0)
+        self.assertEqual(
+            len(
+                devices["bullhead"].get_all_enabled_hashed_builds_of_variant(
+                    variant="vanilla"
+                )
+            ),
+            0,
+        )
+        self.assertEqual(
+            len(
+                devices["angler"].get_all_enabled_hashed_builds_of_variant(
+                    variant="vanilla"
+                )
+            ),
+            1,
+        )
+        self.assertEqual(
+            len(
+                devices["dream2lte"].get_all_enabled_hashed_builds_of_variant(
+                    variant="vanilla"
+                )
+            ),
+            0,
+        )
 
     def test_foss_build_count(self):
         devices = get_mock_devices()
-        self.assertEqual(len(devices["bullhead"].get_all_enabled_hashed_builds_of_variant(variant="foss")), 0)
-        self.assertEqual(len(devices["angler"].get_all_enabled_hashed_builds_of_variant(variant="foss")), 0)
-        self.assertEqual(len(devices["dream2lte"].get_all_enabled_hashed_builds_of_variant(variant="foss")), 0)
+        self.assertEqual(
+            len(
+                devices["bullhead"].get_all_enabled_hashed_builds_of_variant(
+                    variant="foss"
+                )
+            ),
+            0,
+        )
+        self.assertEqual(
+            len(
+                devices["angler"].get_all_enabled_hashed_builds_of_variant(
+                    variant="foss"
+                )
+            ),
+            0,
+        )
+        self.assertEqual(
+            len(
+                devices["dream2lte"].get_all_enabled_hashed_builds_of_variant(
+                    variant="foss"
+                )
+            ),
+            0,
+        )
 
     def test_goapps_build_count(self):
         devices = get_mock_devices()
-        self.assertEqual(len(devices["bullhead"].get_all_enabled_hashed_builds_of_variant(variant="goapps")), 0)
-        self.assertEqual(len(devices["angler"].get_all_enabled_hashed_builds_of_variant(variant="goapps")), 0)
-        self.assertEqual(len(devices["dream2lte"].get_all_enabled_hashed_builds_of_variant(variant="goapps")), 0)
+        self.assertEqual(
+            len(
+                devices["bullhead"].get_all_enabled_hashed_builds_of_variant(
+                    variant="goapps"
+                )
+            ),
+            0,
+        )
+        self.assertEqual(
+            len(
+                devices["angler"].get_all_enabled_hashed_builds_of_variant(
+                    variant="goapps"
+                )
+            ),
+            0,
+        )
+        self.assertEqual(
+            len(
+                devices["dream2lte"].get_all_enabled_hashed_builds_of_variant(
+                    variant="goapps"
+                )
+            ),
+            0,
+        )
 
 
 class ShipperHandlerTestCase(TestCase):
@@ -115,21 +208,51 @@ class ShipperUtilsTestCase(TestCase):
         with self.assertRaises(Exception):
             is_version_in_target_versions("v12.*", "v12.*")
 
-    @override_settings(SHIPPER_FILE_NAME_FORMAT='[A-Za-z]*-(?P<version>[a-z0-9.]*)-(?P<codename>[A-Za-z]*)-OFFICIAL-(?P<variant>[a-z]*)-(?P<date>[0-9]*).zip')
+    @override_settings(
+        SHIPPER_FILE_NAME_FORMAT="[A-Za-z]*-(?P<version>[a-z0-9.]*)-(?P<codename>[A-Za-"
+        "z]*)-OFFICIAL-(?P<variant>[a-z]*)-(?P<date>[0-9]*).zip"
+    )
     def test_parse_filename_with_regex_invalid_filename(self):
         with self.assertRaises(RegexParseException):
             parse_filename_with_regex("whatever.zip")
         with self.assertRaises(RegexParseException):
-            parse_filename_with_regex("Bliss-v12.8-bullhead-OFFICIAL-gapps-20210820.mp4")
+            parse_filename_with_regex(
+                "Bliss-v12.8-bullhead-OFFICIAL-gapps-20210820.mp4"
+            )
         with self.assertRaises(RegexParseException):
-            parse_filename_with_regex("Bliss-bullhead-v12.8-OFFICIAL-gapps-20210820.zip")
-    
-    @override_settings(SHIPPER_FILE_NAME_FORMAT='[A-Za-z]*-(?P<version>[a-z0-9.]*)-(?P<codename>[A-Za-z]*)-OFFICIAL-(?P<variant>[a-z]*)-(?P<date>[0-9]*).zip')
+            parse_filename_with_regex(
+                "Bliss-bullhead-v12.8-OFFICIAL-gapps-20210820.zip"
+            )
+
+    @override_settings(
+        SHIPPER_FILE_NAME_FORMAT="[A-Za-z]*-(?P<version>[a-z0-9.]*)-(?P<codename>[A-Za-"
+        "z]*)-OFFICIAL-(?P<variant>[a-z]*)-(?P<date>[0-9]*).zip"
+    )
     def test_parse_filename_with_regex(self):
-        self.assertEqual(parse_filename_with_regex("Bliss-v12.8-bullhead-OFFICIAL-gapps-20210820.zip")['version'], "v12.8")
-        self.assertEqual(parse_filename_with_regex("Bliss-v12.8-bullhead-OFFICIAL-gapps-20210820.zip")['codename'], "bullhead")
-        self.assertEqual(parse_filename_with_regex("Bliss-v12.8-bullhead-OFFICIAL-gapps-20210820.zip")['variant'], "gapps")
-        self.assertEqual(parse_filename_with_regex("Bliss-v12.8-bullhead-OFFICIAL-gapps-20210820.zip")['date'], "20210820")
+        self.assertEqual(
+            parse_filename_with_regex(
+                "Bliss-v12.8-bullhead-OFFICIAL-gapps-20210820.zip"
+            )["version"],
+            "v12.8",
+        )
+        self.assertEqual(
+            parse_filename_with_regex(
+                "Bliss-v12.8-bullhead-OFFICIAL-gapps-20210820.zip"
+            )["codename"],
+            "bullhead",
+        )
+        self.assertEqual(
+            parse_filename_with_regex(
+                "Bliss-v12.8-bullhead-OFFICIAL-gapps-20210820.zip"
+            )["variant"],
+            "gapps",
+        )
+        self.assertEqual(
+            parse_filename_with_regex(
+                "Bliss-v12.8-bullhead-OFFICIAL-gapps-20210820.zip"
+            )["date"],
+            "20210820",
+        )
 
 
 def mock_devices_setup():
@@ -173,6 +296,7 @@ def get_mock_devices():
 
 def mock_builds_setup():
     from datetime import date
+
     Build.objects.create(
         device=Device.objects.get(codename="bullhead"),
         file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200608",

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shipper\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-27 05:05+0000\n"
+"POT-Creation-Date: 2022-02-27 14:16+0000\n"
 "PO-Revision-Date: 2022-02-27 14:09+0900\n"
 "Last-Translator: Eric Park <me@ericswpark.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -22,23 +22,24 @@ msgstr ""
 msgid "Required."
 msgstr "필수."
 
-#: accounts/forms.py:16
+#: accounts/forms.py:17
 msgid "Password"
 msgstr "비밀번호"
 
-#: accounts/forms.py:17
+#: accounts/forms.py:20
 msgid "Verify Password"
 msgstr "비밀번호 확인"
 
-#: accounts/forms.py:27
+#: accounts/forms.py:31
 msgid "The passwords do not match!"
 msgstr "비밀번호가 일치하지 않습니다!"
 
-#: accounts/forms.py:32
+#: accounts/forms.py:38
 msgid "This email address is already registered and cannot be used!"
 msgstr "이 이메일 주소는 이미 사용되고 있어 사용하실 수 없습니다!"
 
 #: accounts/templates/registration/register.html:5
+#: templates/maintainer_base.html:41
 msgid "Register"
 msgstr "회원가입"
 
@@ -51,17 +52,45 @@ msgid ""
 "If you did not file a maintainer application or if you were not accepted as "
 "a maintainer, please do not fill out this form."
 msgstr ""
-"만약 관리 가입서를 작성하지 않았거나 관리 가입서가 수락되지 않았다면, 이 양식을 "
-"작성하지 말아주시기 바랍니다."
+"만약 관리 가입서를 작성하지 않았거나 관리 가입서가 수락되지 않았다면, 이 양식"
+"을 작성하지 말아주시기 바랍니다."
 
 #: accounts/templates/registration/register.html:18
 msgid "Create Account"
 msgstr "회원가입"
 
-#: config/settings.py:187
+#: config/settings.py:195
 msgid "Korean"
 msgstr "한국어"
 
-#: config/settings.py:188
+#: config/settings.py:196
 msgid "English"
 msgstr "영어"
+
+#: templates/language_switch.html:7
+msgid "Set your language preferences here:"
+msgstr "여기에서 선호하는 언어를 설정하세요:"
+
+#: templates/maintainer_base.html:30
+msgid "Account"
+msgstr "계정"
+
+#: templates/maintainer_base.html:34
+msgid "Change Password"
+msgstr "비밀번호 변경"
+
+#: templates/maintainer_base.html:38
+msgid "Logout"
+msgstr "로그아웃"
+
+#: templates/maintainer_base.html:40
+msgid "Login"
+msgstr "로그인"
+
+#: templates/maintainer_base.html:45
+msgid "Forgot Password?"
+msgstr "비밀번호 찾기"
+
+#: templates/maintainer_base.html:60
+msgid "Version"
+msgstr "버전"

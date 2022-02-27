@@ -1,5 +1,4 @@
 from django.core.management import BaseCommand
-
 from shipper.models import Build
 from shipper.tasks import mirror_build
 

@@ -1,3 +1,10 @@
-from .shippy import *
-from .updater import *
-from .statistics import *
+from .shippy import ShippyTestCase
+from .statistics import StatisticsIncrementTestCase, StatisticsTestCase
+from .updater import UpdaterTestCase
+
+__all__ = [
+    "ShippyTestCase",
+    "StatisticsIncrementTestCase",
+    "StatisticsTestCase",
+    "UpdaterTestCase",
+]

@@ -1,4 +1,4 @@
-# Korean translation for shipper: accounts
+# Korean translation file for shipper.
 # Copyright (C) 2022 ericswpark
 # This file is distributed under the same license as the shipper package.
 #
@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shipper\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-26 14:30+0000\n"
-"PO-Revision-Date: 2022-02-26 23:00+0900\n"
+"POT-Creation-Date: 2022-02-27 05:05+0000\n"
+"PO-Revision-Date: 2022-02-27 14:09+0900\n"
 "Last-Translator: Eric Park <me@ericswpark.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "Language: ko\n"
@@ -38,15 +38,15 @@ msgstr "비밀번호가 일치하지 않습니다!"
 msgid "This email address is already registered and cannot be used!"
 msgstr "이 이메일 주소는 이미 사용되고 있어 사용하실 수 없습니다!"
 
-#: accounts/templates/registration/register.html:3
+#: accounts/templates/registration/register.html:5
 msgid "Register"
 msgstr "회원가입"
 
-#: accounts/templates/registration/register.html:9
+#: accounts/templates/registration/register.html:11
 msgid "Create a new maintainer account."
 msgstr "새로운 관리 계정을 만듭니다."
 
-#: accounts/templates/registration/register.html:10
+#: accounts/templates/registration/register.html:12
 msgid ""
 "If you did not file a maintainer application or if you were not accepted as "
 "a maintainer, please do not fill out this form."
@@ -54,6 +54,14 @@ msgstr ""
 "만약 관리 가입서를 작성하지 않았거나 관리 가입서가 수락되지 않았다면, 이 양식을 "
 "작성하지 말아주시기 바랍니다."
 
-#: accounts/templates/registration/register.html:16
+#: accounts/templates/registration/register.html:18
 msgid "Create Account"
 msgstr "회원가입"
+
+#: config/settings.py:187
+msgid "Korean"
+msgstr "한국어"
+
+#: config/settings.py:188
+msgid "English"
+msgstr "영어"

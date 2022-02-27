@@ -151,8 +151,8 @@ def v1_maintainers_build_enabled_status_modify(request):
         return Response(
             {
                 "error": "missing_parameters",
-                "message": "One or more of the required parameters is blank! Required parameters: build ID, "
-                "enabled flag",
+                "message": "One or more of the required parameters is blank! Required "
+                "parameters: build ID, enabled flag",
             },
             status=HTTP_400_BAD_REQUEST,
         )
@@ -165,7 +165,8 @@ def v1_maintainers_build_enabled_status_modify(request):
         return Response(
             {
                 "error": "insufficient_permissions",
-                "message": "You are not authorized to modify builds associated with this device!",
+                "message": "You are not authorized to modify builds associated with "
+                "this device!",
             },
             status=HTTP_401_UNAUTHORIZED,
         )

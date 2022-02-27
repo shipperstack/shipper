@@ -4,7 +4,7 @@
 # Eric Park <me@ericswpark.com>, 2022.
 "Project-Id-Version: shipper\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-27 05:05+0000\n"
+"POT-Creation-Date: 2022-02-27 14:16+0000\n"
 "PO-Revision-Date: 2022-02-27 14:08+0900\n"
 "Last-Translator: Eric Park <me@ericswpark.com>\n"
 "Language-Team: English <en@li.org>\n"
@@ -18,23 +18,24 @@
 msgid "Required."
 msgstr "Required."
 
-#: accounts/forms.py:16
+#: accounts/forms.py:17
 msgid "Password"
 msgstr "Password"
 
-#: accounts/forms.py:17
+#: accounts/forms.py:20
 msgid "Verify Password"
 msgstr "Verify Password"
 
-#: accounts/forms.py:27
+#: accounts/forms.py:31
 msgid "The passwords do not match!"
 msgstr "The passwords do not match!"
 
-#: accounts/forms.py:32
+#: accounts/forms.py:38
 msgid "This email address is already registered and cannot be used!"
 msgstr "This email address is already registered and cannot be used!"
 
 #: accounts/templates/registration/register.html:5
+#: templates/maintainer_base.html:41
 msgid "Register"
 msgstr "Register"
 
@@ -54,10 +55,38 @@ msgstr ""
 msgid "Create Account"
 msgstr "Create Account"
 
-#: config/settings.py:187
+#: config/settings.py:195
 msgid "Korean"
 msgstr "Korean"
 
-#: config/settings.py:188
+#: config/settings.py:196
 msgid "English"
 msgstr "English"
+
+#: templates/language_switch.html:7
+msgid "Set your language preferences here:"
+msgstr "Set your language preferences here:"
+
+#: templates/maintainer_base.html:30
+msgid "Account"
+msgstr "Account"
+
+#: templates/maintainer_base.html:34
+msgid "Change Password"
+msgstr "Change Password"
+
+#: templates/maintainer_base.html:38
+msgid "Logout"
+msgstr "Logout"
+
+#: templates/maintainer_base.html:40
+msgid "Login"
+msgstr "Login"
+
+#: templates/maintainer_base.html:45
+msgid "Forgot Password?"
+msgstr "Forgot Password?"
+
+#: templates/maintainer_base.html:60
+msgid "Version"
+msgstr "Version"

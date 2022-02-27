@@ -14,5 +14,6 @@ class Command(BaseCommand):
             self.stdout.write(f"Queued backup for build {build.file_name}!")
 
         self.stdout.write(
-            "Queued all incomplete builds. Please check the admin panel for status updates."
+            "Queued all incomplete builds. Please check the admin panel for status "
+            "updates."
         )

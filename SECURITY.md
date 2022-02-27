@@ -1,11 +1,12 @@
 # Security Policy
 
+This document was last updated on 2022-02-27.
+
 ## Supported Versions
 
-| Version   | Supported          |
-| --------- | ------------------ |
-| ≥ 1.12.0   | :white_check_mark: |
-| ≤ 1.11.2   | :x:                |
+Versions 1.14.0 and up are supported.
+
+Previous versions may contain security vulnerabilities. If you are running an instance that has a version number lower than the version specified above, we urge you to update as soon as possible, to prevent your instance from getting exploited.
 
 ## Reporting a Vulnerability
 

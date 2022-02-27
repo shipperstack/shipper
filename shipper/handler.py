@@ -35,7 +35,7 @@ def handle_chunked_build(device, chunked_file, md5_value):
     md5_file_contents = "{}  {}".format(md5_value, chunked_file.filename)
     with open(
         os.path.join(
-            settings.MEDIA_ROOT, device.codename, "{}.md5".format(chunked_file.filename)
+            settings.MEDIA_ROOT, device.codename, f"{chunked_file.filename}.md5"
         ),
         "w",
     ) as target_md5:

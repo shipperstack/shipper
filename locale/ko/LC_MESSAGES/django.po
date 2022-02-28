@@ -81,7 +81,7 @@ msgstr "만약 정확한 서버에 접속하였다고 생각하신다면, 관리
 
 #: downloads/templates/downloads_main.html:5
 msgid "Downloads"
-msgstr "다운로드들"
+msgstr "다운로드"
 
 #: downloads/templates/downloads_main.html:35
 msgid "Device photo"

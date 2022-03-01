@@ -127,7 +127,12 @@ def v1_maintainers_login(request):
 @api_view(["GET"])
 @permission_classes((AllowAny,))
 def v1_system_info(_):
-    return Response({"version": settings.SHIPPER_VERSION})
+    return Response(
+        {
+            "version": settings.SHIPPER_VERSION,
+            "shippy_compat_version": settings.SHIPPER_SHIPPY_COMPAT_VERSION,
+        }
+    )
 
 
 @csrf_exempt

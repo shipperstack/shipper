@@ -10,6 +10,7 @@ from .utils import parse_filename_with_regex
 
 
 def handle_chunked_build(device, chunked_file, md5_value):
+    # Parse file name
     filename_parts = parse_filename_with_regex(chunked_file.filename)
 
     # Check for duplicate builds
@@ -25,6 +26,7 @@ def handle_chunked_build(device, chunked_file, md5_value):
     if filename_parts["variant"] not in settings.SHIPPER_UPLOAD_VARIANTS:
         raise UploadException("invalid_file_name")
 
+    # Construct full path to save files in
     target_file_full_path = os.path.join(
         settings.MEDIA_ROOT, device.codename, chunked_file.filename
     )
@@ -50,6 +52,7 @@ def handle_chunked_build(device, chunked_file, md5_value):
     ) as target_md5:
         target_md5.write(md5_file_contents)
 
+    # Construct and save build object in database
     build = Build(
         device=device,
         file_name=os.path.splitext(chunked_file.filename)[0],

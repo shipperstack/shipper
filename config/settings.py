@@ -20,7 +20,9 @@ SESSION_COOKIE_SECURE = int(os.environ.get("SHIPPER_SESSION_COOKIE_SECURE", defa
 SECURE_HSTS_SECONDS = int(os.environ.get("SHIPPER_SECURE_HSTS_SECONDS", default=0))
 
 with open("version.txt") as v_file:
-    SHIPPER_VERSION = v_file.read().rstrip()
+    SHIPPER_VERSION = v_file.readline().rstrip()
+    SHIPPER_SHIPPY_COMPAT_VERSION = v_file.readline().rstrip()
+
 
 # Downloads Page
 SHIPPER_MAIN_WEBSITE_URL = os.environ.get("SHIPPER_MAIN_WEBSITE_URL", default="#")

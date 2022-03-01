@@ -1,4 +1,3 @@
-from api.utils import exception_to_message
 from api.views import v1_maintainers_login, v1_system_info
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -145,33 +144,3 @@ class ShippyTestCase(APITestCase):
 
         self.assertEqual(response.status_code, 401)
         self.assertEqual(response.data["error"], "insufficient_permissions")
-
-    def test_exception_to_message(self):
-        self.assertEqual(
-            "The file name does not match the checksum file name!",
-            exception_to_message(Exception("file_name_mismatch")),
-        )
-        self.assertEqual(
-            "The file name was malformed. Please do not edit the file name!",
-            exception_to_message(Exception("invalid_file_name")),
-        )
-        self.assertEqual(
-            "Only official builds are allowed.",
-            exception_to_message(Exception("not_official")),
-        )
-        self.assertEqual(
-            "The codename does not match the file!",
-            exception_to_message(Exception("codename_mismatch")),
-        )
-        self.assertEqual(
-            "The build already exists in the system!",
-            exception_to_message(Exception("duplicate_build")),
-        )
-        self.assertEqual(
-            "An unknown error occurred.",
-            exception_to_message(Exception("some_weird_random_error")),
-        )
-        self.assertEqual(
-            "An unknown error occurred.",
-            exception_to_message(Exception("unknown_error")),
-        )

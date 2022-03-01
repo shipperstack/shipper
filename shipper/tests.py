@@ -1,6 +1,6 @@
 from django.test import TestCase, override_settings
 
-from .exceptions import RegexParseException
+from .exceptions import UploadException
 from .models import Build, Device
 from .utils import is_version_in_target_versions, parse_filename_with_regex
 
@@ -199,13 +199,13 @@ class ShipperUtilsTestCase(TestCase):
         "z]*)-OFFICIAL-(?P<variant>[a-z]*)-(?P<date>[0-9]*).zip"
     )
     def test_parse_filename_with_regex_invalid_filename(self):
-        with self.assertRaises(RegexParseException):
+        with self.assertRaises(UploadException):
             parse_filename_with_regex("whatever.zip")
-        with self.assertRaises(RegexParseException):
+        with self.assertRaises(UploadException):
             parse_filename_with_regex(
                 "Bliss-v12.8-bullhead-OFFICIAL-gapps-20210820.mp4"
             )
-        with self.assertRaises(RegexParseException):
+        with self.assertRaises(UploadException):
             parse_filename_with_regex(
                 "Bliss-bullhead-v12.8-OFFICIAL-gapps-20210820.zip"
             )

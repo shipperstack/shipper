@@ -3,7 +3,7 @@ from fnmatch import fnmatch
 
 from django.conf import settings
 
-from .exceptions import RegexParseException
+from .exceptions import UploadException
 
 
 def is_version_in_target_versions(version, target_versions):
@@ -34,7 +34,7 @@ def parse_filename_with_regex(filename):
     matches = pattern.search(filename)
 
     if not matches:
-        raise RegexParseException(
+        raise UploadException(
             {"error": "invalid_file_name", "message": "The file name is malformed!"}
         )
 

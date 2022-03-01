@@ -15,7 +15,7 @@ from rest_framework.status import (
     HTTP_401_UNAUTHORIZED,
     HTTP_404_NOT_FOUND,
 )
-from shipper.exceptions import RegexParseException, UploadException
+from shipper.exceptions import UploadException
 from shipper.handler import handle_chunked_build
 from shipper.models import Build, Device
 from shipper.utils import parse_filename_with_regex
@@ -48,7 +48,7 @@ class V1MaintainersChunkedUpload(ChunkedUploadView):
                 },
                 status=HTTP_404_NOT_FOUND,
             )
-        except RegexParseException as exception:
+        except UploadException as exception:
             chunked_upload.delete()
             return Response(
                 exception.args[0],
@@ -70,7 +70,7 @@ class V1MaintainersChunkedUpload(ChunkedUploadView):
             build_id = handle_chunked_build(
                 device, chunked_upload, request.POST.get("md5")
             )
-        except (UploadException, RegexParseException) as exception:
+        except UploadException as exception:
             chunked_upload.delete()
             return Response(
                 exception.args[0],

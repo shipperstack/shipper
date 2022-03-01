@@ -70,11 +70,7 @@ def handle_chunked_build(device, chunked_file, md5_value):
     chunked_file.delete()
 
     # Execute background tasks
-    build_background_processing(build.id)
+    generate_sha256.delay(build.id)
+    mirror_build.delay(build.id)
 
     return build.id
-
-
-def build_background_processing(build_id):
-    generate_sha256.delay(build_id)
-    mirror_build.delay(build_id)

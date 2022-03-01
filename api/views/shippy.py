@@ -40,7 +40,7 @@ class V1MaintainersChunkedUpload(ChunkedUploadView):
                 "codename"
             ]
             device = Device.objects.get(codename=device_codename)
-        except (RegexParseException, Device.DoesNotExist):
+        except Device.DoesNotExist:
             chunked_upload.delete()
             return Response(
                 {
@@ -48,6 +48,15 @@ class V1MaintainersChunkedUpload(ChunkedUploadView):
                     "message": "The specified device does not exist!",
                 },
                 status=HTTP_404_NOT_FOUND,
+            )
+        except RegexParseException:
+            chunked_upload.delete()
+            return Response(
+                {
+                    "error": "invalid_file_name",
+                    "message": exception_to_message("invalid_file_name"),
+                },
+                status=HTTP_400_BAD_REQUEST,
             )
 
         # Check if maintainer is in device's approved maintainers list

@@ -12,9 +12,18 @@ from .utils import parse_filename_with_regex
 def handle_chunked_build(device, chunked_file, md5_value):
     filename_parts = parse_filename_with_regex(chunked_file.filename)
 
-    file_name_validity_check(
-        os.path.splitext(chunked_file.filename)[0], filename_parts["variant"]
-    )
+    # Check for duplicate builds
+    if (
+        Build.objects.filter(
+            file_name=os.path.splitext(chunked_file.filename)[0]
+        ).count()
+        >= 1
+    ):
+        raise UploadException("duplicate_build")
+
+    # Check if variant is supported
+    if filename_parts["variant"] not in settings.SHIPPER_UPLOAD_VARIANTS:
+        raise UploadException("invalid_file_name")
 
     target_file_full_path = os.path.join(
         settings.MEDIA_ROOT, device.codename, chunked_file.filename
@@ -66,11 +75,3 @@ def handle_chunked_build(device, chunked_file, md5_value):
 def build_background_processing(build_id):
     generate_sha256.delay(build_id)
     mirror_build.delay(build_id)
-
-
-def file_name_validity_check(build_file_name, variant):
-    if Build.objects.filter(file_name=build_file_name).count() >= 1:
-        raise UploadException("duplicate_build")
-
-    if variant not in settings.SHIPPER_UPLOAD_VARIANTS:
-        raise UploadException("invalid_file_name")

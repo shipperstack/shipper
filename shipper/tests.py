@@ -1,7 +1,6 @@
 from django.test import TestCase, override_settings
 
-from .exceptions import RegexParseException, UploadException
-from .handler import file_name_validity_check
+from .exceptions import RegexParseException
 from .models import Build, Device
 from .utils import is_version_in_target_versions, parse_filename_with_regex
 
@@ -166,19 +165,6 @@ class ShipperCombinedTestCase(TestCase):
             ),
             0,
         )
-
-
-class ShipperHandlerTestCase(TestCase):
-    def setUp(self):
-        mock_devices_setup()
-        mock_builds_setup()
-
-    def test_file_name_validity_check(self):
-        with self.assertRaises(UploadException):
-            file_name_validity_check(
-                build_file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200609",
-                variant="unknown",
-            )
 
 
 class ShipperUtilsTestCase(TestCase):

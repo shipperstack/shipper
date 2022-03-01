@@ -3,25 +3,6 @@
 {% load i18n %}
 
 {% block base_head %}
-
-<style>
-    .footer {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        height: 60px;
-        line-height: 60px;
-        background-color: #f5f5f5;
-    }
-
-    .language-switch {
-        float: right;
-        text-decoration: none;
-        color: inherit;
-    }
-</style>
-
-
 {% block head %}
 {% endblock %}
 {% endblock %}
@@ -31,9 +12,25 @@
     <header class="header clearfix">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="/">{{ downloads_page_main_branding }}</a>
-            {% if main_website_url != "#" %}
-            <a class="btn btn-outline-secondary" href="{{ main_website_url }}">Back to main website</a>
-            {% endif %}
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                {% if main_website_url != "#" %}
+                    <a class="btn btn-outline-secondary" href="{{ main_website_url }}">Back to main website</a>
+                {% endif %}
+                <ul class="navbar-nav ms-auto me-2 mb-lg-0">
+                    <li class="nav-item">
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% get_language_info for LANGUAGE_CODE as LANGUAGE_INFO %}
+                        <a class="nav-link" href="{% url 'language_switch' %}?next={{ request.path }}">{{ LANGUAGE_INFO.name_local }}</a>
+                    </li>
+                </ul>
+            </div>
         </nav>
     </header>
 
@@ -41,12 +38,4 @@
     {% endblock %}
 
 </div>
-
-<footer class="footer">
-    <div class="container">
-        {% get_current_language as LANGUAGE_CODE %}
-        {% get_language_info for LANGUAGE_CODE as LANGUAGE_INFO %}
-        <a class="language-switch" href="{% url 'language_switch' %}?next={{ request.path }}">{{ LANGUAGE_INFO.name_local }}</a>
-    </div>
-</footer>
 {% endblock %}

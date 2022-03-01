@@ -34,7 +34,9 @@ def parse_filename_with_regex(filename):
     matches = pattern.search(filename)
 
     if not matches:
-        raise RegexParseException("invalid_file_name")
+        raise RegexParseException(
+            {"error": "invalid_file_name", "message": "The file name is malformed!"}
+        )
 
     return {
         "version": matches.group("version"),

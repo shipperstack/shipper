@@ -20,11 +20,23 @@ def handle_chunked_build(device, chunked_file, md5_value):
         ).count()
         >= 1
     ):
-        raise UploadException("duplicate_build")
+        raise UploadException(
+            {
+                "error": "duplicate_build",
+                "message": "The build already exists in the system!",
+            }
+        )
 
     # Check if variant is supported
     if filename_parts["variant"] not in settings.SHIPPER_UPLOAD_VARIANTS:
-        raise UploadException("invalid_file_name")
+        raise UploadException(
+            {
+                "error": "unsupported_variant",
+                "message": "The build's variant is not supported by this server "
+                "instance. If you believe the variant is valid, please contact an "
+                "admin to change the allowed variants list.",
+            }
+        )
 
     # Construct full path to save files in
     target_file_full_path = os.path.join(

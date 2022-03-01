@@ -1,4 +1,3 @@
-from api.utils import exception_to_message
 from django.conf import settings
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import update_last_login
@@ -49,13 +48,10 @@ class V1MaintainersChunkedUpload(ChunkedUploadView):
                 },
                 status=HTTP_404_NOT_FOUND,
             )
-        except RegexParseException:
+        except RegexParseException as exception:
             chunked_upload.delete()
             return Response(
-                {
-                    "error": "invalid_file_name",
-                    "message": exception_to_message("invalid_file_name"),
-                },
+                exception.args[0],
                 status=HTTP_400_BAD_REQUEST,
             )
 
@@ -77,7 +73,7 @@ class V1MaintainersChunkedUpload(ChunkedUploadView):
         except (UploadException, RegexParseException) as exception:
             chunked_upload.delete()
             return Response(
-                {"error": str(exception), "message": exception_to_message(exception)},
+                exception.args[0],
                 status=HTTP_400_BAD_REQUEST,
             )
 

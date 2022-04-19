@@ -848,7 +848,8 @@ This release contains a configuration key change.
 Initial release
 
 
-[Unreleased]: https://github.com/ericswpark/shipper/compare/1.14.2...HEAD
+[Unreleased]: https://github.com/ericswpark/shipper/compare/1.14.3...HEAD
+[1.14.3]: https://github.com/ericswpark/shipper/compare/1.14.2...1.14.3
 [1.14.2]: https://github.com/ericswpark/shipper/compare/1.14.1...1.14.2
 [1.14.1]: https://github.com/ericswpark/shipper/compare/1.14.0...1.14.1
 [1.14.0]: https://github.com/ericswpark/shipper/compare/1.13.6...1.14.0

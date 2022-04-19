@@ -1,3 +1,5 @@
+import html
+
 from django.conf import settings
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import update_last_login
@@ -141,7 +143,7 @@ def v1_maintainers_token_check(request):
     # Update login timestamp
     update_last_login(None, request.user)
 
-    return Response({"username": request.user.username}, status=HTTP_200_OK)
+    return Response({"username": html.escape(request.user.username)}, status=HTTP_200_OK)
 
 
 @csrf_exempt

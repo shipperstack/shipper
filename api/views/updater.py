@@ -1,3 +1,5 @@
+import html
+
 from api.utils import variant_check
 from django.http import Http404
 from django.shortcuts import get_object_or_404
@@ -47,7 +49,7 @@ class V1UpdaterLOS(APIView):
                     "id": build.sha256sum,  # WHY
                     "size": build.size,
                     "version": build.version,
-                    "variant": variant,
+                    "variant": html.escape(variant),
                     "url": "https://" + request.get_host() + build.zip_file.url,
                     "md5url": "https://" + request.get_host() + build.md5_file.url,
                 }

@@ -1,3 +1,5 @@
+import html
+
 from api.utils import variant_check
 from django.conf import settings
 from django.http import Http404
@@ -70,7 +72,7 @@ class V1GeneralBuildLatest(APIView):
                 "sha256": build.sha256sum,
                 "size": build.size,
                 "version": build.version,
-                "variant": variant,
+                "variant": html.escape(variant),
                 "mirror_url": "https://" + request.get_host() + build.zip_file.url,
             },
             status=HTTP_200_OK,

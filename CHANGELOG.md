@@ -7,6 +7,23 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
+# [1.14.3] - 2022-04-19
+
+## Added
+- Added new language switching option in navigation bar
+- shipper now displays compatible shippy versions to clients
+
+## Changed
+- General code cleanup
+- Updated library dependencies
+    - sentry-sdk (1.5.6 -> 1.5.10)
+    - django-celery-results (2.2.0 -> 2.3.0)
+    - celery (5.2.3 -> 5.2.6)
+
+## Removed
+- RegexParseException has been removed in favor of UploadException
+
+
 # [1.14.2] - 2022-02-27
 
 This release contains a configuration key change.

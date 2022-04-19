@@ -5,7 +5,6 @@ from contextlib import contextmanager
 
 import humanize
 import paramiko
-import pysftp
 from billiard.exceptions import TimeLimitExceeded
 from django.conf import settings
 from django.core.cache import cache
@@ -67,40 +66,55 @@ def mirror_build(self, build_id):
                 ):
                     continue
 
-                keydata = str.encode(mirror.ssh_host_fingerprint)
-                key = paramiko.RSAKey(data=decodebytes(keydata))
-                cnopts = pysftp.CnOpts()
-                cnopts.hostkeys.add(
-                    mirror.hostname, mirror.ssh_host_fingerprint_type, key
-                )
+                ssh = paramiko.SSHClient()
 
-                with pysftp.Connection(
-                    host=mirror.hostname,
+                # Add host key specified to client
+                host_key_raw = str.encode(mirror.ssh_host_fingerprint)
+                host_key = paramiko.RSAKey(data=decodebytes(host_key_raw))
+                ssh.get_host_keys().add(mirror.hostname, mirror.ssh_host_fingerprint_type, host_key)
+
+                # Get private key
+                private_key_path = f"/home/shipper/ssh/{mirror.ssh_keyfile}"
+                private_key = paramiko.RSAKey.from_private_key_file(private_key_path)
+
+                # Connect client
+                ssh.connect(
+                    hostname=mirror.hostname,
                     username=mirror.ssh_username,
-                    private_key="/home/shipper/ssh/{}".format(mirror.ssh_keyfile),
-                    cnopts=cnopts,
-                ) as sftp:
-                    sftp.cwd(mirror.upload_path)
+                    pkey=private_key
+                )
+                sftp = ssh.open_sftp()
+                sftp.chdir(mirror.upload_path)
 
-                    if not sftp.exists(build.device.codename):
-                        sftp.mkdir(build.device.codename)
+                # Check if device directory exists and change into it
+                try:
+                    sftp.stat(build.device.codename)
+                except FileNotFoundError:
+                    sftp.mkdir(build.device.codename)
+                sftp.chdir(build.device.codename)
 
-                    sftp.cwd(build.device.codename)
-
-                    def print_progress(transferred, total):
-                        print(
-                            "{} transferred out of {} ({:.2f}%)".format(
-                                humanize.naturalsize(transferred),
-                                humanize.naturalsize(total),
-                                transferred * 100 / total,
-                            )
+                # Define callback for printing progress
+                def print_progress(transferred, total):
+                    print(
+                        "{} transferred out of {} ({:.2f}%)".format(
+                            humanize.naturalsize(transferred),
+                            humanize.naturalsize(total),
+                            transferred * 100 / total,
                         )
-
-                    sftp.put(
-                        os.path.join(settings.MEDIA_ROOT, build.zip_file.name),
-                        callback=lambda x, y: print_progress(x, y),
                     )
-                    sftp.put(os.path.join(settings.MEDIA_ROOT, build.md5_file.name))
+
+                # Start upload
+                # Upload build zip file
+                sftp.put(
+                    localpath=os.path.join(settings.MEDIA_ROOT, build.zip_file.name),
+                    remotepath=build.zip_file.name,
+                    callback=print_progress,
+                )
+                # Upload build checksum
+                sftp.put(
+                    localpath=os.path.join(settings.MEDIA_ROOT, build.md5_file.name),
+                    remotepath=build.md5_file.name
+                )
 
                 # Fetch build one more time and lock until save completes
                 with transaction.atomic():

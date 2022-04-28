@@ -230,9 +230,6 @@ class Build(models.Model):
     zip_file = models.FileField(
         upload_to=get_upload_path, verbose_name="Zip file", unique=True
     )
-    md5_file = models.FileField(
-        upload_to=get_upload_path, verbose_name="MD5 file", unique=True
-    )
 
     def get_user_friendly_name(self):
         return "{} - {}".format(self.version, self.build_date.strftime("%Y-%m-%d"))

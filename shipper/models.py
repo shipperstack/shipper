@@ -199,6 +199,7 @@ class Build(models.Model):
         help_text="Size of zip file in bytes<br>Example: 857483855"
     )
     version = models.TextField(max_length=20, help_text="Example: v12.8")
+    md5sum = models.TextField(max_length=32, verbose_name="MD5 hash")
     sha256sum = models.TextField(max_length=64, verbose_name="SHA256 hash")
     variant = models.TextField(
         max_length=20,

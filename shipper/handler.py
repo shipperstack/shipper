@@ -54,26 +54,16 @@ def handle_chunked_build(device, chunked_file, md5_value):
     # Rename chunked file and move to correct folder
     os.rename(chunked_file.file.path, target_file_full_path)
 
-    # Generate MD5 file
-    md5_file_contents = "{}  {}".format(md5_value, chunked_file.filename)
-    with open(
-        os.path.join(
-            settings.MEDIA_ROOT, device.codename, f"{chunked_file.filename}.md5"
-        ),
-        "w",
-    ) as target_md5:
-        target_md5.write(md5_file_contents)
-
     # Construct and save build object in database
     build = Build(
         device=device,
         file_name=os.path.splitext(chunked_file.filename)[0],
         size=os.path.getsize(target_file_full_path),
         version=filename_parts["version"],
+        md5sum=md5_value,
         variant=filename_parts["variant"],
         build_date=datetime.strptime(filename_parts["date"], "%Y%m%d"),
         zip_file="{}/{}".format(device.codename, chunked_file.filename),
-        md5_file="{}/{}.md5".format(device.codename, chunked_file.filename),
         enabled=True,
     )
     build.save()

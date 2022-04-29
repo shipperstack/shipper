@@ -9,7 +9,7 @@ from .tasks import generate_checksum, mirror_build
 from .utils import parse_filename_with_regex
 
 
-def handle_chunked_build(device, chunked_file, md5_value):
+def handle_chunked_build(device, chunked_file):
     # Parse file name
     filename_parts = parse_filename_with_regex(chunked_file.filename)
 
@@ -60,7 +60,6 @@ def handle_chunked_build(device, chunked_file, md5_value):
         file_name=os.path.splitext(chunked_file.filename)[0],
         size=os.path.getsize(target_file_full_path),
         version=filename_parts["version"],
-        md5sum=md5_value,
         variant=filename_parts["variant"],
         build_date=datetime.strptime(filename_parts["date"], "%Y%m%d"),
         zip_file="{}/{}".format(device.codename, chunked_file.filename),

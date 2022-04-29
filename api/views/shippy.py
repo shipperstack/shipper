@@ -69,9 +69,7 @@ class V1MaintainersChunkedUpload(ChunkedUploadView):
             )
 
         try:
-            build_id = handle_chunked_build(
-                device, chunked_upload, request.POST.get("md5")
-            )
+            build_id = handle_chunked_build(device, chunked_upload)
         except UploadException as exception:
             chunked_upload.delete()
             return Response(

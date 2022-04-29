@@ -26,6 +26,12 @@
         <p><strong>Version/date</strong> {{ object.get_user_friendly_name }}</p>
         <p style="padding-left: 2.7em"><strong>Variant</strong> {{ object.get_user_friendly_variant_name }}</p>
         <p style="padding-left: 4em"><strong>Size</strong> {{ object.get_human_readable_size }}</p>
+        <p><strong>Checksums</strong>
+            <ul>
+                <li>SHA256: {{ object.sha256sum }}</li>
+                <li>MD5: {{ object.md5sum }}</li>
+            </ul>
+        </p>
     </div>
 
     <h2>Mirrors</h2>

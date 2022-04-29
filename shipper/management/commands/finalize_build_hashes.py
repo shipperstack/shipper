@@ -1,7 +1,7 @@
 from django.core.management import BaseCommand
 
 from shipper.models import Build
-from shipper.tasks import generate_sha256
+from shipper.tasks import generate_checksum
 
 
 class Command(BaseCommand):
@@ -16,7 +16,7 @@ class Command(BaseCommand):
                     build.file_name
                 )
             )
-            generate_sha256.delay(build.id)
+            generate_checksum.delay(build.id)
 
         self.stdout.write(
             "All incomplete builds have been queued for processing. Please check the "

@@ -5,7 +5,7 @@ from django.conf import settings
 
 from .exceptions import UploadException
 from .models import Build
-from .tasks import generate_sha256, mirror_build
+from .tasks import generate_checksum, mirror_build
 from .utils import parse_filename_with_regex
 
 
@@ -72,7 +72,7 @@ def handle_chunked_build(device, chunked_file, md5_value):
     chunked_file.delete()
 
     # Execute background tasks
-    generate_sha256.delay(build.id)
+    generate_checksum.delay(build.id)
     mirror_build.delay(build.id)
 
     return build.id

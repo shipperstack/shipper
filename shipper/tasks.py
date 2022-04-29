@@ -31,7 +31,7 @@ def memcache_lock(lock_id, oid):
 @shared_task
 def process_incomplete_builds():
     for build in Build.objects.filter(sha256sum__exact=""):
-        generate_sha256.delay(build.id)
+        generate_checksum.delay(build.id)
 
     for build in [build for build in Build.objects.all() if not build.is_mirrored()]:
         mirror_build.delay(build.id)
@@ -128,7 +128,7 @@ def mirror_build(self, build_id):
 
 
 @shared_task
-def generate_sha256(build_id):
+def generate_checksum(build_id):
     build = Build.objects.get(id=build_id)
 
     # Check if this task has already been run

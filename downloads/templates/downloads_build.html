@@ -47,11 +47,6 @@
                     <i class="fa fa-file-archive" aria-hidden="true"></i>
                     Download
                 </a>
-                    <a href="{{ object.md5_file.url }}"
-                       class="btn btn-link btn-sm">
-                        <i class="fa fa-hashtag" aria-hidden="true"></i>
-                        MD5
-                    </a>
                 </td>
             </tr>
 
@@ -64,11 +59,6 @@
                         <i class="fa fa-file-archive" aria-hidden="true"></i>
                         Download
                     </a>
-                        <a href="{{ mirror.download_url_base|format_download_url:object.md5_file.name }}"
-                           class="btn btn-link btn-sm">
-                            <i class="fa fa-hashtag" aria-hidden="true"></i>
-                            MD5
-                        </a>
                     </td>
                 </tr>
             {% endfor %}

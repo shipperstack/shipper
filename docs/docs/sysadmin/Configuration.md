@@ -65,7 +65,13 @@ Copy the `.env.example` file and set the values:
         - `variant`
         - `date`
     - Format: `[A-Za-z]*-(?P<version>[a-z0-9.]*)-(?P<codename>[A-Za-z]*)-OFFICIAL-(?P<variant>[a-z]*)-(?P<date>[0-9]*).zip`
-
+  - `SHIPPER_UPLOAD_CHECKSUM`
+    - Checksum type shipper expects when uploading via the chunked upload API
+    - Supports the following options:
+      - `md5`
+      - `sha256`
+    - Default: `sha256`
+  
 ### Database
   - `SHIPPER_SQL_ENGINE`
     - Database type. Currently only supports the following options:

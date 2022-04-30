@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [1.15.1] - 2022-04-30
 
 ## Changed
+- shipper now correctly generates MD5 values when scanning for builds that do not have checksums generated yet
 - Fixed a bug with the LOS-style updater API looking for the nonexistent MD5 file
 - General code cleanup
 

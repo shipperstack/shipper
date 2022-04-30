@@ -8,9 +8,9 @@ class Command(BaseCommand):
     help = "Calculates hashes for incomplete builds with interrupted processing."
 
     def handle(self, *args, **options):
-        builds = Build.objects.filter(sha256sum__exact="")
-
-        for build in builds:
+        for build in [
+            build for build in Build.objects.all() if not build.is_processed()
+        ]:
             self.stdout.write(
                 "Queueing re-calculation of SHA256 hash for build {}...".format(
                     build.file_name

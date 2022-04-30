@@ -30,7 +30,7 @@ def memcache_lock(lock_id, oid):
 
 @shared_task
 def process_incomplete_builds():
-    for build in Build.objects.filter(sha256sum__exact=""):
+    for build in [build for build in Build.objects.all() if not build.is_processed()]:
         generate_checksum.delay(build.id)
 
     for build in [build for build in Build.objects.all() if not build.is_mirrored()]:

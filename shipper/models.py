@@ -257,7 +257,7 @@ class Build(models.Model):
         boolean=True,
     )
     def is_processed(self):
-        return self.sha256sum != ""
+        return self.sha256sum not in ["", None] and self.md5sum not in ["", None]
 
     @admin.display(
         description="Mirrored",

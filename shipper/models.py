@@ -253,10 +253,10 @@ class Build(models.Model):
         return self.build_stats.count()
 
     @admin.display(
-        description="Processed",
+        description="Hashed",
         boolean=True,
     )
-    def is_processed(self):
+    def is_hashed(self):
         return self.sha256sum not in ["", None] and self.md5sum not in ["", None]
 
     @admin.display(

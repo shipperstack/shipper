@@ -34,7 +34,7 @@ class BuildAdmin(admin.ModelAdmin):
         "variant",
         "get_build_device_maintainers",
         "get_download_count",
-        "is_processed",
+        "is_hashed",
         "is_mirrored",
         "created",
     ]

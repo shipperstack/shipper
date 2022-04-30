@@ -36,7 +36,6 @@ class UpdaterTestCase(APITestCase):
         self.assertIn("version", response.data["response"][0])
         self.assertIn("variant", response.data["response"][0])
         self.assertIn("url", response.data["response"][0])
-        self.assertIn("md5url", response.data["response"][0])
 
         self.assertEqual(1591574400, response.data["response"][0]["datetime"])
         self.assertEqual(
@@ -54,11 +53,6 @@ class UpdaterTestCase(APITestCase):
             "https://testserver/media/bullhead/"
             "Bliss-v14-bullhead-OFFICIAL-gapps-20200608.zip",
             response.data["response"][0]["url"],
-        )
-        self.assertEqual(
-            "https://testserver/media/bullhead/"
-            "Bliss-v14-bullhead-OFFICIAL-gapps-20200608.zip.md5",
-            response.data["response"][0]["md5url"],
         )
 
     def test_v1_updater_los_bullhead_vanilla(self):

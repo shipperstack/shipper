@@ -51,7 +51,6 @@ class V1UpdaterLOS(APIView):
                     "version": build.version,
                     "variant": html.escape(variant),
                     "url": "https://" + request.get_host() + build.zip_file.url,
-                    "md5url": "https://" + request.get_host() + build.md5_file.url,
                 }
             )
 

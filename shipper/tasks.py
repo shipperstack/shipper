@@ -81,7 +81,8 @@ def mirror_build(self, build_id):
                 ssh.connect(
                     hostname=mirror.hostname,
                     username=mirror.ssh_username,
-                    pkey=private_key
+                    pkey=private_key,
+                    disabled_algorithms={'pubkeys': ['rsa-sha2-256', 'rsa-sha2-512']},
                 )
                 sftp = ssh.open_sftp()
                 sftp.chdir(mirror.upload_path)

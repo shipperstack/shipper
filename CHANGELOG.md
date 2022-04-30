@@ -7,6 +7,13 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
+# [1.15.1] - 2022-04-30
+
+## Changed
+- Fixed a bug with the LOS-style updater API looking for the nonexistent MD5 file
+- General code cleanup
+
+
 # [1.15.0] - 2022-04-30
 
 This release contains a database migration.
@@ -870,7 +877,8 @@ This release contains a configuration key change.
 Initial release
 
 
-[Unreleased]: https://github.com/ericswpark/shipper/compare/1.15.0...HEAD
+[Unreleased]: https://github.com/ericswpark/shipper/compare/1.15.1...HEAD
+[1.15.1]: https://github.com/ericswpark/shipper/compare/1.15.0...1.15.1
 [1.15.0]: https://github.com/ericswpark/shipper/compare/1.14.3...1.15.0
 [1.14.3]: https://github.com/ericswpark/shipper/compare/1.14.2...1.14.3
 [1.14.2]: https://github.com/ericswpark/shipper/compare/1.14.1...1.14.2

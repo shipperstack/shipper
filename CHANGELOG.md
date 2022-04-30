@@ -7,6 +7,28 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
+# [1.15.0] - 2022-04-30
+
+This release contains a database migration.
+This release contains a security vulnerability patch.
+This release contains a new configuration key.
+
+## Added
+- Added a new configuration key to set checksum value expected by server
+
+## Changed
+- shipper now accepts different checksum types from shippy
+- General code cleanup
+- Updated library dependencies
+  - Django (3.2.12 -> 3.2.13)
+  - django-celery-results (2.3.0 -> 2.3.1)
+  - paramiko (2.10.3 -> 2.10.4)
+
+## Removed
+- Removed MD5 checksum file field from Build object in database
+- Removed dependency on pysftp as it is outdated and has an authentication problem. shipper now uses paramiko directly
+
+
 # [1.14.3] - 2022-04-19
 
 ## Added
@@ -848,7 +870,8 @@ This release contains a configuration key change.
 Initial release
 
 
-[Unreleased]: https://github.com/ericswpark/shipper/compare/1.14.3...HEAD
+[Unreleased]: https://github.com/ericswpark/shipper/compare/1.15.0...HEAD
+[1.15.0]: https://github.com/ericswpark/shipper/compare/1.14.3...1.15.0
 [1.14.3]: https://github.com/ericswpark/shipper/compare/1.14.2...1.14.3
 [1.14.2]: https://github.com/ericswpark/shipper/compare/1.14.1...1.14.2
 [1.14.1]: https://github.com/ericswpark/shipper/compare/1.14.0...1.14.1

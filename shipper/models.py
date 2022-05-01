@@ -41,16 +41,10 @@ class Device(models.Model):
         return self.builds.filter(enabled=True)
 
     def has_enabled_hashed_builds(self):
-        return self.get_enabled_builds().exclude(sha256sum__exact="").count() > 0
+        return self.get_all_enabled_hashed_builds().count() > 0
 
     def has_enabled_hashed_builds_of_variant(self, variant):
-        return (
-            self.get_enabled_builds()
-            .filter(variant=variant)
-            .exclude(sha256sum__exact="")
-            .count()
-            > 0
-        )
+        return self.get_all_enabled_hashed_builds_of_variant(variant).count() > 0
 
     def get_latest_enabled_hashed_build_of_variant(self, variant):
         return self.get_all_enabled_hashed_builds_of_variant(variant=variant)[0]
@@ -59,17 +53,19 @@ class Device(models.Model):
         return sorted(self.builds.all(), key=lambda p: p.build_date, reverse=True)
 
     def get_all_enabled_hashed_builds(self):
+        enabled_hashed_build_ids = [build.id for build in self.get_enabled_builds() if build.is_hashed()]
         return sorted(
-            self.get_enabled_builds().exclude(sha256sum__exact="").all(),
+            self.get_enabled_builds().filter(id__in=enabled_hashed_build_ids).all(),
             key=lambda p: p.build_date,
             reverse=True,
         )
 
     def get_all_enabled_hashed_builds_of_variant(self, variant):
+        enabled_hashed_build_ids = [build.id for build in self.get_enabled_builds() if build.is_hashed()]
         return sorted(
             self.get_enabled_builds()
             .filter(variant=variant)
-            .exclude(sha256sum__exact="")
+            .filter(id__in=enabed_hashed_build_ids)
             .all(),
             key=lambda p: p.build_date,
             reverse=True,

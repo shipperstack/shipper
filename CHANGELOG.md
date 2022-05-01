@@ -7,6 +7,14 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
+# [1.15.3] - 2022-05-01
+
+## Changed
+- Fixed styling bug on mobile where long checksum values would overflow the width of the screen (#82)
+- Fixed non-hashed builds showing up in the API (#83)
+- Fixed a bug with the mirroring task where a nonexistent MD5 checksum file would be considered for upload
+
+
 # [1.15.2] - 2022-04-30
 
 ## Changed
@@ -886,7 +894,8 @@ This release contains a configuration key change.
 Initial release
 
 
-[Unreleased]: https://github.com/ericswpark/shipper/compare/1.15.2...HEAD
+[Unreleased]: https://github.com/ericswpark/shipper/compare/1.15.3...HEAD
+[1.15.3]: https://github.com/ericswpark/shipper/compare/1.15.2...1.15.3
 [1.15.2]: https://github.com/ericswpark/shipper/compare/1.15.1...1.15.2
 [1.15.1]: https://github.com/ericswpark/shipper/compare/1.15.0...1.15.1
 [1.15.0]: https://github.com/ericswpark/shipper/compare/1.14.3...1.15.0

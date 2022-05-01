@@ -7,6 +7,13 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
+# [1.15.4] - 2022-05-01
+
+## Changed
+- Fixed a bug that caused a 500 server error on the main page
+- Fixed SFTP uploads uploading to the wrong directory
+
+
 # [1.15.3] - 2022-05-01
 
 ## Changed
@@ -894,7 +901,8 @@ This release contains a configuration key change.
 Initial release
 
 
-[Unreleased]: https://github.com/ericswpark/shipper/compare/1.15.3...HEAD
+[Unreleased]: https://github.com/ericswpark/shipper/compare/1.15.4...HEAD
+[1.15.4]: https://github.com/ericswpark/shipper/compare/1.15.3...1.15.4
 [1.15.3]: https://github.com/ericswpark/shipper/compare/1.15.2...1.15.3
 [1.15.2]: https://github.com/ericswpark/shipper/compare/1.15.1...1.15.2
 [1.15.1]: https://github.com/ericswpark/shipper/compare/1.15.0...1.15.1

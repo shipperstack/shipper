@@ -108,7 +108,7 @@ def mirror_build(self, build_id):
                 # Upload build zip file
                 sftp.put(
                     localpath=os.path.join(settings.MEDIA_ROOT, build.zip_file.name),
-                    remotepath=build.zip_file.name,
+                    remotepath=f"{build.file_name}.zip",
                     callback=print_progress,
                 )
 

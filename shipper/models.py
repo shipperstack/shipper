@@ -65,7 +65,7 @@ class Device(models.Model):
         return sorted(
             self.get_enabled_builds()
             .filter(variant=variant)
-            .filter(id__in=enabed_hashed_build_ids)
+            .filter(id__in=enabled_hashed_build_ids)
             .all(),
             key=lambda p: p.build_date,
             reverse=True,

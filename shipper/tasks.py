@@ -111,11 +111,6 @@ def mirror_build(self, build_id):
                     remotepath=build.zip_file.name,
                     callback=print_progress,
                 )
-                # Upload build checksum
-                sftp.put(
-                    localpath=os.path.join(settings.MEDIA_ROOT, build.md5_file.name),
-                    remotepath=build.md5_file.name
-                )
 
                 # Fetch build one more time and lock until save completes
                 with transaction.atomic():

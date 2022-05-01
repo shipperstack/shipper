@@ -41,10 +41,10 @@ class Device(models.Model):
         return self.builds.filter(enabled=True)
 
     def has_enabled_hashed_builds(self):
-        return self.get_all_enabled_hashed_builds().count() > 0
+        return len(self.get_all_enabled_hashed_builds()) > 0
 
     def has_enabled_hashed_builds_of_variant(self, variant):
-        return self.get_all_enabled_hashed_builds_of_variant(variant).count() > 0
+        return len(self.get_all_enabled_hashed_builds_of_variant(variant)) > 0
 
     def get_latest_enabled_hashed_build_of_variant(self, variant):
         return self.get_all_enabled_hashed_builds_of_variant(variant=variant)[0]

@@ -10,6 +10,12 @@
     <script src="{% static 'js/solid.min.js' %}"></script>
     <script src="{% static 'js/regular.min.js' %}"></script>
     <script src="{% static 'js/fontawesome.min.js' %}"></script>
+
+    <style>
+    #checksum-value-item {
+        word-wrap: break-word;
+    }
+    </style>
 {% endblock %}
 
 {% block content %}
@@ -28,8 +34,8 @@
         <p style="padding-left: 4em"><strong>Size</strong> {{ object.get_human_readable_size }}</p>
         <p><strong>Checksums</strong>
             <ul>
-                <li>SHA256: {{ object.sha256sum }}</li>
-                <li>MD5: {{ object.md5sum }}</li>
+                <li class="checksum-value-item">SHA256: {{ object.sha256sum }}</li>
+                <li class="checksum-value-item">MD5: {{ object.md5sum }}</li>
             </ul>
         </p>
     </div>

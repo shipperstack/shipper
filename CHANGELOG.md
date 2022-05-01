@@ -7,6 +7,12 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
+# [1.15.5] - 2022-05-01
+
+## Changed
+- Fixed a typo that broke querying builds from the database
+
+
 # [1.15.4] - 2022-05-01
 
 ## Changed
@@ -901,7 +907,8 @@ This release contains a configuration key change.
 Initial release
 
 
-[Unreleased]: https://github.com/ericswpark/shipper/compare/1.15.4...HEAD
+[Unreleased]: https://github.com/ericswpark/shipper/compare/1.15.5...HEAD
+[1.15.5]: https://github.com/ericswpark/shipper/compare/1.15.4...1.15.5
 [1.15.4]: https://github.com/ericswpark/shipper/compare/1.15.3...1.15.4
 [1.15.3]: https://github.com/ericswpark/shipper/compare/1.15.2...1.15.3
 [1.15.2]: https://github.com/ericswpark/shipper/compare/1.15.1...1.15.2

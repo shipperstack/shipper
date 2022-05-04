@@ -12,7 +12,7 @@ from .utils import is_version_in_target_versions
 class Device(models.Model):
     name = models.TextField(max_length=100, help_text="Example: 'Nexus 5X', 'Nexus 6P'")
     codename = models.TextField(
-        max_length=20, help_text="Example: 'bullhead', 'angler'"
+        max_length=20, help_text="Example: 'bullhead', 'angler'", unique=True
     )
     manufacturer = models.TextField(max_length=20, help_text="Example: 'LG', 'Huawei'")
     photo = models.URLField(

@@ -7,6 +7,17 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
+# [1.15.6] - 2022-05-04
+
+This release contains a database migration.
+
+## Changed
+- Add unique constraint to codename field in Device. Before upgrading, make sure there are no duplicate codenames in the Device table (see "Upgrading" page on documentation for more information)
+- Updated library dependencies
+  - humanize (4.0.0 -> 4.1.0)
+  - sentry-sdk (1.5.10 -> 1.5.11)
+
+
 # [1.15.5] - 2022-05-01
 
 ## Changed
@@ -907,7 +918,8 @@ This release contains a configuration key change.
 Initial release
 
 
-[Unreleased]: https://github.com/ericswpark/shipper/compare/1.15.5...HEAD
+[Unreleased]: https://github.com/ericswpark/shipper/compare/1.15.6...HEAD
+[1.15.6]: https://github.com/ericswpark/shipper/compare/1.15.5...1.15.6
 [1.15.5]: https://github.com/ericswpark/shipper/compare/1.15.4...1.15.5
 [1.15.4]: https://github.com/ericswpark/shipper/compare/1.15.3...1.15.4
 [1.15.3]: https://github.com/ericswpark/shipper/compare/1.15.2...1.15.3

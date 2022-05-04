@@ -5,3 +5,7 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/ericswpark/shipper)](https://hub.docker.com/repository/docker/ericswpark/shipper)
 
 Artifact release manager with  access control, API support and user presentation
+
+## Documentation
+
+The documentation [is available here](https://ericswpark.github.io/shipper).

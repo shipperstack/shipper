@@ -16,6 +16,12 @@ alias update-shipper='bash <(curl -s https://raw.githubusercontent.com/ericswpar
 
 If you are on release version ______ and would like to upgrade...
 
+### ≤ 1.14.5
+
+The `codename` field of the Device table now has a unique constraint. This means that duplicate values are not allowed in the database (i.e. two devices cannot have the same codename).
+
+If your database already satisfies this requirement, there is nothing you need to other than upgrade and migrate. If you do have devices with duplicate codenames, then migration will fail and you will need to delete the duplicate devices before continuing with the migration again. Make sure only one device remains for each codename.
+
 ### ≤ 1.14.3
 
 The `SHIPPER_UPLOAD_CHECKSUM` configuration key has been added.

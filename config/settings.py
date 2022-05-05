@@ -262,5 +262,5 @@ sentry_sdk.init(
     traces_sample_rate=sentry_transaction_rate,
     send_default_pii=os.environ.get("SHIPPER_SENTRY_SDK_PII", default=False),
     before_send=before_send,
-    ignore_errors=[SSHException, AuthenticationException],
+    ignore_errors=[SSHException, AuthenticationException, ConnectionRefusedError],
 )

@@ -299,6 +299,10 @@ class Statistics(models.Model):
         Build, related_name="build_stats", on_delete=models.CASCADE
     )
     ip = models.GenericIPAddressField(unpack_ipv4=True)
+    
+    class Meta:
+        verbose_name = "statistic"
+        verbose_name_plural = "statistics"
 
 
 # Register all models to audit log

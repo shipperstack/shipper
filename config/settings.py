@@ -1,4 +1,3 @@
-import ast
 import os
 
 import sentry_sdk
@@ -22,46 +21,6 @@ SECURE_HSTS_SECONDS = int(os.environ.get("SHIPPER_SECURE_HSTS_SECONDS", default=
 with open("version.txt") as v_file:
     SHIPPER_VERSION = v_file.readline().rstrip()
     SHIPPER_SHIPPY_COMPAT_VERSION = v_file.readline().rstrip()
-
-
-# Downloads Page
-SHIPPER_MAIN_WEBSITE_URL = os.environ.get("SHIPPER_MAIN_WEBSITE_URL", default="#")
-SHIPPER_DOWNLOADS_PAGE_MAIN_BRANDING = os.environ.get(
-    "SHIPPER_DOWNLOADS_PAGE_MAIN_BRANDING", default="Downloads"
-)
-SHIPPER_DOWNLOADS_PAGE_DONATION_URL = os.environ.get(
-    "SHIPPER_DOWNLOADS_PAGE_DONATION_URL", default="#"
-)
-SHIPPER_DOWNLOADS_PAGE_DONATION_MESSAGE = os.environ.get(
-    "SHIPPER_DOWNLOADS_PAGE_DONATION_MESSAGE",
-    default="Please consider donating, thank you!",
-)
-
-
-# Upload
-SHIPPER_UPLOAD_VARIANTS = ast.literal_eval(
-    os.environ.get(
-        "SHIPPER_UPLOAD_VARIANTS",
-        default='{"gapps": "GApps", "vanilla": "Vanilla (no GApps)", "foss": "FOSS", '
-        '"goapps": "GoApps (Android Go Edition GApps)"}',
-    )
-)
-SHIPPER_FILE_NAME_FORMAT = os.environ.get("SHIPPER_FILE_NAME_FORMAT")
-
-
-def is_matched_name_group_in_regex(match_name, regex_pattern):
-    return f"?P<{match_name}>" in regex_pattern
-
-
-if not (
-    is_matched_name_group_in_regex("variant", SHIPPER_FILE_NAME_FORMAT)
-    and is_matched_name_group_in_regex("codename", SHIPPER_FILE_NAME_FORMAT)
-    and is_matched_name_group_in_regex("date", SHIPPER_FILE_NAME_FORMAT)
-    and is_matched_name_group_in_regex("version", SHIPPER_FILE_NAME_FORMAT)
-):
-    raise ImproperlyConfigured(
-        "The regex pattern specified in SHIPPER_FILE_NAME_FORMAT is incorrect!"
-    )
 
 
 # Application definition

@@ -1,7 +1,8 @@
+import ast
 import html
 
 from api.utils import variant_check
-from django.conf import settings
+from constance import settings
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import AllowAny
@@ -22,15 +23,16 @@ class V1GeneralDeviceAll(APIView):
     def get(self, request):
         return_json = {}
         for device in Device.objects.all():
-            variants = []
+            variants = ast.literal_eval(settings.SHIPPER_UPLOAD_VARIANTS)
+            has_variants = []
 
-            for variant in settings.SHIPPER_UPLOAD_VARIANTS:
+            for variant in variants:
                 if device.has_enabled_hashed_builds_of_variant(variant=variant):
-                    variants.append(variant)
+                    has_variants.append(variant)
 
             return_json[device.codename] = {
                 "status": device.status,
-                "variants": variants,
+                "variants": has_variants,
             }
 
         return Response(return_json, status=HTTP_200_OK)

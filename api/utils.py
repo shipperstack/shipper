@@ -1,4 +1,6 @@
-from django.conf import settings
+import ast
+
+from constance import settings
 from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST
 
@@ -13,7 +15,8 @@ def get_client_ip(request):
 
 
 def variant_check(variant):
-    if variant not in settings.SHIPPER_UPLOAD_VARIANTS:
+    variants = ast.literal_eval(settings.SHIPPER_UPLOAD_VARIANTS)
+    if variant not in variants:
         return Response(
             {"message": "Wrong parameter. Try with the correct parameters."},
             status=HTTP_400_BAD_REQUEST,

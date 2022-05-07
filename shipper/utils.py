@@ -1,7 +1,7 @@
 import re
 from fnmatch import fnmatch
 
-from django.conf import settings
+from constance import settings
 
 from .exceptions import UploadException
 

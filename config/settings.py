@@ -72,6 +72,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "constance.backends.database",
     "rest_framework",
     "rest_framework.authtoken",
     "shipper",
@@ -239,6 +240,10 @@ CELERY_BROKER_URL = "pyamqp://rabbitmq:5672/"
 CELERY_TASK_TIME_LIMIT = 600  # 10 minutes
 CELERY_RESULT_BACKEND = "django-db"
 CELERY_RESULT_CACHE = "django-cache"
+
+
+# Constance
+CONSTANCE_BACKEND = "constance.backends.database.DatabaseBackend"
 
 
 # Sentry SDK

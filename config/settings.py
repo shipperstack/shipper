@@ -211,7 +211,6 @@ CONSTANCE_CONFIG = {
     "SHIPPER_DOWNLOADS_PAGE_DONATION_MESSAGE": ("Please consider donating, thank you!", "Donation message to show to users in the donation banner.", str),
     "SHIPPER_UPLOAD_VARIANTS": ('{"gapps": "GApps","vanilla": "Vanilla (no GApps)","foss": "FOSS","goapps": "GoApps (Android Go Edition GApps)"}', "Allowed upload variant pairing in JSON format.", str),
     "SHIPPER_FILE_NAME_FORMAT": ("[A-Za-z]*-(?P<version>[a-z0-9.]*)-(?P<codename>[A-Za-z]*)-OFFICIAL-(?P<variant>[a-z]*)-(?P<date>[0-9]*).zip", "Regex pattern to use when parsing file names of uploaded artifacts. The pattern must include the following four named match groups; otherwise an exception will occur during uploading: `version', `codename`, `variant`, and `date`.", str),
-    "SHIPPER_UPLOAD_CHECKSUM": ("sha256", "Checksum type shipper expects when uploading via the chunked upload API. Supports `sha256` and `md5`.", str),
 }
 
 

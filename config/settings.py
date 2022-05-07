@@ -37,6 +37,7 @@ SHIPPER_DOWNLOADS_PAGE_DONATION_MESSAGE = os.environ.get(
     default="Please consider donating, thank you!",
 )
 
+
 # Upload
 SHIPPER_UPLOAD_VARIANTS = ast.literal_eval(
     os.environ.get(

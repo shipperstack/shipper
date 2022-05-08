@@ -25,6 +25,8 @@ with open("version.txt") as v_file:
 
 # Application definition
 INSTALLED_APPS = [
+    "constance",
+    "constance.backends.database",
     "django.contrib.admin",
     "django.contrib.auth",
     "accounts",
@@ -32,7 +34,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "constance.backends.database",
     "rest_framework",
     "rest_framework.authtoken",
     "shipper",

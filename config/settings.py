@@ -1,7 +1,6 @@
 import os
 
 import sentry_sdk
-from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import gettext_lazy
 from paramiko import AuthenticationException, SSHException
 from sentry_sdk.integrations.django import DjangoIntegration

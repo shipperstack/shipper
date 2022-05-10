@@ -192,7 +192,9 @@ REST_FRAMEWORK = {
 # drf-chunked-upload
 DRF_CHUNKED_UPLOAD_COMPLETE_EXT = ""
 DRF_CHUNKED_UPLOAD_ABSTRACT_MODEL = False
-DRF_CHUNKED_UPLOAD_CHECKSUM = os.environ.get("SHIPPER_UPLOAD_CHECKSUM", default="sha256")
+DRF_CHUNKED_UPLOAD_CHECKSUM = os.environ.get(
+    "SHIPPER_UPLOAD_CHECKSUM", default="sha256"
+)
 DRF_CHUNKED_UPLOAD_MAX_BYTES = 5_000_000_000  # 5 GB
 
 
@@ -206,18 +208,48 @@ CELERY_RESULT_CACHE = "django-cache"
 # Constance
 CONSTANCE_BACKEND = "constance.backends.database.DatabaseBackend"
 CONSTANCE_CONFIG = {
-    "SHIPPER_MAIN_WEBSITE_URL": ("#", "Link to redirect users to when they click on the 'Back to main website' button on the top of the page. Setting this configuration to the pound symbol disables redirection and hides the button.", str),
-    "SHIPPER_DOWNLOADS_PAGE_MAIN_BRANDING": ("Downloads", "Sets the navbar branding at the top left of the website.", str),
-    "SHIPPER_DOWNLOADS_PAGE_DONATION_URL": ("#", "URL to refer users to when they wish to donate.", str),
-    "SHIPPER_DOWNLOADS_PAGE_DONATION_MESSAGE": ("Please consider donating, thank you!", "Donation message to show to users in the donation banner.", str),
-    "SHIPPER_UPLOAD_VARIANTS": ('{"gapps": "GApps","vanilla": "Vanilla (no GApps)","foss": "FOSS","goapps": "GoApps (Android Go Edition GApps)"}', "Allowed upload variant pairing in JSON format.", str),
-    "SHIPPER_FILE_NAME_FORMAT": ("[A-Za-z]*-(?P<version>[a-z0-9.]*)-(?P<codename>[A-Za-z]*)-OFFICIAL-(?P<variant>[a-z]*)-(?P<date>[0-9]*).zip", "Regex pattern to use when parsing file names of uploaded artifacts. The pattern must include the following four named match groups; otherwise an exception will occur during uploading: `version', `codename`, `variant`, and `date`.", str),
+    "SHIPPER_MAIN_WEBSITE_URL": (
+        "#",
+        "Link to redirect users to when they click on the 'Back to main website' button on the top of the page. Setting this configuration to the pound symbol disables redirection and hides the button.",
+        str,
+    ),
+    "SHIPPER_DOWNLOADS_PAGE_MAIN_BRANDING": (
+        "Downloads",
+        "Sets the navbar branding at the top left of the website.",
+        str,
+    ),
+    "SHIPPER_DOWNLOADS_PAGE_DONATION_URL": (
+        "#",
+        "URL to refer users to when they wish to donate.",
+        str,
+    ),
+    "SHIPPER_DOWNLOADS_PAGE_DONATION_MESSAGE": (
+        "Please consider donating, thank you!",
+        "Donation message to show to users in the donation banner.",
+        str,
+    ),
+    "SHIPPER_UPLOAD_VARIANTS": (
+        '{"gapps": "GApps","vanilla": "Vanilla (no GApps)","foss": "FOSS","goapps": "GoApps (Android Go Edition GApps)"}',
+        "Allowed upload variant pairing in JSON format.",
+        str,
+    ),
+    "SHIPPER_FILE_NAME_FORMAT": (
+        "[A-Za-z]*-(?P<version>[a-z0-9.]*)-(?P<codename>[A-Za-z]*)-OFFICIAL-(?P<variant>[a-z]*)-(?P<date>[0-9]*).zip",
+        "Regex pattern to use when parsing file names of uploaded artifacts. The pattern must include the following four named match groups; otherwise an exception will occur during uploading: `version', `codename`, `variant`, and `date`.",
+        str,
+    ),
 }
 CONSTANCE_CONFIG_FIELDSETS = {
     "Downloads page": (
-            "SHIPPER_MAIN_WEBSITE_URL", "SHIPPER_DOWNLOADS_PAGE_MAIN_BRANDING",
-            "SHIPPER_DOWNLOADS_PAGE_DONATION_URL", "SHIPPER_DOWNLOADS_PAGE_DONATION_MESSAGE",),
-    "Upload": ("SHIPPER_UPLOAD_VARIANTS", "SHIPPER_FILE_NAME_FORMAT",),
+        "SHIPPER_MAIN_WEBSITE_URL",
+        "SHIPPER_DOWNLOADS_PAGE_MAIN_BRANDING",
+        "SHIPPER_DOWNLOADS_PAGE_DONATION_URL",
+        "SHIPPER_DOWNLOADS_PAGE_DONATION_MESSAGE",
+    ),
+    "Upload": (
+        "SHIPPER_UPLOAD_VARIANTS",
+        "SHIPPER_FILE_NAME_FORMAT",
+    ),
 }
 
 

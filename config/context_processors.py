@@ -1,16 +1,16 @@
 import ast
 
 from django.conf import settings
-from constance import settings as csettings
+from constance import config
 
 
 def download_page_processor(_):
-    variants = ast.literal_eval(csettings.SHIPPER_UPLOAD_VARIANTS)
+    variants = ast.literal_eval(config.SHIPPER_UPLOAD_VARIANTS)
     return {
-        "main_website_url": csettings.SHIPPER_MAIN_WEBSITE_URL,
-        "downloads_page_main_branding": csettings.SHIPPER_DOWNLOADS_PAGE_MAIN_BRANDING,
-        "downloads_page_donation_url": csettings.SHIPPER_DOWNLOADS_PAGE_DONATION_URL,
-        "downloads_page_donation_message": csettings.SHIPPER_DOWNLOADS_PAGE_DONATION_MESSAGE,  # noqa: E501
+        "main_website_url": config.SHIPPER_MAIN_WEBSITE_URL,
+        "downloads_page_main_branding": config.SHIPPER_DOWNLOADS_PAGE_MAIN_BRANDING,
+        "downloads_page_donation_url": config.SHIPPER_DOWNLOADS_PAGE_DONATION_URL,
+        "downloads_page_donation_message": config.SHIPPER_DOWNLOADS_PAGE_DONATION_MESSAGE,  # noqa: E501
         "upload_variants": variants,
     }
 

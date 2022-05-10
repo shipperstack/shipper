@@ -1,7 +1,7 @@
 import ast
 
 from auditlog.registry import auditlog
-from constance import settings
+from constance import config
 from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.db import models
@@ -234,7 +234,7 @@ class Build(models.Model):
         return "{} - {}".format(self.version, self.build_date.strftime("%Y-%m-%d"))
 
     def get_user_friendly_variant_name(self):
-        variants = ast.literal_eval(settings.SHIPPER_UPLOAD_VARIANTS)
+        variants = ast.literal_eval(config.SHIPPER_UPLOAD_VARIANTS)
         if self.variant in variants:
             return variants[self.variant]
         else:

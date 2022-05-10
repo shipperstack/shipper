@@ -1,7 +1,7 @@
 import re
 from fnmatch import fnmatch
 
-from constance import settings
+from constance import config
 
 from .exceptions import UploadException
 
@@ -30,7 +30,7 @@ def is_version_in_target_versions(version, target_versions):
 
 
 def parse_filename_with_regex(filename):
-    pattern = re.compile(settings.SHIPPER_FILE_NAME_FORMAT)
+    pattern = re.compile(config.SHIPPER_FILE_NAME_FORMAT)
     matches = pattern.search(filename)
 
     if not matches:

@@ -2,7 +2,7 @@ import ast
 import html
 
 from api.utils import variant_check
-from constance import settings
+from constance import config
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import AllowAny
@@ -23,7 +23,7 @@ class V1GeneralDeviceAll(APIView):
     def get(self, request):
         return_json = {}
         for device in Device.objects.all():
-            variants = ast.literal_eval(settings.SHIPPER_UPLOAD_VARIANTS)
+            variants = ast.literal_eval(config.SHIPPER_UPLOAD_VARIANTS)
             has_variants = []
 
             for variant in variants:

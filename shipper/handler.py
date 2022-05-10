@@ -3,7 +3,7 @@ import os
 from datetime import datetime
 
 from django.conf import settings
-from constance import settings as csettings
+from constance import config
 
 from .exceptions import UploadException
 from .models import Build
@@ -30,7 +30,7 @@ def handle_chunked_build(device, chunked_file):
         )
 
     # Check if variant is supported
-    variants = ast.literal_eval(csettings.SHIPPER_UPLOAD_VARIANTS)
+    variants = ast.literal_eval(config.SHIPPER_UPLOAD_VARIANTS)
     if filename_parts["variant"] not in variants:
         raise UploadException(
             {

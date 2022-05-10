@@ -213,6 +213,12 @@ CONSTANCE_CONFIG = {
     "SHIPPER_UPLOAD_VARIANTS": ('{"gapps": "GApps","vanilla": "Vanilla (no GApps)","foss": "FOSS","goapps": "GoApps (Android Go Edition GApps)"}', "Allowed upload variant pairing in JSON format.", str),
     "SHIPPER_FILE_NAME_FORMAT": ("[A-Za-z]*-(?P<version>[a-z0-9.]*)-(?P<codename>[A-Za-z]*)-OFFICIAL-(?P<variant>[a-z]*)-(?P<date>[0-9]*).zip", "Regex pattern to use when parsing file names of uploaded artifacts. The pattern must include the following four named match groups; otherwise an exception will occur during uploading: `version', `codename`, `variant`, and `date`.", str),
 }
+CONSTANCE_CONFIG_FIELDSETS = {
+    "Downloads page": (
+            "SHIPPER_MAIN_WEBSITE_URL", "SHIPPER_DOWNLOADS_PAGE_MAIN_BRANDING",
+            "SHIPPER_DOWNLOADS_PAGE_DONATION_URL", "SHIPPER_DOWNLOADS_PAGE_DONATION_MESSAGE",),
+    "Upload": ("SHIPPER_UPLOAD_VARIANTS", "SHIPPER_FILE_NAME_FORMAT",),
+}
 
 
 # Sentry SDK

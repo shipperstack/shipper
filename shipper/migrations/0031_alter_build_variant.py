@@ -6,13 +6,16 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('shipper', '0030_alter_mirrorserver_target_versions'),
+        ("shipper", "0030_alter_mirrorserver_target_versions"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='build',
-            name='variant',
-            field=models.TextField(help_text='Variant of the build. Allowed values are set in the server configuration.', max_length=20),
+            model_name="build",
+            name="variant",
+            field=models.TextField(
+                help_text="Variant of the build. Allowed values are set in the server configuration.",
+                max_length=20,
+            ),
         ),
     ]

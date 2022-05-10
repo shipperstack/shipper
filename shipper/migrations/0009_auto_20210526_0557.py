@@ -6,31 +6,88 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('shipper', '0008_build_backed_up'),
+        ("shipper", "0008_build_backed_up"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='MirrorServer',
+            name="MirrorServer",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.TextField(help_text='Name that describes the server.<br>Example: SourceForge, Mirror A, etc.', max_length=100)),
-                ('hostname', models.TextField(help_text='Hostname of the server.<br>Example: frs.sourceforge.net, mirror.example.com, etc.', max_length=100)),
-                ('ssh_host_key_type', models.TextField(help_text='SSH host key type.<br>Example: ssh-rsa, etc.', max_length=20)),
-                ('ssh_host_key', models.TextField(help_text='SSH host key.', max_length=1000)),
-                ('ssh_username', models.TextField(help_text='SSH username to connect with', max_length=50)),
-                ('ssh_keyfile', models.TextField(help_text='SSH keyfile to connect with. Note that the SSH keyfiles must be placed in the ./ssh/ directory defined in the docker-compose file.<br>Example: ssh_key, id_rsa, etc.', max_length=100)),
-                ('upload_path', models.TextField(help_text='Path to upload to on the server.<br>Example: /home/frs/project/example/R/, /mnt/media/mirror/src/target/R/, etc.', max_length=100)),
-                ('enabled', models.BooleanField(default=False, help_text='Whether this mirror instance is enabled or not. If disabled, builds will not be mirrored until the mirror instance is enabled again and a background refresh task runs.')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.TextField(
+                        help_text="Name that describes the server.<br>Example: SourceForge, Mirror A, etc.",
+                        max_length=100,
+                    ),
+                ),
+                (
+                    "hostname",
+                    models.TextField(
+                        help_text="Hostname of the server.<br>Example: frs.sourceforge.net, mirror.example.com, etc.",
+                        max_length=100,
+                    ),
+                ),
+                (
+                    "ssh_host_key_type",
+                    models.TextField(
+                        help_text="SSH host key type.<br>Example: ssh-rsa, etc.",
+                        max_length=20,
+                    ),
+                ),
+                (
+                    "ssh_host_key",
+                    models.TextField(help_text="SSH host key.", max_length=1000),
+                ),
+                (
+                    "ssh_username",
+                    models.TextField(
+                        help_text="SSH username to connect with", max_length=50
+                    ),
+                ),
+                (
+                    "ssh_keyfile",
+                    models.TextField(
+                        help_text="SSH keyfile to connect with. Note that the SSH keyfiles must be placed in the ./ssh/ directory defined in the docker-compose file.<br>Example: ssh_key, id_rsa, etc.",
+                        max_length=100,
+                    ),
+                ),
+                (
+                    "upload_path",
+                    models.TextField(
+                        help_text="Path to upload to on the server.<br>Example: /home/frs/project/example/R/, /mnt/media/mirror/src/target/R/, etc.",
+                        max_length=100,
+                    ),
+                ),
+                (
+                    "enabled",
+                    models.BooleanField(
+                        default=False,
+                        help_text="Whether this mirror instance is enabled or not. If disabled, builds will not be mirrored until the mirror instance is enabled again and a background refresh task runs.",
+                    ),
+                ),
             ],
         ),
         migrations.RemoveField(
-            model_name='build',
-            name='backed_up',
+            model_name="build",
+            name="backed_up",
         ),
         migrations.AddField(
-            model_name='build',
-            name='mirrored_on',
-            field=models.ManyToManyField(blank=True, help_text='Servers this build is mirrored on. Do not edit manually unless you know what you are doing!<br>', related_name='builds', to='shipper.MirrorServer'),
+            model_name="build",
+            name="mirrored_on",
+            field=models.ManyToManyField(
+                blank=True,
+                help_text="Servers this build is mirrored on. Do not edit manually unless you know what you are doing!<br>",
+                related_name="builds",
+                to="shipper.MirrorServer",
+            ),
         ),
     ]

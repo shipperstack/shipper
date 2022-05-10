@@ -55,7 +55,9 @@ class Device(models.Model):
         return sorted(self.builds.all(), key=lambda p: p.build_date, reverse=True)
 
     def get_all_enabled_hashed_builds(self):
-        enabled_hashed_build_ids = [build.id for build in self.get_enabled_builds() if build.is_hashed()]
+        enabled_hashed_build_ids = [
+            build.id for build in self.get_enabled_builds() if build.is_hashed()
+        ]
         return sorted(
             self.get_enabled_builds().filter(id__in=enabled_hashed_build_ids).all(),
             key=lambda p: p.build_date,
@@ -63,7 +65,9 @@ class Device(models.Model):
         )
 
     def get_all_enabled_hashed_builds_of_variant(self, variant):
-        enabled_hashed_build_ids = [build.id for build in self.get_enabled_builds() if build.is_hashed()]
+        enabled_hashed_build_ids = [
+            build.id for build in self.get_enabled_builds() if build.is_hashed()
+        ]
         return sorted(
             self.get_enabled_builds()
             .filter(variant=variant)
@@ -302,7 +306,7 @@ class Statistics(models.Model):
         Build, related_name="build_stats", on_delete=models.CASCADE
     )
     ip = models.GenericIPAddressField(unpack_ipv4=True)
-    
+
     class Meta:
         verbose_name = "statistic"
         verbose_name_plural = "statistics"

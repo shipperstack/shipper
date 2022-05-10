@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('shipper', '0023_alter_statistics_options'),
+        ("shipper", "0023_alter_statistics_options"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='build',
-            name='size',
-            field=models.BigIntegerField(help_text='Size of zip file in bytes<br>Example: 857483855'),
+            model_name="build",
+            name="size",
+            field=models.BigIntegerField(
+                help_text="Size of zip file in bytes<br>Example: 857483855"
+            ),
         ),
     ]

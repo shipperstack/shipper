@@ -6,13 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('shipper', '0024_alter_build_size'),
+        ("shipper", "0024_alter_build_size"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='build',
-            name='mirrored_on',
-            field=models.ManyToManyField(blank=True, help_text='Servers this build is mirrored on. Do NOT edit manually.<br>Incorrectly modifying this field may result in mirror servers showing for a given build, even if the build is not mirrored on said mirror server.', related_name='builds', to='shipper.MirrorServer'),
+            model_name="build",
+            name="mirrored_on",
+            field=models.ManyToManyField(
+                blank=True,
+                help_text="Servers this build is mirrored on. Do NOT edit manually.<br>Incorrectly modifying this field may result in mirror servers showing for a given build, even if the build is not mirrored on said mirror server.",
+                related_name="builds",
+                to="shipper.MirrorServer",
+            ),
         ),
     ]

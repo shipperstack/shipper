@@ -6,29 +6,32 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('shipper', '0006_auto_20210430_1258'),
+        ("shipper", "0006_auto_20210430_1258"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='device',
-            name='CPU',
+            model_name="device",
+            name="CPU",
         ),
         migrations.RemoveField(
-            model_name='device',
-            name='GPU',
+            model_name="device",
+            name="GPU",
         ),
         migrations.RemoveField(
-            model_name='device',
-            name='memory',
+            model_name="device",
+            name="memory",
         ),
         migrations.RemoveField(
-            model_name='device',
-            name='storage',
+            model_name="device",
+            name="storage",
         ),
         migrations.AlterField(
-            model_name='device',
-            name='photo',
-            field=models.URLField(blank=True, help_text='URL to image of device.<br>Preferably grab an image from <a href="https://www.gsmarena.com" target="_blank">GSMArena.</a><br>Example: \'https://fdn2.gsmarena.com/vv/bigpic/lg-nexus-5x-.jpg\', \'https://fdn2.gsmarena.com/vv/bigpic/huawei-nexus-6p-.jpg\''),
+            model_name="device",
+            name="photo",
+            field=models.URLField(
+                blank=True,
+                help_text="URL to image of device.<br>Preferably grab an image from <a href=\"https://www.gsmarena.com\" target=\"_blank\">GSMArena.</a><br>Example: 'https://fdn2.gsmarena.com/vv/bigpic/lg-nexus-5x-.jpg', 'https://fdn2.gsmarena.com/vv/bigpic/huawei-nexus-6p-.jpg'",
+            ),
         ),
     ]

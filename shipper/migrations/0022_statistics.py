@@ -7,15 +7,25 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('shipper', '0021_build_download_count'),
+        ("shipper", "0021_build_download_count"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Statistics',
+            name="Statistics",
             fields=[
-                ('date', models.DateField(default=datetime.date.today, primary_key=True, serialize=False)),
-                ('download_count', models.BigIntegerField(default=0, help_text='Download count for this date')),
+                (
+                    "date",
+                    models.DateField(
+                        default=datetime.date.today, primary_key=True, serialize=False
+                    ),
+                ),
+                (
+                    "download_count",
+                    models.BigIntegerField(
+                        default=0, help_text="Download count for this date"
+                    ),
+                ),
             ],
         ),
     ]

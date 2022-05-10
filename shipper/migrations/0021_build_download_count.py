@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('shipper', '0020_build_enabled'),
+        ("shipper", "0020_build_enabled"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='build',
-            name='download_count',
-            field=models.BigIntegerField(default=0, help_text='Approximate download count'),
+            model_name="build",
+            name="download_count",
+            field=models.BigIntegerField(
+                default=0, help_text="Approximate download count"
+            ),
         ),
     ]

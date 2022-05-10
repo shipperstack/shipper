@@ -7,23 +7,31 @@ import shipper.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('shipper', '0002_remove_build_processed'),
+        ("shipper", "0002_remove_build_processed"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='build',
-            name='file_name',
-            field=models.TextField(help_text="Example: 'Bliss-v12.8-bullhead-OFFICIAL-gapps-20200608", max_length=500, unique=True),
+            model_name="build",
+            name="file_name",
+            field=models.TextField(
+                help_text="Example: 'Bliss-v12.8-bullhead-OFFICIAL-gapps-20200608",
+                max_length=500,
+                unique=True,
+            ),
         ),
         migrations.AlterField(
-            model_name='build',
-            name='md5_file',
-            field=models.FileField(unique=True, upload_to=shipper.models.Build.get_upload_path),
+            model_name="build",
+            name="md5_file",
+            field=models.FileField(
+                unique=True, upload_to=shipper.models.Build.get_upload_path
+            ),
         ),
         migrations.AlterField(
-            model_name='build',
-            name='zip_file',
-            field=models.FileField(unique=True, upload_to=shipper.models.Build.get_upload_path),
+            model_name="build",
+            name="zip_file",
+            field=models.FileField(
+                unique=True, upload_to=shipper.models.Build.get_upload_path
+            ),
         ),
     ]

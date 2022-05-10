@@ -6,13 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('shipper', '0027_mirrorserver_target_versions'),
+        ("shipper", "0027_mirrorserver_target_versions"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='mirrorserver',
-            name='target_versions',
-            field=models.TextField(blank=True, help_text='Build versions to mirror to this server.<br>* will mirror all versions. Specify multiple versions on each line.<br>Example: v12.8, *, ...', max_length=100, verbose_name='Target versions'),
+            model_name="mirrorserver",
+            name="target_versions",
+            field=models.TextField(
+                blank=True,
+                help_text="Build versions to mirror to this server.<br>* will mirror all versions. Specify multiple versions on each line.<br>Example: v12.8, *, ...",
+                max_length=100,
+                verbose_name="Target versions",
+            ),
         ),
     ]

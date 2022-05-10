@@ -6,13 +6,16 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('shipper', '0007_auto_20210517_1142'),
+        ("shipper", "0007_auto_20210517_1142"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='build',
-            name='backed_up',
-            field=models.BooleanField(default=False, help_text='Indicates whether the build has been backed up to Sourceforge, if the option is enabled.'),
+            model_name="build",
+            name="backed_up",
+            field=models.BooleanField(
+                default=False,
+                help_text="Indicates whether the build has been backed up to Sourceforge, if the option is enabled.",
+            ),
         ),
     ]

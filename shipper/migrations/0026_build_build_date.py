@@ -3,31 +3,36 @@
 from django.db import migrations, models
 import django.utils.timezone
 
+
 def migrate_dates_from_build(apps, schema_editor):
     from datetime import datetime
-    Builds = apps.get_model('shipper', 'build')
-    
+
+    Builds = apps.get_model("shipper", "build")
+
     for build in Builds.objects.all():
-        _, _, _, _, _, date = build.file_name.split('-')
-        build.build_date = datetime.strptime(date, '%Y%m%d')
+        _, _, _, _, _, date = build.file_name.split("-")
+        build.build_date = datetime.strptime(date, "%Y%m%d")
         build.save()
+
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('shipper', '0025_alter_build_mirrored_on'),
+        ("shipper", "0025_alter_build_mirrored_on"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='build',
-            name='build_date',
-            field=models.DateField(null=True, help_text='Build date'),
+            model_name="build",
+            name="build_date",
+            field=models.DateField(null=True, help_text="Build date"),
         ),
-        migrations.RunPython(code=migrate_dates_from_build, reverse_code=migrations.RunPython.noop),
+        migrations.RunPython(
+            code=migrate_dates_from_build, reverse_code=migrations.RunPython.noop
+        ),
         migrations.AlterField(
-            model_name='build',
-            name='build_date',
-            field=models.DateField(help_text='Build date'),
+            model_name="build",
+            name="build_date",
+            field=models.DateField(help_text="Build date"),
         ),
     ]

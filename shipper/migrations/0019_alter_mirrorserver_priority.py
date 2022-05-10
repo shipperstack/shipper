@@ -6,13 +6,16 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('shipper', '0018_mirrorserver_priority'),
+        ("shipper", "0018_mirrorserver_priority"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='mirrorserver',
-            name='priority',
-            field=models.IntegerField(default=10, help_text='Sets the priority of the mirror in the mirror list. Lower values will be listed first, and higher values will be listed last.<br>Note: the main server does not have a priority value and will always be the first in the mirror list.'),
+            model_name="mirrorserver",
+            name="priority",
+            field=models.IntegerField(
+                default=10,
+                help_text="Sets the priority of the mirror in the mirror list. Lower values will be listed first, and higher values will be listed last.<br>Note: the main server does not have a priority value and will always be the first in the mirror list.",
+            ),
         ),
     ]

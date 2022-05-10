@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('shipper', '0036_build_md5sum'),
+        ("shipper", "0036_build_md5sum"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='device',
-            name='codename',
-            field=models.TextField(help_text="Example: 'bullhead', 'angler'", max_length=20, unique=True),
+            model_name="device",
+            name="codename",
+            field=models.TextField(
+                help_text="Example: 'bullhead', 'angler'", max_length=20, unique=True
+            ),
         ),
     ]

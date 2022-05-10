@@ -6,12 +6,15 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('shipper', '0010_auto_20210526_0616'),
+        ("shipper", "0010_auto_20210526_0616"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='mirrorserver',
-            options={'verbose_name': 'mirror server', 'verbose_name_plural': 'mirror servers'},
+            name="mirrorserver",
+            options={
+                "verbose_name": "mirror server",
+                "verbose_name_plural": "mirror servers",
+            },
         ),
     ]

@@ -6,14 +6,14 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('shipper', '0035_remove_build_md5_file'),
+        ("shipper", "0035_remove_build_md5_file"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='build',
-            name='md5sum',
-            field=models.TextField(default='', max_length=32, verbose_name='MD5 hash'),
+            model_name="build",
+            name="md5sum",
+            field=models.TextField(default="", max_length=32, verbose_name="MD5 hash"),
             preserve_default=False,
         ),
     ]

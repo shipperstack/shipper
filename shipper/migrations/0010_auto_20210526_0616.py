@@ -7,52 +7,80 @@ import shipper.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('shipper', '0009_auto_20210526_0557'),
+        ("shipper", "0009_auto_20210526_0557"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='mirrorserver',
-            options={'verbose_name': 'Mirror Server', 'verbose_name_plural': 'Mirror Servers'},
+            name="mirrorserver",
+            options={
+                "verbose_name": "Mirror Server",
+                "verbose_name_plural": "Mirror Servers",
+            },
         ),
         migrations.AlterField(
-            model_name='build',
-            name='md5_file',
-            field=models.FileField(unique=True, upload_to=shipper.models.Build.get_upload_path, verbose_name='MD5 file'),
+            model_name="build",
+            name="md5_file",
+            field=models.FileField(
+                unique=True,
+                upload_to=shipper.models.Build.get_upload_path,
+                verbose_name="MD5 file",
+            ),
         ),
         migrations.AlterField(
-            model_name='build',
-            name='sha256sum',
-            field=models.TextField(max_length=64, verbose_name='SHA256 hash'),
+            model_name="build",
+            name="sha256sum",
+            field=models.TextField(max_length=64, verbose_name="SHA256 hash"),
         ),
         migrations.AlterField(
-            model_name='build',
-            name='zip_file',
-            field=models.FileField(unique=True, upload_to=shipper.models.Build.get_upload_path, verbose_name='Zip file'),
+            model_name="build",
+            name="zip_file",
+            field=models.FileField(
+                unique=True,
+                upload_to=shipper.models.Build.get_upload_path,
+                verbose_name="Zip file",
+            ),
         ),
         migrations.AlterField(
-            model_name='mirrorserver',
-            name='enabled',
-            field=models.BooleanField(default=True, help_text='Whether this mirror instance is enabled or not. If disabled, builds will not be mirrored until the mirror instance is enabled again and a background refresh task runs.'),
+            model_name="mirrorserver",
+            name="enabled",
+            field=models.BooleanField(
+                default=True,
+                help_text="Whether this mirror instance is enabled or not. If disabled, builds will not be mirrored until the mirror instance is enabled again and a background refresh task runs.",
+            ),
         ),
         migrations.AlterField(
-            model_name='mirrorserver',
-            name='ssh_host_key',
-            field=models.TextField(help_text='SSH host key.', max_length=1000, verbose_name='SSH host key'),
+            model_name="mirrorserver",
+            name="ssh_host_key",
+            field=models.TextField(
+                help_text="SSH host key.", max_length=1000, verbose_name="SSH host key"
+            ),
         ),
         migrations.AlterField(
-            model_name='mirrorserver',
-            name='ssh_host_key_type',
-            field=models.TextField(help_text='SSH host key type.<br>Example: ssh-rsa, etc.', max_length=20, verbose_name='SSH host key type'),
+            model_name="mirrorserver",
+            name="ssh_host_key_type",
+            field=models.TextField(
+                help_text="SSH host key type.<br>Example: ssh-rsa, etc.",
+                max_length=20,
+                verbose_name="SSH host key type",
+            ),
         ),
         migrations.AlterField(
-            model_name='mirrorserver',
-            name='ssh_keyfile',
-            field=models.TextField(help_text='SSH keyfile to connect with. Note that the SSH keyfiles must be placed in the ./ssh/ directory defined in the docker-compose file.<br>Example: ssh_key, id_rsa, etc.', max_length=100, verbose_name='SSH keyfile'),
+            model_name="mirrorserver",
+            name="ssh_keyfile",
+            field=models.TextField(
+                help_text="SSH keyfile to connect with. Note that the SSH keyfiles must be placed in the ./ssh/ directory defined in the docker-compose file.<br>Example: ssh_key, id_rsa, etc.",
+                max_length=100,
+                verbose_name="SSH keyfile",
+            ),
         ),
         migrations.AlterField(
-            model_name='mirrorserver',
-            name='ssh_username',
-            field=models.TextField(help_text='SSH username to connect with', max_length=50, verbose_name='SSH username'),
+            model_name="mirrorserver",
+            name="ssh_username",
+            field=models.TextField(
+                help_text="SSH username to connect with",
+                max_length=50,
+                verbose_name="SSH username",
+            ),
         ),
     ]

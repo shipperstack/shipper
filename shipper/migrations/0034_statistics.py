@@ -7,18 +7,40 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('shipper', '0033_remove_build_download_count'),
+        ("shipper", "0033_remove_build_download_count"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Statistics',
+            name="Statistics",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('time', models.DateTimeField(auto_now_add=True)),
-                ('ip', models.GenericIPAddressField(unpack_ipv4=True)),
-                ('build', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='build_stats', to='shipper.build')),
-                ('device', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='device_stats', to='shipper.device')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("time", models.DateTimeField(auto_now_add=True)),
+                ("ip", models.GenericIPAddressField(unpack_ipv4=True)),
+                (
+                    "build",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="build_stats",
+                        to="shipper.build",
+                    ),
+                ),
+                (
+                    "device",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="device_stats",
+                        to="shipper.device",
+                    ),
+                ),
             ],
         ),
     ]

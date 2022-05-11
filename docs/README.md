@@ -13,11 +13,15 @@ mike serve
 
 ## Versioning
 
-Deploy new versions with the following commands:
+The `master` version is always deployed by GitHub Actions whenever a new commit lands in the `master` branch.
+
+To "preserve" the current state of the documentation for version X, run the following command, replacing X with the version string:
 
 ```
-mike deploy --push --update-aliases 1.2 latest        # substitute 1.2 with version string
+mike deploy --push X    # Replace X with version string, like 1.15
 ```
+
+Do not archive patch versions (like 1.15.2).
 
 ## Contributing
 

@@ -7,6 +7,26 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
+# [1.16.0] - 2022-05-11
+
+This release contains a database migration.
+This release migrates some configuration keys.
+
+## Added
+- Added new dynamic configuration option in the admin page, thanks to django-constance
+
+## Changed
+- Fixed "Statistics" model in admin page having an incorrect extra s postfix in the end
+- Ignore ConnectionRefusedError in Celery workers from consideration for sending to Sentry
+- (Finally) fixed CSS rule to properly wrap long checksum values on mobile (#82)
+- Updated library dependencies
+  - django-auditlog (1.0.0 -> 2.0.0)
+- General code cleanup
+
+## Removed
+- Removed some configuration keys that have moved to the admin page
+
+
 # [1.15.6] - 2022-05-04
 
 This release contains a database migration.
@@ -918,7 +938,8 @@ This release contains a configuration key change.
 Initial release
 
 
-[Unreleased]: https://github.com/ericswpark/shipper/compare/1.15.6...HEAD
+[Unreleased]: https://github.com/ericswpark/shipper/compare/1.16.0...HEAD
+[1.16.0]: https://github.com/ericswpark/shipper/compare/1.15.6...1.16.0
 [1.15.6]: https://github.com/ericswpark/shipper/compare/1.15.5...1.15.6
 [1.15.5]: https://github.com/ericswpark/shipper/compare/1.15.4...1.15.5
 [1.15.4]: https://github.com/ericswpark/shipper/compare/1.15.3...1.15.4

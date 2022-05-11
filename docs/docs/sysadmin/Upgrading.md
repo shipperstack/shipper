@@ -17,6 +17,10 @@ alias update-shipper='bash <(curl -s https://raw.githubusercontent.com/ericswpar
 If you are on release version ______ and would like to upgrade...
 
 
+### ≤ 1.15.6
+
+Some keys have moved to the administration page for easy editing while the server is live. Please move over the configuration values manually as they will not be automatically migrated.
+
 ### ≤ 1.15.5
 
 The `codename` field of the Device table now has a unique constraint. This means that duplicate values are not allowed in the database (i.e. two devices cannot have the same codename).

@@ -7,6 +7,16 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
+# [1.16.1] - 2022-05-12
+
+This release re-adds a configuration key.
+
+## Changed
+- Moved the `SHIPPER_UPLOAD_CHECKSUM` configuration key back to the static configuration file.
+- Updated library dependencies
+  - sentry-sdk (1.5.11 -> 1.5.12)
+
+
 # [1.16.0] - 2022-05-11
 
 This release contains a database migration.
@@ -938,7 +948,8 @@ This release contains a configuration key change.
 Initial release
 
 
-[Unreleased]: https://github.com/ericswpark/shipper/compare/1.16.0...HEAD
+[Unreleased]: https://github.com/ericswpark/shipper/compare/1.16.1...HEAD
+[1.16.1]: https://github.com/ericswpark/shipper/compare/1.16.0...1.16.1
 [1.16.0]: https://github.com/ericswpark/shipper/compare/1.15.6...1.16.0
 [1.15.6]: https://github.com/ericswpark/shipper/compare/1.15.5...1.15.6
 [1.15.5]: https://github.com/ericswpark/shipper/compare/1.15.4...1.15.5

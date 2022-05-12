@@ -36,11 +36,7 @@ alias dcdup='docker-compose -f docker-compose.dev.yml up -d --build'
 alias dcddown='docker-compose -f docker-compose.dev.yml down'
 alias dcdrestart='dcddown && dcdup'
 alias dcdx='docker-compose -f docker-compose.dev.yml exec'
-function dcdsetup {
-  docker-compose -f docker-compose.dev.yml exec web python3 manage.py migrate --noinput
-  docker-compose -f docker-compose.dev.yml exec web python3 manage.py compilemessages
-  docker-compose -f docker-compose.dev.yml exec web python3 manage.py collectstatic --no-input --clear
-}
+alias dcdsetup='./django-update.sh'
 
 function setversion {
   export VERSION_TAG=$1

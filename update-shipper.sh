@@ -9,6 +9,9 @@ curl https://raw.githubusercontent.com/ericswpark/shipper/master/nginx/nginx.con
 # Fetch latest activation script
 curl https://raw.githubusercontent.com/ericswpark/shipper/master/activate > activate
 
+# Fetch Django migration/static file collection script
+curl https://raw.githubusercontent.com/ericswpark/shipper/master/django-update.sh > django-update.sh
+
 # Source activate alias file
 . ./activate
 
@@ -19,7 +22,5 @@ setlatest
 docker-compose up -d --no-build
 
 # Migrate database, compile translations, and collect static files
-docker-compose exec web python3 manage.py migrate --noinput
-docker-compose exec web python3 manage.py compilemessages
-docker-compose exec web python3 manage.py collectstatic --no-input --clear
+./django-update.sh
 

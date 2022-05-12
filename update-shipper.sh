@@ -11,6 +11,7 @@ curl https://raw.githubusercontent.com/ericswpark/shipper/master/activate > acti
 
 # Fetch Django migration/static file collection script
 curl https://raw.githubusercontent.com/ericswpark/shipper/master/django-update.sh > django-update.sh
+chmod +x django-update.sh
 
 # Source activate alias file
 . ./activate

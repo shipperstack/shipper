@@ -16,6 +16,9 @@ alias update-shipper='bash <(curl -s https://raw.githubusercontent.com/ericswpar
 
 If you are on release version ______ and would like to upgrade...
 
+### ≤ 1.16.0
+
+The `SHIPPER_UPLOAD_CHECKSUM` configuration key has been added back to the configuration file.
 
 ### ≤ 1.15.6
 

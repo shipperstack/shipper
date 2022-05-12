@@ -1,10 +1,8 @@
 #!/bin/sh
 
 # Check developer argument
-if [ $# == 1 ]
-then
-    if [ $1 = "developer" ]
-    then
+if [ $# == 1 ]; then
+    if [ $1 = "developer" ]; then
         developer=true
     else
         developer=false
@@ -14,8 +12,7 @@ else
 fi
 
 # Execute commands based on developer flag
-if [ "$developer" = true ]
-then
+if [ "$developer" = true ]; then
     echo "Using developer docker-compose file..."
     docker-compose -f docker-compose.dev.yml exec web python3 manage.py migrate --noinput
     docker-compose -f docker-compose.dev.yml exec web python3 manage.py compilemessages

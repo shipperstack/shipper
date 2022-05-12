@@ -15,5 +15,6 @@ Makefile
 README.md
 SECURITY.md
 activate
+django-update.sh
 update-shipper.sh
 docs

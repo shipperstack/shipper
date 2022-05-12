@@ -4,7 +4,7 @@ import sentry_sdk
 from django.utils.translation import gettext_lazy
 from paramiko import AuthenticationException, SSHException
 from sentry_sdk.integrations.django import DjangoIntegration
-from constance import config
+#from constance import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -192,7 +192,9 @@ REST_FRAMEWORK = {
 # drf-chunked-upload
 DRF_CHUNKED_UPLOAD_COMPLETE_EXT = ""
 DRF_CHUNKED_UPLOAD_ABSTRACT_MODEL = False
-DRF_CHUNKED_UPLOAD_CHECKSUM = config.SHIPPER_UPLOAD_CHECKSUM
+DRF_CHUNKED_UPLOAD_CHECKSUM = os.environ.get(
+    "SHIPPER_UPLOAD_CHECKSUM", default="sha256"
+)
 DRF_CHUNKED_UPLOAD_MAX_BYTES = 5_000_000_000  # 5 GB
 
 
@@ -236,11 +238,6 @@ CONSTANCE_CONFIG = {
         "Regex pattern to use when parsing file names of uploaded artifacts. The pattern must include the following four named match groups; otherwise an exception will occur during uploading: `version', `codename`, `variant`, and `date`.",
         str,
     ),
-    "SHIPPER_UPLOAD_CHECKSUM": (
-        "sha256",
-        "Checksum type to use when uploading. Valid values are `md5` and `sha256`.",
-        str,
-    ),
 }
 CONSTANCE_CONFIG_FIELDSETS = {
     "Downloads page": (
@@ -252,7 +249,6 @@ CONSTANCE_CONFIG_FIELDSETS = {
     "Upload": (
         "SHIPPER_UPLOAD_VARIANTS",
         "SHIPPER_FILE_NAME_FORMAT",
-        "SHIPPER_UPLOAD_CHECKSUM",
     ),
 }
 

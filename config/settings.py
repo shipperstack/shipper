@@ -3,8 +3,10 @@ import os
 import sentry_sdk
 from django.utils.translation import gettext_lazy
 from paramiko import AuthenticationException, SSHException
+from billiard.exceptions import TimeLimitExceeded
 from sentry_sdk.integrations.django import DjangoIntegration
-#from constance import config
+
+# from constance import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -274,5 +276,10 @@ sentry_sdk.init(
     traces_sample_rate=sentry_transaction_rate,
     send_default_pii=os.environ.get("SHIPPER_SENTRY_SDK_PII", default=False),
     before_send=before_send,
-    ignore_errors=[SSHException, AuthenticationException, ConnectionRefusedError],
+    ignore_errors=[
+        SSHException,
+        AuthenticationException,
+        ConnectionRefusedError,
+        TimeLimitExceeded,
+    ],
 )

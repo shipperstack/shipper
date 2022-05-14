@@ -8,4 +8,4 @@ Artifact release manager with  access control, API support and user presentation
 
 ## Documentation
 
-The documentation [is available here](https://ericswpark.github.io/shipper).
+The documentation [is available here](https://shipperstack.github.io/shipper/).

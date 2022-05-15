@@ -10,7 +10,7 @@ jobs:
     permissions:
       actions: write
       checks: none
-      contents: none
+      contents: write
       deployments: write
       id-token: none
       issues: none

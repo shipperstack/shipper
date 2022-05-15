@@ -8,14 +8,14 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     permissions:
-      actions: write
+      actions: none
       checks: none
       contents: write
-      deployments: write
+      deployments: none
       id-token: none
       issues: none
       packages: none
-      pages: write
+      pages: none
       pull-requests: none
       repository-projects: none
       security-events: none

@@ -11,7 +11,7 @@ jobs:
       actions: write
       checks: none
       contents: none
-      deployments: none
+      deployments: write
       id-token: none
       issues: none
       packages: none

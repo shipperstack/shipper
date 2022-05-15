@@ -14,7 +14,6 @@ jobs:
       deployments: write
       id-token: none
       issues: none
-      metadata: none
       packages: none
       pages: write
       pull-requests: none

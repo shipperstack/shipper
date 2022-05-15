@@ -8,9 +8,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     permissions:
-      actions: read
+      actions: write
       checks: none
-      contents: read
+      contents: none
       deployments: none
       id-token: none
       issues: none

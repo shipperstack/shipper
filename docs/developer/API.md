@@ -2,8 +2,9 @@
 
 This page documents the API endpoints exposed by shipper.
 
-!!! warning
-    shipper/shippy's API schema is currently not stable and can change at any time. Please proceed with caution when using these API endpoints, and keep in mind that they may change or disappear in the future.
+**Warning!**
+
+shipper/shippy's API schema is currently not stable and can change at any time. Please proceed with caution when using these API endpoints, and keep in mind that they may change or disappear in the future.
 
 ## v1 endpoints
 

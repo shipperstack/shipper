@@ -8,4 +8,4 @@ Artifact release manager with  access control, API support and user presentation
 
 ## Documentation
 
-The documentation [is available here](docs/README.md).
+The documentation [is available here](docs/).

@@ -1,24 +1,20 @@
 # Development
 
-## Requirements
-
-To develop for shipper, you need Docker installed.
-
-## Initialization
-
-Download the repository, and start up a development container by running the following command:
-
-```
-source activate
-dcdup # docker-compose development up
-```
-
-To stop or restart, use `dcddown` and `dcdrestart`, respectively.
-
-To see all commands, run `helpme`.
-
 ## Coding standards
 
-shipper development uses `flake8` with `mccabe` for linting.
+- Linting: `flake8` + `mccabe`
+- Formatting: `black`
 
-shipper development uses the `black` formatter for formatting all Python code. Make sure to use `black` to format code before sending it in for PR.
+## Setting up a development environment
+
+There are two ways of setting up a development environment.
+
+### Set up with Docker (recommended)
+
+Please see [the shipper-docker repository](https://github.com/shipperstack/shipper-docker/) for more information on how to set up a development environment with Docker.
+
+### Set up manually
+
+In this method you need to bring your own database (PostgreSQL). A web server (nginx) may also be installed alongside, but it is not necessary if you wish to just use Django's built-in web server.
+
+A manual setup provides easy code reload, since changes will propagate immediately.

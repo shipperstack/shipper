@@ -145,12 +145,6 @@ cython_debug/
 # Ignore media files
 media/
 
-# Ignore SSH keys
-ssh/
-
-# Ignore nginx htpasswd file
-nginx/.htpasswd
-
 # VS Code
 .vscode/
 

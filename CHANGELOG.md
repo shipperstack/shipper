@@ -7,6 +7,26 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
+# [1.16.2] - 2022-05-22
+
+## Added
+- shipper now has a proper FOSS license - GPLv3!
+
+## Changed
+- shipper does not send TimeLimitExceeded exceptions to Sentry anymore
+- Fixed a bug with the API checking the list of available builds for a given variant
+- Updated filename regex pattern defaults to support device codenames with numerical values and underscores
+- Updated library dependencies
+  - django-constance[database] (2.8.0 -> 2.9.0)
+  - paramiko (2.10.4 -> 2.11.0)
+
+## Removed
+- Removed Docker-related files. Check them out [at the shipperstack/shipper-docker][shipper-docker-repo-url] repository
+- Removed the documentation website. Documentation exists as Markdown files inside the `docs/` directory
+
+[shipper-docker-repo-url]: https://github.com/shipperstack/shipper-docker/
+
+
 # [1.16.1] - 2022-05-12
 
 This release re-adds a configuration key.
@@ -948,7 +968,8 @@ This release contains a configuration key change.
 Initial release
 
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/1.16.1...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/1.16.2...HEAD
+[1.16.2]: https://github.com/shipperstack/shipper/compare/1.16.1...1.16.2
 [1.16.1]: https://github.com/shipperstack/shipper/compare/1.16.0...1.16.1
 [1.16.0]: https://github.com/shipperstack/shipper/compare/1.15.6...1.16.0
 [1.15.6]: https://github.com/shipperstack/shipper/compare/1.15.5...1.15.6

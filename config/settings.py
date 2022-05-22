@@ -234,7 +234,7 @@ CONSTANCE_CONFIG = {
         str,
     ),
     "SHIPPER_FILE_NAME_FORMAT": (
-        "[A-Za-z]*-(?P<version>[a-z0-9.]*)-(?P<codename>[A-Za-z]*)-OFFICIAL-(?P<variant>[a-z]*)-(?P<date>[0-9]*).zip",
+        "[A-Za-z]*-(?P<version>[a-z0-9.]*)-(?P<codename>[A-Za-z0-9_]*)-OFFICIAL-(?P<variant>[a-z]*)-(?P<date>[0-9]*).zip",
         "Regex pattern to use when parsing file names of uploaded artifacts. The pattern must include the following four named match groups; otherwise an exception will occur during uploading: `version', `codename`, `variant`, and `date`.",
         str,
     ),

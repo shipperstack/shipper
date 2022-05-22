@@ -6,6 +6,7 @@
 
 Artifact release manager with  access control, API support and user presentation
 
-## Documentation
+## Links
 
-The documentation [is available here](docs/).
+- [Changelog](CHANGELOG.md)
+- [Documentation](docs/)

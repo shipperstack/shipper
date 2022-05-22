@@ -50,7 +50,7 @@ class Device(models.Model):
 
     def get_latest_enabled_hashed_build_of_variant(self, variant):
         if not self.has_enabled_hashed_builds_of_variant(variant=variant):
-            raise self.model.DoesNotExist
+            raise Build.DoesNotExist
         return self.get_all_enabled_hashed_builds_of_variant(variant=variant)[0]
 
     def get_all_builds(self):

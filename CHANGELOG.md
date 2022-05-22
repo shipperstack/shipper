@@ -7,6 +7,12 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
+# [1.16.3] - 2022-05-22
+
+## Changed
+- Fixed a bug in the model returning an incorrect exception
+
+
 # [1.16.2] - 2022-05-22
 
 ## Added
@@ -968,7 +974,8 @@ This release contains a configuration key change.
 Initial release
 
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/1.16.2...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/1.16.3...HEAD
+[1.16.3]: https://github.com/shipperstack/shipper/compare/1.16.2...1.16.3
 [1.16.2]: https://github.com/shipperstack/shipper/compare/1.16.1...1.16.2
 [1.16.1]: https://github.com/shipperstack/shipper/compare/1.16.0...1.16.1
 [1.16.0]: https://github.com/shipperstack/shipper/compare/1.15.6...1.16.0

@@ -16,6 +16,11 @@
             color: var(--bs-body-color);
             text-decoration: none;
         }
+        
+        div.disabled-device-card img {
+            filter: grayscale(100%);
+            -webkit-filter: grayscale(100%);
+        }
     </style>
 {% endblock %}
 
@@ -28,26 +33,30 @@
 
             {% for device in object_list %}
                 {% if device.has_enabled_hashed_builds %}
-                    <div class="col">
-                        <a class="card-url" href="{% url 'downloads_device' codename=device.codename %}">
-                            <div class="card h-100">
-                                {% if device.photo %}
-                                    <img src="{{ device.photo }}" class="card-img-top" alt='{% translate "Device photo" %}'>
-                                {% else %}
-                                    <!-- TODO: Add placeholder image here! -->
-                                    <img src="#" class="card-img-top" alt='{% translate "Device photo placeholder image" %}'>
-                                {% endif %}
-                                <div class="card-body">
-                                    {% if device.status %}
-                                        <h5 class="card-title">{{ device }}</h5>
+                    {% if device.status %}
+                        <div class="col">
+                    {% else %}
+                        <div class="col disabled-device-card">
+                    {% endif %}
+                            <a class="card-url" href="{% url 'downloads_device' codename=device.codename %}">
+                                <div class="card h-100">
+                                    {% if device.photo %}
+                                        <img src="{{ device.photo }}" class="card-img-top" alt='{% translate "Device photo" %}'>
                                     {% else %}
-                                        <h5 class="card-title text-reset text-decoration-line-through"
-                                            title='{% translate "This device is no longer supported." %}'>{{ device }}</h5>
+                                        <!-- TODO: Add placeholder image here! -->
+                                        <img src="#" class="card-img-top" alt='{% translate "Device photo placeholder image" %}'>
                                     {% endif %}
+                                    <div class="card-body">
+                                        {% if device.status %}
+                                            <h5 class="card-title">{{ device }}</h5>
+                                        {% else %}
+                                            <h5 class="card-title text-reset text-decoration-line-through"
+                                                title='{% translate "This device is no longer supported." %}'>{{ device }}</h5>
+                                        {% endif %}
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
-                    </div>
+                            </a>
+                        </div>
                 {% endif %}
             {% endfor %}
         </div>

@@ -6,7 +6,7 @@ Welcome to the shipper documentation!
 
 ### Getting Started
 
-- [What is shipper?](What-is-shipper.md)
+- [shipper overview](Overview.md)
 
 ### For sysadmins
 

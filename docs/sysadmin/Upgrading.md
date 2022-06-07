@@ -16,6 +16,16 @@ alias update-shipper='bash <(curl -s https://raw.githubusercontent.com/ericswpar
 
 If you are on release version ______ and would like to upgrade...
 
+### ≤ 1.16.3
+
+Upgrading to 2.0.0 requires a manual migration. It's really simple, though!
+
+1. Download 2.0.0. Do not download a later version as we may remove the library required for the intermediate step in the future.
+2. Once downloaded, run the manual migration with the following command: `python3 manage.py rename_app shipper core`
+3. Perform database migrations as usual.
+
+You're all set! Upgrade to any release after that if any exists.
+
 ### ≤ 1.16.0
 
 The `SHIPPER_UPLOAD_CHECKSUM` configuration key has been added back to the configuration file.

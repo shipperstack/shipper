@@ -11,8 +11,8 @@ from api.views import (
     v1_download_count_all,
     V1DownloadBuildCounter,
 )
-from shipper.models import Statistics, Build, Device
-from shipper.tests import mock_devices_setup, mock_builds_setup
+from core.models import Statistics, Build, Device
+from core.tests import mock_devices_setup, mock_builds_setup
 
 
 class StatisticsTestCase(APITestCase):

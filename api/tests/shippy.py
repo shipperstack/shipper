@@ -4,8 +4,8 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APIClient, APIRequestFactory, APITestCase
-from shipper.models import Build, Device
-from shipper.tests import mock_builds_setup, mock_devices_setup
+from core.models import Build, Device
+from core.tests import mock_builds_setup, mock_devices_setup
 
 User = get_user_model()
 

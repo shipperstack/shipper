@@ -7,7 +7,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
-from shipper.models import Device
+from core.models import Device
 
 
 class V1UpdaterLOS(APIView):

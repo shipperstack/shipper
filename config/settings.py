@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "rest_framework.authtoken",
-    "shipper",
+    "core",
     "downloads",
     "api",
     "drf_chunked_upload",

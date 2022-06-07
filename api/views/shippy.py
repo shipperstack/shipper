@@ -18,10 +18,10 @@ from rest_framework.status import (
     HTTP_401_UNAUTHORIZED,
     HTTP_404_NOT_FOUND,
 )
-from shipper.exceptions import UploadException
-from shipper.handler import handle_chunked_build
-from shipper.models import Build, Device
-from shipper.utils import parse_filename_with_regex
+from core.exceptions import UploadException
+from core.handler import handle_chunked_build
+from core.models import Build, Device
+from core.utils import parse_filename_with_regex
 
 
 # Serializer for overriding success url

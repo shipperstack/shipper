@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AnonymousUser
 from django.http import Http404
 from django.test import RequestFactory, TestCase
-from shipper.tests import mock_builds_setup, mock_devices_setup
+from core.tests import mock_builds_setup, mock_devices_setup
 
 from downloads.templatetags.build_extras import format_download_url
 from downloads.views import DownloadsBuildView, DownloadsDeviceView, DownloadsMainView

@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404
 from django.views.generic import DetailView, ListView, TemplateView
 from django.shortcuts import render
-from shipper.models import Build, Device
+from core.models import Build, Device
 
 
 class DownloadsMainView(ListView):

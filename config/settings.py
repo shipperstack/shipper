@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "auditlog",
     "django_celery_beat",
     "django_celery_results",
+    "django_rename_app",
     "django_cleanup.apps.CleanupConfig",  # must be last for successful deletions
 ]
 

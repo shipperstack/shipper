@@ -7,6 +7,17 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
+# [2.0.0] - 2022-06-07
+
+This release requires a manual migration. Please [read the documentation for more information.](docs/sysadmin/Upgrading#-1163)
+
+## Changed
+- Renamed `shipper` app to `core` for better code organization
+- Unsupported devices are now grayed out on the main screen
+- Updated library dependencies
+  - celery (5.2.6 -> 5.2.7)
+
+
 # [1.16.3] - 2022-05-22
 
 ## Changed

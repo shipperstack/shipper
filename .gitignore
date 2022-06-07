@@ -150,3 +150,6 @@ media/
 
 # Static folder
 static/
+
+# Ignore all SQLite databases
+*.sqlite3

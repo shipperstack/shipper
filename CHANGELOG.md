@@ -7,6 +7,12 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
+# [2.1.0] - 2022-06-08
+
+## Removed
+- Removed the intermediate `django_rename_app` library. You must first upgrade to 2.0.0 if upgrading from a previous release
+
+
 # [2.0.0] - 2022-06-07
 
 This release requires a manual migration. Please [read the documentation for more information.](docs/sysadmin/Upgrading.md#-1163)
@@ -985,7 +991,8 @@ This release contains a configuration key change.
 Initial release
 
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.0.0...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.1.0...HEAD
+[2.1.0]: https://github.com/shipperstack/shipper/compare/2.0.0...2.1.0
 [2.0.0]: https://github.com/shipperstack/shipper/compare/1.16.3...2.0.0
 [1.16.3]: https://github.com/shipperstack/shipper/compare/1.16.2...1.16.3
 [1.16.2]: https://github.com/shipperstack/shipper/compare/1.16.1...1.16.2

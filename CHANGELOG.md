@@ -24,6 +24,15 @@ This release requires a manual migration. Please [read the documentation for mor
   - celery (5.2.6 -> 5.2.7)
 
 
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.1.0...HEAD
+[2.1.0]: https://github.com/shipperstack/shipper/compare/2.0.0...2.1.0
+[2.0.0]: https://github.com/shipperstack/shipper/compare/1.16.3...2.0.0
+
+---
+
+# Old versions
+
+
 # [1.16.3] - 2022-05-22
 
 ## Changed
@@ -991,9 +1000,6 @@ This release contains a configuration key change.
 Initial release
 
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.1.0...HEAD
-[2.1.0]: https://github.com/shipperstack/shipper/compare/2.0.0...2.1.0
-[2.0.0]: https://github.com/shipperstack/shipper/compare/1.16.3...2.0.0
 [1.16.3]: https://github.com/shipperstack/shipper/compare/1.16.2...1.16.3
 [1.16.2]: https://github.com/shipperstack/shipper/compare/1.16.1...1.16.2
 [1.16.1]: https://github.com/shipperstack/shipper/compare/1.16.0...1.16.1

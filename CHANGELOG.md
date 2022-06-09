@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
+## Changed
+- Squashed migrations in the `core` app. You must upgrade to this version before upgrading further as the next release will not contain the previous migrations
+- General code cleanup
+- Updated library dependencies
+  - django-celery-beat (2.2.1 -> 2.3.0)
+  - Django (3.2.13 -> 4.0.5)
+
+## Removed
+- Removed Python 3.7 support because Django 4.x does not support it
+
 
 # [2.1.0] - 2022-06-08
 

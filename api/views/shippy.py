@@ -19,7 +19,7 @@ from rest_framework.status import (
     HTTP_404_NOT_FOUND,
 )
 from core.exceptions import UploadException
-from core.handler import handle_chunked_build
+from api.handler import handle_chunked_build
 from core.models import Build, Device
 from core.utils import parse_filename_with_regex
 

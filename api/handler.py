@@ -5,10 +5,10 @@ from datetime import datetime
 from django.conf import settings
 from constance import config
 
-from .exceptions import UploadException
-from .models import Build
-from .tasks import generate_checksum, mirror_build
-from .utils import parse_filename_with_regex
+from core.exceptions import UploadException
+from core.models import Build
+from core.tasks import generate_checksum, mirror_build
+from core.utils import parse_filename_with_regex
 
 
 def handle_chunked_build(device, chunked_file):

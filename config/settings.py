@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "core",
     "downloads",
+    "maintainers",
     "api",
     "drf_chunked_upload",
     "auditlog",

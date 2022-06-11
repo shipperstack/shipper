@@ -16,7 +16,15 @@ alias update-shipper='bash <(curl -s https://raw.githubusercontent.com/ericswpar
 
 If you are on release version ______ and would like to upgrade...
 
+### ≤ 2.2.1
+
+The `SHIPPER_CSRF_TRUSTED_ORIGINS` configuration key has been added.
+
+Please [refer to the wiki for more information][configuration].
+
 ### ≤ 2.1.0
+
+You must upgrade to `2.2.0` before upgrading to a later release as this release contains a squashed migration, acting as a in-between release.
 
 ### ≤ 1.16.3
 

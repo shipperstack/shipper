@@ -8,9 +8,6 @@ import core.models
 
 
 class Migration(migrations.Migration):
-
-    replaces = [('core', '0001_initial'), ('core', '0002_remove_build_processed'), ('core', '0003_auto_20201121_0555'), ('core', '0004_auto_20210215_0804'), ('core', '0005_auto_20210428_0745'), ('core', '0006_auto_20210430_1258'), ('core', '0007_auto_20210517_1142'), ('core', '0008_build_backed_up'), ('core', '0009_auto_20210526_0557'), ('core', '0010_auto_20210526_0616'), ('core', '0011_alter_mirrorserver_options'), ('core', '0012_auto_20210526_0623'), ('core', '0013_auto_20210526_0625'), ('core', '0014_auto_20210526_0642'), ('core', '0015_alter_mirrorserver_download_url_base'), ('core', '0016_alter_mirrorserver_download_url_base'), ('core', '0017_mirrorserver_description'), ('core', '0018_mirrorserver_priority'), ('core', '0019_alter_mirrorserver_priority'), ('core', '0020_build_enabled'), ('core', '0021_build_download_count'), ('core', '0022_statistics'), ('core', '0023_alter_statistics_options'), ('core', '0024_alter_build_size'), ('core', '0025_alter_build_mirrored_on'), ('core', '0026_build_build_date'), ('core', '0027_mirrorserver_target_versions'), ('core', '0028_alter_mirrorserver_target_versions'), ('core', '0029_alter_mirrorserver_target_versions'), ('core', '0030_alter_mirrorserver_target_versions'), ('core', '0031_alter_build_variant'), ('core', '0032_delete_statistics'), ('core', '0033_remove_build_download_count'), ('core', '0034_statistics'), ('core', '0035_remove_build_md5_file'), ('core', '0036_build_md5sum'), ('core', '0037_alter_device_codename'), ('core', '0038_alter_statistics_options')]
-
     initial = True
 
     dependencies = [

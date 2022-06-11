@@ -14,9 +14,7 @@ class MaintainerDashboardView(LoginRequiredMixin, ListView):
 
     # Override devices shown to maintainers
     def get_queryset(self):
-        return Device.objects.filter(maintainers=self.request.user).order_by(
-            "-status", "manufacturer", "name"
-        )
+        return get_filtered_device_queryset(self.request.user).order_by("-status", "manufacturer", "name")
 
 
 class DeviceDetailView(LoginRequiredMixin, DetailView):
@@ -25,7 +23,7 @@ class DeviceDetailView(LoginRequiredMixin, DetailView):
 
     # Override devices shown to maintainers
     def get_queryset(self):
-        return Device.objects.filter(maintainers=self.request.user)
+        return get_filtered_device_queryset(self.request.user)
 
 
 class BuildDeleteView(LoginRequiredMixin, DeleteView):
@@ -42,7 +40,7 @@ class BuildDeleteView(LoginRequiredMixin, DeleteView):
 
     # Override builds shown to maintainers
     def get_queryset(self):
-        return Build.objects.filter(device__maintainers=self.request.user)
+        return get_filtered_device_queryset(self.request.user)
 
 
 @login_required
@@ -58,3 +56,10 @@ def build_enabled_status_modify(request, pk):
     build.save()
 
     return redirect(reverse("device_detail", kwargs={"pk": build.device.id}))
+
+
+def get_filtered_device_queryset(user):
+    if user.full_access_to_devices:
+        return Device.objects.all()
+    else:
+        return Device.objects.filter(maintainers=user)

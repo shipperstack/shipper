@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
+## Changed
+- Switched to squashed migration
+
+## Removed
+- Removed previous migrations before the squash. Make sure to have the squashed migration in your migration history in your database, or upgrade to a release that has the previous migrations (2.2.0 ~ 2.3.0) before upgrading to this release
+
 
 # [2.3.0] - 2022-06-11
 

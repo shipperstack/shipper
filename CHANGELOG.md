@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
+
+# [2.3.0] - 2022-06-11
+
+This release contains a new configuration key.
+
+## Added
+- Added a new configuration key (`SHIPPER_CSRF_TRUSTED_ORIGINS`) to fix authentication errors due to CSRF
+ 
+
 # [2.2.1] - 2022-06-11
 
 ## Changed
@@ -13,6 +22,8 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 
 # [2.2.0] - 2022-06-11
+
+This release contains a database migration.
 
 ## Changed
 - Squashed migrations in the `core` app. You must upgrade to this version before upgrading further as the next release will not contain the previous migrations
@@ -43,7 +54,8 @@ This release requires a manual migration. Please [read the documentation for mor
   - celery (5.2.6 -> 5.2.7)
 
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.2.1...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.3.0...HEAD
+[2.3.0]: https://github.com/shipperstack/shipper/compare/2.2.1...2.3.0
 [2.2.1]: https://github.com/shipperstack/shipper/compare/2.2.0...2.2.1
 [2.2.0]: https://github.com/shipperstack/shipper/compare/2.1.0...2.2.0
 [2.1.0]: https://github.com/shipperstack/shipper/compare/2.0.0...2.1.0

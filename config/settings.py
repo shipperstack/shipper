@@ -13,6 +13,7 @@ SECRET_KEY = os.environ.get("SHIPPER_SECRET_KEY")
 DEBUG = int(os.environ.get("SHIPPER_DEBUG", default=0))
 ALLOWED_HOSTS = os.environ.get("SHIPPER_ALLOWED_HOSTS").split(" ")
 
+CSRF_TRUSTED_ORIGINS = os.environ.get("SHIPPER_CSRF_TRUSTED_ORIGINS").split(" ")
 CSRF_COOKIE_SECURE = int(os.environ.get("SHIPPER_CSRF_COOKIE_SECURE", default=1))
 SESSION_COOKIE_SECURE = int(os.environ.get("SHIPPER_SESSION_COOKIE_SECURE", default=1))
 

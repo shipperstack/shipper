@@ -16,6 +16,8 @@ alias update-shipper='bash <(curl -s https://raw.githubusercontent.com/ericswpar
 
 If you are on release version ______ and would like to upgrade...
 
+### ≤ 2.1.0
+
 ### ≤ 1.16.3
 
 Upgrading to 2.0.0 requires a manual migration. It's really simple, though!

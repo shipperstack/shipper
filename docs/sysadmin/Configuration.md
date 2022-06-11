@@ -20,6 +20,11 @@ Copy the `.env.example` file and set the values:
     - An array of allowed hosts in String format, with spaces delimiting each entry.
     - Example: if you're serving shipper at https://downloads.example.com, you would put `downloads.example.com` here.
     - Required, no defaults provided.
+  - `SHIPPER_CSRF_TRUSTED_ORIGINS`
+    - An array of trusted origins for CSRF in String format, with spaces delimiting each entry.
+    - Should be similar to the `SHIPPER_ALLOWED_HOSTS` config key above, but **must** include the scheme (HTTP or HTTPS)
+    - Example: if you're serving shipper at https://downloads.example.com, you would put `https://downloads.example.com` here.
+    - Required, no defaults provided
   - `SHIPPER_CSRF_COOKIE_SECURE`
     - Internal Django security option.
     - `1` -> enabled (recommended for production)

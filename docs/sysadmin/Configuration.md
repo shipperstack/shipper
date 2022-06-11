@@ -106,8 +106,10 @@ Copy the `.env.example` file and set the values:
     - Default: ``, disabled
   - `SHIPPER_SENTRY_SDK_PII`
     - Send potential personally-identifiable information (PII) to Sentry when submitting bug reports
-    - Default: `False`
-    - Warning: if set to `True`, shipper may send PII such as usernames and email addresses. Set to `False` in production.
+    - `0` -> disabled
+    - Any other value -> enabled
+    - Default: `0`
+    - Warning: if enabled, shipper may send PII such as usernames and email addresses. Set to `False` in production.
 
 ## `.env.db`
 

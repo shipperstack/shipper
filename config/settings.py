@@ -273,7 +273,7 @@ sentry_sdk.init(
     integrations=[DjangoIntegration()],
     release=f"{SHIPPER_VERSION}",
     traces_sample_rate=sentry_transaction_rate,
-    send_default_pii=os.environ.get("SHIPPER_SENTRY_SDK_PII", default=False),
+    send_default_pii=(int(os.environ.get("SHIPPER_SENTRY_SDK_PII", default=0)) == 0),
     before_send=before_send,
     ignore_errors=[
         SSHException,

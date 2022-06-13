@@ -6,11 +6,20 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
+
+# [2.4.0] - 2022-06-13
+
+This release contains a database migration.
+
+## Added
+- Added a new "full access" field in the account model, that allows access to all devices
+
 ## Changed
-- Switched to squashed migration
+- Squashed migration is now the default migration
 
 ## Removed
 - Removed previous migrations before the squash. Make sure to have the squashed migration in your migration history in your database, or upgrade to a release that has the previous migrations (2.2.0 ~ 2.3.0) before upgrading to this release
+- Removed command to make a user a "full user"
 
 
 # [2.3.0] - 2022-06-11
@@ -60,7 +69,8 @@ This release requires a manual migration. Please [read the documentation for mor
   - celery (5.2.6 -> 5.2.7)
 
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.3.0...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.4.0...HEAD
+[2.4.0]: https://github.com/shipperstack/shipper/compare/2.3.0...2.4.0
 [2.3.0]: https://github.com/shipperstack/shipper/compare/2.2.1...2.3.0
 [2.2.1]: https://github.com/shipperstack/shipper/compare/2.2.0...2.2.1
 [2.2.0]: https://github.com/shipperstack/shipper/compare/2.1.0...2.2.0

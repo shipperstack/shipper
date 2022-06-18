@@ -59,7 +59,10 @@ class V1MaintainersChunkedUpload(ChunkedUploadView):
             )
 
         # Check if maintainer is in device's approved maintainers list
-        if not self.request.user.full_access_to_devices and self.request.user not in device.maintainers.all():
+        if (
+            not self.request.user.full_access_to_devices
+            and self.request.user not in device.maintainers.all()
+        ):
             chunked_upload.delete()
             return Response(
                 {

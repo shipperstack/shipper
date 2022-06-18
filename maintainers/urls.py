@@ -8,12 +8,8 @@ from .views import (
 )
 
 urlpatterns = [
-    path(
-        "", MaintainerDashboardView.as_view(), name="maintainer_dashboard"
-    ),
-    path(
-        "device/<int:pk>/", DeviceDetailView.as_view(), name="device_detail"
-    ),
+    path("", MaintainerDashboardView.as_view(), name="maintainer_dashboard"),
+    path("device/<int:pk>/", DeviceDetailView.as_view(), name="device_detail"),
     path(
         "build/<int:pk>/enabled_status_modify/",
         build_enabled_status_modify,

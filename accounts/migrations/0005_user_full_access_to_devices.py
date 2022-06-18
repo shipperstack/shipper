@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0004_auto_20210712_1651'),
+        ("accounts", "0004_auto_20210712_1651"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='user',
-            name='full_access_to_devices',
-            field=models.BooleanField(default=False, help_text='Has access to all devices on shipper'),
+            model_name="user",
+            name="full_access_to_devices",
+            field=models.BooleanField(
+                default=False, help_text="Has access to all devices on shipper"
+            ),
         ),
     ]

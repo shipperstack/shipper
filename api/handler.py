@@ -42,13 +42,15 @@ def handle_chunked_build(device, chunked_file):
         )
 
     # Check if version is in allowed versions list
-    if not is_version_in_target_versions(filename_parts["version"], config.SHIPPER_ALLOWED_VERSIONS_TO_UPLOAD):
+    if not is_version_in_target_versions(
+        filename_parts["version"], config.SHIPPER_ALLOWED_VERSIONS_TO_UPLOAD
+    ):
         raise UploadException(
             {
                 "error": "version_not_allowed",
                 "message": f"The server is currently not accepting this build's version, {filename_parts['version']}. "
                 f"The server only accepts the following versions: {config.SHIPPER_ALLOWED_VERSIONS_TO_UPLOAD}. "
-                "If you believe the version should be allowed, please contact an admin to adjust server settings."
+                "If you believe the version should be allowed, please contact an admin to adjust server settings.",
             }
         )
 

@@ -14,7 +14,9 @@ class MaintainerDashboardView(LoginRequiredMixin, ListView):
 
     # Override devices shown to maintainers
     def get_queryset(self):
-        return get_filtered_device_queryset(self.request.user).order_by("-status", "manufacturer", "name")
+        return get_filtered_device_queryset(self.request.user).order_by(
+            "-status", "manufacturer", "name"
+        )
 
 
 class DeviceDetailView(LoginRequiredMixin, DetailView):

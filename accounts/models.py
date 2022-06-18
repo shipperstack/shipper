@@ -4,7 +4,9 @@ from django.db import models
 
 
 class User(AbstractUser):
-    full_access_to_devices = models.BooleanField(default=False, help_text="Has access to all devices on shipper")
+    full_access_to_devices = models.BooleanField(
+        default=False, help_text="Has access to all devices on shipper"
+    )
 
 
 auditlog.register(User)

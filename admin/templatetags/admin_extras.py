@@ -2,8 +2,10 @@ import ast
 
 from django import template
 from constance import config
+
+from admin.views import get_humanized_total_size
 from core.models import Build
-from core.views import get_humanized_total_size
+
 
 register = template.Library()
 

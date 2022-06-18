@@ -8,7 +8,7 @@ urlpatterns = [
     path("accounts/", include("accounts.urls")),
     path("maintainers/", include("maintainers.urls")),
     path("", include("downloads.urls")),
-    path("", include("core.urls")),
+    path("", include("admin.urls")),
     path("api/", include("api.urls")),
     path("", include("django.conf.urls.i18n")),
 ]

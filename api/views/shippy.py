@@ -133,6 +133,7 @@ def v1_system_info(_):
             "version": settings.SHIPPER_VERSION,
             "shippy_compat_version": settings.SHIPPER_SHIPPY_COMPAT_VERSION,
             "shippy_upload_checksum_type": settings.DRF_CHUNKED_UPLOAD_CHECKSUM,
+            "shippy_allowed_versions": config.SHIPPER_ALLOWED_VERSIONS_TO_UPLOAD,
         }
     )
 

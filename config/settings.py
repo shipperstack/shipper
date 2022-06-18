@@ -240,6 +240,11 @@ CONSTANCE_CONFIG = {
         "Regex pattern to use when parsing file names of uploaded artifacts. The pattern must include the following four named match groups; otherwise an exception will occur during uploading: `version', `codename`, `variant`, and `date`.",
         str,
     ),
+    "SHIPPER_ALLOWED_VERSIONS_TO_UPLOAD": (
+        "*",
+        "Versions that maintainers can currently upload to the system. Wildcards are supported. Specify multiple versions on each line.",
+        str,
+    ),
 }
 CONSTANCE_CONFIG_FIELDSETS = {
     "Downloads page": (
@@ -251,6 +256,7 @@ CONSTANCE_CONFIG_FIELDSETS = {
     "Upload": (
         "SHIPPER_UPLOAD_VARIANTS",
         "SHIPPER_FILE_NAME_FORMAT",
+        "SHIPPER_ALLOWED_VERSIONS_TO_UPLOAD",
     ),
 }
 

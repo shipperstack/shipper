@@ -8,7 +8,7 @@ from constance import config
 from core.exceptions import UploadException
 from core.models import Build
 from core.tasks import generate_checksum, mirror_build
-from core.utils import parse_filename_with_regex
+from core.utils import parse_filename_with_regex, is_version_in_target_versions
 
 
 def handle_chunked_build(device, chunked_file):
@@ -38,6 +38,17 @@ def handle_chunked_build(device, chunked_file):
                 "message": "The build's variant is not supported by this server "
                 "instance. If you believe the variant is valid, please contact an "
                 "admin to change the allowed variants list.",
+            }
+        )
+
+    # Check if version is in allowed versions list
+    if not is_version_in_target_versions(filename_parts["version"], config.SHIPPER_ALLOWED_VERSIONS_TO_UPLOAD):
+        raise UploadException(
+            {
+                "error": "version_not_allowed",
+                "message": f"The server is currently not accepting this build's version, {filename_parts['version']}. "
+                f"The server only accepts the following versions: {config.SHIPPER_ALLOWED_VERSIONS_TO_UPLOAD}. "
+                "If you believe the version should be allowed, please contact an admin to adjust server settings."
             }
         )
 

@@ -1,6 +1,7 @@
 {% extends 'user_base.html' %}
 
 {% load i18n %}
+{% load static %}
 
 {% block title %}{% translate "Downloads" %}{% endblock %}
 
@@ -33,11 +34,13 @@
 
             {% for device in object_list %}
                 {% if device.has_enabled_hashed_builds %}
+                    <div
                     {% if device.status %}
-                        <div class="col">
+                        class="col"
                     {% else %}
-                        <div class="col disabled-device-card">
+                        class="col disabled-device-card"
                     {% endif %}
+                    >
                             <a class="card-url" href="{% url 'downloads_device' codename=device.codename %}">
                                 <div class="card h-100">
                                     {% if device.photo %}

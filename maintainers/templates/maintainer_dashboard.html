@@ -1,5 +1,7 @@
 {% extends 'maintainer_base.html' %}
 
+{% load static %}
+
 {% block title %}Shipper{% endblock %}
 
 {% block head %}
@@ -37,8 +39,7 @@
                                 {% if device.photo %}
                                     <img src="{{ device.photo }}" class="card-img-top" alt="Device photo">
                                 {% else %}
-                                    <!-- TODO: Add placeholder image here! -->
-                                    <img src="#" class="card-img-top" alt="Device photo placeholder image">
+                                    <img src="{% static 'img/no_device_image.png' %}" class="card-img-top" alt="Device photo placeholder image">
                                 {% endif %}
                                 <div class="card-body">
                                     {% if device.status %}

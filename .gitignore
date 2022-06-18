@@ -149,7 +149,7 @@ media/
 .vscode/
 
 # Static folder
-static/
+/static/
 
 # Ignore all SQLite databases
 *.sqlite3

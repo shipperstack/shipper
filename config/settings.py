@@ -212,7 +212,9 @@ CONSTANCE_BACKEND = "constance.backends.database.DatabaseBackend"
 CONSTANCE_CONFIG = {
     "SHIPPER_MAIN_WEBSITE_URL": (
         "#",
-        "Link to redirect users to when they click on the 'Back to main website' button on the top of the page. Setting this configuration to the pound symbol disables redirection and hides the button.",
+        "Link to redirect users to when they click on the 'Back to main website' "
+        "button on the top of the page. Setting this configuration to the pound "
+        "symbol disables redirection and hides the button.",
         str,
     ),
     "SHIPPER_DOWNLOADS_PAGE_MAIN_BRANDING": (
@@ -231,18 +233,24 @@ CONSTANCE_CONFIG = {
         str,
     ),
     "SHIPPER_UPLOAD_VARIANTS": (
-        '{"gapps": "GApps","vanilla": "Vanilla (no GApps)","foss": "FOSS","goapps": "GoApps (Android Go Edition GApps)"}',
+        '{"gapps": "GApps","vanilla": "Vanilla (no GApps)","foss": "FOSS","goapps": '
+        '"GoApps (Android Go Edition GApps)"}',
         "Allowed upload variant pairing in JSON format.",
         str,
     ),
     "SHIPPER_FILE_NAME_FORMAT": (
-        "[A-Za-z]*-(?P<version>[a-z0-9.]*)-(?P<codename>[A-Za-z0-9_]*)-OFFICIAL-(?P<variant>[a-z]*)-(?P<date>[0-9]*).zip",
-        "Regex pattern to use when parsing file names of uploaded artifacts. The pattern must include the following four named match groups; otherwise an exception will occur during uploading: `version', `codename`, `variant`, and `date`.",
+        "[A-Za-z]*-(?P<version>[a-z0-9.]*)-(?P<codename>[A-Za-z0-9_]*)-OFFICIAL-("
+        "?P<variant>[a-z]*)-(?P<date>[ 0-9]*).zip",
+        "Regex pattern to use when parsing file names of uploaded artifacts. The "
+        "pattern must include the following four named match groups; otherwise an "
+        "exception will occur during uploading: `version', `codename`, `variant`, "
+        "and `date`.",
         str,
     ),
     "SHIPPER_ALLOWED_VERSIONS_TO_UPLOAD": (
         "*",
-        "Versions that maintainers can currently upload to the system. Wildcards are supported. Specify multiple versions on each line.",
+        "Versions that maintainers can currently upload to the system. Wildcards are "
+        "supported. Specify multiple versions on each line.",
         str,
     ),
 }

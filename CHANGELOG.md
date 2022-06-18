@@ -7,6 +7,18 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
+# [2.5.0] - 2022-06-18
+
+## Added
+- Added an "allowed versions" configuration option to limit what versions can be uploaded to the server
+- Added a placeholder image for devices without images
+
+## Changed
+- Moved Django admin to `django-admin/` path
+- Admin pages now live under `admin/`
+- General code cleanup
+
+
 # [2.4.0] - 2022-06-13
 
 This release contains a database migration.
@@ -69,7 +81,8 @@ This release requires a manual migration. Please [read the documentation for mor
   - celery (5.2.6 -> 5.2.7)
 
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.4.0...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.5.0...HEAD
+[2.5.0]: https://github.com/shipperstack/shipper/compare/2.4.0...2.5.0
 [2.4.0]: https://github.com/shipperstack/shipper/compare/2.3.0...2.4.0
 [2.3.0]: https://github.com/shipperstack/shipper/compare/2.2.1...2.3.0
 [2.2.1]: https://github.com/shipperstack/shipper/compare/2.2.0...2.2.1

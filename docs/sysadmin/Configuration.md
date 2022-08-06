@@ -5,6 +5,7 @@ To configure shipper, you need to set environment variables.
 Because there are so many environment variables required for shipper, you may find that setting them all in a environment variable file and importing them before starting shipper is easier than manually setting them, one by one. To do this, create the files listed below, then run `set -a && source .env && set +a` to set all of the environment variables at once.
 
 The files should look something like this:
+
 `.sample.env`:
 
 ```
@@ -113,6 +114,13 @@ SHIPPER_OTHER_CONFIG_OPTION=1 # for true
     - A list of admins and their emails, delimited with : and ;
     - Format: `AdminName:adminemail@example.com;Admin2Name:admin2email@example.com`
     - Default: ``, disabled
+
+### Backup
+  - `SHIPPER_DBBACKUP_DIRECTORY`
+    - Directory to back up databases and media files to when running `django-dbbackup` commands
+    - The directory must exist beforehand; use `mkdir -p <full path to directory>` to achieve this.
+    - Default: `/tmp/shipper-backup/`
+  
 
 ### Sentry (error reporting):
   - `SHIPPER_SENTRY_SDK_DSN`

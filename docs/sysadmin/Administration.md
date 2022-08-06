@@ -20,3 +20,30 @@ Initializes a "full" user that has access to all enabled devices. The specified 
 
 De-initializes a "full" user by removing access to all enabled devices. The specified user must exist within shipper first!
 
+
+### `django-dbbackup`
+
+For a full overview on all of the commands, [visit the `django-dbbackup` documentation.][django-dbbackup-docs]
+
+
+[django-dbbackup-docs]: https://django-dbbackup.readthedocs.io/en/master/commands.html
+
+#### `dbbackup`
+
+Backs up the database.
+
+#### `dbrestore`
+
+Restores the latest backup of the database.
+
+#### `mediabackup`
+
+Backs up all the media files.
+
+#### `mediarestore`
+
+Restores the latest backup of the media files.
+
+#### `listbackups`
+
+Lists all available backups.

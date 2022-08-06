@@ -1,10 +1,20 @@
 # Configuration
 
-To configure shipper, you need to copy the environment variable files and tweak the values inside.
+To configure shipper, you need to set environment variables.
+
+Because there are so many environment variables required for shipper, you may find that setting them all in a environment variable file and importing them before starting shipper is easier than manually setting them, one by one. To do this, create the files listed below, then run `set -a && source .env && set +a` to set all of the environment variables at once.
+
+The files should look something like this:
+`.sample.env`:
+
+```
+# Comments are supported, like this!
+SHIPPER_SECRET_KEY="12345678"
+SHIPPER_OTHER_CONFIG_OPTION=1 # for true
+```
+
 
 ## `.env`
-
-Copy the `.env.example` file and set the values:
 
 ### Django internal
   - `SHIPPER_SECRET_KEY`
@@ -117,8 +127,6 @@ Copy the `.env.example` file and set the values:
     - Warning: if enabled, shipper may send PII such as usernames and email addresses. Set to `False` in production.
 
 ## `.env.db`
-
-Copy the `.env.db.example` file and set the values:
 
   - `POSTGRES_USER`
     - Postgres user

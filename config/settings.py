@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "auditlog",
     "django_celery_beat",
     "django_celery_results",
+    "dbbackup",
     "django_cleanup.apps.CleanupConfig",  # must be last for successful deletions
 ]
 
@@ -268,6 +269,14 @@ CONSTANCE_CONFIG_FIELDSETS = {
     ),
 }
 
+
+# Django-dbbackup
+DBBACKUP_STORAGE = "django.core.files.storage.FileSystemStorage"
+DBBACKUP_STORAGE_OPTIONS = {
+    "location": os.environ.get(
+        "SHIPPER_DBBACKUP_DIRECTORY", default="/tmp/shipper-backup/"
+    )
+}
 
 # Sentry SDK
 def before_send(event, hint):

@@ -7,6 +7,14 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
+# [2.5.2] - 2022-08-06
+
+## Changed
+- Updated library dependencies
+  - sentry-sdk (1.6.0 -> 1.9.2)
+  - django-auditlog (2.1.0 -> 2.1.1)  
+
+
 # [2.5.1] - 2022-07-05
 
 ## Changed
@@ -92,7 +100,8 @@ This release requires a manual migration. Please [read the documentation for mor
   - celery (5.2.6 -> 5.2.7)
 
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.5.1...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.5.2...HEAD
+[2.5.2]: https://github.com/shipperstack/shipper/compare/2.5.1...2.5.2
 [2.5.1]: https://github.com/shipperstack/shipper/compare/2.5.0...2.5.1
 [2.5.0]: https://github.com/shipperstack/shipper/compare/2.4.0...2.5.0
 [2.4.0]: https://github.com/shipperstack/shipper/compare/2.3.0...2.4.0

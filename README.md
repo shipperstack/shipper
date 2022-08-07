@@ -5,10 +5,6 @@
 
 Artifact release manager with  access control, API support and user presentation
 
-## Notice
-
-The shipper project is now in maintenance mode. No new features or changes will be made. Bug fixes and vulnerability patches will still be merged and released with patch version bumps.
-
 ## Installation
 
 You can deploy shipper to a PaaS (platform-as-a-service) like Heroku, PythonAnywhere, etc. or your own server, but a barebones install requires you to bring your own infrastructure dependencies, like PostgreSQL for the database and RabbitMQ for queuing tasks, etc.

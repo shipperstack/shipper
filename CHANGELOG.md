@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
+This release contains a new configuration key.
+This release contains a security vulnerability patch.
+
+## Added
+- Added django-dbbackup for backing up shipper instance
+
+## Changed
+- Updated library dependencies
+  - django (4.0.6 -> 4.0.7)
+  - sentry-sdk (1.9.2 -> 1.9.8)
+  - humanize (4.2.3 -> 4.3.0)
+  - django-constance[database] (2.9.0 -> 2.9.1)
+
 
 # [2.5.2] - 2022-08-06
 

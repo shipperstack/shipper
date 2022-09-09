@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
+
+# [2.6.0] - 2022-09-09
+
 This release contains a new configuration key.
 This release contains a security vulnerability patch.
 
@@ -113,7 +116,8 @@ This release requires a manual migration. Please [read the documentation for mor
   - celery (5.2.6 -> 5.2.7)
 
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.5.2...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.6.0...HEAD
+[2.6.0]: https://github.com/shipperstack/shipper/compare/2.5.2...2.6.0
 [2.5.2]: https://github.com/shipperstack/shipper/compare/2.5.1...2.5.2
 [2.5.1]: https://github.com/shipperstack/shipper/compare/2.5.0...2.5.1
 [2.5.0]: https://github.com/shipperstack/shipper/compare/2.4.0...2.5.0

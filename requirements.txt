@@ -5,7 +5,7 @@ django-celery-beat==2.3.0
 django-celery-results==2.4.0
 django-cleanup==6.0.0
 django-constance[database]==2.9.1
-django-dbbackup==4.0.1
+django-dbbackup==4.0.2
 djangorestframework==3.14.0
 drf-chunked-upload==0.5.1
 gunicorn==20.1.0

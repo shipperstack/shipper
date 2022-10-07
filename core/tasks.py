@@ -165,8 +165,6 @@ def generate_checksum(build_id):
             )
 
 
-
-
 @shared_task(
     bind=True,
     default_retry_delay=60 * 60,
@@ -183,7 +181,9 @@ def delete_mirrored_build(self, build_id, mirrorserver_id):
             mirror = MirrorServer.objects.get(id=mirrorserver_id)
 
             if mirror not in build.mirrored_on.all():
-                print(f"Build {build.file_name} is not mirrored on mirror server {mirror.name}!")
+                print(
+                    f"Build {build.file_name} is not mirrored on mirror server {mirror.name}!"
+                )
 
             ssh = paramiko.SSHClient()
 
@@ -227,4 +227,3 @@ def delete_mirrored_build(self, build_id, mirrorserver_id):
             print(
                 f"Build {build.file_name} is already being deleted from the mirror server by another process!"
             )
-

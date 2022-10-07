@@ -163,3 +163,68 @@ def generate_checksum(build_id):
             Build.objects.select_for_update().filter(id=build_id).update(
                 sha256sum=sha256sum.hexdigest()
             )
+
+
+
+
+@shared_task(
+    bind=True,
+    default_retry_delay=60 * 60,
+    autoretry_for=(TimeLimitExceeded,),
+    retry_backoff=True,
+)
+def delete_mirrored_build(self, build_id, mirrorserver_id):
+    build = Build.objects.get(id=build_id)
+
+    # Setup lock
+    lock_id = "{}-lock-{}".format(self.name, build.id)
+    with memcache_lock(lock_id, self.app.oid) as acquired:
+        if acquired:
+            mirror = MirrorServer.objects.get(id=mirrorserver_id)
+
+            if mirror not in build.mirrored_on.all():
+                print(f"Build {build.file_name} is not mirrored on mirror server {mirror.name}!")
+
+            ssh = paramiko.SSHClient()
+
+            # Add host key specified to client
+            host_key_raw = str.encode(mirror.ssh_host_fingerprint)
+            host_key = paramiko.RSAKey(data=decodebytes(host_key_raw))
+            ssh.get_host_keys().add(
+                mirror.hostname, mirror.ssh_host_fingerprint_type, host_key
+            )
+
+            # Get private key
+            private_key_path = f"/home/shipper/ssh/{mirror.ssh_keyfile}"
+            private_key = paramiko.RSAKey.from_private_key_file(private_key_path)
+
+            # Connect client
+            ssh.connect(
+                hostname=mirror.hostname,
+                username=mirror.ssh_username,
+                pkey=private_key,
+                disabled_algorithms={"pubkeys": ["rsa-sha2-256", "rsa-sha2-512"]},
+            )
+            sftp = ssh.open_sftp()
+            sftp.chdir(mirror.upload_path)
+
+            # Check if device directory exists and change into it
+            try:
+                sftp.stat(build.device.codename)
+            except FileNotFoundError:
+                print("The device directory does not exist on the mirror server!")
+                return
+
+            # Delete build from server
+            sftp.delete(remotepath=f"{build.file_name}.zip")
+
+            # Fetch build one more time and lock until save completes
+            with transaction.atomic():
+                build = Build.objects.select_for_update().get(id=build_id)
+                build.mirrored_on.remove(mirror)
+                build.save()
+        else:
+            print(
+                f"Build {build.file_name} is already being deleted from the mirror server by another process!"
+            )
+

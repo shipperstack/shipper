@@ -7,6 +7,17 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
+# [2.7.0] - 2022-11-01
+
+This release contains a security vulnerability patch.
+
+## Changed
+- Updated library dependencies
+  - sentry-sdk (1.9.9 -> 1.10.1)
+  - psycopg2-binary (2.9.3 -> 2.9.5)
+  - django-celery-beat (2.3.0 -> 2.4.0)
+
+
 # [2.6.1] - 2022-09-30
 
 ## Changed
@@ -126,7 +137,8 @@ This release requires a manual migration. Please [read the documentation for mor
   - celery (5.2.6 -> 5.2.7)
 
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.6.1...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.7.0...HEAD
+[2.7.0]: https://github.com/shipperstack/shipper/compare/2.6.1...2.7.0
 [2.6.1]: https://github.com/shipperstack/shipper/compare/2.6.0...2.6.1
 [2.6.0]: https://github.com/shipperstack/shipper/compare/2.5.2...2.6.0
 [2.5.2]: https://github.com/shipperstack/shipper/compare/2.5.1...2.5.2

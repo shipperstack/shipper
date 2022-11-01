@@ -153,7 +153,9 @@ This release requires a manual migration. Please [read the documentation for mor
 
 ---
 
-# Old versions
+<details>
+
+<summary>1.x.x changelog</summary>
 
 
 # [1.16.3] - 2022-05-22
@@ -1215,3 +1217,5 @@ Initial release
 [1.2.0]: https://github.com/shipperstack/shipper/compare/1.1.0...1.2.0
 [1.1.0]: https://github.com/shipperstack/shipper/compare/1.0.0...1.1.0
 [1.0.0]: https://github.com/shipperstack/shipper/compare/85a2753f7f234052b8bdf28e0dae98e5042fb99d...1.0.0
+
+</details>

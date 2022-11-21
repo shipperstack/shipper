@@ -1,0 +1,67 @@
+name: Bug Report
+description: Report a problem with shipper
+title: "[BUG] "
+labels: ["bug"]
+assignees:
+  - ericswpark
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: What happened?
+      description: Also tell us, what did you expect to happen?
+      placeholder: Function X does Y instead of Z...
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction-steps
+    attributes:
+      label: What can we do to reproduce the problem?
+      description: Test2
+      placeholder: |
+        1. Navigated to page "/maintainers/"...
+        2. Clicked on button "X"...
+        3. Scrolled to the end of the page...
+        4. See error...
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render: shell 
+  - type: textarea
+    id: shipper-version
+    attributes:
+      label: shipper version
+      description: What version of shipper are you running?
+      placeholder: master or specific version string (such as 2.7.0)
+    validations:
+      required: true
+  - type: dropdown
+    id: usage-platform
+    attributes:
+      label: What platform does this bug appear on?
+      multiple: true
+      options:
+        - WebUI
+        - shippy
+        - N/A 
+  - type: textarea
+    id: shippy-version
+    attributes:
+      label: shippy version
+      description: What version of shippy are you running?
+      placeholder: master or specific version string (such as 1.7.6) or N/A
+  - type: textarea
+    id: other-info
+    attributes:
+      label: Anything else?
+      description: |
+        Links, references, screenshots, etc.
+        Anything that you think would help resolve this bug. 

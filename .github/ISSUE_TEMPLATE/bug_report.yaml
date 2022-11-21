@@ -21,7 +21,9 @@ body:
     id: reproduction-steps
     attributes:
       label: What can we do to reproduce the problem?
-      description: Test2
+      description: |
+        If your bug only occurs randomly, please type "sporadic" into this box.
+        If this box is empty for no reason your bug report may be closed.
       placeholder: |
         1. Navigated to page "/maintainers/"...
         2. Clicked on button "X"...

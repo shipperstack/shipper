@@ -126,6 +126,9 @@ class Device(models.Model):
     def get_absolute_url(self):
         return reverse("downloads_device", kwargs={"codename": self.codename})
 
+    def get_statistics_count(self):
+        return self.device_stats.all().count()
+
     def human_readable_last_updated(self):
         return self.get_latest_enabled_hashed_build().human_readable_timedelta()
 

@@ -1,14 +1,12 @@
 import os
 import time
 
+from constance import config
+from core.models import Build, Device, Statistics
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views.generic import DetailView, TemplateView
-from django.shortcuts import render
-from core.models import Build, Device
-
-from constance import config
 
 
 class DownloadsMainView(TemplateView):
@@ -60,6 +58,24 @@ class LanguageSwitchView(TemplateView):
         if not redirect_url:
             redirect_url = "/"
         return render(request, self.template_name, {"redirect_to": redirect_url})
+
+
+class StatisticsMainView(TemplateView):
+    template_name = "statistics_main.html"
+
+    def get(self, request, *args, **kwargs):
+        devices = Device.objects.all()
+
+        popular_devices_ranking = []
+
+        for device in devices:
+            popular_devices_ranking += (device, device.get_statistics_count())
+
+        popular_devices_ranking.sort(reverse=True, key=lambda x: x[1])
+
+        data = {"popular_devices_ranking": popular_devices_ranking}
+
+        return render(request, self.template_name, data)
 
 
 def download_check_view(request, codename, file_name):

@@ -310,6 +310,9 @@ class Statistics(models.Model):
         verbose_name = "statistic"
         verbose_name_plural = "statistics"
 
+    def get_device(self):
+        return self.build.device
+
 
 # Register all models to audit log
 auditlog.register(Device)

@@ -301,9 +301,6 @@ class Build(models.Model):
 # Statistics model
 class Statistics(models.Model):
     time = models.DateTimeField(auto_now_add=True, editable=False)
-    device = models.ForeignKey(
-        Device, related_name="device_stats", on_delete=models.CASCADE
-    )
     build = models.ForeignKey(
         Build, related_name="build_stats", on_delete=models.CASCADE
     )

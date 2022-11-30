@@ -26,7 +26,7 @@ class V1DownloadBuildCounter(APIView):
             try:
                 build = Build.objects.get(file_name=file_name)
                 Statistics.objects.create(
-                    device=build.device, build=build, ip=get_client_ip(request=request)
+                    build=build, ip=get_client_ip(request=request)
                 )
                 return Response(
                     {"message": "The request was successful!"}, status=HTTP_200_OK
@@ -46,7 +46,7 @@ class V1DownloadBuildCounter(APIView):
             try:
                 build = Build.objects.get(pk=int(build_id))
                 Statistics.objects.create(
-                    device=build.device, build=build, ip=get_client_ip(request=request)
+                    build=build, ip=get_client_ip(request=request)
                 )
                 return Response(
                     {"message": "The request was successful!"}, status=HTTP_200_OK

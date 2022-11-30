@@ -112,8 +112,8 @@ class StatisticsIncrementTestCase(APITestCase):
         self.assertEqual(response.data["error"], "missing_parameters")
 
 
-def mock_statistics_object_create(time, device, build, ip):
-    new_stat = Statistics.objects.create(device=device, build=build, ip=ip)
+def mock_statistics_object_create(time, build, ip):
+    new_stat = Statistics.objects.create(build=build, ip=ip)
     new_stat.time = time
     new_stat.save()
 
@@ -121,31 +121,26 @@ def mock_statistics_object_create(time, device, build, ip):
 def mock_statistics_setup():
     mock_statistics_object_create(
         time=timezone.now() - datetime.timedelta(days=1),
-        device=Device.objects.get(codename="bullhead"),
         build=Build.objects.get(file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200608"),
         ip="127.0.0.1",
     )
     mock_statistics_object_create(
         time=timezone.now() - datetime.timedelta(days=3),
-        device=Device.objects.get(codename="bullhead"),
         build=Build.objects.get(file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200608"),
         ip="127.0.0.1",
     )
     mock_statistics_object_create(
         time=timezone.now() - datetime.timedelta(days=5),
-        device=Device.objects.get(codename="bullhead"),
         build=Build.objects.get(file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200608"),
         ip="127.0.0.1",
     )
     mock_statistics_object_create(
         time=timezone.now() - datetime.timedelta(days=9),
-        device=Device.objects.get(codename="bullhead"),
         build=Build.objects.get(file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200608"),
         ip="127.0.0.1",
     )
     mock_statistics_object_create(
         time=timezone.now() - datetime.timedelta(days=31),
-        device=Device.objects.get(codename="bullhead"),
         build=Build.objects.get(file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200608"),
         ip="127.0.0.1",
     )

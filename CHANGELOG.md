@@ -7,6 +7,17 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
+# [2.8.0] - 2022-12-03
+
+This release contains a database migration.
+
+## Changed
+- Updated library dependencies
+  - sentry-sdk (1.11.0 -> 1.11.1)
+  - django-auditlog (2.2.0 -> 2.2.1)
+- The Statistics model now infers the device directly from the Build model field
+
+
 # [2.7.1] - 2022-11-23
 
 ## Changed
@@ -146,7 +157,8 @@ This release requires a manual migration. Please [read the documentation for mor
   - celery (5.2.6 -> 5.2.7)
 
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.7.1...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.8.0...HEAD
+[2.8.0]: https://github.com/shipperstack/shipper/compare/2.7.1...2.8.0
 [2.7.1]: https://github.com/shipperstack/shipper/compare/2.7.0...2.7.1
 [2.7.0]: https://github.com/shipperstack/shipper/compare/2.6.1...2.7.0
 [2.6.1]: https://github.com/shipperstack/shipper/compare/2.6.0...2.6.1

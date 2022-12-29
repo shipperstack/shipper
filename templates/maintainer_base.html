@@ -33,6 +33,7 @@
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             {% if user.is_authenticated %}
                             <li><a class="dropdown-item" href="{% url 'password_change' %}">{% translate "Change Password" %}</a></li>
+                            <li><a class="dropdown-item" href="{% url 'edit' %}">{% translate "Edit account details" %}</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>

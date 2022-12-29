@@ -1,13 +1,14 @@
 from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import (
     PasswordChangeDoneView,
     PasswordChangeView,
     PasswordResetConfirmView,
 )
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from rest_framework.authtoken.models import Token
 
-from .forms import RegisterForm
+from .forms import RegisterForm, EditForm
 
 
 class PasswordChange(PasswordChangeView):
@@ -45,3 +46,16 @@ def register(request):
         user_form = RegisterForm()
 
     return render(request, "registration/register.html", {"form": user_form})
+
+
+@login_required
+def edit(request):
+    if request.method == "POST":
+        form = EditForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect("maintainer_dashboard")
+    else:
+        form = EditForm(instance=request.user)
+
+    return render(request, "edit.html", {"form": form})

@@ -6,7 +6,8 @@ from django.contrib.auth.views import (
 )
 from django.urls import path
 
-from .views import PasswordChange, PasswordChangeDone, PasswordResetConfirm, register
+from .views import PasswordChange, PasswordChangeDone, PasswordResetConfirm, register, \
+    edit
 
 urlpatterns = [
     path("login/", auth_view.LoginView.as_view(), name="login"),
@@ -50,4 +51,5 @@ urlpatterns = [
         ),
         name="password_reset_complete",
     ),
+    path("edit/", edit, name="edit"),
 ]

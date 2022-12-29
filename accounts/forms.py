@@ -39,3 +39,18 @@ class RegisterForm(forms.ModelForm):
                 )
             )
         return self.cleaned_data["email"]
+
+
+class EditForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(EditForm, self).__init__(*args, **kwargs)
+
+        for field in self.Meta.required:
+            self.fields[field].required = True
+            self.fields[field].help_text = gettext_lazy("Required.")
+
+    class Meta:
+        model = User
+        fields = ["username", "first_name", "last_name", "email", "profile_picture",
+                  "bio", "contact_url"]
+        required = ["email"]  # Warning: do not put username as required (already is)

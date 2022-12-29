@@ -70,7 +70,7 @@ ROOT_URLCONF = "config.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "templates")],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -96,7 +96,7 @@ DATABASES = {
             "SHIPPER_SQL_ENGINE", default="django.db.backends.sqlite3"
         ),
         "NAME": os.environ.get(
-            "SHIPPER_SQL_DATABASE", default=os.path.join(BASE_DIR, "db.sqlite3")
+            "SHIPPER_SQL_DATABASE", default=str(BASE_DIR / "db.sqlite3")
         ),
         "USER": os.environ.get("SHIPPER_SQL_USER", default="user"),
         "PASSWORD": os.environ.get("SHIPPER_SQL_PASSWORD", default="password"),
@@ -165,16 +165,16 @@ LANGUAGES = [
     ("en", gettext_lazy("English")),
 ]
 
-LOCALE_PATHS = [os.path.join(BASE_DIR, "locale")]
+LOCALE_PATHS = [BASE_DIR / "locale"]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 STATIC_URL = "/static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = BASE_DIR / "static"
 
 # Media
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = BASE_DIR / "media"
 
 # Login
 LOGIN_REDIRECT_URL = "/maintainers/"

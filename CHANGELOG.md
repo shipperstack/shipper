@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 ## Added
 - Added more account fields for users (maintainers)
 - Added account details edit page
+- Added API endpoint to list maintainer details
 
 ## Changed
 - Form pages in shipper now look snazzier, thanks to `django-crispy-forms`!

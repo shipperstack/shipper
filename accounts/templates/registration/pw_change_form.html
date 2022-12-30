@@ -1,4 +1,7 @@
 {% extends 'maintainer_base.html' %}
+
+{% load crispy_forms_tags %}
+
 {% block title %}Password Change{% endblock %}
 
 {% block content %}
@@ -16,7 +19,7 @@
 
     <form action="" method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form | crispy }}
         <input class="btn btn-primary" type="submit" value="Change Password">
     </form>
 

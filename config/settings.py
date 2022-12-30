@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     "auditlog",
     "django_celery_beat",
     "django_celery_results",
+    "crispy_forms",
+    "crispy_bootstrap5",
     "dbbackup",
     "django_cleanup.apps.CleanupConfig",  # must be last for successful deletions
 ]
@@ -270,6 +272,10 @@ CONSTANCE_CONFIG_FIELDSETS = {
         "SHIPPER_ALLOWED_VERSIONS_TO_UPLOAD",
     ),
 }
+
+# Django Crispy Forms
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 
 # Django-dbbackup

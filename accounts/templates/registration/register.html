@@ -1,6 +1,7 @@
 {% extends 'maintainer_base.html' %}
 
 {% load i18n %}
+{% load crispy_forms_tags %}
 
 {% block title %}{% translate "Register" %}{% endblock %}
 
@@ -13,7 +14,7 @@
             </div>
 
             <form action="" method="post">
-                {{ form.as_p }}
+                {{ form | crispy }}
                 {% csrf_token %}
                 <input class="btn btn-primary" type="submit" value='{% translate "Create Account" %}'>
             </form>

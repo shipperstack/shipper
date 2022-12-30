@@ -1,4 +1,7 @@
 {% extends 'maintainer_base.html' %}
+
+{% load crispy_forms_tags %}
+
 {% block title %}Login{% endblock %}
 
 {% block content %}
@@ -8,7 +11,7 @@
             <div class="alert alert-info">Please log in with your maintainer credentials.</div>
 
             <form action="" method="post">
-                {{ form.as_p }}
+                {{ form | crispy }}
                 {% csrf_token %}
                 <input class="btn btn-primary" type="submit" value="Login">
             </form>

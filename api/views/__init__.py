@@ -1,4 +1,4 @@
-from .general import V1GeneralBuildLatest, V1GeneralDeviceAll
+from .general import V1GeneralBuildLatest, V1GeneralDeviceAll, V1GeneralMaintainerAll
 from .shippy import (
     V1MaintainersChunkedUpload,
     v1_maintainers_build_enabled_status_modify,

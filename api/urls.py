@@ -4,6 +4,7 @@ from .views import (
     V1DownloadBuildCounter,
     V1GeneralBuildLatest,
     V1GeneralDeviceAll,
+    V1GeneralMaintainerAll,
     V1MaintainersChunkedUpload,
     V1UpdaterLOS,
     v1_download_count_all,
@@ -73,6 +74,11 @@ urlpatterns = [
         "v1/general/device/all/",
         V1GeneralDeviceAll.as_view(),
         name="v1_general_device_all",
+    ),
+    path(
+        "v1/general/maintainer/all/",
+        V1GeneralMaintainerAll.as_view(),
+        name="v1_general_maintainer_all",
     ),
     path(
         "v1/general/build/latest/<slug:codename>/<slug:variant>/",

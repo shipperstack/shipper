@@ -1,6 +1,8 @@
 import ast
 import html
 
+from django.contrib.auth import get_user_model
+
 from api.utils import variant_check
 from constance import config
 from django.http import Http404
@@ -11,6 +13,8 @@ from rest_framework.status import HTTP_200_OK, HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
 from core.models import Build, Device
 
+
+User = get_user_model()
 
 class V1GeneralDeviceAll(APIView):
     """
@@ -33,6 +37,28 @@ class V1GeneralDeviceAll(APIView):
             return_json[device.codename] = {
                 "status": device.status,
                 "variants": has_variants,
+            }
+
+        return Response(return_json, status=HTTP_200_OK)
+
+
+class V1GeneralMaintainerAll(APIView):
+    """
+    General endpoint to list all maintainer information registered with shipper
+    """
+
+    permission_classes = [AllowAny]
+
+    # noinspection PyMethodMayBeStatic
+    def get(self, request):
+        return_json = {}
+        for user in User.objects.all():
+            return_json[user.username] = {
+                "name": user.get_full_name(),
+                "bio": user.bio,
+                "profile_picture": user.profile_picture,
+                "contact_url": user.contact_url,
+                "devices": [device.codename for device in user.devices.all()],
             }
 
         return Response(return_json, status=HTTP_200_OK)

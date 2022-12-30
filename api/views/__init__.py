@@ -18,6 +18,7 @@ from .updater import V1UpdaterLOS
 
 __all__ = [
     "V1GeneralDeviceAll",
+    "V1GeneralMaintainerAll",
     "V1GeneralBuildLatest",
     "V1MaintainersChunkedUpload",
     "v1_maintainers_build_enabled_status_modify",

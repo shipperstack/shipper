@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
+
+# [2.9.0] - 2022-12-30
+
 ## Added
 - Added more account fields for users (maintainers)
 - Added account details edit page
@@ -171,7 +174,8 @@ This release requires a manual migration. Please [read the documentation for mor
   - celery (5.2.6 -> 5.2.7)
 
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.8.0...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.9.0...HEAD
+[2.9.0]: https://github.com/shipperstack/shipper/compare/2.8.0...2.9.0
 [2.8.0]: https://github.com/shipperstack/shipper/compare/2.7.1...2.8.0
 [2.7.1]: https://github.com/shipperstack/shipper/compare/2.7.0...2.7.1
 [2.7.0]: https://github.com/shipperstack/shipper/compare/2.6.1...2.7.0

@@ -1,19 +1,16 @@
 {% extends 'maintainer_base.html' %}
 
 {% load i18n %}
+{% load crispy_forms_tags %}
 
 {% block title %}{% translate "Edit" %}{% endblock %}
 
 {% block content %}
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8 panel panel-default">
-            <form action="" method="post">
-                {{ form.as_p }}
-                {% csrf_token %}
-                <input class="btn btn-primary" type="submit" value='{% translate "Save" %}'>
-            </form>
-        </div>
-        <div class="col-md-2"></div>
-    </div>
+    <div class="alert alert-info">{% translate "To change your username or email, or to delete your account, contact an administrator." %}</div>
+
+    <form action="" method="post">
+        {{ form | crispy }}
+        {% csrf_token %}
+        <input class="btn btn-primary" type="submit" value='{% translate "Save" %}'>
+    </form>
 {% endblock %}

@@ -8,13 +8,16 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 ## Added
 - Added more account fields for users (maintainers)
+- Added account details edit page
 
 ## Changed
+- Form pages in shipper now look snazzier, thanks to `django-crispy-forms`!
 - Updated library dependencies
   - django (4.1.3 -> 4.1.4)
   - sentry-sdk (1.11.1 -> 1.12.1)
 - shipper is now licensed under AGPLv3!
 - Miscellaneous code improvements
+- General code cleanup
 
 
 # [2.8.0] - 2022-12-03

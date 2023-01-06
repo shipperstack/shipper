@@ -313,5 +313,6 @@ sentry_sdk.init(
         AuthenticationException,
         ConnectionRefusedError,
         TimeLimitExceeded,
+        KeyboardInterrupt,
     ],
 )

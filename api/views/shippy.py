@@ -5,6 +5,8 @@ from django.conf import settings
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import update_last_login
 from django.shortcuts import get_object_or_404
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from django.views.decorators.csrf import csrf_exempt
 from drf_chunked_upload.serializers import ChunkedUploadSerializer
 from drf_chunked_upload.views import ChunkedUploadView
@@ -91,6 +93,11 @@ class V1MaintainersChunkedUpload(ChunkedUploadView):
             },
             status=HTTP_200_OK,
         )
+
+    # Disable caching for listing chunked uploads
+    @method_decorator(cache_page(0))
+    def _get(self, request, pk=None, *args, **kwargs):
+        return super()._get(request, pk, *args, **kwargs)
 
 
 @csrf_exempt

@@ -16,6 +16,7 @@ from core.models import Build, Device
 
 User = get_user_model()
 
+
 class V1GeneralDeviceAll(APIView):
     """
     General endpoint to list all devices in shipper
@@ -53,6 +54,29 @@ class V1GeneralMaintainerAll(APIView):
     def get(self, request):
         return_json = {}
         for user in User.objects.all():
+            return_json[user.username] = {
+                "active": user.is_active,
+                "name": user.get_full_name(),
+                "bio": user.bio,
+                "profile_picture": user.profile_picture,
+                "contact_url": user.contact_url,
+                "devices": [device.codename for device in user.devices.all()],
+            }
+
+        return Response(return_json, status=HTTP_200_OK)
+
+
+class V1GeneralMaintainerActive(APIView):
+    """
+    General endpoint to list active maintainer information registered with shipper
+    """
+
+    permission_classes = [AllowAny]
+
+    # noinspection PyMethodMayBeStatic
+    def get(self, request):
+        return_json = {}
+        for user in User.objects.filter(is_active=True):
             return_json[user.username] = {
                 "name": user.get_full_name(),
                 "bio": user.bio,

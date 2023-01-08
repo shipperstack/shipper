@@ -1,4 +1,9 @@
-from .general import V1GeneralBuildLatest, V1GeneralDeviceAll, V1GeneralMaintainerAll
+from .general import (
+    V1GeneralBuildLatest,
+    V1GeneralDeviceAll,
+    V1GeneralMaintainerAll,
+    V1GeneralMaintainerActive
+)
 from .shippy import (
     V1MaintainersChunkedUpload,
     v1_maintainers_build_enabled_status_modify,
@@ -19,6 +24,7 @@ from .updater import V1UpdaterLOS
 __all__ = [
     "V1GeneralDeviceAll",
     "V1GeneralMaintainerAll",
+    "V1GeneralMaintainerActive",
     "V1GeneralBuildLatest",
     "V1MaintainersChunkedUpload",
     "v1_maintainers_build_enabled_status_modify",

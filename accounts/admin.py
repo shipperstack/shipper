@@ -23,8 +23,19 @@ class CustomUserAdmin(UserAdmin):
 
     fieldsets = (
         (None, {"fields": ("username", "password")}),
-        # TODO: add bio, contact URL, and profile pic URL fields here
-        (_("Personal info"), {"fields": ("first_name", "last_name", "email")}),
+        (
+            _("Personal info"),
+            {
+                 "fields": (
+                     "first_name",
+                     "last_name",
+                     "email",
+                     "profile_picture",
+                     "bio",
+                     "contact_url"
+                 )
+             }
+        ),
         (
             _("Permissions"),
             {

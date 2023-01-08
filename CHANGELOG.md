@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
+
+# [2.9.2] - 2023-01-08
+
 ## Added
 - Added general API endpoint to list active maintainers only
 
@@ -191,7 +194,8 @@ This release requires a manual migration. Please [read the documentation for mor
   - celery (5.2.6 -> 5.2.7)
 
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.9.1...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.9.2...HEAD
+[2.9.2]: https://github.com/shipperstack/shipper/compare/2.9.1...2.9.2
 [2.9.1]: https://github.com/shipperstack/shipper/compare/2.9.0...2.9.1
 [2.9.0]: https://github.com/shipperstack/shipper/compare/2.8.0...2.9.0
 [2.8.0]: https://github.com/shipperstack/shipper/compare/2.7.1...2.8.0

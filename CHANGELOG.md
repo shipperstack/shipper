@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
+## Added
+- Added general API endpoint to list active maintainers only
+
+## Changed
+- The admin page now shows user-editable fields for maintainers
+- `KeyboardInterrupt` errors are now ignored by Sentry
+- The general API endpoint that returns all maintainers now has an `active` field
+- Fixed chunked upload API endpoint returning stale responses
+- Updated library dependencies
+  - django (4.1.4 -> 4.1.5)
+
 
 # [2.9.1] - 2022-12-30
 

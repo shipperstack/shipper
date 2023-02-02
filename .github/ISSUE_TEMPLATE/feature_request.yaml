@@ -24,4 +24,4 @@ body:
       description: Any other context you wish to provide?
       placeholder: Mockups, screenshots, details...
     validations:
-      required: true
+      required: false

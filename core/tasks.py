@@ -9,7 +9,7 @@ from billiard.exceptions import TimeLimitExceeded
 from django.conf import settings
 from django.core.cache import cache
 from django.db import transaction
-from paramiko.py3compat import decodebytes
+from base64 import decodebytes
 
 from celery import shared_task
 

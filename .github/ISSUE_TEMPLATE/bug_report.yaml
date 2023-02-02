@@ -1,6 +1,6 @@
 name: Bug Report
 description: Report a problem with shipper
-title: "[BUG] "
+title: "bug: "
 labels: ["bug"]
 assignees:
   - ericswpark

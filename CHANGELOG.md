@@ -7,6 +7,17 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
+# [2.9.3] - 2023-02-02
+
+## Changed
+- Updated library dependencies
+  - sentry-sdk (1.12.1 -> 1.14.0)
+  - django-auditlog (2.2.1 -> 2.2.2)
+  - paramiko (2.12.0 -> 3.0.0)
+  - django (4.1.5 -> 4.1.6)
+  - humanize (4.4.0 -> 4.5.0)
+
+
 # [2.9.2] - 2023-01-08
 
 ## Added
@@ -194,7 +205,8 @@ This release requires a manual migration. Please [read the documentation for mor
   - celery (5.2.6 -> 5.2.7)
 
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.9.2...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.9.3...HEAD
+[2.9.3]: https://github.com/shipperstack/shipper/compare/2.9.2...2.9.3
 [2.9.2]: https://github.com/shipperstack/shipper/compare/2.9.1...2.9.2
 [2.9.1]: https://github.com/shipperstack/shipper/compare/2.9.0...2.9.1
 [2.9.0]: https://github.com/shipperstack/shipper/compare/2.8.0...2.9.0

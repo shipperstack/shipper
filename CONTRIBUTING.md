@@ -15,6 +15,7 @@ Allowed types (from [Angular convention][angular-types]):
 - `refactor`: A code change that neither fixes a bug nor adds a feature
 - `style`: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
 - `test`: Adding missing tests or correcting existing tests
+- `release`: special type for marking releases
 
 [conventional-commits]: https://www.conventionalcommits.org/en/v1.0.0/
 [angular-types]: https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#type

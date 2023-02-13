@@ -4,7 +4,7 @@ Django==4.1.6
 django-auditlog==2.2.2
 django-celery-beat==2.4.0
 django-celery-results==2.4.0
-django-cleanup==6.0.0
+django-cleanup==7.0.0
 django-constance[database]==2.9.1
 django-crispy-forms==1.14.0
 django-dbbackup==4.0.2

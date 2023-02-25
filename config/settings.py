@@ -213,6 +213,7 @@ CELERY_RESULT_BACKEND = "django-db"
 CELERY_RESULT_CACHE = "default"
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
+CELERY_ACCEPT_CONTENT = ["application/json"]
 
 
 # Constance

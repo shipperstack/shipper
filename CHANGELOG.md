@@ -7,6 +7,20 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
+# [2.9.4] - 2023-02-25
+
+## Changed
+- Celery tasks now update their progress state
+- Celery tasks now show that they have been started, when they are started, instead of remaining at pending
+- Celery now uses the default Django backend for caching
+- Updated library dependencies
+  - humanize (4.5.0 -> 4.6.0)
+  - sentry-sdk (1.14.0 -> 1.15.0)
+  - django (4.1.6 -> 4.1.7)
+  - django-cleanup (6.0.0 -> 7.0.0)
+  - django-crispy-forms (1.14.0 -> 2.0)
+
+
 # [2.9.3] - 2023-02-02
 
 ## Changed
@@ -205,7 +219,8 @@ This release requires a manual migration. Please [read the documentation for mor
   - celery (5.2.6 -> 5.2.7)
 
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.9.3...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.9.4...HEAD
+[2.9.4]: https://github.com/shipperstack/shipper/compare/2.9.3...2.9.4
 [2.9.3]: https://github.com/shipperstack/shipper/compare/2.9.2...2.9.3
 [2.9.2]: https://github.com/shipperstack/shipper/compare/2.9.1...2.9.2
 [2.9.1]: https://github.com/shipperstack/shipper/compare/2.9.0...2.9.1

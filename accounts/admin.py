@@ -26,15 +26,15 @@ class CustomUserAdmin(UserAdmin):
         (
             _("Personal info"),
             {
-                 "fields": (
-                     "first_name",
-                     "last_name",
-                     "email",
-                     "profile_picture",
-                     "bio",
-                     "contact_url"
-                 )
-             }
+                "fields": (
+                    "first_name",
+                    "last_name",
+                    "email",
+                    "profile_picture",
+                    "bio",
+                    "contact_url",
+                )
+            },
         ),
         (
             _("Permissions"),

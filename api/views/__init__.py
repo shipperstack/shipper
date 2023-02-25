@@ -2,7 +2,7 @@ from .general import (
     V1GeneralBuildLatest,
     V1GeneralDeviceAll,
     V1GeneralMaintainerAll,
-    V1GeneralMaintainerActive
+    V1GeneralMaintainerActive,
 )
 from .shippy import (
     V1MaintainersChunkedUpload,

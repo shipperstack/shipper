@@ -12,7 +12,6 @@ def change_user_type(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("accounts", "0001_initial"),
     ]

@@ -18,7 +18,7 @@ class User(AbstractUser):
     )
     contact_url = models.URLField(
         help_text="Where users should contact you.<br>Example: https://t.me/@example, "
-                  "mailto:john.appleseed@example.com ",
+        "mailto:john.appleseed@example.com ",
         blank=True,
     )
 

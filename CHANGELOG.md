@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
+# [2.9.5] - 2023-02-25
+
+## Changed
+- Fixed task information not showing up under Celery results table
+
 
 # [2.9.4] - 2023-02-25
 
@@ -219,7 +224,8 @@ This release requires a manual migration. Please [read the documentation for mor
   - celery (5.2.6 -> 5.2.7)
 
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.9.4...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.9.5...HEAD
+[2.9.5]: https://github.com/shipperstack/shipper/compare/2.9.4...2.9.5
 [2.9.4]: https://github.com/shipperstack/shipper/compare/2.9.3...2.9.4
 [2.9.3]: https://github.com/shipperstack/shipper/compare/2.9.2...2.9.3
 [2.9.2]: https://github.com/shipperstack/shipper/compare/2.9.1...2.9.2

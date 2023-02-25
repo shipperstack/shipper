@@ -97,13 +97,9 @@ def mirror_build(self, build_id):
                 sftp.chdir(build.device.codename)
 
                 # Define callback for printing progress
-                def print_progress(transferred, total):
-                    print(
-                        "{} transferred out of {} ({:.2f}%)".format(
-                            humanize.naturalsize(transferred),
-                            humanize.naturalsize(total),
-                            transferred * 100 / total,
-                        )
+                def update_progress(transferred, total):
+                    self.update_state(
+                        state="PROGRESS", meta={"current": transferred, "total": total}
                     )
 
                 # Start upload
@@ -111,7 +107,7 @@ def mirror_build(self, build_id):
                 sftp.put(
                     localpath=os.path.join(settings.MEDIA_ROOT, build.zip_file.name),
                     remotepath=f"{build.file_name}.zip",
-                    callback=print_progress,
+                    callback=update_progress,
                 )
 
                 # Fetch build one more time and lock until save completes

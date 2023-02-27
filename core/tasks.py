@@ -104,11 +104,16 @@ def mirror_build(self, build_id):
 
                 # Start upload
                 # Upload build zip file
-                sftp.put(
-                    localpath=os.path.join(settings.MEDIA_ROOT, build.zip_file.name),
-                    remotepath=f"{build.file_name}.zip",
-                    callback=update_progress,
-                )
+                try:
+                    sftp.put(
+                        localpath=os.path.join(settings.MEDIA_ROOT, build.zip_file.name),
+                        remotepath=f"{build.file_name}.zip",
+                        callback=update_progress,
+                    )
+                except Exception as exception:
+                    # Mark task as failed and stop
+                    self.update_state(state="FAILURE", meta={"exception": exception})
+                    return
 
                 # Fetch build one more time and lock until save completes
                 with transaction.atomic():

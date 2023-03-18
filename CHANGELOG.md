@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
+
+# [2.9.6] - 2023-03-18
+
+## Changed
+- Fixed handling exceptions during SFTP upload to mirror servers
+- Updated library dependencies
+  - sentry-sdk (1.15.0 -> 1.17.0)
+  - django-celery-results (2.4.0 -> 2.5.0)
+  - django-celery-beat (2.4.0 -> 2.5.0)
+
+
 # [2.9.5] - 2023-02-25
 
 ## Changed
@@ -224,7 +235,8 @@ This release requires a manual migration. Please [read the documentation for mor
   - celery (5.2.6 -> 5.2.7)
 
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.9.5...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.9.6...HEAD
+[2.9.6]: https://github.com/shipperstack/shipper/compare/2.9.5...2.9.6
 [2.9.5]: https://github.com/shipperstack/shipper/compare/2.9.4...2.9.5
 [2.9.4]: https://github.com/shipperstack/shipper/compare/2.9.3...2.9.4
 [2.9.3]: https://github.com/shipperstack/shipper/compare/2.9.2...2.9.3

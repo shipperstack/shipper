@@ -23,6 +23,8 @@ SECURE_HSTS_SECONDS = int(os.environ.get("SHIPPER_SECURE_HSTS_SECONDS", default=
 
 with open("version.txt") as v_file:
     SHIPPER_VERSION = v_file.readline().rstrip()
+
+with open("shippy_compat_version.txt") as v_file:
     SHIPPER_SHIPPY_COMPAT_VERSION = v_file.readline().rstrip()
 
 

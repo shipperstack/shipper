@@ -7,6 +7,17 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
+# [2.9.7] - 2023-03-26
+
+## Added
+- Added debugging mechanism to disable progress updates for the Celery upload task
+
+## Changed
+- General code cleanup
+- Updated library dependencies
+  - paramiko (3.0.0 -> 3.1.0)
+
+
 # [2.9.6] - 2023-03-18
 
 ## Changed
@@ -235,7 +246,8 @@ This release requires a manual migration. Please [read the documentation for mor
   - celery (5.2.6 -> 5.2.7)
 
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.9.6...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.9.7...HEAD
+[2.9.7]: https://github.com/shipperstack/shipper/compare/2.9.6...2.9.7
 [2.9.6]: https://github.com/shipperstack/shipper/compare/2.9.5...2.9.6
 [2.9.5]: https://github.com/shipperstack/shipper/compare/2.9.4...2.9.5
 [2.9.4]: https://github.com/shipperstack/shipper/compare/2.9.3...2.9.4

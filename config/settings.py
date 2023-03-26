@@ -265,6 +265,11 @@ CONSTANCE_CONFIG = {
         "supported. Specify multiple versions on each line.",
         str,
     ),
+    "SHIPPER_CELERY_UPLOAD_UPDATE_PROGRESS": (
+        True,
+        "Update partial progress during upload. Turn off for debugging purposes only.",
+        bool,
+    ),
 }
 CONSTANCE_CONFIG_FIELDSETS = {
     "Downloads page": (
@@ -278,6 +283,7 @@ CONSTANCE_CONFIG_FIELDSETS = {
         "SHIPPER_FILE_NAME_FORMAT",
         "SHIPPER_ALLOWED_VERSIONS_TO_UPLOAD",
     ),
+    "Debug": ("SHIPPER_CELERY_UPLOAD_UPDATE_PROGRESS",),
 }
 
 # Django Crispy Forms

@@ -98,15 +98,20 @@ def mirror_build(self, build_id):
 
                 # Define callback for printing progress
                 def update_progress(transferred, total):
-                    self.update_state(
-                        state="PROGRESS", meta={"current": transferred, "total": total}
-                    )
+                    # TODO: Remove and unindent this once debugging complete
+                    if config.SHIPPER_CELERY_UPLOAD_UPDATE_PROGRESS:
+                        self.update_state(
+                            state="PROGRESS",
+                            meta={"current": transferred, "total": total},
+                        )
 
                 # Start upload
                 # Upload build zip file
                 try:
                     sftp.put(
-                        localpath=os.path.join(settings.MEDIA_ROOT, build.zip_file.name),
+                        localpath=os.path.join(
+                            settings.MEDIA_ROOT, build.zip_file.name
+                        ),
                         remotepath=f"{build.file_name}.zip",
                         callback=update_progress,
                     )

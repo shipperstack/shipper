@@ -7,6 +7,12 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
+# [2.9.8] - 2023-03-27
+
+## Changed
+- Fixed a bug that prevented build mirroring from working
+
+
 # [2.9.7] - 2023-03-26
 
 ## Added
@@ -246,7 +252,8 @@ This release requires a manual migration. Please [read the documentation for mor
   - celery (5.2.6 -> 5.2.7)
 
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.9.7...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.9.8...HEAD
+[2.9.8]: https://github.com/shipperstack/shipper/compare/2.9.7...2.9.8
 [2.9.7]: https://github.com/shipperstack/shipper/compare/2.9.6...2.9.7
 [2.9.6]: https://github.com/shipperstack/shipper/compare/2.9.5...2.9.6
 [2.9.5]: https://github.com/shipperstack/shipper/compare/2.9.4...2.9.5

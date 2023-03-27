@@ -11,7 +11,7 @@ from api.views import (
     v1_download_count_all,
     V1DownloadBuildCounter,
 )
-from core.models import Statistics, Build, Device
+from core.models import Statistics, Build
 from core.tests import mock_devices_setup, mock_builds_setup
 
 

@@ -3,7 +3,6 @@ import os
 import time
 from contextlib import contextmanager
 
-import humanize
 import paramiko
 from billiard.exceptions import TimeLimitExceeded
 from django.conf import settings

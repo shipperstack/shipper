@@ -7,6 +7,12 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
+# [2.9.9] - 2023-03-28
+
+## Changed
+- Backend tests for not overwriting Celery task states
+
+
 # [2.9.8] - 2023-03-27
 
 ## Changed
@@ -252,7 +258,8 @@ This release requires a manual migration. Please [read the documentation for mor
   - celery (5.2.6 -> 5.2.7)
 
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.9.8...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.9.9...HEAD
+[2.9.9]: https://github.com/shipperstack/shipper/compare/2.9.8...2.9.9
 [2.9.8]: https://github.com/shipperstack/shipper/compare/2.9.7...2.9.8
 [2.9.7]: https://github.com/shipperstack/shipper/compare/2.9.6...2.9.7
 [2.9.6]: https://github.com/shipperstack/shipper/compare/2.9.5...2.9.6

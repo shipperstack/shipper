@@ -102,7 +102,6 @@ def mirror_build(self, build_id):
                     # TODO: Remove and unindent this once debugging complete
                     if config.SHIPPER_CELERY_UPLOAD_UPDATE_PROGRESS:
                         self.update_state(
-                            state="PROGRESS",
                             meta={"current": transferred, "total": total},
                         )
 

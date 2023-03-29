@@ -112,7 +112,7 @@ def upload_build_to_mirror(self, build_id, build, mirror, task_id):
     # Define callback for printing progress
     def update_progress(transferred, total):
         previous_result = AsyncResult(task_id)
-        previous_transferred = previous_result.info["current"]
+        previous_transferred = int(previous_result.info.get("current"))
 
         if previous_transferred != transferred:
             signal.alarm(SFTP_HANG_TIMEOUT)

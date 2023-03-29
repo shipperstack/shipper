@@ -67,7 +67,7 @@ def mirror_build(self, build_id):
                 ):
                     continue
 
-                upload_build_to_mirror(self, build_id, build, mirror, self.id)
+                upload_build_to_mirror(self, build_id, build, mirror, self.request.id)
         else:
             print(
                 f"Build {build.file_name} is already being mirrored by another process!"

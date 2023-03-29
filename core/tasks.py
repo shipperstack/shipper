@@ -1,6 +1,7 @@
 import hashlib
 import os
 import time
+import signal
 from contextlib import contextmanager
 
 import paramiko
@@ -103,15 +104,28 @@ def upload_build_to_mirror(self, build_id, build, mirror):
         sftp.mkdir(build.device.codename)
     sftp.chdir(build.device.codename)
 
+    def timeout_handler(signum, frame):
+        raise TimeLimitExceeded
+
+    previous_current = 0
+    SFTP_HANG_TIMEOUT = 30
+
     # Define callback for printing progress
     def update_progress(transferred, total):
-        # TODO: Remove and unindent this once debugging complete
-        if config.SHIPPER_CELERY_UPLOAD_UPDATE_PROGRESS:
-            # Check current state (in async)
-            self.update_state(
-                state="PROGRESS",
-                meta={"current": transferred, "total": total},
-            )
+        if previous_current != transferred:
+            signal.alarm(SFTP_HANG_TIMEOUT)
+            previous_current = transferred
+
+        self.update_state(
+            state="PROGRESS",
+            meta={"current": transferred, "total": total},
+        )
+
+    # Register timeout handler
+    signal.signal(signal.SIGALRM, timeout_handler)
+
+    # Start timer
+    signal.alarm(SFTP_HANG_TIMEOUT)
 
     # Start upload
     # Upload build zip file
@@ -125,6 +139,9 @@ def upload_build_to_mirror(self, build_id, build, mirror):
         # Mark task as failed and stop
         self.update_state(state="FAILURE", meta={"exception": exception})
         return
+
+    # Stop timeout handler
+    signal.alarm(0)
 
     # Fetch build one more time and lock until save completes
     with transaction.atomic():

@@ -7,6 +7,15 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
+# [2.9.11] - 2023-03-29
+
+## Changed
+- Fixed a bug with the homemade timeout handler function inside the build mirroring task
+
+## Removed
+- Removed an unused debug configuration option
+
+
 # [2.9.10] - 2023-03-29
 
 ## Changed
@@ -266,7 +275,8 @@ This release requires a manual migration. Please [read the documentation for mor
   - celery (5.2.6 -> 5.2.7)
 
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.9.10...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.9.11...HEAD
+[2.9.11]: https://github.com/shipperstack/shipper/compare/2.9.10...2.9.11
 [2.9.10]: https://github.com/shipperstack/shipper/compare/2.9.9...2.9.10
 [2.9.9]: https://github.com/shipperstack/shipper/compare/2.9.8...2.9.9
 [2.9.8]: https://github.com/shipperstack/shipper/compare/2.9.7...2.9.8

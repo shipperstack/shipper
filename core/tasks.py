@@ -1,4 +1,5 @@
 import hashlib
+import json
 import os
 import time
 import signal
@@ -136,7 +137,10 @@ def upload_build_to_mirror(self, build_id, build, mirror, task_id):
         )
     except Exception as exception:
         # Mark task as failed and stop
-        self.update_state(state="FAILURE", meta={"exception": exception})
+        if is_jsonable(exception):
+            self.update_state(state="FAILURE", meta={"exception": exception})
+        else:
+            self.update_state(state="FAILURE", meta={"exception": str(exception)})
         return
 
     # Stop timeout handler
@@ -251,3 +255,11 @@ def delete_mirrored_build(self, build_id, mirrorserver_id):
             print(
                 f"Build {build.file_name} is already being deleted from the mirror server by another process!"
             )
+
+
+def is_jsonable(x):
+    try:
+        json.dumps(x)
+        return True
+    except (TypeError, OverflowError):
+        return False

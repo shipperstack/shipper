@@ -72,6 +72,7 @@ def mirror_build(self, build_id):
                 f"Build {build.file_name} is already being mirrored by another process!"
             )
 
+current_transferred = 0
 
 def upload_build_to_mirror(self, build_id, build, mirror):
     ssh = paramiko.SSHClient()
@@ -105,16 +106,15 @@ def upload_build_to_mirror(self, build_id, build, mirror):
     def timeout_handler(signum, frame):
         raise TimeLimitExceeded
 
-    previous_current = 0
     SFTP_HANG_TIMEOUT = 30
 
     # Define callback for printing progress
     def update_progress(transferred, total):
-        global previous_current
+        global current_transferred
 
-        if previous_current != transferred:
+        if current_transferred != transferred:
             signal.alarm(SFTP_HANG_TIMEOUT)
-            previous_current = transferred
+            current_transferred = transferred
 
         self.update_state(
             state="PROGRESS",
@@ -128,7 +128,6 @@ def upload_build_to_mirror(self, build_id, build, mirror):
     signal.alarm(SFTP_HANG_TIMEOUT)
 
     # Start upload
-    # Upload build zip file
     try:
         sftp.put(
             localpath=os.path.join(settings.MEDIA_ROOT, build.zip_file.name),

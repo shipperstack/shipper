@@ -67,14 +67,14 @@ def mirror_build(self, build_id):
                 ):
                     continue
 
-                upload_build_to_mirror(self, build_id, build, mirror)
+                upload_build_to_mirror(self, build_id, build, mirror, self.id)
         else:
             print(
                 f"Build {build.file_name} is already being mirrored by another process!"
             )
 
 
-def upload_build_to_mirror(self, build_id, build, mirror):
+def upload_build_to_mirror(self, build_id, build, mirror, task_id):
     ssh = paramiko.SSHClient()
 
     # Add host key specified to client
@@ -110,7 +110,7 @@ def upload_build_to_mirror(self, build_id, build, mirror):
 
     # Define callback for printing progress
     def update_progress(transferred, total):
-        previous_result = AsyncResult(self.id)
+        previous_result = AsyncResult(task_id)
         previous_current = previous_result.info.current
 
         if previous_current != transferred:

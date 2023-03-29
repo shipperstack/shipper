@@ -12,6 +12,7 @@ from django.db import transaction
 from base64 import decodebytes
 
 from celery import shared_task
+from celery.result import AsyncResult
 
 from .models import Build, MirrorServer
 from .utils import is_version_in_target_versions
@@ -72,7 +73,6 @@ def mirror_build(self, build_id):
                 f"Build {build.file_name} is already being mirrored by another process!"
             )
 
-current_transferred = 0
 
 def upload_build_to_mirror(self, build_id, build, mirror):
     ssh = paramiko.SSHClient()
@@ -110,11 +110,11 @@ def upload_build_to_mirror(self, build_id, build, mirror):
 
     # Define callback for printing progress
     def update_progress(transferred, total):
-        global current_transferred
+        previous_result = AsyncResult(self.id)
+        previous_current = previous_result.info.current
 
-        if current_transferred != transferred:
+        if previous_current != transferred:
             signal.alarm(SFTP_HANG_TIMEOUT)
-            current_transferred = transferred
 
         self.update_state(
             state="PROGRESS",

@@ -67,69 +67,70 @@ def mirror_build(self, build_id):
                 ):
                     continue
 
-                ssh = paramiko.SSHClient()
-
-                # Add host key specified to client
-                host_key_raw = str.encode(mirror.ssh_host_fingerprint)
-                host_key = paramiko.RSAKey(data=decodebytes(host_key_raw))
-                ssh.get_host_keys().add(
-                    mirror.hostname, mirror.ssh_host_fingerprint_type, host_key
-                )
-
-                # Get private key
-                private_key_path = f"/home/shipper/ssh/{mirror.ssh_keyfile}"
-                private_key = paramiko.RSAKey.from_private_key_file(private_key_path)
-
-                # Connect client
-                ssh.connect(
-                    hostname=mirror.hostname,
-                    username=mirror.ssh_username,
-                    pkey=private_key,
-                    disabled_algorithms={"pubkeys": ["rsa-sha2-256", "rsa-sha2-512"]},
-                )
-                sftp = ssh.open_sftp()
-                sftp.chdir(mirror.upload_path)
-
-                # Check if device directory exists and change into it
-                try:
-                    sftp.stat(build.device.codename)
-                except FileNotFoundError:
-                    sftp.mkdir(build.device.codename)
-                sftp.chdir(build.device.codename)
-
-                # Define callback for printing progress
-                def update_progress(transferred, total):
-                    # TODO: Remove and unindent this once debugging complete
-                    if config.SHIPPER_CELERY_UPLOAD_UPDATE_PROGRESS:
-                        self.update_state(
-                            state="PROGRESS",
-                            meta={"current": transferred, "total": total},
-                        )
-
-                # Start upload
-                # Upload build zip file
-                try:
-                    sftp.put(
-                        localpath=os.path.join(
-                            settings.MEDIA_ROOT, build.zip_file.name
-                        ),
-                        remotepath=f"{build.file_name}.zip",
-                        callback=update_progress,
-                    )
-                except Exception as exception:
-                    # Mark task as failed and stop
-                    self.update_state(state="FAILURE", meta={"exception": exception})
-                    return
-
-                # Fetch build one more time and lock until save completes
-                with transaction.atomic():
-                    build = Build.objects.select_for_update().get(id=build_id)
-                    build.mirrored_on.add(mirror)
-                    build.save()
+                upload_build_to_mirror(self, build_id, build, mirror)
         else:
             print(
                 f"Build {build.file_name} is already being mirrored by another process!"
             )
+
+
+def upload_build_to_mirror(self, build_id, build, mirror):
+    ssh = paramiko.SSHClient()
+
+    # Add host key specified to client
+    host_key_raw = str.encode(mirror.ssh_host_fingerprint)
+    host_key = paramiko.RSAKey(data=decodebytes(host_key_raw))
+    ssh.get_host_keys().add(mirror.hostname, mirror.ssh_host_fingerprint_type, host_key)
+
+    # Get private key
+    private_key_path = f"/home/shipper/ssh/{mirror.ssh_keyfile}"
+    private_key = paramiko.RSAKey.from_private_key_file(private_key_path)
+
+    # Connect client
+    ssh.connect(
+        hostname=mirror.hostname,
+        username=mirror.ssh_username,
+        pkey=private_key,
+        disabled_algorithms={"pubkeys": ["rsa-sha2-256", "rsa-sha2-512"]},
+    )
+    sftp = ssh.open_sftp()
+    sftp.chdir(mirror.upload_path)
+
+    # Check if device directory exists and change into it
+    try:
+        sftp.stat(build.device.codename)
+    except FileNotFoundError:
+        sftp.mkdir(build.device.codename)
+    sftp.chdir(build.device.codename)
+
+    # Define callback for printing progress
+    def update_progress(transferred, total):
+        # TODO: Remove and unindent this once debugging complete
+        if config.SHIPPER_CELERY_UPLOAD_UPDATE_PROGRESS:
+            # Check current state (in async)
+            self.update_state(
+                state="PROGRESS",
+                meta={"current": transferred, "total": total},
+            )
+
+    # Start upload
+    # Upload build zip file
+    try:
+        sftp.put(
+            localpath=os.path.join(settings.MEDIA_ROOT, build.zip_file.name),
+            remotepath=f"{build.file_name}.zip",
+            callback=update_progress,
+        )
+    except Exception as exception:
+        # Mark task as failed and stop
+        self.update_state(state="FAILURE", meta={"exception": exception})
+        return
+
+    # Fetch build one more time and lock until save completes
+    with transaction.atomic():
+        build = Build.objects.select_for_update().get(id=build_id)
+        build.mirrored_on.add(mirror)
+        build.save()
 
 
 def update_hash(hash_type, build):

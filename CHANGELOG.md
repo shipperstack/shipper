@@ -7,6 +7,17 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.9.12...HEAD
+
+
+# [2.9.12] - 2023-03-29
+
+## Changed
+- Fixed a bug with the timeout handler in the build mirroring task
+
+[2.9.12]: https://github.com/shipperstack/shipper/compare/2.9.11...2.9.12
+
+
 # [2.9.11] - 2023-03-29
 
 ## Changed
@@ -15,6 +26,7 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 ## Removed
 - Removed an unused debug configuration option
 
+[2.9.11]: https://github.com/shipperstack/shipper/compare/2.9.10...2.9.11
 
 # [2.9.10] - 2023-03-29
 

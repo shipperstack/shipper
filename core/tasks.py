@@ -11,8 +11,6 @@ from django.core.cache import cache
 from django.db import transaction
 from base64 import decodebytes
 
-from constance import config
-
 from celery import shared_task
 
 from .models import Build, MirrorServer

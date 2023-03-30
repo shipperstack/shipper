@@ -73,7 +73,7 @@ def mirror_build(self, build_id):
 
                 upload_build_to_mirror(self, build_id, build, mirror, self.request.id)
         else:
-            print(
+            logger.warning(
                 f"Build {build.file_name} is already being mirrored by another process!"
             )
 
@@ -113,9 +113,7 @@ def upload_build_to_mirror(self, build_id, build, mirror, task_id):
         previous_transferred = int(previous_result.info.get("current"))
 
         if previous_transferred == transferred:
-            logger.warning(
-                f"SFTP seems to be hung. Currently at {transferred} bytes."
-            )
+            logger.warning(f"SFTP seems to be hung. Currently at {transferred} bytes.")
 
         self.update_state(
             state="PROGRESS",
@@ -128,13 +126,15 @@ def upload_build_to_mirror(self, build_id, build, mirror, task_id):
         remotepath=f"{build.file_name}.zip",
         callback=update_progress,
     )
+    logger.info("Upload complete!")
 
     # Fetch build one more time and lock until save completes
+    logger.info("Saving the success result to the database...")
     with transaction.atomic():
-        logger.info("Saving the success result to the database...")
         build = Build.objects.select_for_update().get(id=build_id)
         build.mirrored_on.add(mirror)
         build.save()
+    logger.info("Database successfully updated.")
 
 
 def update_hash(hash_type, build):

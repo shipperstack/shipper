@@ -2,7 +2,6 @@ import hashlib
 import json
 import os
 import time
-import signal
 from contextlib import contextmanager
 
 import paramiko
@@ -108,22 +107,14 @@ def upload_build_to_mirror(self, build_id, build, mirror, task_id):
         sftp.mkdir(build.device.codename)
     sftp.chdir(build.device.codename)
 
-    def timeout_handler(signum, frame):
-        logger.error(f"Exceeded timeout of {SFTP_HANG_TIMEOUT} seconds, quitting...")
-        raise TimeLimitExceeded
-
-    SFTP_HANG_TIMEOUT = 30
-
     # Define callback for printing progress
     def update_progress(transferred, total):
         previous_result = AsyncResult(task_id)
         previous_transferred = int(previous_result.info.get("current"))
 
-        if previous_transferred != transferred:
-            signal.alarm(SFTP_HANG_TIMEOUT)
-        else:
+        if previous_transferred == transferred:
             logger.warning(
-                f"Timeout not reset as the transferred amount is the same. Currently at {transferred} bytes"
+                f"SFTP seems to be hung. Currently at {transferred} bytes."
             )
 
         self.update_state(
@@ -131,22 +122,12 @@ def upload_build_to_mirror(self, build_id, build, mirror, task_id):
             meta={"current": transferred, "total": total},
         )
 
-    # Register timeout handler
-    signal.signal(signal.SIGALRM, timeout_handler)
-
-    # Start timer
-    signal.alarm(SFTP_HANG_TIMEOUT)
-
     logger.info("Starting upload...")
     sftp.put(
         localpath=os.path.join(settings.MEDIA_ROOT, build.zip_file.name),
         remotepath=f"{build.file_name}.zip",
         callback=update_progress,
     )
-
-    # Stop timeout handler
-    logger.info("Timeout handler deregistered.")
-    signal.alarm(0)
 
     # Fetch build one more time and lock until save completes
     with transaction.atomic():

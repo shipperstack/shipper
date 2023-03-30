@@ -137,22 +137,12 @@ def upload_build_to_mirror(self, build_id, build, mirror, task_id):
     # Start timer
     signal.alarm(SFTP_HANG_TIMEOUT)
 
-    # Start upload
-    try:
-        logger.info("Starting upload...")
-        sftp.put(
-            localpath=os.path.join(settings.MEDIA_ROOT, build.zip_file.name),
-            remotepath=f"{build.file_name}.zip",
-            callback=update_progress,
-        )
-    except Exception as exception:
-        # Mark task as failed and stop
-        logger.exception("The upload failed.")
-        if is_jsonable(exception):
-            self.update_state(state="FAILURE", meta={"exception": exception})
-        else:
-            self.update_state(state="FAILURE", meta={"exception": str(exception)})
-        return
+    logger.info("Starting upload...")
+    sftp.put(
+        localpath=os.path.join(settings.MEDIA_ROOT, build.zip_file.name),
+        remotepath=f"{build.file_name}.zip",
+        callback=update_progress,
+    )
 
     # Stop timeout handler
     logger.info("Timeout handler deregistered.")

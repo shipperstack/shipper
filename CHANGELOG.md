@@ -7,7 +7,15 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.9.16...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.9.17...HEAD
+
+
+# [2.9.17] - 2023-03-30
+
+## Added
+- Added debug logging to the build mirroring task
+
+[2.9.17]: https://github.com/shipperstack/shipper/compare/2.9.16...2.9.17
 
 
 # [2.9.16] - 2023-03-29

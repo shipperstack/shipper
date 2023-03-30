@@ -109,6 +109,7 @@ def upload_build_to_mirror(self, build_id, build, mirror, task_id):
     sftp.chdir(build.device.codename)
 
     def timeout_handler(signum, frame):
+        logger.error(f"Exceeded timeout of {SFTP_HANG_TIMEOUT} seconds, quitting...")
         raise TimeLimitExceeded
 
     SFTP_HANG_TIMEOUT = 30
@@ -120,6 +121,10 @@ def upload_build_to_mirror(self, build_id, build, mirror, task_id):
 
         if previous_transferred != transferred:
             signal.alarm(SFTP_HANG_TIMEOUT)
+        else:
+            logger.warning(
+                f"Timeout not reset as the transferred amount is the same. Currently at {transferred} bytes"
+            )
 
         self.update_state(
             state="PROGRESS",
@@ -134,6 +139,7 @@ def upload_build_to_mirror(self, build_id, build, mirror, task_id):
 
     # Start upload
     try:
+        logger.info("Starting upload...")
         sftp.put(
             localpath=os.path.join(settings.MEDIA_ROOT, build.zip_file.name),
             remotepath=f"{build.file_name}.zip",
@@ -141,6 +147,7 @@ def upload_build_to_mirror(self, build_id, build, mirror, task_id):
         )
     except Exception as exception:
         # Mark task as failed and stop
+        logger.exception("The upload failed.")
         if is_jsonable(exception):
             self.update_state(state="FAILURE", meta={"exception": exception})
         else:
@@ -148,10 +155,12 @@ def upload_build_to_mirror(self, build_id, build, mirror, task_id):
         return
 
     # Stop timeout handler
+    logger.info("Timeout handler deregistered.")
     signal.alarm(0)
 
     # Fetch build one more time and lock until save completes
     with transaction.atomic():
+        logger.info("Saving the success result to the database...")
         build = Build.objects.select_for_update().get(id=build_id)
         build.mirrored_on.add(mirror)
         build.save()

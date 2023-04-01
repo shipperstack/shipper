@@ -47,6 +47,7 @@ def process_incomplete_builds():
     default_retry_delay=60 * 60,
     autoretry_for=(TimeLimitExceeded,),
     retry_backoff=True,
+    concurrency=1,
 )
 def mirror_build(self, build_id):
     build = Build.objects.get(id=build_id)

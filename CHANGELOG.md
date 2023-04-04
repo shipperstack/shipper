@@ -14,6 +14,8 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 ## Changed
 - Fixed too many build mirroring tasks running at once and all timing out
+- Updated library dependencies
+  - sentry-sdk (1.17.0 -> 1.18.0)
 
 
 [2.10.0]: https://github.com/shipperstack/shipper/compare/2.9.19...2.10.0

@@ -43,6 +43,7 @@ def process_incomplete_builds():
 
 
 @shared_task(
+    name="mirror_build",
     bind=True,
     default_retry_delay=60 * 60,
     autoretry_for=(TimeLimitExceeded,),

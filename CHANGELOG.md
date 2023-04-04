@@ -7,7 +7,18 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.10.0...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.10.1...HEAD
+
+
+# [2.10.1] - 2023-04-04
+
+## Changed
+- Updated library dependencies
+  - django (4.1.7 -> 4.2)
+  - psycopg2-binary (2.9.5 -> 2.9.6)
+
+
+[2.10.1]: https://github.com/shipperstack/shipper/compare/2.10.0...2.10.1
 
 
 # [2.10.0] - 2023-04-01

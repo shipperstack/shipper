@@ -20,4 +20,4 @@ Welcome to the shipper documentation!
 
 - [Development overview](developer/Development.md)
 - [API schema](developer/API.md)
-- [Translating shipper](developer/API.md)
+- [Translating shipper](developer/Translation.md)

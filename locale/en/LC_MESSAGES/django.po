@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shipper\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-27 14:40+0000\n"
+"POT-Creation-Date: 2023-04-05 23:21+0900\n"
 "PO-Revision-Date: 2022-02-27 14:08+0900\n"
 "Last-Translator: Eric Park <me@ericswpark.com>\n"
 "Language-Team: English <en@li.org>\n"
@@ -15,6 +15,18 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: accounts/admin.py:27
+msgid "Personal info"
+msgstr "Personal info"
+
+#: accounts/admin.py:40
+msgid "Permissions"
+msgstr "Permissions"
+
+#: accounts/admin.py:52
+msgid "Important dates"
+msgstr "Important dates"
 
 #: accounts/forms.py:14
 msgid "Required."
@@ -36,16 +48,32 @@ msgstr "The passwords do not match!"
 msgid "This email address is already registered and cannot be used!"
 msgstr "This email address is already registered and cannot be used!"
 
-#: accounts/templates/registration/register.html:5
-#: templates/maintainer_base.html:42
+#: accounts/templates/edit.html:6
+msgid "Edit"
+msgstr "Edit"
+
+#: accounts/templates/edit.html:9
+msgid ""
+"To change your username or email, or to delete your account, contact an "
+"administrator."
+msgstr ""
+"To change your username or email, or to delete your account, contact an "
+"administrator."
+
+#: accounts/templates/edit.html:14
+msgid "Save"
+msgstr "Save"
+
+#: accounts/templates/registration/register.html:6
+#: templates/maintainer_base.html:43
 msgid "Register"
 msgstr "Register"
 
-#: accounts/templates/registration/register.html:11
+#: accounts/templates/registration/register.html:12
 msgid "Create a new maintainer account."
 msgstr "Create a new maintainer account."
 
-#: accounts/templates/registration/register.html:12
+#: accounts/templates/registration/register.html:13
 msgid ""
 "If you did not file a maintainer application or if you were not accepted as "
 "a maintainer, please do not fill out this form."
@@ -53,15 +81,15 @@ msgstr ""
 "If you did not file a maintainer application or if you were not accepted as "
 "a maintainer, please do not fill out this form."
 
-#: accounts/templates/registration/register.html:18
+#: accounts/templates/registration/register.html:19
 msgid "Create Account"
 msgstr "Create Account"
 
-#: config/settings.py:195
+#: config/settings.py:168
 msgid "Korean"
 msgstr "Korean"
 
-#: config/settings.py:196
+#: config/settings.py:169
 msgid "English"
 msgstr "English"
 
@@ -77,19 +105,101 @@ msgstr "Please make sure you are connecting to the correct server!"
 msgid "If you believe you are on the correct server, please contact an admin."
 msgstr "If you believe you are on the correct server, please contact an admin."
 
-#: downloads/templates/downloads_main.html:5
+#: downloads/templates/donation_alert.html:6
+msgid "Donate &gt;"
+msgstr "Donate &gt;"
+
+#: downloads/templates/downloads_build.html:7
+#: downloads/templates/downloads_build.html:23
+#: downloads/templates/downloads_device.html:6
+#: downloads/templates/downloads_device.html:9
+#, python-format
+msgid "Downloads for %(object)s"
+msgstr "Downloads for %(object)s"
+
+#: downloads/templates/downloads_build.html:32
+msgid "Device"
+msgstr "Device"
+
+#: downloads/templates/downloads_build.html:33
+msgid "Version/date"
+msgstr "Version/date"
+
+#: downloads/templates/downloads_build.html:34
+msgid "Variant"
+msgstr "Variant"
+
+#: downloads/templates/downloads_build.html:35
+#: downloads/templates/downloads_device_variant.html:7
+msgid "Size"
+msgstr "Size"
+
+#: downloads/templates/downloads_build.html:37
+msgid "Checksums"
+msgstr "Checksums"
+
+#: downloads/templates/downloads_build.html:45
+msgid "Mirrors"
+msgstr "Mirrors"
+
+#: downloads/templates/downloads_build.html:50
+msgid "Server"
+msgstr "Server"
+
+#: downloads/templates/downloads_build.html:51
+msgid "Description"
+msgstr "Description"
+
+#: downloads/templates/downloads_build.html:52
+#: downloads/templates/downloads_build.html:62
+#: downloads/templates/downloads_build.html:74
+#: downloads/templates/downloads_device_variant.html:8
+#: downloads/templates/downloads_device_variant.html:18
+msgid "Download"
+msgstr "Download"
+
+#: downloads/templates/downloads_build.html:57
+msgid "Main"
+msgstr "Main"
+
+#: downloads/templates/downloads_build.html:58
+msgid "Download builds from the main website."
+msgstr "Download builds from the main website."
+
+#: downloads/templates/downloads_device.html:18
+msgid ""
+"This device is no longer supported, and things may break at any time. "
+"Download at your own risk!"
+msgstr ""
+"This device is no longer supported, and things may break at any time. "
+"Download at your own risk!"
+
+#: downloads/templates/downloads_device.html:29
+msgid "Sorry, this device currently has no builds. Check back later!"
+msgstr "Sorry, this device currently has no builds. Check back later!"
+
+#: downloads/templates/downloads_device_variant.html:2
+#, python-format
+msgid "%(variant_name)s build downloads"
+msgstr "%(variant_name)s build downloads"
+
+#: downloads/templates/downloads_device_variant.html:6
+msgid "Builds"
+msgstr "Builds"
+
+#: downloads/templates/downloads_main.html:6
 msgid "Downloads"
 msgstr "Downloads"
 
-#: downloads/templates/downloads_main.html:35
+#: downloads/templates/downloads_main.html:47
 msgid "Device photo"
 msgstr "Device photo"
 
-#: downloads/templates/downloads_main.html:38
+#: downloads/templates/downloads_main.html:49
 msgid "Device photo placeholder image"
 msgstr "Device photo placeholder image"
 
-#: downloads/templates/downloads_main.html:45
+#: downloads/templates/downloads_main.html:56
 msgid "This device is no longer supported."
 msgstr "This device is no longer supported."
 
@@ -105,18 +215,22 @@ msgstr "Account"
 msgid "Change Password"
 msgstr "Change Password"
 
-#: templates/maintainer_base.html:39
+#: templates/maintainer_base.html:36
+msgid "Edit account details"
+msgstr "Edit account details"
+
+#: templates/maintainer_base.html:40
 msgid "Logout"
 msgstr "Logout"
 
-#: templates/maintainer_base.html:41
+#: templates/maintainer_base.html:42
 msgid "Login"
 msgstr "Login"
 
-#: templates/maintainer_base.html:46
+#: templates/maintainer_base.html:47
 msgid "Forgot Password?"
 msgstr "Forgot Password?"
 
-#: templates/maintainer_base.html:61
+#: templates/maintainer_base.html:62
 msgid "Version"
 msgstr "Version"

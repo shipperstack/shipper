@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shipper\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-27 14:40+0000\n"
+"POT-Creation-Date: 2023-04-05 23:21+0900\n"
 "PO-Revision-Date: 2022-02-27 14:09+0900\n"
 "Last-Translator: Eric Park <me@ericswpark.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -17,6 +17,18 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#: accounts/admin.py:27
+msgid "Personal info"
+msgstr "개인정보"
+
+#: accounts/admin.py:40
+msgid "Permissions"
+msgstr "권한"
+
+#: accounts/admin.py:52
+msgid "Important dates"
+msgstr "중요 날짜"
 
 #: accounts/forms.py:14
 msgid "Required."
@@ -38,16 +50,32 @@ msgstr "비밀번호가 일치하지 않습니다!"
 msgid "This email address is already registered and cannot be used!"
 msgstr "이 이메일 주소는 이미 사용되고 있어 사용하실 수 없습니다!"
 
-#: accounts/templates/registration/register.html:5
-#: templates/maintainer_base.html:42
+#: accounts/templates/edit.html:6
+msgid "Edit"
+msgstr "편집"
+
+#: accounts/templates/edit.html:9
+msgid ""
+"To change your username or email, or to delete your account, contact an "
+"administrator."
+msgstr ""
+"사용자 이름이나 이메일을 변경하거나, 계정을 삭제하려면, 관리자에게 "
+"연락하시기 바랍니다."
+
+#: accounts/templates/edit.html:14
+msgid "Save"
+msgstr "저장"
+
+#: accounts/templates/registration/register.html:6
+#: templates/maintainer_base.html:43
 msgid "Register"
 msgstr "회원가입"
 
-#: accounts/templates/registration/register.html:11
+#: accounts/templates/registration/register.html:12
 msgid "Create a new maintainer account."
 msgstr "새로운 관리 계정을 만듭니다."
 
-#: accounts/templates/registration/register.html:12
+#: accounts/templates/registration/register.html:13
 msgid ""
 "If you did not file a maintainer application or if you were not accepted as "
 "a maintainer, please do not fill out this form."
@@ -55,15 +83,15 @@ msgstr ""
 "만약 관리 가입서를 작성하지 않았거나 관리 가입서가 수락되지 않았다면, 이 양식"
 "을 작성하지 말아주시기 바랍니다."
 
-#: accounts/templates/registration/register.html:18
+#: accounts/templates/registration/register.html:19
 msgid "Create Account"
 msgstr "회원가입"
 
-#: config/settings.py:195
+#: config/settings.py:168
 msgid "Korean"
 msgstr "한국어"
 
-#: config/settings.py:196
+#: config/settings.py:169
 msgid "English"
 msgstr "영어"
 
@@ -77,21 +105,104 @@ msgstr "올바른 서버에 접속하고 계신지 확인하시기 바랍니다!
 
 #: downloads/templates/debug_warning.html:7
 msgid "If you believe you are on the correct server, please contact an admin."
-msgstr "만약 정확한 서버에 접속하였다고 생각하신다면, 관리자에게 문의하여 주십시오."
+msgstr ""
+"만약 정확한 서버에 접속하였다고 생각하신다면, 관리자에게 문의하여 주십시오."
 
-#: downloads/templates/downloads_main.html:5
+#: downloads/templates/donation_alert.html:6
+msgid "Donate &gt;"
+msgstr "기부하기 &gt;"
+
+#: downloads/templates/downloads_build.html:7
+#: downloads/templates/downloads_build.html:23
+#: downloads/templates/downloads_device.html:6
+#: downloads/templates/downloads_device.html:9
+#, python-format
+msgid "Downloads for %(object)s"
+msgstr "%(object)s 빌드 다운로드"
+
+#: downloads/templates/downloads_build.html:32
+msgid "Device"
+msgstr "기기"
+
+#: downloads/templates/downloads_build.html:33
+msgid "Version/date"
+msgstr "버전/날짜"
+
+#: downloads/templates/downloads_build.html:34
+msgid "Variant"
+msgstr "파생본"
+
+#: downloads/templates/downloads_build.html:35
+#: downloads/templates/downloads_device_variant.html:7
+msgid "Size"
+msgstr "크기"
+
+#: downloads/templates/downloads_build.html:37
+msgid "Checksums"
+msgstr "체크섬"
+
+#: downloads/templates/downloads_build.html:45
+msgid "Mirrors"
+msgstr "미러"
+
+#: downloads/templates/downloads_build.html:50
+msgid "Server"
+msgstr "서버"
+
+#: downloads/templates/downloads_build.html:51
+msgid "Description"
+msgstr "설명"
+
+#: downloads/templates/downloads_build.html:52
+#: downloads/templates/downloads_build.html:62
+#: downloads/templates/downloads_build.html:74
+#: downloads/templates/downloads_device_variant.html:8
+#: downloads/templates/downloads_device_variant.html:18
+msgid "Download"
+msgstr "다운로드"
+
+#: downloads/templates/downloads_build.html:57
+msgid "Main"
+msgstr "메인"
+
+#: downloads/templates/downloads_build.html:58
+msgid "Download builds from the main website."
+msgstr "메인 웹사이트에서 빌드를 다운로드."
+
+#: downloads/templates/downloads_device.html:18
+msgid ""
+"This device is no longer supported, and things may break at any time. "
+"Download at your own risk!"
+msgstr ""
+"이 기기는 더 이상 지원되지 않으며, 문제가 언제든지 발생할 수 있습니다. "
+"다운로드할 때 주의하세요!"
+
+#: downloads/templates/downloads_device.html:29
+msgid "Sorry, this device currently has no builds. Check back later!"
+msgstr "죄송하지만 현재 이 기기는 빌드가 없습니다. 나중에 다시 확인하세요!"
+
+#: downloads/templates/downloads_device_variant.html:2
+#, python-format
+msgid "%(variant_name)s build downloads"
+msgstr "%(variant_name)s 빌드 다운로드"
+
+#: downloads/templates/downloads_device_variant.html:6
+msgid "Builds"
+msgstr "빌드"
+
+#: downloads/templates/downloads_main.html:6
 msgid "Downloads"
 msgstr "다운로드"
 
-#: downloads/templates/downloads_main.html:35
+#: downloads/templates/downloads_main.html:47
 msgid "Device photo"
 msgstr "기기 사진"
 
-#: downloads/templates/downloads_main.html:38
+#: downloads/templates/downloads_main.html:49
 msgid "Device photo placeholder image"
 msgstr "기기 사진 대체용 임시 사진"
 
-#: downloads/templates/downloads_main.html:45
+#: downloads/templates/downloads_main.html:56
 msgid "This device is no longer supported."
 msgstr "이 기기는 더 이상 지원되지 않습니다."
 
@@ -107,18 +218,22 @@ msgstr "계정"
 msgid "Change Password"
 msgstr "비밀번호 변경"
 
-#: templates/maintainer_base.html:39
+#: templates/maintainer_base.html:36
+msgid "Edit account details"
+msgstr "계정 정보 편집"
+
+#: templates/maintainer_base.html:40
 msgid "Logout"
 msgstr "로그아웃"
 
-#: templates/maintainer_base.html:41
+#: templates/maintainer_base.html:42
 msgid "Login"
 msgstr "로그인"
 
-#: templates/maintainer_base.html:46
+#: templates/maintainer_base.html:47
 msgid "Forgot Password?"
 msgstr "비밀번호 찾기"
 
-#: templates/maintainer_base.html:61
+#: templates/maintainer_base.html:62
 msgid "Version"
 msgstr "버전"

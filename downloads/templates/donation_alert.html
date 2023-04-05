@@ -1,6 +1,7 @@
 {% if downloads_page_donation_url != "#" %}
     <div class="alert alert-secondary">
         {{ downloads_page_donation_message }} <a href="{{ downloads_page_donation_url }}" class="alert-link">
-        <strong>Donate &gt;</strong></a>
+        {% comment %}Donation button - leave the &gt; part as-is{% endcomment %}
+        <strong>{% translate "Donate &gt;" %}</strong></a>
     </div>
 {% endif %}

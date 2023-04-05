@@ -1,10 +1,12 @@
 {% extends 'user_base.html' %}
-{% load build_extras %}
 
-{% block title %}Downloads for {{ object }}{% endblock %}
+{% load build_extras %}
+{% load i18n %}
+
+{% block title %}{% blocktranslate %}Downloads for {{ object }}{% endblocktranslate %}{% endblock %}
 
 {% block content %}
-    <h1>Downloads for {{ object }}</h1>
+    <h1>{% blocktranslate %}Downloads for {{ object }}{% endblocktranslate %}</h1>
     <br>
 
     {% include 'debug_warning.html' %}
@@ -13,8 +15,7 @@
     {% if object.status == False %}
         <div class="alert alert-warning" role="alert">
             <h4 class="alert-heading">Warning</h4>
-            <p class="mb-0">This device is no longer supported, and things may break at any time. Download at your own
-                risk!</p>
+            <p class="mb-0">{% translate "This device is no longer supported, and things may break at any time. Download at your own risk!" %}</p>
         </div>
     {% endif %}
 
@@ -25,6 +26,6 @@
     {% endfor %}
 
     {% if not object.has_enabled_hashed_builds %}
-        <h2>Sorry, this device currently has no builds. Check back later!</h2>
+    <h2>{% translate "Sorry, this device currently has no builds. Check back later!" %}</h2>
     {% endif %}
 {% endblock %}

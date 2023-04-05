@@ -1,11 +1,11 @@
 {% if build_objects %}
-    <h2>{{ variant_name }} build downloads </h2>
+    <h2>{% blocktranslate %}{{ variant_name }} build downloads{% endblocktranslate %}</h2>
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">Builds</th>
-            <th scope="col">Size</th>
-            <th scope="col">Download</th>
+            <th scope="col">{% translate "Builds" %}</th>
+            <th scope="col">{% translate "Size" %}</th>
+            <th scope="col">{% translate "Download" %}</th>
         </tr>
         </thead>
         <tbody>
@@ -15,7 +15,7 @@
                 <td title="{{ build.size }} bytes">{{ build.get_human_readable_size }}</td>
                 <td>
                     <a href="{% url 'downloads_build' codename=device.codename pk=build.id %}"
-                       class="btn btn-success btn-sm" title="">Download</a>
+                       class="btn btn-success btn-sm" title="">{% translate "Download" %}</a>
                 </td>
             </tr>
         {% endfor %}

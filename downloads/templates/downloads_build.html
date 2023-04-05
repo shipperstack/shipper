@@ -2,8 +2,9 @@
 
 {% load static %}
 {% load build_extras %}
+{% load i18n %}
 
-{% block title %}Downloads for {{ object }}{% endblock %}
+{% block title %}{% blocktranslate %}Downloads for {{ object }}{% endblocktranslate %}{% endblock %}
 
 {% block head %}
     <!-- Font Awesome -->
@@ -19,7 +20,7 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Downloads for {{ object }}</h1>
+    <h1>{% blocktranslate %}Downloads for {{ object }}{% endblocktranslate %}</h1>
     <br>
 
     {% include 'debug_warning.html' %}
@@ -28,12 +29,12 @@
 
     <h2>Build information</h2>
     <div>
-        <p style="padding-left: 3em"><strong>Device</strong> {{ object.device }}</p>
-        <p><strong>Version/date</strong> {{ object.get_user_friendly_name }}</p>
-        <p style="padding-left: 2.7em"><strong>Variant</strong> {{ object.get_user_friendly_variant_name }}</p>
-        <p style="padding-left: 4em"><strong>Size</strong> {{ object.get_human_readable_size }}</p>
+        <p style="padding-left: 3em"><strong>{% translate "Device" %}</strong> {{ object.device }}</p>
+        <p><strong>{% translate "Version/date" %}</strong> {{ object.get_user_friendly_name }}</p>
+        <p style="padding-left: 2.7em"><strong>{% translate "Variant" %}</strong> {{ object.get_user_friendly_variant_name }}</p>
+        <p style="padding-left: 4em"><strong>{% translate "Size" %}</strong> {{ object.get_human_readable_size }}</p>
         <div>
-            <p><strong>Checksums</strong></p>
+            <p><strong>{% translate "Checksums" %}</strong></p>
             <ul>
                 <li class="checksum-value-item">SHA256: {{ object.sha256sum }}</li>
                 <li class="checksum-value-item">MD5: {{ object.md5sum }}</li>
@@ -41,24 +42,24 @@
         </div>
     </div>
 
-    <h2>Mirrors</h2>
+    <h2>{% translate "Mirrors" %}</h2>
     <div class="container">
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">Server</th>
-                <th scope="col">Description</th>
-                <th scope="col">Download</th>
+                <th scope="col">{% translate "Server" %}</th>
+                <th scope="col">{% translate "Description" %}</th>
+                <th scope="col">{% translate "Download" %}</th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td>Main</td>
-                <td>Download builds from the main website.</td>
+                <td>{% translate "Main" %}</td>
+                <td>{% translate "Download builds from the main website." %}</td>
                 <td><a href="{{ object.zip_file.url }}"
                        class="btn btn-success btn-sm">
                     <i class="fa fa-file-archive" aria-hidden="true"></i>
-                    Download
+                    {% translate "Download" %}
                 </a>
                 </td>
             </tr>
@@ -70,7 +71,7 @@
                     <td><a href="{{ mirror.download_url_base|format_download_url:object.zip_file.name }}"
                            class="btn btn-success btn-sm">
                         <i class="fa fa-file-archive" aria-hidden="true"></i>
-                        Download
+                        {% translate "Download" %}
                     </a>
                     </td>
                 </tr>

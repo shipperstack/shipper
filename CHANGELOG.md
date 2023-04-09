@@ -7,7 +7,19 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.10.1...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.10.2...HEAD
+
+
+# [2.10.2] - 2023-04-09
+
+## Changed
+- Updated translations for Korean
+- Made more strings translatable
+- Updated library dependencies
+  - sentry-sdk (1.18.0 -> 1.19.1)
+
+
+[2.10.2]: https://github.com/shipperstack/shipper/compare/2.10.1...2.10.2
 
 
 # [2.10.1] - 2023-04-04

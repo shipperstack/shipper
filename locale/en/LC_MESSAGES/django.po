@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shipper\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-05 23:21+0900\n"
+"POT-Creation-Date: 2023-04-09 11:39+0900\n"
 "PO-Revision-Date: 2022-02-27 14:08+0900\n"
 "Last-Translator: Eric Park <me@ericswpark.com>\n"
 "Language-Team: English <en@li.org>\n"
@@ -105,7 +105,7 @@ msgstr "Please make sure you are connecting to the correct server!"
 msgid "If you believe you are on the correct server, please contact an admin."
 msgstr "If you believe you are on the correct server, please contact an admin."
 
-#: downloads/templates/donation_alert.html:6
+#: downloads/templates/donation_alert.html:8
 msgid "Donate &gt;"
 msgstr "Donate &gt;"
 
@@ -130,7 +130,7 @@ msgid "Variant"
 msgstr "Variant"
 
 #: downloads/templates/downloads_build.html:35
-#: downloads/templates/downloads_device_variant.html:7
+#: downloads/templates/downloads_device_variant.html:9
 msgid "Size"
 msgstr "Size"
 
@@ -153,8 +153,8 @@ msgstr "Description"
 #: downloads/templates/downloads_build.html:52
 #: downloads/templates/downloads_build.html:62
 #: downloads/templates/downloads_build.html:74
-#: downloads/templates/downloads_device_variant.html:8
-#: downloads/templates/downloads_device_variant.html:18
+#: downloads/templates/downloads_device_variant.html:10
+#: downloads/templates/downloads_device_variant.html:20
 msgid "Download"
 msgstr "Download"
 
@@ -178,12 +178,12 @@ msgstr ""
 msgid "Sorry, this device currently has no builds. Check back later!"
 msgstr "Sorry, this device currently has no builds. Check back later!"
 
-#: downloads/templates/downloads_device_variant.html:2
+#: downloads/templates/downloads_device_variant.html:4
 #, python-format
 msgid "%(variant_name)s build downloads"
 msgstr "%(variant_name)s build downloads"
 
-#: downloads/templates/downloads_device_variant.html:6
+#: downloads/templates/downloads_device_variant.html:8
 msgid "Builds"
 msgstr "Builds"
 

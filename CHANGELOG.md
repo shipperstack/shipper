@@ -7,7 +7,15 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.10.3...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.10.4...HEAD
+
+# [2.10.4] - 2023-04-09
+
+## Changed
+- Fixes a 500 server error due to a templating error
+
+
+[2.10.4]: https://github.com/shipperstack/shipper/compare/2.10.3...2.10.4
 
 
 # [2.10.3] - 2023-04-09

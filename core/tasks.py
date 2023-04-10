@@ -12,7 +12,6 @@ from django.db import transaction
 from base64 import decodebytes
 
 from celery import shared_task
-from celery.result import AsyncResult
 from celery.utils.log import get_task_logger
 
 from .models import Build, MirrorServer

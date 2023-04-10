@@ -201,7 +201,8 @@ def delete_mirrored_build(self, build_id, mirror_server_id):
 
             if mirror not in build.mirrored_on.all():
                 logger.info(
-                    f"Build {build.file_name} is not mirrored on mirror server {mirror.name}!"
+                    f"Build {build.file_name} is not mirrored on mirror server "
+                    f"{mirror.name}!"
                 )
 
             sftp = sftp_client_init(mirror)
@@ -225,7 +226,8 @@ def delete_mirrored_build(self, build_id, mirror_server_id):
                 build.save()
         else:
             logger.warning(
-                f"Build {build.file_name} is already being deleted from the mirror server by another process!"
+                f"Build {build.file_name} is already being deleted from the mirror "
+                f"server by another process!"
             )
 
 

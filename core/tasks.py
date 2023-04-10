@@ -219,7 +219,7 @@ def delete_mirrored_build(self, build_id, mirrorserver_id):
                 return
 
             # Delete build from server
-            sftp.delete(remotepath=f"{build.file_name}.zip")
+            sftp.remove(path=f"{build.file_name}.zip")
 
             # Fetch build one more time and lock until save completes
             with transaction.atomic():

@@ -131,6 +131,7 @@ def sftp_client_init(mirror):
     private_key = paramiko.RSAKey.from_private_key_file(private_key_path)
 
     # Connect client
+    # noinspection SpellCheckingInspection
     ssh.connect(
         hostname=mirror.hostname,
         username=mirror.ssh_username,

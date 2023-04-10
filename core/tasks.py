@@ -78,6 +78,7 @@ def mirror_build(self, build_id):
             logger.warning(
                 f"Build {build.file_name} is already being mirrored by another process!"
             )
+            return
 
 
 def upload_build_to_mirror(self, build_id, build, mirror, task_id):

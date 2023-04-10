@@ -7,7 +7,22 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.10.4...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.11.0...HEAD
+
+
+# [2.11.0] - 2023-04-10
+
+## Added
+- Added a new Celery queue to separate long-running build mirror tasks
+
+## Changed
+- Fixed a bug that caused a task to run even if another instance was running
+- The build mirror task now respects the soft time limit imposed by Celery
+- Fixed a bug in an unused function intended for a future release (coming soon!)
+- General code cleanup
+
+[2.11.0]: https://github.com/shipperstack/shipper/compare/2.10.4...2.11.0
+
 
 # [2.10.4] - 2023-04-09
 

@@ -46,7 +46,7 @@ def process_incomplete_builds():
     name="mirror_build",
     bind=True,
     default_retry_delay=60 * 60,
-    autoretry_for=(TimeLimitExceeded,),
+    autoretry_for=(TimeLimitExceeded, SoftTimeLimitExceeded),
     retry_backoff=True,
     concurrency=1,
 )

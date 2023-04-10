@@ -73,7 +73,7 @@ def mirror_build(self, build_id):
                 ):
                     continue
 
-                upload_build_to_mirror(self, build_id, build, mirror, self.request.id)
+                upload_build_to_mirror(self, build_id, build, mirror)
         else:
             logger.warning(
                 f"Build {build.file_name} is already being mirrored by another process!"
@@ -81,7 +81,7 @@ def mirror_build(self, build_id):
             return
 
 
-def upload_build_to_mirror(self, build_id, build, mirror, task_id):
+def upload_build_to_mirror(self, build_id, build, mirror):
     sftp = sftp_client_init(mirror)
 
     # Check if device directory exists and change into it

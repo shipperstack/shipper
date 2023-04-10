@@ -82,26 +82,7 @@ def mirror_build(self, build_id):
 
 
 def upload_build_to_mirror(self, build_id, build, mirror, task_id):
-    ssh = paramiko.SSHClient()
-
-    # Add host key specified to client
-    host_key_raw = str.encode(mirror.ssh_host_fingerprint)
-    host_key = paramiko.RSAKey(data=decodebytes(host_key_raw))
-    ssh.get_host_keys().add(mirror.hostname, mirror.ssh_host_fingerprint_type, host_key)
-
-    # Get private key
-    private_key_path = f"/home/shipper/ssh/{mirror.ssh_keyfile}"
-    private_key = paramiko.RSAKey.from_private_key_file(private_key_path)
-
-    # Connect client
-    ssh.connect(
-        hostname=mirror.hostname,
-        username=mirror.ssh_username,
-        pkey=private_key,
-        disabled_algorithms={"pubkeys": ["rsa-sha2-256", "rsa-sha2-512"]},
-    )
-    sftp = ssh.open_sftp()
-    sftp.chdir(mirror.upload_path)
+    sftp = sftp_client_init(mirror)
 
     # Check if device directory exists and change into it
     try:
@@ -138,6 +119,30 @@ def upload_build_to_mirror(self, build_id, build, mirror, task_id):
         build.mirrored_on.add(mirror)
         build.save()
     logger.info("Database successfully updated.")
+
+
+def sftp_client_init(mirror):
+    ssh = paramiko.SSHClient()
+
+    # Add host key specified to client
+    host_key_raw = str.encode(mirror.ssh_host_fingerprint)
+    host_key = paramiko.RSAKey(data=decodebytes(host_key_raw))
+    ssh.get_host_keys().add(mirror.hostname, mirror.ssh_host_fingerprint_type, host_key)
+
+    # Get private key
+    private_key_path = f"/home/shipper/ssh/{mirror.ssh_keyfile}"
+    private_key = paramiko.RSAKey.from_private_key_file(private_key_path)
+
+    # Connect client
+    ssh.connect(
+        hostname=mirror.hostname,
+        username=mirror.ssh_username,
+        pkey=private_key,
+        disabled_algorithms={"pubkeys": ["rsa-sha2-256", "rsa-sha2-512"]},
+    )
+    sftp = ssh.open_sftp()
+    sftp.chdir(mirror.upload_path)
+    return sftp
 
 
 def update_hash(hash_type, build):
@@ -202,28 +207,7 @@ def delete_mirrored_build(self, build_id, mirrorserver_id):
                     f"Build {build.file_name} is not mirrored on mirror server {mirror.name}!"
                 )
 
-            ssh = paramiko.SSHClient()
-
-            # Add host key specified to client
-            host_key_raw = str.encode(mirror.ssh_host_fingerprint)
-            host_key = paramiko.RSAKey(data=decodebytes(host_key_raw))
-            ssh.get_host_keys().add(
-                mirror.hostname, mirror.ssh_host_fingerprint_type, host_key
-            )
-
-            # Get private key
-            private_key_path = f"/home/shipper/ssh/{mirror.ssh_keyfile}"
-            private_key = paramiko.RSAKey.from_private_key_file(private_key_path)
-
-            # Connect client
-            ssh.connect(
-                hostname=mirror.hostname,
-                username=mirror.ssh_username,
-                pkey=private_key,
-                disabled_algorithms={"pubkeys": ["rsa-sha2-256", "rsa-sha2-512"]},
-            )
-            sftp = ssh.open_sftp()
-            sftp.chdir(mirror.upload_path)
+            sftp = sftp_client_init(mirror)
 
             # Check if device directory exists and change into it
             try:

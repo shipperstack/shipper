@@ -48,6 +48,7 @@ def process_incomplete_builds():
     autoretry_for=(TimeLimitExceeded, SoftTimeLimitExceeded),
     retry_backoff=True,
     concurrency=1,
+    queue="mirror_upload",
 )
 def mirror_build(self, build_id):
     build = Build.objects.get(id=build_id)

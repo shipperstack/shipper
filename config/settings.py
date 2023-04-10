@@ -2,6 +2,7 @@ import os
 
 import sentry_sdk
 from django.utils.translation import gettext_lazy
+from kombu import Queue, Exchange
 from paramiko import AuthenticationException, SSHException
 from billiard.exceptions import TimeLimitExceeded
 from sentry_sdk.integrations.django import DjangoIntegration
@@ -217,6 +218,11 @@ CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
 CELERY_ACCEPT_CONTENT = ["application/json"]
 CELERY_RESULT_EXTENDED = True
+CELERY_DEFAULT_QUEUE = "default"
+CELERY_QUEUES = (
+    Queue('default', Exchange('default'), routing_key='default'),
+    Queue('mirror_upload', Exchange('mirror_upload'), routing_key='mirror_upload'),
+)
 
 
 # Constance

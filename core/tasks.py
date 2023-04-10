@@ -5,7 +5,7 @@ import time
 from contextlib import contextmanager
 
 import paramiko
-from billiard.exceptions import TimeLimitExceeded
+from billiard.exceptions import TimeLimitExceeded, SoftTimeLimitExceeded
 from django.conf import settings
 from django.core.cache import cache
 from django.db import transaction
@@ -98,21 +98,25 @@ def upload_build_to_mirror(self, build_id, build, mirror, task_id):
             meta={"current": transferred, "total": total},
         )
 
-    logger.info("Starting upload...")
-    sftp.put(
-        localpath=os.path.join(settings.MEDIA_ROOT, build.zip_file.name),
-        remotepath=f"{build.file_name}.zip",
-        callback=update_progress,
-    )
-    logger.info("Upload complete!")
+    try:
+        logger.info("Starting upload...")
+        sftp.put(
+            localpath=os.path.join(settings.MEDIA_ROOT, build.zip_file.name),
+            remotepath=f"{build.file_name}.zip",
+            callback=update_progress,
+        )
+        logger.info("Upload complete!")
 
-    # Fetch build one more time and lock until save completes
-    logger.info("Saving the success result to the database...")
-    with transaction.atomic():
-        build = Build.objects.select_for_update().get(id=build_id)
-        build.mirrored_on.add(mirror)
-        build.save()
-    logger.info("Database successfully updated.")
+        # Fetch build one more time and lock until save completes
+        logger.info("Saving the success result to the database...")
+        with transaction.atomic():
+            build = Build.objects.select_for_update().get(id=build_id)
+            build.mirrored_on.add(mirror)
+            build.save()
+        logger.info("Database successfully updated.")
+    except SoftTimeLimitExceeded:
+        logger.error("Exceeded time limit. Shutting down...")
+        return
 
 
 def sftp_client_init(mirror):

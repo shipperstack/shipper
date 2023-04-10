@@ -190,14 +190,14 @@ def generate_checksum(build_id):
     autoretry_for=(TimeLimitExceeded,),
     retry_backoff=True,
 )
-def delete_mirrored_build(self, build_id, mirrorserver_id):
+def delete_mirrored_build(self, build_id, mirror_server_id):
     build = Build.objects.get(id=build_id)
 
     # Setup lock
     lock_id = "{}-lock-{}".format(self.name, build.id)
     with memcache_lock(lock_id, self.app.oid) as acquired:
         if acquired:
-            mirror = MirrorServer.objects.get(id=mirrorserver_id)
+            mirror = MirrorServer.objects.get(id=mirror_server_id)
 
             if mirror not in build.mirrored_on.all():
                 logger.info(

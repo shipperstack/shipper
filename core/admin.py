@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+from .custom_filters import HashedFilter, MirroredFilter
 from .models import Build, Device, MirrorServer, Statistics
 
 
@@ -38,7 +39,7 @@ class BuildAdmin(admin.ModelAdmin):
         "is_mirrored",
         "created",
     ]
-    list_filter = ["enabled"]
+    list_filter = ["enabled", HashedFilter, MirroredFilter]
     ordering = ["-created"]
 
     @admin.display(

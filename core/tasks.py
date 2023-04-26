@@ -153,7 +153,11 @@ def update_hash(hash_type, build):
             hash_type.update(byte_block)
 
 
-@shared_task
+@shared_task(
+    name="generate_checksum",
+    bind=True,
+    queue="default",
+)
 def generate_checksum(build_id):
     build = Build.objects.get(id=build_id)
 
@@ -191,6 +195,7 @@ def generate_checksum(build_id):
     default_retry_delay=60 * 60,
     autoretry_for=(TimeLimitExceeded,),
     retry_backoff=True,
+    queue="mirror_build",
 )
 def delete_mirrored_build(self, build_id, mirror_server_id):
     build = Build.objects.get(id=build_id)

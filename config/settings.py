@@ -220,8 +220,8 @@ CELERY_ACCEPT_CONTENT = ["application/json"]
 CELERY_RESULT_EXTENDED = True
 CELERY_DEFAULT_QUEUE = "default"
 CELERY_QUEUES = (
-    Queue('default', Exchange('default'), routing_key='default'),
-    Queue('mirror_upload', Exchange('mirror_upload'), routing_key='mirror_upload'),
+    Queue("default", Exchange("default"), routing_key="default"),
+    Queue("mirror_upload", Exchange("mirror_upload"), routing_key="mirror_upload"),
 )
 
 

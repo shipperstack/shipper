@@ -7,7 +7,17 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.11.0...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.11.1...HEAD
+
+
+# [2.11.1] - 2023-04-27
+
+## Changed
+- Fixed certain tasks not being routed to the correct queue
+- Updated library dependencies
+  - sentry-sdk (1.19.1 -> 1.21.0)
+
+[2.11.1]: https://github.com/shipperstack/shipper/compare/2.11.0...2.11.1
 
 
 # [2.11.0] - 2023-04-10

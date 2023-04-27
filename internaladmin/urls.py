@@ -1,6 +1,6 @@
 from django.urls import path
 
-from admin.views import AdminStatisticsView, AdminBuildMirrorStatusView
+from internaladmin.views import AdminStatisticsView, AdminBuildMirrorStatusView
 
 urlpatterns = [
     path("statistics/", AdminStatisticsView.as_view(), name="admin_statistics"),

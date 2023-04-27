@@ -76,6 +76,7 @@ class AdminBuildMirrorStatusView(PermissionRequiredMixin, TemplateView):
 
             mirror_results.append(
                 {
+                    "task_id": raw_result.id,
                     "build_name": build.file_name,
                     "status": raw_result.status,
                     "current": humanize.naturalsize(current),

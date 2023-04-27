@@ -7,7 +7,16 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.11.4...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.11.5...HEAD
+
+
+# [2.11.5] - 2023-04-27
+
+## Changed
+- Fixed the "All" option appearing twice in the filter list
+- Fixed a crash when invoking checksum generation
+
+[2.11.5]: https://github.com/shipperstack/shipper/compare/2.11.4...2.11.5
 
 
 # [2.11.4] - 2023-04-27

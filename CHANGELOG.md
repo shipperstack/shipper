@@ -7,7 +7,19 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.12.6...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.12.7...HEAD
+
+
+# [2.12.7] - 2023-04-28
+
+## Added
+- Added more information to the build mirror status page
+
+## Changed
+- Fixed a bug where successful mirrors would show an empty progress bar on the status page
+- Cleaned up unnecessary remnants from the build mirror status page template
+
+[2.12.7]: https://github.com/shipperstack/shipper/compare/2.12.6...2.12.7
 
 
 # [2.12.6] - 2023-04-28

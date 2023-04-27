@@ -7,7 +7,16 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.12.5...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.12.6...HEAD
+
+
+# [2.12.6] - 2023-04-28
+
+## Changed
+- Fixed the broken table in the build mirror status page
+
+
+[2.12.6]: https://github.com/shipperstack/shipper/compare/2.12.5...2.12.6
 
 
 # [2.12.5] - 2023-04-28

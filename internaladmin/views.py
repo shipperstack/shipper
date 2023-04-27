@@ -56,14 +56,23 @@ class AdminBuildMirrorStatusView(PermissionRequiredMixin, TemplateView):
             build = Build.objects.get(id=build_id)
 
             upload_result = json.loads(raw_result.result)
-            try:
-                current = upload_result["current"]
-            except KeyError:
-                current = -1
-            try:
-                total = upload_result["total"]
-            except KeyError:
-                total = -1
+
+            # Some tasks never record the current progress, so we need to check if the
+            # JSON load was successful here
+            if upload_result is None:
+                current = 0
+                total = 0
+                percent = 0
+            else:
+                try:
+                    current = upload_result["current"]
+                except KeyError:
+                    current = -1
+                try:
+                    total = upload_result["total"]
+                except KeyError:
+                    total = -1
+                percent = int(current * 100 / total)
 
             mirror_results.append(
                 {
@@ -71,7 +80,7 @@ class AdminBuildMirrorStatusView(PermissionRequiredMixin, TemplateView):
                     "status": raw_result.status,
                     "current": humanize.naturalsize(current),
                     "total": humanize.naturalsize(total),
-                    "percent": int(current * 100 / total),
+                    "percent": percent,
                 }
             )
 

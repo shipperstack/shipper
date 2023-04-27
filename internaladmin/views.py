@@ -62,7 +62,13 @@ class AdminBuildMirrorStatusView(PermissionRequiredMixin, TemplateView):
             if upload_result is None:
                 current = 0
                 total = 0
-                percent = 0
+
+                # We have to check if the task succeeded, as Celery will overwrite the
+                # task results if it has
+                if raw_result.status == "SUCCESS":
+                    percent = 100
+                else:
+                    percent = 0
             else:
                 try:
                     current = upload_result["current"]

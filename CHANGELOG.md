@@ -7,7 +7,19 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.11.5...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.12.0...HEAD
+
+
+# [2.12.0] - 2023-04-28
+
+## Added
+- Added a new build mirror status page for admins
+
+## Changed
+- Fixed the admin URLs being broken
+- Changed the default admin endpoint from `admins/` to `admin/`
+
+[2.12.0]: https://github.com/shipperstack/shipper/compare/2.11.5...2.12.0
 
 
 # [2.11.5] - 2023-04-27

@@ -8,11 +8,15 @@ class HashedFilter(admin.SimpleListFilter):
 
     def lookups(self, request, model_admin):
         return [
+            (None, _("All")),
             ("true", _("Yes")),
             ("false", _("No")),
         ]
 
     def queryset(self, request, queryset):
+        if self.value() is None:
+            return queryset
+
         ids = []
 
         if self.value() == "true":
@@ -29,11 +33,15 @@ class MirroredFilter(admin.SimpleListFilter):
 
     def lookups(self, request, model_admin):
         return [
+            (None, _("All")),
             ("true", _("Yes")),
             ("false", _("No")),
         ]
 
     def queryset(self, request, queryset):
+        if self.value() is None:
+            return queryset
+
         ids = []
 
         if self.value() == "true":

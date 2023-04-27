@@ -1,3 +1,4 @@
+import json
 import re
 
 import humanize
@@ -54,15 +55,23 @@ class AdminBuildMirrorStatusView(PermissionRequiredMixin, TemplateView):
             build_id = int(re.search(r'\d+', raw_result.task_args).group())
             build = Build.objects.get(id=build_id)
 
+            upload_result = json.loads(raw_result.result)
+            try:
+                current = upload_result["current"]
+            except KeyError:
+                current = -1
+            try:
+                total = upload_result["total"]
+            except KeyError:
+                total = -1
+
             mirror_results.append(
                 {
                     "build_name": build.file_name,
                     "status": raw_result.status,
-                    "current": humanize.naturalsize(raw_result.result.current),
-                    "total": humanize.naturalsize(raw_result.result.total),
-                    "percent": int(
-                        raw_result.result.current * 100 / raw_result.result.total
-                    ),
+                    "current": humanize.naturalsize(current),
+                    "total": humanize.naturalsize(total),
+                    "percent": int(current * 100 / total),
                 }
             )
 

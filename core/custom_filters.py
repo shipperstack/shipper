@@ -8,7 +8,6 @@ class HashedFilter(admin.SimpleListFilter):
 
     def lookups(self, request, model_admin):
         return [
-            (None, _("All")),
             ("true", _("Yes")),
             ("false", _("No")),
         ]
@@ -33,7 +32,6 @@ class MirroredFilter(admin.SimpleListFilter):
 
     def lookups(self, request, model_admin):
         return [
-            (None, _("All")),
             ("true", _("Yes")),
             ("false", _("No")),
         ]

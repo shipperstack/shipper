@@ -11,6 +11,8 @@
         <thead>
         <tr>
             <th scope="col">Task ID</th>
+            <th scope="col">Created on</th>
+            <th scope="col">Last updated</th>
             <th scope="col">Build name</th>
             <th scope="col">Status</th>
             <th scope="col">Progress</th>
@@ -20,6 +22,8 @@
         {% for mirror_result in mirror_results %}
         <tr>
             <td>{{ mirror_result.task_id }}</td>
+            <td>{{ mirror_result.created_on }}</td>
+            <td>{{ mirror_result.last_updated }}</td>
             <td>{{ mirror_result.build_name }}</td>
             <td>{{ mirror_result.status }}</td>
             <td>

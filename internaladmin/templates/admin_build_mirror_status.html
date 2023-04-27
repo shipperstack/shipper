@@ -17,6 +17,7 @@
         </thead>
         <tbody>
         {% for mirror_result in mirror_results %}
+        <tr>
             <td><strong>{{ mirror_result.build_name }}</strong></td>
             <td>{{ mirror_result.status }} builds</td>
             <td>
@@ -41,6 +42,7 @@
                     </div>
                 </div>
             </td>
+        </tr>
         {% endfor %}
         </tbody>
         <tfoot>

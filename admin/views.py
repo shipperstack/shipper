@@ -51,13 +51,17 @@ class AdminBuildMirrorStatusView(PermissionRequiredMixin, TemplateView):
         for raw_result in raw_results:
             build = Build.objects.get(id=eval(raw_result.task_args))
 
-            mirror_results.append({
-                "build_name": build.file_name,
-                "status": raw_result.status,
-                "current": humanize.naturalsize(raw_result.result.current),
-                "total": humanize.naturalsize(raw_result.result.total),
-                "percent": int(raw_result.result.current * 100 / raw_result.result.total),
-            })
+            mirror_results.append(
+                {
+                    "build_name": build.file_name,
+                    "status": raw_result.status,
+                    "current": humanize.naturalsize(raw_result.result.current),
+                    "total": humanize.naturalsize(raw_result.result.total),
+                    "percent": int(
+                        raw_result.result.current * 100 / raw_result.result.total
+                    ),
+                }
+            )
 
         data = {
             "mirror_results": mirror_results,
@@ -65,5 +69,3 @@ class AdminBuildMirrorStatusView(PermissionRequiredMixin, TemplateView):
         }
 
         return render(request, self.template_name, data)
-
-

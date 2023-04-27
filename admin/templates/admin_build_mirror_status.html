@@ -1,0 +1,53 @@
+{% extends 'maintainer_base.html' %}
+
+{% load admin_extras %}
+
+{% block title %}Admin Build Mirror Status{% endblock %}
+
+{% block content %}
+    <p>Note: only the last {{ fetch_limit }} results are fetched.</p>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Build name</th>
+            <th scope="col">Status</th>
+            <th scope="col">Progress</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for mirror_result in mirror_results %}
+            <td><strong>{{ mirror_result.build_name }}</strong></td>
+            <td>{{ mirror_result.status }} builds</td>
+            <td>
+                <div class="progress">
+                    <div
+                            class="progress-bar
+                                    {% if mirror_result.status == "SUCCESS" %}
+                                        bg-success
+                                    {% elif mirror_result.status == "FAILURE" %}
+                                        bg-danger
+                                    {% elif mirror_result.status == "PROGRESS" %}
+                                        progress-bar-striped progress-bar-animated
+                                    {% endif %}
+                            "
+                            role="progressbar"
+                            style="width: {{ mirror_result.percent }}%"
+                            aria-valuenow="{{ mirror_result.percent }}"
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                    >{{ mirror_result.percent }}% ({{ mirror_result.current }}/{{ mirror_result.total }})</div>
+                </div>
+            </td>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+        <tr>
+            <td><strong>Total</strong></td>
+            <td><strong>{{ builds_count }} builds</strong></td>
+            <td><strong>{{ builds_size }}</strong></td>
+        </tr>
+        </tfoot>
+    </table>
+
+{% endblock %}

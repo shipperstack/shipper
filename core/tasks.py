@@ -155,7 +155,6 @@ def update_hash(hash_type, build):
 
 @shared_task(
     name="generate_checksum",
-    bind=True,
     queue="default",
 )
 def generate_checksum(build_id):

@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "downloads",
     "maintainers",
     "api",
+    "admin",
     "drf_chunked_upload",
     "auditlog",
     "django_celery_beat",

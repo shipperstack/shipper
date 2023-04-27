@@ -1,3 +1,5 @@
+import ast
+
 import humanize
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import PermissionRequiredMixin
@@ -49,7 +51,9 @@ class AdminBuildMirrorStatusView(PermissionRequiredMixin, TemplateView):
         mirror_results = []
 
         for raw_result in raw_results:
-            build = Build.objects.get(id=eval(raw_result.task_args))
+            build_id_tuple = ast.literal_eval(raw_result.task_args)
+            build_id = build_id_tuple[0]
+            build = Build.objects.get(id=build_id)
 
             mirror_results.append(
                 {

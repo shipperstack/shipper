@@ -7,14 +7,14 @@
 {% block content %}
     <p>Note: only the last {{ fetch_limit }} results are fetched.</p>
 
-    <table class="table">
+    <table class="table table-borderless table-responsive">
         <thead>
         <tr>
-            <th scope="col">Task ID</th>
-            <th scope="col">Created on</th>
-            <th scope="col">Last updated</th>
-            <th scope="col">Build name</th>
-            <th scope="col">Progress</th>
+            <th class="col-1" scope="col">Task ID</th>
+            <th class="col-1" scope="col">Created on</th>
+            <th class="col-1" scope="col">Last updated</th>
+            <th class="col-3" scope="col">Build name</th>
+            <th class="col-4" scope="col">Progress</th>
         </tr>
         </thead>
         <tbody>

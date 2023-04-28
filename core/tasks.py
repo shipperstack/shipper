@@ -32,7 +32,10 @@ def memcache_lock(lock_id, oid):
             cache.delete(lock_id)
 
 
-@shared_task
+@shared_task(
+    name="process_incomplete_builds",
+    queue="default",
+)
 def process_incomplete_builds():
     for build in [build for build in Build.objects.all() if not build.is_hashed()]:
         generate_checksum.delay(build.id)

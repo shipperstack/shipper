@@ -23,7 +23,7 @@ def get_humanized_total_size(build_list):
     return humanize.naturalsize(total_size)
 
 
-@method_decorator(cache_page(0), name='dispatch')
+@method_decorator(cache_page(0), name="dispatch")
 class AdminStatisticsView(PermissionRequiredMixin, TemplateView):
     permission_required = "is_staff"
     template_name = "admin_stats.html"
@@ -45,7 +45,7 @@ class AdminStatisticsView(PermissionRequiredMixin, TemplateView):
         return render(request, self.template_name, data)
 
 
-@method_decorator(cache_page(0), name='dispatch')
+@method_decorator(cache_page(0), name="dispatch")
 class AdminBuildMirrorStatusView(PermissionRequiredMixin, TemplateView):
     permission_required = "is_staff"
     template_name = "admin_build_mirror_status.html"

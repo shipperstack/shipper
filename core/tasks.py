@@ -265,6 +265,8 @@ def mirror_build_async_result_cleanup():
 
         # Give the check a 30-second leeway, just in case Celery is still cleaning up
         if elapsed_time + 30 > config.settings.CELERY_TASK_TIME_LIMIT:
-            logger.warning(f"Task ID {task.id} is over the time limit. Manually setting as failed.")
+            logger.warning(
+                f"Task ID {task.id} is over the time limit. Manually setting as failed."
+            )
             task.status = "FAILURE"
             task.save()

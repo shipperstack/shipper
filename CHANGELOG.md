@@ -7,7 +7,25 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.12.7...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.13.0...HEAD
+
+
+# [2.13.0] - 2023-04-28
+
+This release contains new configuration keys.
+
+## Added
+- Added support for memcached
+
+## Changed
+- Fixed a caching issue on the internal admin pages. Internal admin pages are no longer cached
+- Cache timeouts are now 30 seconds instead of 5 minutes
+- General code cleanup
+- Celery tasks can now run up to 30 minutes
+- Built-in tasks for shipper now run periodically automatically, no configuration required
+- Fixed some styling issues on the build mirror status admin page
+
+[2.13.0]: https://github.com/shipperstack/shipper/compare/2.12.7...2.13.0
 
 
 # [2.12.7] - 2023-04-28

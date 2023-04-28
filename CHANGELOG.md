@@ -7,7 +7,15 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.13.0...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.13.1...HEAD
+
+
+# [2.13.1] - 2023-04-28
+
+## Changed
+- Fixed a bug with the backend task result cleaning task
+
+[2.13.1]: https://github.com/shipperstack/shipper/compare/2.13.0...2.13.1
 
 
 # [2.13.0] - 2023-04-28

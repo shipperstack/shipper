@@ -2,15 +2,6 @@
 
 Before upgrading, check out the version-specific changes below first and make any modifications if necessary!
 
-## Automatic
-
-Run the `update-shipper.sh` script located at the root of the repository. Note that the script is not self-updating and should be updated manually, either via git or curl.
-
-If you want to execute the latest version of the `update-shipper.sh` script every time, use the following alias:
-
-```
-alias update-shipper='bash <(curl -s https://raw.githubusercontent.com/ericswpark/shipper/master/update-shipper.sh)'
-```
 
 ## Version specific changes
 

@@ -3,7 +3,6 @@ import json
 import os
 import time
 from contextlib import contextmanager
-from datetime import datetime
 
 import paramiko
 from billiard.exceptions import TimeLimitExceeded, SoftTimeLimitExceeded
@@ -14,6 +13,7 @@ from base64 import decodebytes
 
 from celery import shared_task
 from celery.utils.log import get_task_logger
+from django.utils import timezone
 from django_celery_results.models import TaskResult
 
 import config.settings
@@ -260,7 +260,7 @@ def mirror_build_async_result_cleanup():
     in_progress_task_results = TaskResult.objects.filter(status="PROGRESS")
 
     for task in in_progress_task_results:
-        elapsed_time = int((datetime.now() - task.date_created).total_seconds())
+        elapsed_time = int((timezone.now() - task.date_created).total_seconds())
         logger.info(f"Elapsed time for task ID {task.id} is {elapsed_time}.")
 
         # Give the check a 30-second leeway, just in case Celery is still cleaning up

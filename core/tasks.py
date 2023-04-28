@@ -3,6 +3,7 @@ import json
 import os
 import time
 from contextlib import contextmanager
+from datetime import datetime
 
 import paramiko
 from billiard.exceptions import TimeLimitExceeded, SoftTimeLimitExceeded
@@ -13,7 +14,9 @@ from base64 import decodebytes
 
 from celery import shared_task
 from celery.utils.log import get_task_logger
+from django_celery_results.models import TaskResult
 
+import config.settings
 from .models import Build, MirrorServer
 from .utils import is_version_in_target_versions
 
@@ -246,3 +249,22 @@ def is_jsonable(x):
         return True
     except (TypeError, OverflowError):
         return False
+
+
+@shared_task(
+    name="mirror_build_async_result_cleanup",
+    queue="default",
+)
+def mirror_build_async_result_cleanup():
+    # Get all tasks that are in progress
+    in_progress_task_results = TaskResult.objects.filter(status="PROGRESS")
+
+    for task in in_progress_task_results:
+        elapsed_time = int((datetime.now() - task.date_created).total_seconds())
+        logger.info(f"Elapsed time for task ID {task.id} is {elapsed_time}.")
+
+        # Give the check a 30-second leeway, just in case Celery is still cleaning up
+        if elapsed_time + 30 > config.settings.CELERY_TASK_TIME_LIMIT:
+            logger.warning(f"Task ID {task.id} is over the time limit. Manually setting as failed.")
+            task.status = "FAILURE"
+            task.save()

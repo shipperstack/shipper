@@ -15,3 +15,14 @@ app.config_from_object("django.conf:settings", namespace="CELERY")
 
 # Load task modules from all registered Django app configs.
 app.autodiscover_tasks()
+
+app.conf.beat_schedule = {
+    'mirror_build_async_result_cleanup': {
+        'task': 'mirror_build_async_result_cleanup',
+        'schedule': 60 * 5,
+    },
+    'process_incomplete_builds': {
+        'task': 'process_incomplete_builds',
+        'schedule': 60 * 60 * 1,
+    }
+}

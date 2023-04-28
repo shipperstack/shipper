@@ -132,8 +132,11 @@ AUTH_PASSWORD_VALIDATORS = [
 # Cache
 CACHES = {
     "default": {
-        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
-        "LOCATION": "shipper-cache",
+        "BACKEND": os.environ.get(
+            "SHIPPER_CACHE_BACKEND",
+            default="django.core.cache.backends.locmem.LocMemCache",
+        ),
+        "LOCATION": os.environ.get("SHIPPER_CACHE_LOCATION", default="shipper-cache"),
     }
 }
 CACHE_MIDDLEWARE_ALIAS = "default"

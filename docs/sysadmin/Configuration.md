@@ -85,6 +85,17 @@ SHIPPER_OTHER_CONFIG_OPTION=1 # for true
     - Database port
     - Default: `5432`
 
+### Cache
+  - `SHIPPER_CACHE_BACKEND`:
+    - `django.core.cache.backends.memcached.PyMemcacheCache` -> Memory cache based on Memcached (recommended for production!)
+    - `django.core.cache.backends.locmem.LocMemCache` -> Local, per-process memory cache (not recommended for production)
+    - Default: `django.core.cache.backends.locmem.LocMemCache`
+  - `SHIPPER_CACHE_LOCATION`:
+    - Cache backend location.
+    - If set to Memcached, specify a IP and port (`127.0.0.1:11211`) or a UNIX socket (`unix:/tmp/memcached.sock`)
+    - If set to local, per-process memory cache, specify a name (`shipper-locmemcache`)
+    - Default: `shipper-cache`
+
 ### Email
   - `SHIPPER_EMAIL_BACKEND`:
     - `django.core.mail.backends.console.EmailBackend` -> Local email (dummy option for debug use only!)

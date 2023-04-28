@@ -23,11 +23,11 @@ def get_humanized_total_size(build_list):
     return humanize.naturalsize(total_size)
 
 
+@method_decorator(cache_page(0), name='dispatch')
 class AdminStatisticsView(PermissionRequiredMixin, TemplateView):
     permission_required = "is_staff"
     template_name = "admin_stats.html"
 
-    @method_decorator(cache_page(0))
     def get(self, request, *args, **kwargs):
         devices = Device.objects.all()
         maintainers = User.objects.all()
@@ -45,11 +45,11 @@ class AdminStatisticsView(PermissionRequiredMixin, TemplateView):
         return render(request, self.template_name, data)
 
 
+@method_decorator(cache_page(0), name='dispatch')
 class AdminBuildMirrorStatusView(PermissionRequiredMixin, TemplateView):
     permission_required = "is_staff"
     template_name = "admin_build_mirror_status.html"
 
-    @method_decorator(cache_page(0))
     def get(self, request, *args, **kwargs):
         fetch_limit = 100
         raw_results = TaskResult.objects.filter(task_name="mirror_build")[:fetch_limit]

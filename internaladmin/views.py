@@ -2,8 +2,8 @@ import json
 import re
 
 import humanize
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import get_user_model
-from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
@@ -24,8 +24,8 @@ def get_humanized_total_size(build_list):
 
 
 @method_decorator(cache_page(0), name="dispatch")
-class AdminStatisticsView(PermissionRequiredMixin, TemplateView):
-    permission_required = "is_staff"
+@method_decorator(staff_member_required, name="dispatch")
+class AdminStatisticsView(TemplateView):
     template_name = "admin_stats.html"
 
     def get(self, request, *args, **kwargs):
@@ -46,8 +46,8 @@ class AdminStatisticsView(PermissionRequiredMixin, TemplateView):
 
 
 @method_decorator(cache_page(0), name="dispatch")
-class AdminBuildMirrorStatusView(PermissionRequiredMixin, TemplateView):
-    permission_required = "is_staff"
+@method_decorator(staff_member_required, name="dispatch")
+class AdminBuildMirrorStatusView(TemplateView):
     template_name = "admin_build_mirror_status.html"
 
     def get(self, request, *args, **kwargs):

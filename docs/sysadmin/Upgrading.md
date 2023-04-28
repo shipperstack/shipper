@@ -16,6 +16,21 @@ alias update-shipper='bash <(curl -s https://raw.githubusercontent.com/ericswpar
 
 If you are on release version ______ and would like to upgrade...
 
+### ≤ 2.12.7
+
+The following new configuration keys have been added:
+
+- `SHIPPER_CACHE_BACKEND`
+- `SHIPPER_CACHE_LOCATION`
+
+Please [refer to the wiki for more information][configuration].
+
+### ≤ 2.5.2
+
+The `SHIPPER_DBBACKUP_DIRECTORY` configuration key has been added.
+
+Please [refer to the wiki for more information][configuration].
+
 ### ≤ 2.2.1
 
 The `SHIPPER_CSRF_TRUSTED_ORIGINS` configuration key has been added.

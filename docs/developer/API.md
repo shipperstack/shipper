@@ -16,19 +16,19 @@ Increments the download count of a given build. This API should be called by the
 
 This endpoint will throw a 404 if a build with the given file name or build ID does not exist, with specific error messages for each scenario.
 
- - `https://host/api/v1/download/build/day/`
+ - `https://host/api/v1/download/count/day/`
 
 Returns the number of downloads shipper has served in the last 24 hours.
 
- - `https://host/api/v1/download/build/week/`
+ - `https://host/api/v1/download/count/week/`
 
 Returns the number of downloads shipper has served in the last 7 days.
 
- - `https://host/api/v1/download/build/month/`
+ - `https://host/api/v1/download/count/month/`
 
 Returns the number of downloads shipper has served in the last 31 days.
 
- - `https://host/api/v1/download/build/all/`
+ - `https://host/api/v1/download/count/all/`
 
 Returns the number of downloads shipper has served, all time.
 

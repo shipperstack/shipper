@@ -7,7 +7,15 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.13.2...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.14.0...HEAD
+
+
+# [2.14.0] - 2023-04-30
+
+## Added
+- Added a field to the system API to show available variants for uploading builds
+
+[2.14.0]: https://github.com/shipperstack/shipper/compare/2.13.2...2.14.0
 
 
 # [2.13.2] - 2023-04-28

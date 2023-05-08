@@ -3,7 +3,7 @@ crispy-bootstrap5==0.7
 Django==4.2.1
 django-auditlog==2.2.2
 django-celery-beat==2.5.0
-django-celery-results==2.5.0
+django-celery-results==2.5.1
 django-cleanup==7.0.0
 django-constance[database]==2.9.1
 django-crispy-forms==2.0

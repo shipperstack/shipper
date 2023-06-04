@@ -18,6 +18,7 @@ class V1DownloadBuildCounter(APIView):
 
     permission_classes = [AllowAny]
 
+    # noinspection PyMethodMayBeStatic
     def post(self, request):
         # Try getting IP
         ip = request.META.get("REMOTE_ADDR")

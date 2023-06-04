@@ -1,7 +1,7 @@
 from ipware import get_client_ip
 
 
-class SetCorrectIPMiddleware:
+class SetIPMiddleware:
 
     def __init__(self, get_response=None):
         self.get_response = get_response

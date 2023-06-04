@@ -69,7 +69,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "auditlog.middleware.AuditlogMiddleware",
-    "config.middleware.SetCorrectIPMiddleware",
+    "config.middleware.SetIPMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"

@@ -20,7 +20,7 @@ class V1DownloadBuildCounter(APIView):
 
     def post(self, request):
         # Try getting IP
-        ip = request["REMOTE_ADDR"]
+        ip = request.META.get("REMOTE_ADDR")
         if ip is None:
             return Response(
                 {

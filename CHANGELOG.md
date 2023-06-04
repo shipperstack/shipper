@@ -7,7 +7,22 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [Unreleased]
 
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.14.0...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.14.1...HEAD
+
+
+# [2.14.1] - 2023-06-04
+
+## Changed
+- Fixed the statistics API crashing if the provided IP address was invalid
+- Fixed disabled devices not getting the grayscale filter in the maintainer page
+- Updated library dependencies
+  - sentry-sdk(1.21.0 -> 1.25.0)
+  - django (4.2 -> 4.2.1)
+  - django-celery-results (2.5.0 -> 2.5.1)
+  - django-auditlog (2.2.2 -> 2.3.0)
+  - paramiko (3.1.0 -> 3.2.0)
+
+[2.14.1]: https://github.com/shipperstack/shipper/compare/2.14.0...2.14.1
 
 
 # [2.14.0] - 2023-04-30

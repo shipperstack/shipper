@@ -1,6 +1,5 @@
 import datetime
 
-from api.utils import get_client_ip
 from django.utils import timezone
 from django.views.decorators.cache import cache_page
 from django.views.decorators.csrf import csrf_exempt
@@ -20,13 +19,24 @@ class V1DownloadBuildCounter(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
+        # Try getting IP
+        ip = request["REMOTE_ADDR"]
+        if ip is None:
+            return Response(
+                {
+                    "error": "invalid_ip",
+                    "message": "Your IP address is invalid!",
+                },
+                status=HTTP_400_BAD_REQUEST,
+            )
+
         file_name = request.data.get("file_name")
 
         if file_name:
             try:
                 build = Build.objects.get(file_name=file_name)
                 Statistics.objects.create(
-                    build=build, ip=get_client_ip(request=request)
+                    build=build, ip=ip
                 )
                 return Response(
                     {"message": "The request was successful!"}, status=HTTP_200_OK
@@ -46,7 +56,7 @@ class V1DownloadBuildCounter(APIView):
             try:
                 build = Build.objects.get(pk=int(build_id))
                 Statistics.objects.create(
-                    build=build, ip=get_client_ip(request=request)
+                    build=build, ip=ip
                 )
                 return Response(
                     {"message": "The request was successful!"}, status=HTTP_200_OK

@@ -1,4 +1,4 @@
-Celery==5.3.0
+Celery==5.3.1
 crispy-bootstrap5==0.7
 Django==4.2.2
 django-auditlog==2.3.0

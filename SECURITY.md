@@ -1,10 +1,10 @@
 # Security Policy
 
-This document was last updated on 2022-11-01.
+This document was last updated on 2023-07-06.
 
 ## Supported Versions
 
-Versions 2.7.0 and up are supported.
+Versions 2.15.0 and up are supported.
 
 Previous versions may contain security vulnerabilities. If you are running an instance that has a version number lower than the version specified above, we urge you to update as soon as possible, to prevent your instance from getting exploited.
 

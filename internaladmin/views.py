@@ -57,7 +57,12 @@ class AdminBuildMirrorStatusView(TemplateView):
 
         for raw_result in raw_results:
             build_id = int(re.search(r"\d+", raw_result.task_args).group())
-            build = Build.objects.get(id=build_id)
+            try:
+                build = Build.objects.get(id=build_id)
+            except Build.DoesNotExist:
+                build = {
+                    "file_name": "Deleted build"
+                }
 
             upload_result = json.loads(raw_result.result)
 

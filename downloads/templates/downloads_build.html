@@ -11,12 +11,6 @@
     <script src="{% static 'js/solid.min.js' %}"></script>
     <script src="{% static 'js/regular.min.js' %}"></script>
     <script src="{% static 'js/fontawesome.min.js' %}"></script>
-
-    <style>
-    .checksum-value-item {
-        word-wrap: break-word;
-    }
-    </style>
 {% endblock %}
 
 {% block content %}
@@ -29,17 +23,34 @@
 
     <h2>Build information</h2>
     <div>
-        <p style="padding-left: 3em"><strong>{% translate "Device" %}</strong> {{ object.device }}</p>
-        <p><strong>{% translate "Version/date" %}</strong> {{ object.get_user_friendly_name }}</p>
-        <p style="padding-left: 2.7em"><strong>{% translate "Variant" %}</strong> {{ object.get_user_friendly_variant_name }}</p>
-        <p style="padding-left: 4em"><strong>{% translate "Size" %}</strong> {{ object.get_human_readable_size }}</p>
-        <div>
-            <p><strong>{% translate "Checksums" %}</strong></p>
-            <ul>
-                <li class="checksum-value-item">SHA256: {{ object.sha256sum }}</li>
-                <li class="checksum-value-item">MD5: {{ object.md5sum }}</li>
-            </ul>
-        </div>
+        <table>
+            <tbody>
+              <tr>
+                <td><strong>{% translate "Device" %}</strong></td>
+                <td>{{ object.device }}</td>
+              </tr>
+              <tr>
+                <td><strong>{% translate "Version/date" %}</strong></td>
+                <td>{{ object.get_user_friendly_name }}</td>
+              </tr>
+              <tr>
+                <td><strong>{% translate "Variant" %}</strong></td>
+                <td>{{ object.get_user_friendly_variant_name }}</td>
+              </tr>
+              <tr>
+                <td><strong>{% translate "Size" %}</strong></td>
+                <td>{{ object.get_human_readable_size }}</td>
+              </tr>
+              <tr>
+                <td>SHA256</td>
+                <td>{{ object.sha256sum }}</td>
+              </tr>
+              <tr>
+                <td>MD5</td>
+                <td>{{ object.md5sum }}</td>
+              </tr>
+            </tbody>
+            </table>
     </div>
 
     <h2>{% translate "Mirrors" %}</h2>

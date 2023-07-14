@@ -31,8 +31,8 @@
                     >
                         <a class="card-url" href="{% url 'device_detail' pk=device.id %}">
                             <div class="card h-100">
-                                {% if device.photo %}
-                                    <img src="{{ device.photo }}" class="card-img-top" alt="Device photo">
+                                {% if device.photo_url %}
+                                    <img src="{{ device.photo_url }}" class="card-img-top" alt="Device photo">
                                 {% else %}
                                     <img src="{% static 'img/no_device_image.png' %}" class="card-img-top" alt="Device photo placeholder image">
                                 {% endif %}

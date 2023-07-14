@@ -17,7 +17,7 @@ class Device(models.Model):
         max_length=20, help_text="Example: 'bullhead', 'angler'", unique=True
     )
     manufacturer = models.TextField(max_length=20, help_text="Example: 'LG', 'Huawei'")
-    photo = models.URLField(
+    photo_url = models.URLField(
         help_text="URL to image of device.<br>Preferably grab an image from <a "
         'href="https://www.gsmarena.com" target="_blank">GSMArena.</a><br>Example: '
         "'https://fdn2.gsmarena.com/vv/bigpic/lg-nexus-5x-.jpg', "

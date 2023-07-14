@@ -27,8 +27,8 @@
                     >
                             <a class="card-url" href="{% url 'downloads_device' codename=device.codename %}">
                                 <div class="card h-100">
-                                    {% if device.photo %}
-                                        <img src="{{ device.photo }}" class="card-img-top" alt='{% translate "Device photo" %}'>
+                                    {% if device.photo_url %}
+                                        <img src="{{ device.photo_url }}" class="card-img-top" alt='{% translate "Device photo" %}'>
                                     {% else %}
                                         <img src="{% static 'img/no_device_image.png' %}" class="card-img-top" alt='{% translate "Device photo placeholder image" %}'>
                                     {% endif %}

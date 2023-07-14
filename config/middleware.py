@@ -2,7 +2,6 @@ from ipware import get_client_ip
 
 
 class SetIPMiddleware:
-
     def __init__(self, get_response=None):
         self.get_response = get_response
 

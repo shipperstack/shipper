@@ -1,12 +1,15 @@
 import hashlib
 import json
 import os
+import tempfile
 import time
+import requests
 from contextlib import contextmanager
 
 import paramiko
 from billiard.exceptions import TimeLimitExceeded, SoftTimeLimitExceeded
 from django.conf import settings
+from django.core import files
 from django.core.cache import cache
 from django.db import transaction
 from base64 import decodebytes
@@ -17,7 +20,7 @@ from django.utils import timezone
 from django_celery_results.models import TaskResult
 
 import config.settings
-from .models import Build, MirrorServer
+from .models import Build, MirrorServer, Device
 from .utils import is_version_in_target_versions
 
 
@@ -270,3 +273,31 @@ def mirror_build_async_result_cleanup():
             )
             task.status = "FAILURE"
             task.save()
+
+
+@shared_task(
+    name="device_photo_download",
+    queue="default",
+)
+def device_photo_download():
+    # Get all devices with blank photo fields and populated photo_url fields
+    target_devices = Device.objects.filter(photo='').exclude(photo_url__exact='')
+
+    for device in target_devices:
+        # Get image
+        r = requests.get(device.photo_url, stream=True)
+
+        if r.status_code != requests.codes.ok:
+            logger.error(f"Photo download failed for device {device.codename}!")
+            continue
+
+        file_name = device.photo_url.split('/')[-1]
+        temp = tempfile.NamedTemporaryFile()
+
+        for block in r.iter_content(1024 * 8):
+            if not block:
+                break
+
+            temp.write(block)
+
+        device.photo.save(file_name, files.File(temp))

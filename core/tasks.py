@@ -282,7 +282,7 @@ def mirror_build_async_result_cleanup():
 )
 def device_photo_download():
     # Get all devices with blank photo fields and populated photo_url fields
-    target_devices = Device.objects.filter(photo='').exclude(photo_url__exact='')
+    target_devices = Device.objects.filter(photo="").exclude(photo_url__exact="")
 
     for device in target_devices:
         # Get image
@@ -292,7 +292,7 @@ def device_photo_download():
             logger.error(f"Photo download failed for device {device.codename}!")
             continue
 
-        file_name = device.photo_url.split('/')[-1]
+        file_name = device.photo_url.split("/")[-1]
         temp = tempfile.NamedTemporaryFile()
 
         for block in r.iter_content(1024 * 8):
@@ -305,15 +305,15 @@ def device_photo_download():
 
 
 @shared_task(
-    name='device_photo_thumbhash_generate',
-    queue='default',
+    name="device_photo_thumbhash_generate",
+    queue="default",
 )
 def device_photo_thumbhash_generate():
     # Get all devices with blank photo_thumbhash fields and populated photo fields
-    target_devices = Device.objects.filter(photo_thumbhash='').exclude(photo='')
+    target_devices = Device.objects.filter(photo_thumbhash="").exclude(photo="")
 
     for device in target_devices:
         # Open image for reading
-        with device.photo.open('r') as photo:
+        with device.photo.open("r") as photo:
             device.photo_thumbhash = image_to_thumbhash(photo)
             device.save()

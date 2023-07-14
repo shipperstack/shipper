@@ -314,6 +314,6 @@ def device_photo_thumbhash_generate():
 
     for device in target_devices:
         # Open image for reading
-        with device.photo.open("r") as photo:
+        with device.photo.open("rb") as photo:
             device.photo_thumbhash = image_to_thumbhash(photo)
             device.save()

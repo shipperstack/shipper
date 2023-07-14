@@ -29,20 +29,15 @@ class DeviceDetailView(LoginRequiredMixin, DetailView):
 
 
 class BuildDeleteView(LoginRequiredMixin, DeleteView):
-    template_name = "build_delete.html"
     model = Build
+    template_name = "build_delete.html"
 
     def get_success_url(self):
         return reverse("device_detail", kwargs={"pk": self.get_object().device.id})
 
-    def delete(self, request, *args, **kwargs):
-        success_url = self.get_success_url()
-        self.get_object().delete()
-        return HttpResponseRedirect(success_url)
-
     # Override builds shown to maintainers
     def get_queryset(self):
-        return get_filtered_device_queryset(self.request.user)
+        return get_filtered_build_queryset(self.request.user)
 
 
 @login_required
@@ -65,6 +60,13 @@ def get_filtered_device_queryset(user):
         return Device.objects.all()
     else:
         return Device.objects.filter(maintainers=user)
+
+
+def get_filtered_build_queryset(user):
+    if user.full_access_to_devices:
+        return Build.objects.all()
+    else:
+        return Build.objects.filter(device__maintainers=user)
 
 
 def check_user_device_permission(user, device):

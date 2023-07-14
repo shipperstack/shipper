@@ -11,6 +11,12 @@
     <script src="{% static 'js/solid.min.js' %}"></script>
     <script src="{% static 'js/regular.min.js' %}"></script>
     <script src="{% static 'js/fontawesome.min.js' %}"></script>
+
+    <style>
+        .build-info-table td:nth-child(1) {
+            text-align: end;
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
@@ -23,7 +29,7 @@
 
     <h2>Build information</h2>
     <div>
-        <table>
+        <table class="build-info-table">
             <tbody>
               <tr>
                 <td><strong>{% translate "Device" %}</strong></td>

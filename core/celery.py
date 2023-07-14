@@ -19,10 +19,18 @@ app.autodiscover_tasks()
 app.conf.beat_schedule = {
     "mirror_build_async_result_cleanup": {
         "task": "mirror_build_async_result_cleanup",
-        "schedule": 60 * 5,
+        "schedule": 60 * 5,  # Every 5 minutes
     },
     "process_incomplete_builds": {
         "task": "process_incomplete_builds",
-        "schedule": 60 * 60 * 1,
+        "schedule": 60 * 60 * 1,  # Every 1 hour
+    },
+    "device_photo_download": {
+        "task": "device_photo_download",
+        "schedule": 60 * 5,  # Every 5 minutes
+    },
+    "device_photo_thumbhash_generate": {
+        "task": "device_photo_thumbhash_generate",
+        "schedule": 60 * 5,  # Every 5 minutes
     },
 }

@@ -50,10 +50,7 @@ def build_enabled_status_modify(request, pk):
     build = get_object_or_404(Build, pk=pk)
 
     # Check if maintainer is in device's approved maintainers list
-    if (
-        request.user not in build.device.maintainers.all()
-        or not request.user.full_access_to_devices
-    ):
+    if not check_user_device_permission(request.user, build.device):
         raise PermissionDenied
 
     # Switch build status
@@ -68,3 +65,13 @@ def get_filtered_device_queryset(user):
         return Device.objects.all()
     else:
         return Device.objects.filter(maintainers=user)
+
+
+def check_user_device_permission(user, device):
+    if user.full_access_to_devices:
+        return True
+
+    if user in device.maintainers.all():
+        return True
+
+    return False

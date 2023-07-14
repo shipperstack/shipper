@@ -17,6 +17,8 @@ class Device(models.Model):
         max_length=20, help_text="Example: 'bullhead', 'angler'", unique=True
     )
     manufacturer = models.TextField(max_length=20, help_text="Example: 'LG', 'Huawei'")
+
+    # Photo-related fields
     photo_url = models.URLField(
         help_text="URL to image of device.<br>Preferably grab an image from <a "
         'href="https://www.gsmarena.com" target="_blank">GSMArena.</a><br>Example: '
@@ -24,6 +26,22 @@ class Device(models.Model):
         "'https://fdn2.gsmarena.com/vv/bigpic/huawei-nexus-6p-.jpg'",
         blank=True,
     )
+
+    def get_image_upload_path(self, filename):
+        return f"images/device/{self.codename}/{filename}"
+
+    photo = models.FileField(
+        help_text="Photo file of device. If blank, the server will try and download "
+        "the photo in the `photo_url` field.",
+        blank=True,
+        upload_to=get_image_upload_path,
+    )
+    photo_thumbhash = models.TextField(
+        help_text="Thumbhash of device photo. If blank, the server will try and "
+        "regenerate it from the photo in the `photo` field.",
+        blank=True,
+    )
+
     status = models.BooleanField(
         default=True, help_text="Device is still maintained - uncheck if abandoned"
     )

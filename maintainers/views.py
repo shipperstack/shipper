@@ -50,7 +50,10 @@ def build_enabled_status_modify(request, pk):
     build = get_object_or_404(Build, pk=pk)
 
     # Check if maintainer is in device's approved maintainers list
-    if request.user not in build.device.maintainers.all():
+    if (
+        request.user not in build.device.maintainers.all()
+        or not request.user.full_access_to_devices
+    ):
         raise PermissionDenied
 
     # Switch build status

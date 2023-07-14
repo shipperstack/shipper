@@ -6,7 +6,23 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.15.1...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.16.0...HEAD
+
+
+# [2.16.0] - 2023-07-14
+
+## Added
+- Added a redirect for the `.well-known` password change endpoint (#209)
+
+## Changed
+- Fixed a bug with the build delete view that caused it to delete devices, not builds 😱
+- Fixed a bug that prevented "super"users from modifying build enable status
+- The build download page has a better details layout
+- Updated library dependencies
+  - sentry-sdk (1.27.0 -> 1.28.1)
+- General code cleanup
+
+[2.16.0]: https://github.com/shipperstack/shipper/compare/2.15.1...2.16.0
 
 # [2.15.1] - 2023-07-06
 

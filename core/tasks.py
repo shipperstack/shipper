@@ -18,6 +18,7 @@ from celery import shared_task
 from celery.utils.log import get_task_logger
 from django.utils import timezone
 from django_celery_results.models import TaskResult
+from thumbhash import image_to_thumbhash
 
 import config.settings
 from .models import Build, MirrorServer, Device
@@ -301,3 +302,18 @@ def device_photo_download():
             temp.write(block)
 
         device.photo.save(file_name, files.File(temp))
+
+
+@shared_task(
+    name='device_photo_thumbhash_generate',
+    queue='default',
+)
+def device_photo_thumbhash_generate():
+    # Get all devices with blank photo_thumbhash fields and populated photo fields
+    target_devices = Device.objects.filter(photo_thumbhash='').exclude(photo='')
+
+    for device in target_devices:
+        # Open image for reading
+        with device.photo.open('r') as photo:
+            device.photo_thumbhash = image_to_thumbhash(photo)
+            device.save()

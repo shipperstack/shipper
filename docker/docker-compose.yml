@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   web:
-    image: ghcr.io/shipperstack/shipper/shipper:${VERSION_TAG}
+    image: ghcr.io/shipperstack/shipper-server:${VERSION_TAG}
     command: ["start.sh", "gunicorn config.wsgi:application --bind 0.0.0.0:8000 --capture-output --timeout 360 --log-level debug"]
     volumes:
     - media_volume:/home/shipper/web/media
@@ -38,7 +38,7 @@ services:
       - flower
   celery_default:
     restart: unless-stopped
-    image: ghcr.io/shipperstack/shipper/shipper:${VERSION_TAG}
+    image: ghcr.io/shipperstack/shipper-server:${VERSION_TAG}
     command: ["start.sh", "celery -A core worker -l info -Q default"]
     volumes:
       - media_volume:/home/shipper/web/media
@@ -51,7 +51,7 @@ services:
       - web
   celery_mirror_upload_queue:
     restart: unless-stopped
-    image: ghcr.io/shipperstack/shipper/shipper:${VERSION_TAG}
+    image: ghcr.io/shipperstack/shipper-server:${VERSION_TAG}
     command: ["start.sh", "celery -A core worker -l info -Q mirror_upload --concurrency=1"]
     volumes:
       - media_volume:/home/shipper/web/media
@@ -64,7 +64,7 @@ services:
       - web
   celery_beat:
     restart: unless-stopped
-    image: ghcr.io/shipperstack/shipper/shipper:${VERSION_TAG}
+    image: ghcr.io/shipperstack/shipper-server:${VERSION_TAG}
     command: ["start.sh", "celery -A core beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler"]
     volumes:
       - media_volume:/home/shipper/web/media

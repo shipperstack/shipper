@@ -3,10 +3,6 @@
 ![commits-since](https://img.shields.io/github/commits-since/shipperstack/shipper/latest)
 [![Codecov](https://img.shields.io/codecov/c/github/shipperstack/shipper)](https://app.codecov.io/gh/shipperstack/shipper)
 [![Release Docker image](https://github.com/shipperstack/shipper-docker/actions/workflows/release-docker-image.yml/badge.svg)](https://github.com/shipperstack/shipper-docker/actions/workflows/release-docker-image.yml)
-[
-![PyPI](https://img.shields.io/pypi/v/shipper-shippy)
-![PyPI - Downloads](https://img.shields.io/pypi/dm/shipper-shippy)
-](https://pypi.org/project/shipper-shippy/)
 
 Artifact release manager with  access control, API support and user presentation
 

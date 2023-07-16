@@ -2,9 +2,14 @@
 
 version: 2
 updates:
-  # Maintain dependencies for Python packages
+  # Maintain dependencies for server Python packages
   - package-ecosystem: "pip"
-    directory: "/"
+    directory: "./server"
+    schedule:
+      interval: "daily"
+  # Maintain dependencies for shippy Python packages
+  - package-ecosystem: "pip"
+    directory: "./shippy"
     schedule:
       interval: "daily"
   # Maintain dependencies for GitHub Actions

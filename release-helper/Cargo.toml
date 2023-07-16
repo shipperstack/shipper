@@ -1,0 +1,15 @@
+[package]
+name = "shipper-release"
+version = "0.0.3"
+edition = "2021"
+description = "Release orchestrator and changelog management program for shipper"
+license-file = "LICENSE"
+
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+chrono = "0.4.26"
+clap = { version = "4.3.10", features = ["derive"] }
+regex = "1.8.4"
+semver = "1.0.17"

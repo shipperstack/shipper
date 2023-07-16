@@ -1,0 +1,104 @@
+version: "3.8"
+
+services:
+  web:
+    build:
+      context: ../server
+      dockerfile: Dockerfile
+    command: ["start.sh", "gunicorn config.wsgi:application --bind 0.0.0.0:8000 --capture-output --timeout 360 --log-level debug"]
+    volumes:
+    - media_volume:/home/shipper/web/media
+    - static_volume:/home/shipper/web/static
+    - ./dev/ssh/:/home/shipper/ssh
+    expose:
+      - 8000
+    env_file:
+      - ./dev/.env
+    depends_on:
+      - db
+      - memcached
+  db:
+    image: postgres:15.2-alpine
+    volumes:
+    - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - ./dev/.env.db
+  nginx:
+    image: nginx:latest
+    volumes:
+    - ./nginx/:/etc/nginx/conf.d
+    - ./dev/nginx/.htpasswd:/etc/nginx/.htpasswd
+    - media_volume:/home/shipper/web/media
+    - static_volume:/home/shipper/web/static
+    ports:
+      - "9202:80"
+      - "9203:81"
+    healthcheck:
+      test: curl --fail http://localhost/api/v1/system/info/ || exit 1
+    depends_on:
+      - web
+      - flower
+  celery_default:
+    restart: unless-stopped
+    build:
+      context: ../server
+      dockerfile: Dockerfile
+    command: ["start.sh", "celery -A core worker -l info -Q default"]
+    volumes:
+      - media_volume:/home/shipper/web/media
+      - ./dev/ssh/:/home/shipper/ssh
+    env_file:
+      - ./dev/.env
+    depends_on:
+      - db
+      - rabbitmq
+      - web
+  celery_mirror_upload_queue:
+    restart: unless-stopped
+    build:
+      context: ../server
+      dockerfile: Dockerfile
+    command: ["start.sh", "celery -A core worker -l info -Q mirror_upload --concurrency=1"]
+    volumes:
+      - media_volume:/home/shipper/web/media
+      - ./dev/ssh/:/home/shipper/ssh
+    env_file:
+      - ./dev/.env
+    depends_on:
+      - db
+      - rabbitmq
+      - web
+  celery_beat:
+    restart: unless-stopped
+    build:
+      context: ../server
+      dockerfile: Dockerfile
+    command: ["start.sh", "celery -A core beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler"]
+    volumes:
+      - media_volume:/home/shipper/web/media
+      - ./dev/ssh/:/home/shipper/ssh
+    env_file:
+      - ./dev/.env
+    depends_on:
+      - db
+      - rabbitmq
+      - web
+  rabbitmq:
+    image: rabbitmq:3.8.16-alpine
+  flower:
+    image: mher/flower:latest
+    command: celery --broker=pyamqp://rabbitmq:5672/ flower --port=5555 --purge_offline_workers=5
+    ports:
+      - 5556:5555
+    depends_on:
+      - rabbitmq
+  memcached:
+    image: memcached:1.6-alpine
+
+volumes:
+  postgres_data:
+    name: shipper_dev_postgres_data
+  media_volume:
+    name: shipper_dev_media_volume
+  static_volume:
+    name: shipper_dev_static_volume

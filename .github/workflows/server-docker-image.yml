@@ -1,4 +1,4 @@
-name: Build shipper server Docker image on release
+name: Build server Docker image on release
 
 on:
   push:

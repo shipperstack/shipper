@@ -1,4 +1,4 @@
-name: shipper server tests
+name: server tests
 
 on:
   push:

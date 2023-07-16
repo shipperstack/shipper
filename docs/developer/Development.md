@@ -11,7 +11,8 @@ There are two ways of setting up a development environment.
 
 ### Set up with Docker (recommended)
 
-Please see [the shipper-docker repository](https://github.com/shipperstack/shipper-docker/) for more information on how to set up a development environment with Docker.
+
+
 
 ### Set up manually
 

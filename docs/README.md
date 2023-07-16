@@ -10,7 +10,7 @@ Welcome to the shipper documentation!
 
 ### For sysadmins
 
-- [Configuring shipper](sysadmin/Configuration.md)
+- [Installing shipper](sysadmin/Installation.md)
 - [Upgrading shipper](sysadmin/Upgrading.md)
 - [Troubleshooting](sysadmin/Troubleshooting.md)
 - [Useful administration commands](sysadmin/Administration.md)

@@ -1,4 +1,4 @@
-name: shipper backend tests
+name: shipper server tests
 
 on:
   push:

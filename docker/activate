@@ -1,0 +1,107 @@
+#!/usr/bin/env bash
+
+# To use this file, run `source activate` and `helpme` to view usage.
+
+function helpme {
+  cat <<HELP_USAGE
+  Production:
+    dc [options] => docker-compose [options]
+    dcup => Starts a Docker container in detached mode
+    dcdown => Destroys the started Docker container
+    dcrestart => Destroys and creates a new Docker container
+    dcx <subsystem> [command] => docker-compose exec <subsystem> [command]
+    
+  setversion <version number> => Sets the VERSION_TAG environment variable
+  setlatest => Sets the VERSION_TAG environment variable to the latest version available on GitHub
+  
+  The setlatest command requires curl and python to be installed.
+
+  Development:
+    devmode => Sets the COMPOSE_PROJECT_NAME environment variable.
+    dcd [options] => docker-compose -f docker-compose.dev.yml [options]
+    dcdup => Builds the development Docker container using the docker-compose.dev.yml file
+    dcddown => Destroys the development Docker container
+    dcdrestart => Destroys and builds a new development Docker container
+    dcdx <subsystem> [command] => docker-compose -f docker-compose.dev.yml exec <subsystem> [command]
+    dcdsetup => Runs the setup commands within the development Docker container
+    dcdbuild => Rebuilds the development Docker container without using the cache
+    dcdresetall => Deletes all Docker volumes of the development environment
+    setdevref <ref> => Sets the developer target reference. Can be a branch, tag, or specific commit hash.
+HELP_USAGE
+}
+
+##############
+# Production #
+##############
+
+function is_shipper_version_tag_set {
+  if [ -z "$VERSION_TAG" ]; then
+    echo "Error: the version tag is not set. Stopping..."
+    return 1
+  fi
+  return 0
+}
+
+function dc {
+  if is_shipper_version_tag_set; then
+    docker-compose "$@"
+  fi 
+}
+
+function dcup {
+  if is_shipper_version_tag_set; then
+    docker-compose up -d "$@"
+  fi  
+}
+
+function dcdown {
+  if is_shipper_version_tag_set; then
+    docker-compose down "$@"
+  fi 
+}
+
+alias dcrestart='dcdown && dcup'
+
+function dcx {
+  if is_shipper_version_tag_set; then
+    docker-compose exec "$@"
+  fi
+}
+
+function setversion {
+  export VERSION_TAG=$1
+}
+
+function setlatest {
+    export VERSION_TAG=$(curl -s https://api.github.com/repos/shipperstack/shipper/releases/latest | python -c "import sys, json; print json.load(sys.stdin)['name']")
+    echo "The latest release on GitHub is $VERSION_TAG."
+}
+
+###############
+# Development #
+###############
+
+alias devmode='export COMPOSE_PROJECT_NAME="shipper_dev" && echo "Developer mode is now active!"'
+alias dcd='docker-compose -f docker-compose.dev.yml'
+alias dcdup='docker-compose -f docker-compose.dev.yml up -d --build'
+alias dcddown='docker-compose -f docker-compose.dev.yml down'
+alias dcdrestart='dcddown && dcdup'
+alias dcdx='docker-compose -f docker-compose.dev.yml exec'
+alias dcdsetup='./django-update.sh developer'
+alias dcdbuild='docker-compose -f docker-compose.dev.yml build --no-cache'
+
+function dcdresetall {
+  echo "Deleting all development Docker volumes..."
+  docker volume rm ${COMPOSE_PROJECT_NAME}_media_volume
+  docker volume rm ${COMPOSE_PROJECT_NAME}_static_volume
+  docker volume rm ${COMPOSE_PROJECT_NAME}_postgres_data
+  echo "Finished deleting all development Docker volumes!"
+}
+
+function setdevref {
+  export SHIPPER_DEV_TARGET_REF=$1
+}
+
+
+
+echo "Finished loading commands for shipper-docker. Run helpme for usage."

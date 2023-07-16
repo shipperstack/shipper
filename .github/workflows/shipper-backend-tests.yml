@@ -1,4 +1,4 @@
-name: Tests
+name: shipper backend tests
 
 on:
   push:
@@ -28,18 +28,22 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install Dependencies
+      working-directory: ./server
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         pip install coverage
     - name: Run Tests
+      working-directory: ./server
       run: |
         python manage.py test
     - name: Generate coverage report
+      working-directory: ./server
       run: |
         coverage run manage.py test
     - name: Upload coverage reports from all runners
       uses: actions/upload-artifact@v3
+      working-directory: ./server
       with:
         name: coverage-data
         path: ${{ github.workspace }}/.coverage.*

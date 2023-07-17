@@ -3,7 +3,7 @@ name = "shipper-release"
 version = "0.0.3"
 edition = "2021"
 description = "Release orchestrator and changelog management program for shipper"
-license-file = "LICENSE"
+license-file = "../LICENSE"
 
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html

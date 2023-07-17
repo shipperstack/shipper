@@ -8,10 +8,10 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 [Unreleased]: https://github.com/shipperstack/shipper-release/compare/0.0.3...HEAD
 
-# [0.0.3] - 2023-07-05
+# [0.0.3] - 2023-07-17
 
 ## Changed
-
+- Use `time` crate instead of `chrono` to fix security vulnerability
 - Clean up code with clippy
 - Testing the new release workflow with GitHub Actions
 

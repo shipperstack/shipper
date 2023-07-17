@@ -103,5 +103,5 @@ function setdevref {
 }
 
 
-
+export COMPOSE_PROJECT_NAME="shipper_prod"
 echo "Finished loading commands for shipper-docker. Run helpme for usage."

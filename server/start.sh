@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 if [ "$SHIPPER_SQL_ENGINE" = "django.db.backends.postgresql" ]
 then

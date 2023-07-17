@@ -10,7 +10,9 @@ RUN apk update \
   netcat-openbsd \
   gettext \
   git \
-  postgresql-client
+  postgresql-client \
+  libffi-dev \
+  build-base
 
 # Upgrade pip
 RUN pip3 install --upgrade pip

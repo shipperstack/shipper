@@ -45,7 +45,8 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: coverage-data
-        path: ./server/.coverage.*
+        working-directory: ./server
+        path: ${{ github.workspace }}/.coverage.*
 
   codecov-coverage:
     runs-on: ubuntu-latest

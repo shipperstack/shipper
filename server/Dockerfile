@@ -29,7 +29,6 @@ WORKDIR $APP_HOME
 
 # Copy server code
 COPY . .
-COPY ../version.txt .
 
 # Install Python dependencies
 RUN pip3 install -r requirements.txt

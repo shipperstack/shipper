@@ -31,7 +31,6 @@ WORKDIR $APP_HOME
 
 # Copy server code
 COPY . .
-COPY ../version.txt .
 
 # Create mountpoints
 RUN mkdir -p $APP_HOME/media && \

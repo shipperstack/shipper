@@ -3,11 +3,23 @@ version: "3.8"
 services:
   web:
     image: ghcr.io/shipperstack/shipper-server:${VERSION_TAG}
-    command: ["start.sh", "gunicorn config.wsgi:application --bind 0.0.0.0:8000 --capture-output --timeout 360 --log-level debug"]
+    command:
+      [
+        "start.sh",
+        "gunicorn",
+        "config.wsgi:application",
+        "--bind",
+        "0.0.0.0:8000",
+        "--capture-output",
+        "--timeout",
+        "360",
+        "--log-level",
+        "debug"
+      ]
     volumes:
-    - media_volume:/home/shipper/web/media
-    - static_volume:/home/shipper/web/static
-    - ./ssh/:/home/shipper/ssh
+      - media_volume:/home/shipper/web/media
+      - static_volume:/home/shipper/web/static
+      - ./ssh/:/home/shipper/ssh
     expose:
       - 8000
     env_file:
@@ -18,16 +30,16 @@ services:
   db:
     image: postgres:15.2-alpine
     volumes:
-    - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     env_file:
       - ./.env.db
   nginx:
     image: nginx:latest
     volumes:
-    - ./nginx/:/etc/nginx/conf.d
-    - ./nginx/.htpasswd:/etc/nginx/.htpasswd
-    - media_volume:/home/shipper/web/media
-    - static_volume:/home/shipper/web/static
+      - ./nginx/:/etc/nginx/conf.d
+      - ./nginx/.htpasswd:/etc/nginx/.htpasswd
+      - media_volume:/home/shipper/web/media
+      - static_volume:/home/shipper/web/static
     ports:
       - "9200:80"
       - "9201:81"
@@ -39,7 +51,18 @@ services:
   celery_default:
     restart: unless-stopped
     image: ghcr.io/shipperstack/shipper-server:${VERSION_TAG}
-    command: ["start.sh", "celery -A core worker -l info -Q default"]
+    command:
+      [
+        "start.sh",
+        "celery",
+        "-A",
+        "core",
+        "worker",
+        "-l",
+        "info",
+        "-Q",
+        "default"
+      ]
     volumes:
       - media_volume:/home/shipper/web/media
       - ./ssh/:/home/shipper/ssh
@@ -52,7 +75,19 @@ services:
   celery_mirror_upload_queue:
     restart: unless-stopped
     image: ghcr.io/shipperstack/shipper-server:${VERSION_TAG}
-    command: ["start.sh", "celery -A core worker -l info -Q mirror_upload --concurrency=1"]
+    command:
+      [
+        "start.sh",
+        "celery",
+        "-A",
+        "core",
+        "worker",
+        "-l",
+        "info",
+        "-Q",
+        "mirror_upload",
+        "--concurrency=1"
+      ]
     volumes:
       - media_volume:/home/shipper/web/media
       - ./ssh/:/home/shipper/ssh
@@ -65,7 +100,18 @@ services:
   celery_beat:
     restart: unless-stopped
     image: ghcr.io/shipperstack/shipper-server:${VERSION_TAG}
-    command: ["start.sh", "celery -A core beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler"]
+    command:
+      [
+        "start.sh",
+        "celery",
+        "-A",
+        "core",
+        "beat",
+        "-l",
+        "info",
+        "--scheduler",
+        "django_celery_beat.schedulers:DatabaseScheduler"
+      ]
     volumes:
       - media_volume:/home/shipper/web/media
       - ./ssh/:/home/shipper/ssh

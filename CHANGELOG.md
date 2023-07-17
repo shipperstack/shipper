@@ -6,7 +6,15 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.16.1...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.16.2...HEAD
+
+
+# [2.16.2] - 2023-07-17
+
+## Changed
+- Fixed a couple of bugs in the Docker subproject that occurred with the monorepo migration
+
+[2.16.2]: https://github.com/shipperstack/shipper/compare/2.16.1...2.16.2
 
 
 # [2.16.1] - 2023-07-17

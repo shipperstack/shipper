@@ -41,6 +41,8 @@ jobs:
       working-directory: ./server
       run: |
         coverage run manage.py test
+        pwd
+        ls -alh
     - name: Upload coverage reports from all runners
       uses: actions/upload-artifact@v3
       with:

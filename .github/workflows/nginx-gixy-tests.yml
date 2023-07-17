@@ -22,4 +22,4 @@ jobs:
           pip install gixy-ng
       - name: Run gixy tests
         run: |
-          gixy ./nginx/nginx.conf
+          gixy ./docker/nginx/nginx.conf

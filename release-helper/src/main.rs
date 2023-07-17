@@ -1,9 +1,9 @@
-use chrono::prelude::Local;
 use clap::{Parser, Subcommand};
 use std::fs;
 use std::io::BufReader;
 use std::process::Command;
 use std::{io::BufRead, path::Path};
+use time::{format_description::FormatItem, OffsetDateTime};
 
 use semver::Version;
 
@@ -14,6 +14,9 @@ const VERSION: &str = env!("CARGO_PKG_VERSION");
 // These filenames are unlikely to ever change
 const CHANGELOG_FILE_NAME: &str = "CHANGELOG.md";
 const VERSION_FILE_NAME: &str = "version.txt";
+
+// Define timestamp format
+const TIMESTAMP_FORMAT: &[FormatItem] = time::macros::format_description!("[year]-[month]-[day]");
 
 #[derive(Parser, Debug)]
 #[command(name = "shipper-release")]
@@ -96,9 +99,10 @@ fn check_running_directory() -> bool {
 }
 
 fn today_iso8601() -> String {
-    let today = Local::now();
+    let today =
+        OffsetDateTime::now_local().expect("Could not determine the UTC offset on this system!");
 
-    today.format("%Y-%m-%d").to_string()
+    today.format(TIMESTAMP_FORMAT).unwrap()
 }
 
 fn generate_changelog(major: bool, minor: bool, patch: bool) {

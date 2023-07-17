@@ -4,13 +4,13 @@ FROM alpine:3.17
 RUN apk update \
   && apk upgrade \
   && apk add --no-cache \
-        python3 \
-        python3-dev \
-        py3-pip \
-        netcat-openbsd \
-        gettext \
-        git \
-        postgresql-client
+  python3 \
+  python3-dev \
+  py3-pip \
+  netcat-openbsd \
+  gettext \
+  git \
+  postgresql-client
 
 # Upgrade pip
 RUN pip3 install --upgrade pip
@@ -29,13 +29,14 @@ WORKDIR $APP_HOME
 
 # Copy server code
 COPY . .
+COPY ../version.txt .
 
 # Install Python dependencies
 RUN pip3 install -r requirements.txt
 
 # Create mountpoints
 RUN mkdir -p $APP_HOME/media && \
-    mkdir -p $APP_HOME/static
+  mkdir -p $APP_HOME/static
 
 # chown all the files to the shipper user
 RUN chown -R shipper:shipper $APP_HOME

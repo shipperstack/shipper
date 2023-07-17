@@ -6,7 +6,25 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.16.0...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.16.1...HEAD
+
+
+# [2.16.1] - 2023-07-17
+
+## Added
+- Added mechanism to download and use the photos directly for the device photos
+- Added mechanism to potentially serve thumbhashes of device photos in the future
+  (not fully implemented yet!)
+
+## Changed
+- shipper is now a monorepo! That means shippy, Docker files, and other helper scripts
+  all live inside this repository.
+- Fixed the hash names not being bold
+- Aligned the first column in the build info table to the right
+- Fixed no padding added to the build info table
+- General code cleanup
+
+[2.16.1]: https://github.com/shipperstack/shipper/compare/2.16.0...2.16.1
 
 
 # [2.16.0] - 2023-07-14

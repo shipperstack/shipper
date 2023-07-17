@@ -31,9 +31,7 @@ WORKDIR $APP_HOME
 
 # Copy server code
 COPY . .
-
-# Install Python dependencies
-RUN pip3 install -r requirements.txt
+COPY ../version.txt .
 
 # Create mountpoints
 RUN mkdir -p $APP_HOME/media && \
@@ -45,5 +43,10 @@ RUN chown -R shipper:shipper $APP_HOME
 # Change to the shipper user
 USER shipper
 
+# Make Python dependencies available in PATH
+ENV PATH="${HOME}/.local/bin:${PATH}"
+
+# Install Python dependencies
+RUN pip3 install -r requirements.txt
 
 ENTRYPOINT ["/bin/sh"]

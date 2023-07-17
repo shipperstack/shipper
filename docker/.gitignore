@@ -1,2 +1,9 @@
 # Ignore SSH directory
 ssh/
+
+# Ignore development environment variables
+dev/
+
+# Ignore environment variable files
+.env
+.env.db

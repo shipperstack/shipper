@@ -11,7 +11,14 @@ There are two ways of setting up a development environment.
 
 ### Set up with Docker (recommended)
 
+Use the files within the `docker/` directory.
 
+If you need help, run the following commands within the directory:
+
+```
+source activate
+helpme
+```
 
 
 ### Set up manually

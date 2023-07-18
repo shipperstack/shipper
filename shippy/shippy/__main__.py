@@ -381,7 +381,8 @@ def prompt_login(client):
                     newline=True,
                     exit_after=True,
                 )
-            except requests.exceptions.RequestException:
+            except requests.exceptions.RequestException as e:
+                logger.error(e)
                 print_error(
                     msg=CANNOT_CONTACT_SERVER_ERROR_MSG + FAILED_TO_LOG_IN_ERROR_MSG,
                     newline=True,

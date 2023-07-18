@@ -38,7 +38,7 @@ services:
   nginx:
     image: nginx:latest
     volumes:
-      - ./nginx/:/etc/nginx/conf.d
+      - ./dev/nginx/:/etc/nginx/conf.d
       - ./dev/nginx/.htpasswd:/etc/nginx/.htpasswd
       - media_volume:/home/shipper/web/media
       - static_volume:/home/shipper/web/static

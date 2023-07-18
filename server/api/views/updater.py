@@ -1,4 +1,5 @@
 import html
+import random
 
 from api.utils import variant_check
 from django.http import Http404
@@ -50,13 +51,26 @@ class V1UpdaterLOS(APIView):
                     "size": build.size,
                     "version": build.version,
                     "variant": html.escape(variant),
-                    "url": get_main_download_url(request, build),
+                    "url": get_distributed_download_url(request, build),
                 }
             )
 
         return Response({"response": return_json}, status=HTTP_200_OK)
 
 
+def get_distributed_download_url(request, build):
+    if not build.is_mirrored():
+        return get_main_download_url(request, build)
+
+    available_servers = ["main", *build.get_downloadable_mirrors()]
+
+    selected_server = random.choice(available_servers)
+    match selected_server:
+        case "main":
+            return get_main_download_url(request, build)
+        case _:
+            return selected_server.get_download_url(build)
+
+
 def get_main_download_url(request, build):
     return f"https://{request.get_host()}{build.zip_file.url}"
-

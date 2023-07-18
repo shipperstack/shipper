@@ -11,6 +11,8 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
+
+from api.views.updater import get_distributed_download_url
 from core.models import Build, Device
 
 
@@ -125,7 +127,7 @@ class V1GeneralBuildLatest(APIView):
                 "size": build.size,
                 "version": build.version,
                 "variant": html.escape(variant),
-                "mirror_url": "https://" + request.get_host() + build.zip_file.url,
+                "mirror_url": get_distributed_download_url(request, build),
             },
             status=HTTP_200_OK,
         )

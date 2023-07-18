@@ -50,8 +50,13 @@ class V1UpdaterLOS(APIView):
                     "size": build.size,
                     "version": build.version,
                     "variant": html.escape(variant),
-                    "url": "https://" + request.get_host() + build.zip_file.url,
+                    "url": get_main_download_url(request, build),
                 }
             )
 
         return Response({"response": return_json}, status=HTTP_200_OK)
+
+
+def get_main_download_url(request, build):
+    return f"https://{request.get_host()}{build.zip_file.url}"
+

@@ -87,7 +87,7 @@ alias dcdup='docker-compose -f docker-compose.dev.yml up -d --build'
 alias dcddown='docker-compose -f docker-compose.dev.yml down'
 alias dcdrestart='dcddown && dcdup'
 alias dcdx='docker-compose -f docker-compose.dev.yml exec'
-alias dcdsetup='./django-update.sh developer'
+alias dcdsetup='./server-update.sh developer'
 alias dcdbuild='docker-compose -f docker-compose.dev.yml build --no-cache'
 
 function dcdresetall {

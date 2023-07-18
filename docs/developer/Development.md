@@ -21,17 +21,22 @@ helpme
 ```
 
 
-### Set up manually
+### Set up manually (not recommended)
 
-In this method you need to bring your own database, or use the built-in SQLite database. A web server (nginx) may also be installed alongside, but it is not necessary if you wish to just use Django's built-in web server.
+In this method you need to bring your own database, or use the built-in SQLite
+database. A web server (nginx) may also be installed alongside, but it is not
+necessary if you wish to just use Django's built-in web server.
 
-A manual setup provides easy code reload, since changes will propagate immediately.
+A manual setup provides easy code reload, since changes will propagate
+immediately.
 
 #### Prepare the `.env` file
 
-Create an `.env` file by [following the configuration instructions](../sysadmin/Configuration.md).
+Create an `.env` file by
+[following the configuration instructions](../sysadmin/Configuration.md).
 
-Be sure to clear out the database portion if you are using the built-in SQLite database.
+Be sure to clear out the database portion if you are using the built-in SQLite
+database.
 
 #### Import the `.env` file
 
@@ -41,7 +46,9 @@ On macOS and Linux, run the following command:
 set -a && source .env && set +a
 ```
 
-On Windows, this command will not work. If you know of a command that will ingest environment variables from an `.env` file on Windows, please create a patch and make a pull request.
+On Windows, this command will not work. If you know of a command that will
+ingest environment variables from an `.env` file on Windows, please create a
+patch and make a pull request.
 
 #### Start the development server
 
@@ -55,13 +62,16 @@ python3 manage.py runserver
 
 #### Caveats
 
-Any tasks that rely on Celery to run will not work. You can try and run Celery separately using the following step, but at that point this method is not recommended, and it's best if you go with a Docker development setup directly.
+Any tasks that rely on Celery to run will not work. You can try and run Celery
+separately using the following step, but at that point this method is not
+recommended, and it's best if you go with a Docker development setup directly.
 
 #### Get Celery tasks to work
 
 Install RabbitMQ.
 
-After installing, run the following commands, with each command going in a different TTY as they will not fork:
+After installing, run the following commands, with each command going in a
+different TTY as they will not fork:
 
 ```bash
 celery -A core worker -l info -Q default

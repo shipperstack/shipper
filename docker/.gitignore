@@ -2,8 +2,10 @@
 ssh/
 
 # Ignore development environment variables
-dev/
+!dev/
+dev/*
 !dev/nginx/
+dev/nginx/certs
 dev/nginx/.htpasswd
 
 # Ignore environment variable files

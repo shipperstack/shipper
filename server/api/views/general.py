@@ -12,7 +12,7 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
 
-from api.views.updater import get_distributed_download_url
+from api.views.utils import get_distributed_download_url
 from core.models import Build, Device
 
 

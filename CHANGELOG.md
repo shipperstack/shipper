@@ -6,7 +6,25 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.16.2...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.17.0...HEAD
+
+
+# [2.17.0] - 2023-07-18
+
+## Added
+- Added mechanism to exclude the main server from the download mirror list
+
+## Changed
+- Fixed some code for shippy that was lost in the monorepo migration
+- Updated library dependencies (shippy)
+  - humanize (4.6.0 -> 4.7.0)
+  - semver (3.0.0 -> 3.0.1)
+  - rich (13.3.5 -> 13.4.2)
+  - sentry-sdk (1.21.0 -> 1.28.1)
+- General code cleanup
+- shippy now logs network errors during login
+
+[2.17.0]: https://github.com/shipperstack/shipper/compare/2.16.2...2.17.0
 
 
 # [2.16.2] - 2023-07-17

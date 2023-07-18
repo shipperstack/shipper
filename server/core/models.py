@@ -197,7 +197,7 @@ class MirrorServer(models.Model):
     )
 
     def get_download_url(self, build):
-        return self.download_url_base.format(build.file_name.name)
+        return self.download_url_base.format(build.zip_file.name)
 
     def __str__(self):
         return self.name

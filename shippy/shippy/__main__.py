@@ -65,6 +65,10 @@ def main():
 
     lower_logger_level()
 
+    if args.version:
+        print(__version__)
+        return
+
     if args.debug:
         print_warning("Debug mode has been turned on!")
         logger.add(sink="shippy_{time}.log", level="DEBUG", enqueue=True)
@@ -172,6 +176,12 @@ def init_argparse():
         action="store_true",
         help="Enable debug mode",
     )
+    parser.add_argument(
+        "-v",
+        "--version",
+        action="store_true",
+        help="Show version of shippy and exit",
+    )
     return parser.parse_args()
 
 
@@ -225,10 +235,17 @@ def check_token_validity(client):
 
 def check_shippy_update():
     with console.status("Please wait while shippy checks for updates... "):
-        r = requests.get(
-            "https://api.github.com/repos/shipperstack/shippy/releases/latest"
-        )
-        latest_version = r.json()["name"]
+        try:
+            r = requests.get(
+                "https://api.github.com/repos/shipperstack/shippy/releases/latest"
+            )
+            latest_version = r.json()["name"]
+        except KeyError:
+            print_error(
+                "Failed to contact the GitHub API to check the latest version.",
+                newline=True,
+                exit_after=False,
+            )
 
     # Check if user is running an alpha/beta build
     if is_prerelease():

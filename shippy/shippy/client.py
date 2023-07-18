@@ -6,7 +6,7 @@ import re
 import time
 import urllib.parse
 
-from json import JSONDecodeError
+from json.decoder import JSONDecodeError
 
 import semver
 from rich.console import Console
@@ -403,7 +403,7 @@ def upload_exception_check(request, build_file):
         try:
             response_json = request.json()
             raise UploadException(response_json["message"])
-        except JSONDecodeError | KeyError:
+        except (JSONDecodeError, KeyError):
             raise UploadException("An unknown error occurred parsing the response.")
     elif int(request.status_code / 100) == 5:
         raise UploadException(

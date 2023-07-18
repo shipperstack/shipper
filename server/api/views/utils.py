@@ -1,5 +1,7 @@
 import random
 
+from constance import config
+
 
 def get_distributed_download_url(request, build):
     if not build.is_mirrored():
@@ -7,12 +9,14 @@ def get_distributed_download_url(request, build):
 
     available_servers = ["main", *build.get_downloadable_mirrors()]
 
+    if config.SHIPPER_DOWNLOADS_DISABLE_MAIN_SERVER:
+        available_servers.remove("main")
+
     selected_server = random.choice(available_servers)
-    match selected_server:
-        case "main":
-            return get_main_download_url(request, build)
-        case _:
-            return selected_server.get_download_url(build)
+    if selected_server == "main":
+        return get_main_download_url(request, build)
+    else:
+        return selected_server.get_download_url(build)
 
 
 def get_main_download_url(request, build):

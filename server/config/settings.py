@@ -255,6 +255,12 @@ CONSTANCE_CONFIG = {
         "Donation message to show to users in the donation banner.",
         str,
     ),
+    "SHIPPER_DOWNLOADS_DISABLE_MAIN_SERVER": (
+        False,
+        "Disables downloads from the main server. Enable only if you are experiencing "
+        "load problems.",
+        bool,
+    ),
     "SHIPPER_UPLOAD_VARIANTS": (
         '{"gapps": "GApps","vanilla": "Vanilla (no GApps)","foss": "FOSS","goapps": '
         '"GoApps (Android Go Edition GApps)"}',
@@ -284,6 +290,7 @@ CONSTANCE_CONFIG_FIELDSETS = {
         "SHIPPER_DOWNLOADS_PAGE_DONATION_URL",
         "SHIPPER_DOWNLOADS_PAGE_DONATION_MESSAGE",
     ),
+    "Download": ("SHIPPER_DOWNLOADS_PAGE_DISABLE_MAIN_SERVER",),
     "Upload": (
         "SHIPPER_UPLOAD_VARIANTS",
         "SHIPPER_FILE_NAME_FORMAT",

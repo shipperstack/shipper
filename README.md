@@ -9,7 +9,6 @@
 - [Introduction](#shipperstack)
 - [Features](#features)
 - [Installation](#installation)
-- [Usage](#usage)
 - [Supported Carriers](#supported-carriers)
 - [Contributing](#contributing)
 - [License](#license)

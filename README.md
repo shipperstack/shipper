@@ -53,4 +53,4 @@ ShipperStack currently supports the following carriers:
 We welcome contributions from the community! If you find any issues or want to add new features, feel free to submit a pull request. Please read our contribution guidelines before getting started.
 
 ## License
-This project is licensed under the MIT License. Feel free to use, modify, and distribute it as permitted by the license.
+This project is licensed under the AGPL-3.0 license.

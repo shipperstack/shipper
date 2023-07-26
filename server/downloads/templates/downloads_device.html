@@ -14,7 +14,7 @@
     <!-- Device maintenance check -->
     {% if object.status == False %}
         <div class="alert alert-warning" role="alert">
-            <h4 class="alert-heading">Warning</h4>
+            <h4 class="alert-heading">{% translate "Warning" %}</h4>
             <p class="mb-0">{% translate "This device is no longer supported, and things may break at any time. Download at your own risk!" %}</p>
         </div>
     {% endif %}

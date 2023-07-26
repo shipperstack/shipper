@@ -6,7 +6,24 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.17.0...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.18.0...HEAD
+
+
+# [2.18.0] - 2023-07-26
+
+## Added
+- Added "last updated" and "uploaded on" fields for the device and build pages on the webUI
+
+## Changed
+- Updated build dependencies
+  - gunicorn (20.1.0 -> 21.2.0)
+- Fixed Docker mounting the SSH directory to mount as read-only
+- Fixed server crashing when the supplied SSH key had incorrect permissions
+- Version and date fields are now split on build page
+- Checksums are now wrapped in code tags for better visibility
+
+
+[2.18.0]: https://github.com/shipperstack/shipper/compare/2.17.0...2.18.0
 
 
 # [2.17.0] - 2023-07-18

@@ -268,6 +268,9 @@ class Build(models.Model):
     def get_user_friendly_name(self):
         return "{} - {}".format(self.version, self.build_date.strftime("%Y-%m-%d"))
 
+    def get_iso8601_build_date(self):
+        return self.build_date.strftime("%Y-%m-%d")
+
     def get_user_friendly_variant_name(self):
         variants = ast.literal_eval(config.SHIPPER_UPLOAD_VARIANTS)
         if self.variant in variants:

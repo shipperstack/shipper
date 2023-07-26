@@ -40,8 +40,12 @@
                 <td>{{ object.device }}</td>
               </tr>
               <tr>
-                <td><strong>{% translate "Version/date" %}</strong></td>
-                <td>{{ object.get_user_friendly_name }}</td>
+                <td><strong>{% translate "Version" %}</strong></td>
+                <td>{{ object.version }}</td>
+              </tr>
+              <tr>
+                <td><strong>{% translate "Date" %}</strong></td>
+                <td>{{ object.get_iso8601_build_date }}</td>
               </tr>
               <tr>
                 <td><strong>{% translate "Variant" %}</strong></td>

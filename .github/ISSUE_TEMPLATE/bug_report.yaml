@@ -54,7 +54,7 @@ body:
     attributes:
       label: shipper version
       description: What version of shipper are you running?
-      placeholder: master or specific version string (such as 2.7.0)
+      placeholder: master or specific version string (such as 2.18.0) or N/A
     validations:
       required: true
   - type: textarea
@@ -62,7 +62,9 @@ body:
     attributes:
       label: shippy version
       description: What version of shippy are you running?
-      placeholder: master or specific version string (such as 1.7.6) or N/A
+      placeholder: master or specific version string (such as 2.18.0) or N/A
+    validations:
+      required: true
   - type: textarea
     id: other-info
     attributes:

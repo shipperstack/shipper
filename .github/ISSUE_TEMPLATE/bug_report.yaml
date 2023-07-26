@@ -9,6 +9,19 @@ body:
     attributes:
       value: |
         Thanks for taking the time to fill out this bug report!
+  - type: dropdown
+    id: target-platform
+    attributes:
+      label: "What subsystem are you reporting a problem with? (Hint: you can select multiple!)"
+      multiple: true
+      required: true
+      options:
+        - shipper (backend)
+        - shipper (webUI)
+        - shipper (API)
+        - shippy
+        - Docker images
+        - N/A (don't select anything above)
   - type: textarea
     id: bug-description
     attributes:
@@ -45,15 +58,6 @@ body:
       placeholder: master or specific version string (such as 2.7.0)
     validations:
       required: true
-  - type: dropdown
-    id: usage-platform
-    attributes:
-      label: What platform does this bug appear on?
-      multiple: true
-      options:
-        - WebUI
-        - shippy
-        - N/A 
   - type: textarea
     id: shippy-version
     attributes:

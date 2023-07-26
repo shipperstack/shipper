@@ -45,7 +45,7 @@
               </tr>
               <tr>
                 <td><strong>{% translate "Date" %}</strong></td>
-                <td>{{ object.get_iso8601_build_date }}</td>
+                <td>{{ object.get_iso8601_build_date }} ({{ object.human_readable_timedelta }})</td>
               </tr>
               <tr>
                 <td><strong>{% translate "Variant" %}</strong></td>

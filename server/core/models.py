@@ -327,6 +327,9 @@ class Build(models.Model):
             "downloads_build", kwargs={"codename": self.device.codename, "pk": self.id}
         )
 
+    def human_readable_timedelta(self):
+        return humanize.naturaltime(datetime.now() - self.build_date)
+
 
 # Statistics model
 class Statistics(models.Model):

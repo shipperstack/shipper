@@ -108,10 +108,7 @@ class Device(models.Model):
         return reverse("downloads_device", kwargs={"codename": self.codename})
 
     def human_readable_last_updated(self):
-        # Get latest build date
-        last_build_date = self.get_latest_enabled_hashed_build().build_date
-
-        return humanize.naturaltime(date.today() - last_build_date)
+        return self.get_latest_enabled_hashed_build().human_readable_timedelta()
 
 
 # Mirror Server Model

@@ -21,8 +21,6 @@ body:
         - shippy
         - Docker images
         - N/A (don't select anything above)
-      validations:
-        required: true
   - type: textarea
     id: bug-description
     attributes:

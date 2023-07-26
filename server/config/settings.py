@@ -9,6 +9,8 @@ from sentry_sdk.integrations.django import DjangoIntegration
 
 from pathlib import Path
 
+from core.exceptions import UploadException, BuildMirrorException
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -354,5 +356,7 @@ sentry_sdk.init(
         ConnectionRefusedError,
         TimeLimitExceeded,
         KeyboardInterrupt,
+        UploadException,
+        BuildMirrorException,
     ],
 )

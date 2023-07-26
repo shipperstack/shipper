@@ -1,11 +1,13 @@
 import ast
 
+import humanize
 from auditlog.registry import auditlog
 from constance import config
 from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
+from datetime import datetime
 
 from .utils import is_version_in_target_versions
 
@@ -99,6 +101,12 @@ class Device(models.Model):
 
     def get_absolute_url(self):
         return reverse("downloads_device", kwargs={"codename": self.codename})
+
+    def human_readable_last_updated(self):
+        # Get latest build date
+        last_build_date = self.get_all_enabled_hashed_builds()[0].build_date
+
+        return humanize.naturaltime(datetime.now() - last_build_date)
 
 
 # Mirror Server Model
@@ -268,8 +276,6 @@ class Build(models.Model):
             return self.variant
 
     def get_human_readable_size(self):
-        import humanize
-
         return humanize.naturalsize(self.size)
 
     def get_downloadable_mirrors(self):

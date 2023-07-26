@@ -21,6 +21,7 @@ from django_celery_results.models import TaskResult
 from thumbhash import image_to_thumbhash
 
 import config.settings
+from .exceptions import BuildMirrorException
 from .models import Build, MirrorServer, Device
 from .utils import is_version_in_target_versions
 
@@ -139,7 +140,15 @@ def sftp_client_init(mirror):
 
     # Get private key
     private_key_path = f"/home/shipper/ssh/{mirror.ssh_keyfile}"
-    private_key = paramiko.RSAKey.from_private_key_file(private_key_path)
+    try:
+        private_key = paramiko.RSAKey.from_private_key_file(private_key_path)
+    except PermissionError as e:
+        raise BuildMirrorException(
+            {
+                "message": "Cannot access SSH key. Is the permission correct?",
+                "exception_message": e,
+            }
+        )
 
     # Connect client
     # noinspection SpellCheckingInspection

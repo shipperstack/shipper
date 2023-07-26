@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shipper\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-09 11:39+0900\n"
+"POT-Creation-Date: 2023-07-26 18:19+0900\n"
 "PO-Revision-Date: 2022-02-27 14:08+0900\n"
 "Last-Translator: Eric Park <me@ericswpark.com>\n"
 "Language-Team: English <en@li.org>\n"
@@ -85,13 +85,29 @@ msgstr ""
 msgid "Create Account"
 msgstr "Create Account"
 
-#: config/settings.py:168
+#: config/settings.py:176
 msgid "Korean"
 msgstr "Korean"
 
-#: config/settings.py:169
+#: config/settings.py:177
 msgid "English"
 msgstr "English"
+
+#: core/custom_filters.py:6
+msgid "hashed"
+msgstr "hashed"
+
+#: core/custom_filters.py:11 core/custom_filters.py:35
+msgid "Yes"
+msgstr "Yes"
+
+#: core/custom_filters.py:12 core/custom_filters.py:36
+msgid "No"
+msgstr "No"
+
+#: core/custom_filters.py:30
+msgid "mirrored"
+msgstr "mirrored"
 
 #: downloads/templates/debug_warning.html:5
 msgid "This is a development server!"
@@ -110,61 +126,66 @@ msgid "Donate &gt;"
 msgstr "Donate &gt;"
 
 #: downloads/templates/downloads_build.html:7
-#: downloads/templates/downloads_build.html:23
+#: downloads/templates/downloads_build.html:27
 #: downloads/templates/downloads_device.html:6
 #: downloads/templates/downloads_device.html:9
 #, python-format
 msgid "Downloads for %(object)s"
 msgstr "Downloads for %(object)s"
 
-#: downloads/templates/downloads_build.html:32
+#: downloads/templates/downloads_build.html:39
 msgid "Device"
 msgstr "Device"
 
-#: downloads/templates/downloads_build.html:33
-msgid "Version/date"
-msgstr "Version/date"
+#: downloads/templates/downloads_build.html:43
+#: templates/maintainer_base.html:62
+msgid "Version"
+msgstr "Version"
 
-#: downloads/templates/downloads_build.html:34
+#: downloads/templates/downloads_build.html:47
+msgid "Date"
+msgstr "Date"
+
+#: downloads/templates/downloads_build.html:51
 msgid "Variant"
 msgstr "Variant"
 
-#: downloads/templates/downloads_build.html:35
+#: downloads/templates/downloads_build.html:55
 #: downloads/templates/downloads_device_variant.html:9
 msgid "Size"
 msgstr "Size"
 
-#: downloads/templates/downloads_build.html:37
-msgid "Checksums"
-msgstr "Checksums"
-
-#: downloads/templates/downloads_build.html:45
+#: downloads/templates/downloads_build.html:70
 msgid "Mirrors"
 msgstr "Mirrors"
 
-#: downloads/templates/downloads_build.html:50
+#: downloads/templates/downloads_build.html:75
 msgid "Server"
 msgstr "Server"
 
-#: downloads/templates/downloads_build.html:51
+#: downloads/templates/downloads_build.html:76
 msgid "Description"
 msgstr "Description"
 
-#: downloads/templates/downloads_build.html:52
-#: downloads/templates/downloads_build.html:62
-#: downloads/templates/downloads_build.html:74
+#: downloads/templates/downloads_build.html:77
+#: downloads/templates/downloads_build.html:89
+#: downloads/templates/downloads_build.html:102
 #: downloads/templates/downloads_device_variant.html:10
 #: downloads/templates/downloads_device_variant.html:20
 msgid "Download"
 msgstr "Download"
 
-#: downloads/templates/downloads_build.html:57
+#: downloads/templates/downloads_build.html:84
 msgid "Main"
 msgstr "Main"
 
-#: downloads/templates/downloads_build.html:58
+#: downloads/templates/downloads_build.html:85
 msgid "Download builds from the main website."
 msgstr "Download builds from the main website."
+
+#: downloads/templates/downloads_device.html:17
+msgid "Warning"
+msgstr "Warning"
 
 #: downloads/templates/downloads_device.html:18
 msgid ""
@@ -174,7 +195,12 @@ msgstr ""
 "This device is no longer supported, and things may break at any time. "
 "Download at your own risk!"
 
-#: downloads/templates/downloads_device.html:29
+#: downloads/templates/downloads_device.html:24
+#, python-format
+msgid "This device was last updated %(object.human_readable_last_updated)s"
+msgstr "This device was last updated %(object.human_readable_last_updated)s"
+
+#: downloads/templates/downloads_device.html:31
 msgid "Sorry, this device currently has no builds. Check back later!"
 msgstr "Sorry, this device currently has no builds. Check back later!"
 
@@ -191,15 +217,15 @@ msgstr "Builds"
 msgid "Downloads"
 msgstr "Downloads"
 
-#: downloads/templates/downloads_main.html:47
+#: downloads/templates/downloads_main.html:31
 msgid "Device photo"
 msgstr "Device photo"
 
-#: downloads/templates/downloads_main.html:49
+#: downloads/templates/downloads_main.html:33
 msgid "Device photo placeholder image"
 msgstr "Device photo placeholder image"
 
-#: downloads/templates/downloads_main.html:56
+#: downloads/templates/downloads_main.html:40
 msgid "This device is no longer supported."
 msgstr "This device is no longer supported."
 
@@ -231,6 +257,3 @@ msgstr "Login"
 msgid "Forgot Password?"
 msgstr "Forgot Password?"
 
-#: templates/maintainer_base.html:62
-msgid "Version"
-msgstr "Version"

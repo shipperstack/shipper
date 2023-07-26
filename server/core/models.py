@@ -106,7 +106,7 @@ class Device(models.Model):
         # Get latest build date
         last_build_date = self.get_all_enabled_hashed_builds()[0].build_date
 
-        return humanize.naturaltime(datetime.now() - last_build_date)
+        return humanize.naturaltime(datetime.today() - last_build_date)
 
 
 # Mirror Server Model
@@ -328,7 +328,7 @@ class Build(models.Model):
         )
 
     def human_readable_timedelta(self):
-        return humanize.naturaltime(datetime.now() - self.build_date)
+        return humanize.naturaltime(datetime.today() - self.build_date)
 
 
 # Statistics model

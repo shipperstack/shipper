@@ -104,7 +104,7 @@ class Device(models.Model):
 
     def human_readable_last_updated(self):
         # Get latest build date
-        last_build_date = self.get_all_enabled_hashed_builds()[0].build_date
+        last_build_date = self.get_latest_enabled_hashed_build_of_variant().build_date
 
         return humanize.naturaltime(date.today() - last_build_date)
 

@@ -7,7 +7,7 @@ from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
-from datetime import datetime
+from datetime import date
 
 from .utils import is_version_in_target_versions
 
@@ -106,7 +106,7 @@ class Device(models.Model):
         # Get latest build date
         last_build_date = self.get_all_enabled_hashed_builds()[0].build_date
 
-        return humanize.naturaltime(datetime.today() - last_build_date)
+        return humanize.naturaltime(date.today() - last_build_date)
 
 
 # Mirror Server Model
@@ -328,7 +328,7 @@ class Build(models.Model):
         )
 
     def human_readable_timedelta(self):
-        return humanize.naturaltime(datetime.today() - self.build_date)
+        return humanize.naturaltime(date.today() - self.build_date)
 
 
 # Statistics model

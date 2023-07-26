@@ -4,13 +4,14 @@
 [![Codecov](https://img.shields.io/codecov/c/github/shipperstack/shipper)](https://app.codecov.io/gh/shipperstack/shipper)
 [![Release Docker image](https://github.com/shipperstack/shipper-docker/actions/workflows/release-docker-image.yml/badge.svg)](https://github.com/shipperstack/shipper-docker/actions/workflows/release-docker-image.yml)
 
-Artifact release manager with  access control, API support and user presentation
-
-## Installation
-
-You can deploy shipper to a PaaS (platform-as-a-service) like Heroku, PythonAnywhere, etc. or your own server, but a barebones install requires you to bring your own infrastructure dependencies, like PostgreSQL for the database and RabbitMQ for queuing tasks, etc.
+Android ROM build release manager with access control, API support and user presentation
 
 ## Links
 
 - [Changelog](CHANGELOG.md)
 - [Documentation](docs/)
+
+
+## [Installation](docs/sysadmin/Installation.md)
+
+## [License / copying](./LICENSE)

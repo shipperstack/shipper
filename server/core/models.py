@@ -73,6 +73,11 @@ class Device(models.Model):
             raise Build.DoesNotExist
         return self.get_all_enabled_hashed_builds_of_variant(variant=variant)[0]
 
+    def get_latest_enabled_hashed_build(self):
+        if not self.has_enabled_hashed_builds():
+            raise Build.DoesNotExist
+        return self.get_all_enabled_hashed_builds()[0]
+
     def get_all_builds(self):
         return sorted(self.builds.all(), key=lambda p: p.build_date, reverse=True)
 
@@ -104,7 +109,7 @@ class Device(models.Model):
 
     def human_readable_last_updated(self):
         # Get latest build date
-        last_build_date = self.get_latest_enabled_hashed_build_of_variant().build_date
+        last_build_date = self.get_latest_enabled_hashed_build().build_date
 
         return humanize.naturaltime(date.today() - last_build_date)
 

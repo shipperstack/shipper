@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shipper\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-26 18:19+0900\n"
+"POT-Creation-Date: 2023-07-27 09:17+0900\n"
 "PO-Revision-Date: 2022-02-27 14:08+0900\n"
 "Last-Translator: Eric Park <me@ericswpark.com>\n"
 "Language-Team: English <en@li.org>\n"
@@ -133,6 +133,10 @@ msgstr "Donate &gt;"
 msgid "Downloads for %(object)s"
 msgstr "Downloads for %(object)s"
 
+#: downloads/templates/downloads_build.html:34
+msgid "Build information"
+msgstr "Build information"
+
 #: downloads/templates/downloads_build.html:39
 msgid "Device"
 msgstr "Device"
@@ -196,9 +200,8 @@ msgstr ""
 "Download at your own risk!"
 
 #: downloads/templates/downloads_device.html:24
-#, python-format
-msgid "This device was last updated %(object.human_readable_last_updated)s"
-msgstr "This device was last updated %(object.human_readable_last_updated)s"
+msgid "This device was last updated %(last_updated_date)s"
+msgstr "This device was last updated %(last_updated_date)s"
 
 #: downloads/templates/downloads_device.html:31
 msgid "Sorry, this device currently has no builds. Check back later!"
@@ -256,4 +259,3 @@ msgstr "Login"
 #: templates/maintainer_base.html:47
 msgid "Forgot Password?"
 msgstr "Forgot Password?"
-

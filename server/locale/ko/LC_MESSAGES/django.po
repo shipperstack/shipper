@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shipper\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-26 18:19+0900\n"
+"POT-Creation-Date: 2023-07-27 09:17+0900\n"
 "PO-Revision-Date: 2022-02-27 14:09+0900\n"
 "Last-Translator: Eric Park <me@ericswpark.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -136,6 +136,10 @@ msgstr "기부하기 &gt;"
 msgid "Downloads for %(object)s"
 msgstr "%(object)s 빌드 다운로드"
 
+#: downloads/templates/downloads_build.html:34
+msgid "Build information"
+msgstr "빌드 정보"
+
 #: downloads/templates/downloads_build.html:39
 msgid "Device"
 msgstr "기기"
@@ -199,9 +203,8 @@ msgstr ""
 "드할 때 주의하세요!"
 
 #: downloads/templates/downloads_device.html:24
-#, python-format
-msgid "This device was last updated %(object.human_readable_last_updated)s"
-msgstr "이 기기는 %(object.human_readable_last_updated)s에 마지막으로 업데이트 되었습니다"
+msgid "This device was last updated %(last_updated_date)s"
+msgstr "이 기기는 %(last_updated_date)s에 마지막으로 업데이트 되었습니다"
 
 #: downloads/templates/downloads_device.html:31
 msgid "Sorry, this device currently has no builds. Check back later!"

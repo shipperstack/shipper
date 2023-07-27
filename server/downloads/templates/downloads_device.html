@@ -21,7 +21,7 @@
 
     {% include 'donation_alert.html' %}
 
-    <p>{% blocktranslate %}This device was last updated {{ object.human_readable_last_updated }}{% endblocktranslate %}</p>
+    <p>{% blocktranslate with last_updated_date=object.human_readable_last_updated %}This device was last updated {{ last_updated_date }}{% endblocktranslate %}</p>
 
     {% for variant in upload_variants %}
         {% device_variant_section device=object variant=variant %}

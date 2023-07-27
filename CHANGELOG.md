@@ -6,7 +6,21 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.18.0...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.18.1...HEAD
+
+
+# [2.18.1] - 2023-07-27
+
+## Changed
+- Fixed shippy crashing due to a missing version string file
+- Fixed the "last updated" timedelta calculation not working
+- Fixed the build timedelta calculation not working
+- Updated translations for Korean
+- Fixed translations not working properly
+- Fixed cache middleware being set incorrectly
+- General code cleanup
+
+[2.18.1]: https://github.com/shipperstack/shipper/compare/2.18.0...2.18.1
 
 
 # [2.18.0] - 2023-07-26

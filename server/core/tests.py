@@ -211,6 +211,12 @@ def mock_devices_setup():
 def mock_builds_setup():
     from datetime import date
 
+    def increment_device_build_variant_pairing(codename, variant):
+        if variant in device_build_pairing[codename]:
+            device_build_pairing[codename][variant] += 1
+        else:
+            device_build_pairing[codename][variant] = 1
+
     Build.objects.create(
         device=Device.objects.get(codename="bullhead"),
         file_name="Bliss-v14-bullhead-OFFICIAL-gapps-20200608",
@@ -222,7 +228,7 @@ def mock_builds_setup():
         build_date=date(2020, 6, 8),
         zip_file="bullhead/Bliss-v14-bullhead-OFFICIAL-gapps-20200608.zip",
     )
-    device_build_pairing["bullhead"]["gapps"] = 1
+    increment_device_build_variant_pairing("bullhead", "gapps")
 
     Build.objects.create(
         device=Device.objects.get(codename="dream2lte"),
@@ -235,7 +241,7 @@ def mock_builds_setup():
         build_date=date(2020, 6, 9),
         zip_file="dream2lte/Bliss-v14-dream2lte-OFFICIAL-gapps-20200609.zip",
     )
-    device_build_pairing["dream2lte"]["gapps"] = 1
+    increment_device_build_variant_pairing("dream2lte", "gapps")
 
     Build.objects.create(
         device=Device.objects.get(codename="angler"),
@@ -248,4 +254,4 @@ def mock_builds_setup():
         build_date=date(2020, 6, 8),
         zip_file="angler/Bliss-v14-angler-OFFICIAL-vanilla-20200608.zip",
     )
-    device_build_pairing["angler"]["vanilla"] = 1
+    increment_device_build_variant_pairing("angler", "vanilla")

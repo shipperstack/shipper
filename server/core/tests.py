@@ -166,6 +166,9 @@ class ShipperUtilsTestCase(TestCase):
 
 
 def mock_devices_setup():
+    def create_device_pairing(codename):
+        device_build_pairing[codename] = {}
+
     Device.objects.create(
         name="Nexus 5X",
         codename="bullhead",
@@ -173,7 +176,7 @@ def mock_devices_setup():
         photo="https://fdn2.gsmarena.com/vv/bigpic/lg-nexus-5x-.jpg",
         status=True,
     )
-    device_build_pairing["bullhead"] = {}
+    create_device_pairing("bullhead")
 
     Device.objects.create(
         name="Nexus 6P",
@@ -182,7 +185,7 @@ def mock_devices_setup():
         photo="https://fdn2.gsmarena.com/vv/bigpic/huawei-nexus-6p-.jpg",
         status=False,
     )
-    device_build_pairing["angler"] = {}
+    create_device_pairing("angler")
 
     Device.objects.create(
         name="Galaxy S8+",
@@ -190,10 +193,10 @@ def mock_devices_setup():
         manufacturer="Samsung",
         status=True,
     )
-    device_build_pairing["dream2lte"] = {}
+    create_device_pairing("dream2lte")
 
     Device.objects.create(name="x86", codename="x86", manufacturer="x86", status=True)
-    device_build_pairing["x86"] = {}
+    create_device_pairing("x86")
 
     # noinspection SpellCheckingInspection
     Device.objects.create(
@@ -202,7 +205,7 @@ def mock_devices_setup():
         manufacturer="NoBuilds",
         status=False,
     )
-    device_build_pairing["nobuild"] = {}
+    create_device_pairing("nobuild")
 
 
 def mock_builds_setup():

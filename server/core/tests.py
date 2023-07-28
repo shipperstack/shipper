@@ -10,10 +10,10 @@ class ShipperDeviceTestCase(TestCase):
         mock_devices_setup()
 
     def test_device_string(self):
-        devices = get_mock_devices()
-        self.assertEqual(str(devices["bullhead"]), "LG Nexus 5X (bullhead)")
-        self.assertEqual(str(devices["angler"]), "Huawei Nexus 6P (angler)")
-        self.assertEqual(str(devices["dream2lte"]), "Samsung Galaxy S8+ (dream2lte)")
+        for device in Device.objects.all():
+            self.assertEqual(
+                str(device), f"{device.manufacturer} {device.name} ({device.codename})"
+            )
 
 
 class ShipperBuildTestCase(TestCase):

@@ -262,6 +262,7 @@ def mock_devices_setup():
         manufacturer="Samsung",
         status=True,
     )
+    Device.objects.create(name="x86", codename="x86", manufacturer="x86", status=True)
     # noinspection SpellCheckingInspection
     Device.objects.create(
         name="No Builds",

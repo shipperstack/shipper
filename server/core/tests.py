@@ -5,6 +5,9 @@ from .models import Build, Device
 from .utils import is_version_in_target_versions, parse_filename_with_regex
 
 
+device_build_pairing = {}
+
+
 class ShipperDeviceTestCase(TestCase):
     def setUp(self):
         mock_devices_setup()
@@ -59,112 +62,33 @@ class ShipperCombinedTestCase(TestCase):
         mock_builds_setup()
 
     def test_gapps_build_count(self):
-        devices = get_mock_devices()
-        self.assertEqual(
-            len(
-                devices["bullhead"].get_all_enabled_hashed_builds_of_variant(
-                    variant="gapps"
-                )
-            ),
-            1,
-        )
-        self.assertEqual(
-            len(
-                devices["angler"].get_all_enabled_hashed_builds_of_variant(
-                    variant="gapps"
-                )
-            ),
-            0,
-        )
-        self.assertEqual(
-            len(
-                devices["dream2lte"].get_all_enabled_hashed_builds_of_variant(
-                    variant="gapps"
-                )
-            ),
-            1,
-        )
+        self.test_variant_build_count(variant="gapps")
 
     def test_vanilla_build_count(self):
-        devices = get_mock_devices()
-        self.assertEqual(
-            len(
-                devices["bullhead"].get_all_enabled_hashed_builds_of_variant(
-                    variant="vanilla"
-                )
-            ),
-            0,
-        )
-        self.assertEqual(
-            len(
-                devices["angler"].get_all_enabled_hashed_builds_of_variant(
-                    variant="vanilla"
-                )
-            ),
-            1,
-        )
-        self.assertEqual(
-            len(
-                devices["dream2lte"].get_all_enabled_hashed_builds_of_variant(
-                    variant="vanilla"
-                )
-            ),
-            0,
-        )
+        self.test_variant_build_count(variant="vanilla")
 
     def test_foss_build_count(self):
-        devices = get_mock_devices()
-        self.assertEqual(
-            len(
-                devices["bullhead"].get_all_enabled_hashed_builds_of_variant(
-                    variant="foss"
-                )
-            ),
-            0,
-        )
-        self.assertEqual(
-            len(
-                devices["angler"].get_all_enabled_hashed_builds_of_variant(
-                    variant="foss"
-                )
-            ),
-            0,
-        )
-        self.assertEqual(
-            len(
-                devices["dream2lte"].get_all_enabled_hashed_builds_of_variant(
-                    variant="foss"
-                )
-            ),
-            0,
-        )
+        self.test_variant_build_count(variant="foss")
 
     def test_goapps_build_count(self):
-        devices = get_mock_devices()
-        self.assertEqual(
-            len(
-                devices["bullhead"].get_all_enabled_hashed_builds_of_variant(
-                    variant="goapps"
-                )
-            ),
-            0,
-        )
-        self.assertEqual(
-            len(
-                devices["angler"].get_all_enabled_hashed_builds_of_variant(
-                    variant="goapps"
-                )
-            ),
-            0,
-        )
-        self.assertEqual(
-            len(
-                devices["dream2lte"].get_all_enabled_hashed_builds_of_variant(
-                    variant="goapps"
-                )
-            ),
-            0,
-        )
+        self.test_variant_build_count(variant="goapps")
+
+    def test_variant_build_count(self, variant=None):
+        if not variant:
+            return
+
+        for device in Device.objects.all():
+            if (
+                device.codename in device_build_pairing
+                and variant in device_build_pairing[device.codename]
+            ):
+                build_count = device_build_pairing[device.codename][variant]
+            else:
+                build_count = 0
+            self.assertEqual(
+                len(device.get_all_enabled_hashed_builds_of_variant(variant=variant)),
+                build_count,
+            )
 
 
 class ShipperUtilsTestCase(TestCase):
@@ -249,6 +173,8 @@ def mock_devices_setup():
         photo="https://fdn2.gsmarena.com/vv/bigpic/lg-nexus-5x-.jpg",
         status=True,
     )
+    device_build_pairing["bullhead"] = {}
+
     Device.objects.create(
         name="Nexus 6P",
         codename="angler",
@@ -256,13 +182,19 @@ def mock_devices_setup():
         photo="https://fdn2.gsmarena.com/vv/bigpic/huawei-nexus-6p-.jpg",
         status=False,
     )
+    device_build_pairing["angler"] = {}
+
     Device.objects.create(
         name="Galaxy S8+",
         codename="dream2lte",
         manufacturer="Samsung",
         status=True,
     )
+    device_build_pairing["dream2lte"] = {}
+
     Device.objects.create(name="x86", codename="x86", manufacturer="x86", status=True)
+    device_build_pairing["x86"] = {}
+
     # noinspection SpellCheckingInspection
     Device.objects.create(
         name="No Builds",
@@ -270,15 +202,7 @@ def mock_devices_setup():
         manufacturer="NoBuilds",
         status=False,
     )
-
-
-def get_mock_devices():
-    devices = {
-        "bullhead": Device.objects.get(codename="bullhead"),
-        "angler": Device.objects.get(codename="angler"),
-        "dream2lte": Device.objects.get(codename="dream2lte"),
-    }
-    return devices
+    device_build_pairing["nobuild"] = {}
 
 
 def mock_builds_setup():
@@ -295,6 +219,8 @@ def mock_builds_setup():
         build_date=date(2020, 6, 8),
         zip_file="bullhead/Bliss-v14-bullhead-OFFICIAL-gapps-20200608.zip",
     )
+    device_build_pairing["bullhead"]["gapps"] = 1
+
     Build.objects.create(
         device=Device.objects.get(codename="dream2lte"),
         file_name="Bliss-v14-dream2lte-OFFICIAL-gapps-20200609",
@@ -306,6 +232,8 @@ def mock_builds_setup():
         build_date=date(2020, 6, 9),
         zip_file="dream2lte/Bliss-v14-dream2lte-OFFICIAL-gapps-20200609.zip",
     )
+    device_build_pairing["dream2lte"]["gapps"] = 1
+
     Build.objects.create(
         device=Device.objects.get(codename="angler"),
         file_name="Bliss-v14-angler-OFFICIAL-vanilla-20200608",
@@ -317,3 +245,4 @@ def mock_builds_setup():
         build_date=date(2020, 6, 8),
         zip_file="angler/Bliss-v14-angler-OFFICIAL-vanilla-20200608.zip",
     )
+    device_build_pairing["angler"]["vanilla"] = 1

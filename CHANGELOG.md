@@ -6,7 +6,21 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.18.1...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.18.2...HEAD
+
+
+# [2.18.2] - 2023-08-02
+
+## Added
+- The raw variant name is shown in the build information
+
+## Changed
+- Fixed shippy crashing due to a missing version text file
+- The main page device listing has proper margins
+- Fixed the byte size information not showing on mouseover for build information
+- General code cleanup
+
+[2.18.2]: https://github.com/shipperstack/shipper/compare/2.18.1...2.18.2
 
 
 # [2.18.1] - 2023-07-27

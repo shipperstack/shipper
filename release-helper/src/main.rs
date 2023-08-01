@@ -73,7 +73,7 @@ options are: --major, --minor, --patch"
                 println!("Only one version flag should be specified.");
                 return;
             }
-            generate_changelog(*major, *minor, *patch);
+            generate(*major, *minor, *patch);
         }
         Commands::Push => {
             push();
@@ -105,7 +105,7 @@ fn today_iso8601() -> String {
     today.format(TIMESTAMP_FORMAT).unwrap()
 }
 
-fn generate_changelog(major: bool, minor: bool, patch: bool) {
+fn generate(major: bool, minor: bool, patch: bool) {
     // Get last version
     let last_version = get_last_version();
 
@@ -115,6 +115,14 @@ fn generate_changelog(major: bool, minor: bool, patch: bool) {
 
     println!("New version is {}", new_version);
 
+    update_changelog(&git_log_raw, &last_version, &new_version);
+
+    write_version_files(&new_version);
+
+    println!("Done! Modify the changelog items as necessary, add with `git add .`, and run `push`.")
+}
+
+fn update_changelog(git_log_raw: &str, last_version: &str, new_version: &str) {
     let binding = fs::read_to_string(CHANGELOG_FILE_NAME)
         .expect("Failed to read the changelog file into memory!");
     let old_changelog = binding.split('\n');
@@ -138,7 +146,7 @@ fn generate_changelog(major: bool, minor: bool, patch: bool) {
             new_changelog.push(String::from(""));
 
             // Add all commit entries (to be sorted later)
-            for commit in parse_git_log(&git_log_raw) {
+            for commit in parse_git_log(git_log_raw) {
                 let commit_msg = commit.msg;
                 new_changelog.push(format!("- {commit_msg}"));
             }
@@ -157,12 +165,12 @@ fn generate_changelog(major: bool, minor: bool, patch: bool) {
         .expect("Failed to write the new changelog contents!");
 
     println!("Changelog entries added.");
+}
 
+fn write_version_files(new_version: &str) {
     fs::write(VERSION_FILE_NAME, new_version).expect("Failed to write the new version text file!");
 
     println!("Version text updated.");
-
-    println!("Done! Modify the changelog items as necessary, add with `git add .`, and run `push`.")
 }
 
 fn get_new_version(last_version_raw: &str, major: bool, minor: bool, patch: bool) -> String {

@@ -34,7 +34,8 @@ from .constants import (
 )
 from .exceptions import LoginException, UploadException
 from .helper import input_yn, print_error, print_warning, print_success
-from .version import __version__, server_compat_version
+from .version import __version__
+from .server_compat_version import server_compat_version
 
 sentry_sdk.init(
     SENTRY_SDK_URL,

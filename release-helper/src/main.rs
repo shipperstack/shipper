@@ -14,6 +14,7 @@ const VERSION: &str = env!("CARGO_PKG_VERSION");
 // These filenames are unlikely to ever change
 const CHANGELOG_FILE_NAME: &str = "CHANGELOG.md";
 const VERSION_FILE_NAME: &str = "version.txt";
+const SHIPPY_VERSION_FILE_NAME: &str = "shippy/shippy/version.py";
 
 // Define timestamp format
 const TIMESTAMP_FORMAT: &[FormatItem] = time::macros::format_description!("[year]-[month]-[day]");
@@ -169,6 +170,7 @@ fn update_changelog(git_log_raw: &str, last_version: &str, new_version: &str) {
 
 fn write_version_files(new_version: &str) {
     fs::write(VERSION_FILE_NAME, new_version).expect("Failed to write the new version text file!");
+    fs::write(SHIPPY_VERSION_FILE_NAME, format!("__version__ = \"{new_version}\"")).expect("Failed to write the new shippy version text file!");
 
     println!("Version text updated.");
 }

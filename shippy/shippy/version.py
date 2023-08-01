@@ -1,4 +1,3 @@
-with open("version.txt") as ver_file:
-    __version__ = ver_file.read().rstrip()
+__version__ = "2.18.1"
 
 server_compat_version = "2.14.0"

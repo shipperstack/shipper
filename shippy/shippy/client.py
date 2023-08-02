@@ -67,6 +67,14 @@ def log_debug_request_response(r):
     logger.debug(f"Received response: {r_content}")
 
 
+def wait_rate_limit(seconds):
+    with console.status(RATE_LIMIT_WAIT_STATUS_MSG.format(seconds)) as status:
+        while seconds:
+            time.sleep(1)
+            seconds -= 1
+            status.update(status=RATE_LIMIT_WAIT_STATUS_MSG.format(seconds))
+
+
 class Client:
     def __init__(self, server_url, token=None):
         self.server_url = server_url
@@ -311,20 +319,13 @@ class Client:
         # Check for rate limit
         if r.status_code == 429:
             print(RATE_LIMIT_MSG)
-            self._wait_rate_limit(int(re.findall(r"\d+", r.json()["detail"])[0]))
+            wait_rate_limit(int(re.findall(r"\d+", r.json()["detail"])[0]))
 
             return self._request(
                 type=type, url=url, headers=headers, data=data, files=files
             )
 
         return r
-
-    def _wait_rate_limit(seconds):
-        with console.status(RATE_LIMIT_WAIT_STATUS_MSG.format(seconds)) as status:
-            while seconds:
-                time.sleep(1)
-                seconds -= 1
-                status.update(status=RATE_LIMIT_WAIT_STATUS_MSG.format(seconds))
 
     def _post(self, url, headers=None, data=None):
         return self._request("POST", url, headers, data)

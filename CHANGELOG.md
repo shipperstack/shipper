@@ -6,7 +6,15 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.18.2...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.18.3...HEAD
+
+
+# [2.18.3] - 2023-08-02
+
+## Changed
+- Fixed shippy crashing due to importing server compat version from the wrong file
+
+[2.18.3]: https://github.com/shipperstack/shipper/compare/2.18.2...2.18.3
 
 
 # [2.18.2] - 2023-08-02

@@ -19,6 +19,11 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 - The main page device listing has proper margins
 - Fixed the byte size information not showing on mouseover for build information
 - General code cleanup
+- Updated library dependencies (server)
+  - sentry-sdk (1.28.1 -> 1.29.0)
+  - paramiko (3.2.0 -> 3.3.1)
+- Updated library dependencies (shippy)
+  - rich (13.4.2 -> 13.5.1)
 
 [2.18.2]: https://github.com/shipperstack/shipper/compare/2.18.1...2.18.2
 
@@ -43,7 +48,7 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 - Added "last updated" and "uploaded on" fields for the device and build pages on the webUI
 
 ## Changed
-- Updated build dependencies
+- Updated library dependencies (server)
   - gunicorn (20.1.0 -> 21.2.0)
 - Fixed Docker mounting the SSH directory to mount as read-only
 - Fixed server crashing when the supplied SSH key had incorrect permissions

@@ -31,7 +31,8 @@ from .constants import (
     CHUNK_SIZE,
 )
 from .exceptions import LoginException, UploadException
-from .version import server_compat_version, __version__
+from .version import __version__
+from .server_compat_version import server_compat_version
 
 console = Console()
 

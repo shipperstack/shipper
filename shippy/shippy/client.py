@@ -239,7 +239,7 @@ class Client:
         except requests.exceptions.RequestException:
             raise UploadException(UNKNOWN_UPLOAD_ERROR_MSG)
 
-        return upload_id
+        return r.json()["build_id"]
 
     def disable_build(self, upload_id):
         r = self._post(

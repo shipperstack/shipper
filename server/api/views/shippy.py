@@ -184,7 +184,16 @@ def v1_maintainers_build_enabled_status_modify(request):
             status=HTTP_400_BAD_REQUEST,
         )
 
-    build = get_object_or_404(Build, pk=build_id)
+    try:
+        build = get_object_or_404(Build, pk=build_id)
+    except ValueError:
+        return Response(
+            {
+                "error": "invalid_parameters",
+                "message": "The specified build ID is invalid.",
+            },
+            status=HTTP_400_BAD_REQUEST,
+        )
     enable = enable.lower() == "true"
 
     # Check if maintainer has permission to modify this build/device

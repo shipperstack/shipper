@@ -6,7 +6,24 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.18.3...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.19.0...HEAD
+
+
+# [2.19.0] - 2023-08-02
+
+- Fixed the server crashing when API clients returned a bad build API parameter
+- Fixed shippy sending the wrong build ID when disabling the build after an upload
+- Fixed shippy not respecting shipper's rate limit response
+- Updated library dependencies (server)
+  - sentry-sdk (1.29.0 -> 1.29.2)
+  - django (4.2.3 -> 4.2.4)
+- Updated library dependencies (shippy)
+  - rich (13.5.1 -> 13.5.2)
+  - sentry-sdk (1.28.1 -> 1.29.2)
+- General code cleanup
+
+
+[2.19.0]: https://github.com/shipperstack/shipper/compare/2.18.3...2.19.0
 
 
 # [2.18.3] - 2023-08-02

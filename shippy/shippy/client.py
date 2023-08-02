@@ -241,15 +241,15 @@ class Client:
 
         return r.json()["build_id"]
 
-    def disable_build(self, upload_id):
+    def disable_build(self, build_id):
         r = self._post(
             "/api/v1/maintainers/build/enabled_status_modify/",
             headers=self._get_header(),
-            data={"build_id": upload_id, "enable": False},
+            data={"build_id": build_id, "enable": False},
         )
 
         if r.status_code == 200:
-            print(f"Build {upload_id} has been disabled.")
+            print(f"Build {build_id} has been disabled.")
         else:
             raise Exception("There was a problem disabling the build.")
 

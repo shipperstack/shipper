@@ -75,10 +75,10 @@ def check_and_upload_build(client, args, build_path):
         f"Uploading build {build_path}. Start?"
     ):
         try:
-            upload_id = client.upload(build_path=build_path)
+            uploaded_build_id = client.upload(build_path=build_path)
 
             if is_build_disabling_enabled():
-                client.disable_build(upload_id=upload_id)
+                client.disable_build(build_id=uploaded_build_id)
         except UploadException as exception:
             print_error(exception, newline=True, exit_after=False)
 

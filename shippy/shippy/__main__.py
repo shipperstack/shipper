@@ -60,33 +60,6 @@ def lower_logger_level():
     logger.add(sys.stderr, level="INFO")
 
 
-def main():
-    # Get commandline arguments
-    args = init_argparse()
-
-    lower_logger_level()
-
-    if args.version:
-        print(__version__)
-        return
-
-    if args.debug:
-        print_warning("Debug mode has been turned on!")
-        logger.add(sink="shippy_{time}.log", level="DEBUG", enqueue=True)
-
-    print(f"Welcome to shippy (v.{__version__})!")
-
-    # Check for updates
-    check_shippy_update()
-
-    # Initialize client
-    client = build_client_from_config()
-    server_prechecks(client)
-
-    # Start uploads
-    search_and_upload_builds(client, args)
-
-
 def server_prechecks(client):
     check_server_compat(client)
     check_token_validity(client)
@@ -398,6 +371,33 @@ def is_build_disabling_enabled():
         return get_config_value("shippy", "DisableBuildOnUpload") == "true"
     except KeyError:
         return False
+
+
+def main():
+    # Get commandline arguments
+    args = init_argparse()
+
+    lower_logger_level()
+
+    if args.version:
+        print(__version__)
+        return
+
+    if args.debug:
+        print_warning("Debug mode has been turned on!")
+        logger.add(sink="shippy_{time}.log", level="DEBUG", enqueue=True)
+
+    print(f"Welcome to shippy (v.{__version__})!")
+
+    # Check for updates
+    check_shippy_update()
+
+    # Initialize client
+    client = build_client_from_config()
+    server_prechecks(client)
+
+    # Start uploads
+    search_and_upload_builds(client, args)
 
 
 if __name__ == "__main__":

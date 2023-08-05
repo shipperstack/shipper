@@ -14,7 +14,7 @@ const VERSION: &str = env!("CARGO_PKG_VERSION");
 // These filenames are unlikely to ever change
 const CHANGELOG_FILE_NAME: &str = "CHANGELOG.md";
 const VERSION_FILE_NAME: &str = "version.txt";
-const SERVER_VERSION_FILENAME: &str = "server/version.txt";
+const SERVER_VERSION_FILE_NAME: &str = "server/version.txt";
 const SHIPPY_VERSION_FILE_NAME: &str = "shippy/shippy/version.py";
 
 // Define timestamp format

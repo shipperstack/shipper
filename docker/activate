@@ -73,7 +73,7 @@ function setversion {
 }
 
 function setlatest {
-    export VERSION_TAG=$(curl -s https://api.github.com/repos/shipperstack/shipper/releases/latest | python -c "import sys, json; print json.load(sys.stdin)['name']")
+    export VERSION_TAG=$(curl -s https://api.github.com/repos/shipperstack/shipper/releases/latest | python3 -c "import sys, json; print(json.load(sys.stdin)['name'])")
     echo "The latest release on GitHub is $VERSION_TAG."
 }
 

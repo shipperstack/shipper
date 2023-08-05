@@ -4,9 +4,29 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 [keep-a-changelog]: https://keepachangelog.com/en/1.0.0/
 
-# [Unreleased]
+# Unreleased
 
-[Unreleased]: https://github.com/shipperstack/shipper-release/compare/0.0.3...HEAD
+# [0.0.6] - 2023-08-06
+
+## Changed
+- Updated Cargo dependencies
+
+[0.0.6]: https://github.com/shipperstack/shipper/commit/d145a90b2cd815fc1587f6051361f4df74779dbc
+
+# [0.0.5] - 2023-08-06
+
+## Changed
+- Updates server subproject's version text file
+
+[0.0.5]: https://github.com/shipperstack/shipper/commit/db057287d281794fe196c7968559e0b3815ae928
+
+# [0.0.4] - 2023-08-02
+
+## Changed
+- Updates shippy subproject's version text file
+- General code cleanup
+
+[0.0.4]: https://github.com/shipperstack/shipper/commit/5e7dad2b1249e143b935520c45fb679cf19bd493
 
 # [0.0.3] - 2023-07-17
 

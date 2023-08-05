@@ -6,11 +6,20 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.19.0...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.19.1...HEAD
+
+
+# [2.19.1] - 2023-08-06
+
+## Changed
+- Fixed incorrect version string for server
+
+[2.19.1]: https://github.com/shipperstack/shipper/compare/2.19.0...2.19.1
 
 
 # [2.19.0] - 2023-08-02
 
+## Changed
 - Fixed the server crashing when API clients returned a bad build API parameter
 - Fixed shippy sending the wrong build ID when disabling the build after an upload
 - Fixed shippy not respecting shipper's rate limit response

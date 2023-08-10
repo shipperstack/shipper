@@ -1,0 +1,5 @@
+# Ignore everything
+/*
+
+# Except for the front-end folder
+!front-end/

@@ -158,4 +158,4 @@ media/
 node_modules/
 
 # Ignore generated JS
-downloads/static/index-bundle.js
+downloads/static/*.bundle.js

@@ -1,14 +1,33 @@
 from django.shortcuts import get_object_or_404
+from django.urls import reverse
 from django.views.generic import DetailView, ListView, TemplateView
 from django.shortcuts import render
 from core.models import Build, Device
 
 
-class DownloadsMainView(ListView):
+class DownloadsMainView(TemplateView):
     template_name = "downloads_main.html"
-    model = Device
 
-    ordering = ["-status", "manufacturer", "name"]
+    def get_context_data(self, **kwargs):
+        active_devices = [
+            device
+            for device in Device.objects.all()
+            if device.has_enabled_hashed_builds()
+        ]
+        return {
+            "active_devices": [
+                {
+                    "codename": device.codename,
+                    "enabled": device.status,
+                    "photo_url": device.photo_url,
+                    "name": str(device),
+                    "url": reverse(
+                        "downloads_device", kwargs={"codename": device.codename}
+                    ),
+                }
+                for device in active_devices
+            ]
+        }
 
 
 class DownloadsDeviceView(DetailView):

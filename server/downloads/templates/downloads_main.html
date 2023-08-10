@@ -13,38 +13,8 @@
 
     {% include 'debug_warning.html' %}
 
-    <div class="container" style="margin-top: 5px; margin-bottom: 30px;">
-        <div class="row row-cols-1 row-cols-md-4 g-4">
+    <div id="root"></div>
 
-            {% for device in object_list %}
-                {% if device.has_enabled_hashed_builds %}
-                    <div
-                    {% if device.status %}
-                        class="col"
-                    {% else %}
-                        class="col disabled-device-card"
-                    {% endif %}
-                    >
-                            <a class="card-url" href="{% url 'downloads_device' codename=device.codename %}">
-                                <div class="card h-100">
-                                    {% if device.photo_url %}
-                                        <img src="{{ device.photo_url }}" class="card-img-top" alt='{% translate "Device photo" %}'>
-                                    {% else %}
-                                        <img src="{% static 'img/no_device_image.png' %}" class="card-img-top" alt='{% translate "Device photo placeholder image" %}'>
-                                    {% endif %}
-                                    <div class="card-body">
-                                        {% if device.status %}
-                                            <h5 class="card-title">{{ device }}</h5>
-                                        {% else %}
-                                            <h5 class="card-title text-reset text-decoration-line-through"
-                                                title='{% translate "This device is no longer supported." %}'>{{ device }}</h5>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                {% endif %}
-            {% endfor %}
-        </div>
-    </div>
+    {{ active_devices|json_script:'active-devices' }}
+    <script src="{% static 'index-bundle.js' %}"></script>
 {% endblock %}

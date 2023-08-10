@@ -156,3 +156,6 @@ media/
 
 # Ignore Node modules
 node_modules/
+
+# Ignore generated JS
+downloads/static/index-bundle.js

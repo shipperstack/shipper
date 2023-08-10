@@ -6,7 +6,20 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.20.2...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.20.3...HEAD
+
+
+# [2.20.3] - 2023-08-11
+
+## Added
+- Added a loading spinner to main downloads page
+
+## Changed
+- Updated base Docker image to Alpine 3.18
+- Fixed main JS file being cached too aggressively with a cache-buster
+- General code cleanup
+
+[2.20.3]: https://github.com/shipperstack/shipper/compare/2.20.2...2.20.3
 
 
 # [2.20.2] - 2023-08-10

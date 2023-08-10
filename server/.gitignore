@@ -153,3 +153,6 @@ media/
 
 # Ignore all SQLite databases
 *.sqlite3
+
+# Ignore Node modules
+node_modules/

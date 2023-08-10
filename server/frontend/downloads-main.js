@@ -1,5 +1,6 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
+import Fuse from "fuse.js";
 
 const root = createRoot(document.getElementById("root"));
 
@@ -34,16 +35,17 @@ function SearchBar({ searchTerm, setSearchTerm }) {
 }
 
 function DownloadList({ filter }) {
-  let filtered_devices = [];
+  let filtered_devices;
 
-  ACTIVE_DEVICES.forEach((element) => {
-    if (
-      filter === "" ||
-      element.name.toLowerCase.includes(filter.toLowerCase())
-    ) {
-      filtered_devices.push(element);
-    }
-  });
+  if (filter) {
+    // Fuzzy search through all devices
+    filtered_devices = new Fuse(ACTIVE_DEVICES, {keys: ['name']}).search(filter);
+
+    // Map results returned from Fuse.js to remove item enclosing
+    filtered_devices = filtered_devices.map((result) => result.item)
+  } else {
+    filtered_devices = ACTIVE_DEVICES;
+  }
 
   return (
     <div

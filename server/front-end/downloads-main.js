@@ -3,9 +3,9 @@ import {createRoot} from "react-dom/client";
 
 const container = document.getElementById('root');
 const root = createRoot(container);
-function DownloadList() {
-    const ACTIVE_DEVICES = JSON.parse(document.getElementById('active-devices').textContent);
 
+const ACTIVE_DEVICES = JSON.parse(document.getElementById('active-devices').textContent);
+function DownloadList() {
     return (
         <div className="container" style={{marginTop: "5px", marginBottom: "30px"}}>
             <div className="row row-cols-1 row-cols-md-4 g-4">

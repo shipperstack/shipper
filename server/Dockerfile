@@ -12,7 +12,9 @@ RUN apk update \
   git \
   postgresql-client \
   libffi-dev \
-  build-base
+  build-base \
+  nodejs \
+  npm
 
 # Upgrade pip
 RUN pip3 install --upgrade pip

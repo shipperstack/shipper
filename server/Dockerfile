@@ -31,12 +31,12 @@ ENV HOME=/home/shipper
 ENV APP_HOME=/home/shipper/web
 WORKDIR $APP_HOME
 
-# Copy server code
-COPY . .
-
 # Create mountpoints
 RUN mkdir -p $APP_HOME/media && \
   mkdir -p $APP_HOME/static
+
+# Copy server code
+COPY . .
 
 # chown all the files to the shipper user
 RUN chown -R shipper:shipper $APP_HOME

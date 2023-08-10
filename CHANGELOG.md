@@ -6,7 +6,21 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.19.1...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.20.0...HEAD
+
+
+# [2.20.0] - 2023-08-10
+
+## Added
+- Added a search bar to the main downloads page
+
+## Changed
+- Updated library dependencies (server)
+  - psycopg2-binary (2.9.6 -> 2.9.7)
+- Changed to use React for certain parts of the frontend (with more to come in the future!)
+
+
+[2.20.0]: https://github.com/shipperstack/shipper/compare/2.19.1...2.20.0
 
 
 # [2.19.1] - 2023-08-06

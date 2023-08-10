@@ -5,11 +5,39 @@ const container = document.getElementById('root');
 const root = createRoot(container);
 
 const ACTIVE_DEVICES = JSON.parse(document.getElementById('active-devices').textContent);
-function DownloadList() {
+
+function App() {
+    let [searchTerm, setSearchTerm] = React.useState("");
+    return (
+        <>
+            <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
+            <DownloadList filter={searchTerm}/>
+        </>
+    )
+}
+
+function SearchBar({searchTerm, setSearchTerm}) {
+    function changedInput(event) {
+        setSearchTerm(event.target.value);
+    }
+
+    return (<input className="form-control" type="text" placeholder="Search for devices" value={searchTerm}
+                   onChange={changedInput}/>);
+}
+
+function DownloadList({filter}) {
+    let filtered_devices = [];
+
+    ACTIVE_DEVICES.forEach((element) => {
+        if (filter === "" || element.name.includes(filter)) {
+            filtered_devices.push(element);
+        }
+    })
+
     return (
         <div className="container" style={{marginTop: "5px", marginBottom: "30px"}}>
             <div className="row row-cols-1 row-cols-md-4 g-4">
-                {ACTIVE_DEVICES.map(device => {
+                {filtered_devices.map(device => {
                     let device_card_style = device.enabled ? "col" : "col disabled-device-card";
                     let device_photo_url = device.photo_url === "" ? "static/img/no_device_image.png" : device.photo_url;
                     let device_card_title_style = device.enabled ? "card-title" : "card-title text-reset text-decoration-line-through";
@@ -17,10 +45,11 @@ function DownloadList() {
                         <div className={device_card_style} key={device.codename}>
                             <a className="card-url" href={device.url}>
                                 <div className="card h-100">
-                                    <img src={device_photo_url} className="card-img-top"></img>
-                                        <div className="card-body">
-                                            <h5 className={device_card_title_style}>{device.name}</h5>
-                                        </div>
+                                    <img src={device_photo_url}
+                                         className="card-img-top"></img>
+                                    <div className="card-body">
+                                        <h5 className={device_card_title_style}>{device.name}</h5>
+                                    </div>
                                 </div>
                             </a>
                         </div>
@@ -32,4 +61,4 @@ function DownloadList() {
 }
 
 
-root.render(<DownloadList />);
+root.render(<App/>);

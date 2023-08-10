@@ -37,7 +37,10 @@ function DownloadList({ filter }) {
   let filtered_devices = [];
 
   ACTIVE_DEVICES.forEach((element) => {
-    if (filter === "" || element.name.includes(filter)) {
+    if (
+      filter === "" ||
+      element.name.toLowerCase.includes(filter.toLowerCase())
+    ) {
       filtered_devices.push(element);
     }
   });

@@ -51,6 +51,7 @@ ENV PATH="${HOME}/.local/bin:${PATH}"
 RUN pip3 install -r requirements.txt
 
 # Frontend generation
+# Warning: do not use --omit=dev, as webpack and bundler is required for building!
 RUN npm install \
   && npm run build
 

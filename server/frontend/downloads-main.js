@@ -87,3 +87,6 @@ root.render(
     <App />
   </React.StrictMode>,
 );
+
+const commit_version = `Running commit ${COMMIT_VERSION}`;
+console.log(commit_version);

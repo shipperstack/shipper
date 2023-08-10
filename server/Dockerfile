@@ -48,4 +48,8 @@ ENV PATH="${HOME}/.local/bin:${PATH}"
 # Install Python dependencies
 RUN pip3 install -r requirements.txt
 
+# Frontend generation
+RUN npm install \
+  && npm run build
+
 ENTRYPOINT ["/bin/sh"]

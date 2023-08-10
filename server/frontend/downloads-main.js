@@ -88,5 +88,5 @@ root.render(
   </React.StrictMode>,
 );
 
-const commit_version = `Running commit ${COMMIT_VERSION}`;
-console.log(commit_version);
+const build_date = `Built on ${BUILD_DATE}`;
+console.log(build_date);

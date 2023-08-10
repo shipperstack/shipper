@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require("webpack");
-const childProcess = require('child_process');
 
+const buildDate = new Date().toISOString().substring(0, 19);
 
 module.exports = {
     entry: './frontend/downloads-main.js',
@@ -21,7 +21,7 @@ module.exports = {
     },
     plugins: [
         new webpack.DefinePlugin({
-            COMMIT_VERSION: JSON.stringify(childProcess.execSync("git rev-parse HEAD").toString())
+            BUILD_DATE: JSON.stringify(buildDate)
         }),
     ]
 }

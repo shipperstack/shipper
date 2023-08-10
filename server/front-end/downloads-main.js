@@ -1,8 +1,7 @@
 import React from "react";
 import {createRoot} from "react-dom/client";
 
-const container = document.getElementById('root');
-const root = createRoot(container);
+const root = createRoot(document.getElementById('root'));
 
 const ACTIVE_DEVICES = JSON.parse(document.getElementById('active-devices').textContent);
 

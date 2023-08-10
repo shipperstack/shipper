@@ -6,7 +6,15 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.20.3...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.20.4...HEAD
+
+
+# [2.20.4] - 2023-08-11
+
+## Changed
+- Fixed webpack crashing and breaking the build process when git repo is unavailable
+
+[2.20.4]: https://github.com/shipperstack/shipper/compare/2.20.3...2.20.4
 
 
 # [2.20.3] - 2023-08-11

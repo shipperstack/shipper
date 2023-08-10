@@ -51,7 +51,7 @@ ENV PATH="${HOME}/.local/bin:${PATH}"
 RUN pip3 install -r requirements.txt
 
 # Frontend generation
-RUN npm install \
+RUN npm install --production \
   && npm run build
 
 ENTRYPOINT ["/bin/sh"]

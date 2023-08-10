@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-    entry: './front-end/downloads-main.js',
+    entry: './frontend/downloads-main.js',
     output: {
         filename: 'downloads-main.bundle.js',
         path: path.resolve(__dirname, './downloads/static'),

@@ -1,5 +1,13 @@
 # Installation
 
+## Requirements
+
+shipper will run on any x86_64 platform, but for best results we recommend running Linux.
+
+To install shipper, Docker and Docker Compose **must** be installed.
+
+A web server (such as Nginx or Apache) should also be installed so that requests to shipper can be reverse-proxied. Although not strictly required, we recommend using one if it is available.
+
 ## Clone the repository
 
 To install shipper using Docker, first clone this entire repository:

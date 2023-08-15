@@ -6,7 +6,16 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.21.0...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.21.1...HEAD
+
+
+# [2.21.1] - 2023-08-15
+
+## Changed
+- Statistics items now list by new order
+- Fixed download type not showing in the admin panel
+
+[2.21.1]: https://github.com/shipperstack/shipper/compare/2.21.0...2.21.1
 
 
 # [2.21.0] - 2023-08-15

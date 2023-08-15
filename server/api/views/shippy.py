@@ -94,11 +94,6 @@ class V1MaintainersChunkedUpload(ChunkedUploadView):
             status=HTTP_200_OK,
         )
 
-    # Disable caching for listing chunked uploads
-    @method_decorator(cache_page(0))
-    def _get(self, request, pk=None, *args, **kwargs):
-        return super()._get(request, pk, *args, **kwargs)
-
 
 @csrf_exempt
 @api_view(["POST"])

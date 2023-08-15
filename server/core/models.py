@@ -341,6 +341,11 @@ class Statistics(models.Model):
     )
     ip = models.GenericIPAddressField(unpack_ipv4=True)
 
+    DOWNLOAD_TYPES = (("download", "Download"), ("update", "Updates (from OTA)"))
+    download_type = models.CharField(
+        max_length=8, default="download", choices=DOWNLOAD_TYPES
+    )
+
     class Meta:
         verbose_name = "statistic"
         verbose_name_plural = "statistics"

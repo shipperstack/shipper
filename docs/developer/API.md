@@ -2,11 +2,17 @@
 
 This page documents the API endpoints exposed by shipper.
 
-## Latest endpoints (v2)
+## Latest endpoints
 
 ### Warning!
 
 The latest API schema is obviously not stable and can change at any time. Please proceed with caution when using these API endpoints, and keep in mind that they may change in functionality/usage and/or may disappear in the future.
+
+Currently, all latest endpoints map to the v1 endpoints, except for the statistics build counter, which maps to v2. In the future, as more API revisions are released, the latest endpoint mapping will be updated without notice. Therefore, do not use this endpoint in production!
+
+If you designed something around the latest endpoint (such as `https://host/api/latest/download/build/counter/`), in order to "production-alize" it, use the version-mapped endpoint that the latest endpoint maps to (in this case, it would be `https://host/api/v2/download/build/counter/`).
+
+## v2 endpoints
 
 ### Statistics
 
@@ -19,8 +25,6 @@ If the user is installing the build for the first time (i.e. they are downloadin
 This endpoint will throw a 404 if a build with the given file name or build ID does not exist, with specific error messages for each scenario.
 
 ## v1 endpoints
-
-These endpoints are stable and are currently the most supported.
 
 ### Statistics
 

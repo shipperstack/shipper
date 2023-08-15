@@ -11,6 +11,7 @@ from rest_framework.views import APIView
 from core.models import Build, Statistics
 
 
+# WARNING: This endpoint is deprecated!
 class V1DownloadBuildCounter(APIView):
     """
     Endpoint to increment build download count
@@ -27,6 +28,87 @@ class V1DownloadBuildCounter(APIView):
                 {
                     "error": "invalid_ip",
                     "message": "Your IP address is invalid!",
+                },
+                status=HTTP_400_BAD_REQUEST,
+            )
+
+        file_name = request.data.get("file_name")
+
+        if file_name:
+            try:
+                build = Build.objects.get(file_name=file_name)
+                Statistics.objects.create(build=build, ip=ip)
+                return Response(
+                    {"message": "The request was successful!"}, status=HTTP_200_OK
+                )
+            except Build.DoesNotExist:
+                return Response(
+                    {
+                        "error": "invalid_build_name",
+                        "message": "A build with that file name does not exist!",
+                    },
+                    status=HTTP_404_NOT_FOUND,
+                )
+
+        build_id = request.data.get("build_id")
+
+        if build_id:
+            try:
+                build = Build.objects.get(pk=int(build_id))
+                Statistics.objects.create(build=build, ip=ip)
+                return Response(
+                    {"message": "The request was successful!"}, status=HTTP_200_OK
+                )
+            except Build.DoesNotExist:
+                return Response(
+                    {
+                        "error": "invalid_build_id",
+                        "message": "A build with that ID does not exist!",
+                    },
+                    status=HTTP_404_NOT_FOUND,
+                )
+
+        return Response(
+            {
+                "error": "missing_parameters",
+                "message": "No parameters specified. Specify a file_name parameter or "
+                "a build_id parameter.",
+            },
+            status=HTTP_400_BAD_REQUEST,
+        )
+
+
+class V2DownloadBuildCounter(APIView):
+    """
+    Endpoint to increment build download count
+    """
+
+    permission_classes = [AllowAny]
+
+    # noinspection PyMethodMayBeStatic
+    def post(self, request):
+        # Try getting IP
+        ip = request.META.get("REMOTE_ADDR")
+        if ip is None:
+            return Response(
+                {
+                    "error": "invalid_ip",
+                    "message": "Your IP address is invalid!",
+                },
+                status=HTTP_400_BAD_REQUEST,
+            )
+
+        # Try getting download type
+        download_type = request.data.get("download_type")
+
+        VALID_DOWNLOAD_TYPES = [i[0] for i in Statistics.DOWNLOAD_TYPES]
+
+        if download_type not in VALID_DOWNLOAD_TYPES:
+            return Response(
+                {
+                    "error": "invalid_download_type",
+                    "message": f"The supplied download type does not exist! Valid "
+                    f"values are {', '.join(VALID_DOWNLOAD_TYPES)}",
                 },
                 status=HTTP_400_BAD_REQUEST,
             )

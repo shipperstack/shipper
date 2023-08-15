@@ -17,6 +17,7 @@ from .views import (
     v1_maintainers_token_check,
     v1_maintainers_upload_filename_regex_pattern,
     v1_system_info,
+    V2DownloadBuildCounter,
 )
 
 urlpatterns = [
@@ -25,6 +26,11 @@ urlpatterns = [
         "v1/download/build/counter/",
         V1DownloadBuildCounter.as_view(),
         name="v1_download_build_counter",
+    ),
+    path(
+        "v2/download/build/counter/",
+        V2DownloadBuildCounter.as_view(),
+        name="v2_download_build_counter",
     ),
     path("v1/download/count/day/", v1_download_count_day, name="v1_download_count_day"),
     path(

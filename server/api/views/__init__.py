@@ -14,6 +14,7 @@ from .shippy import (
 )
 from .statistics import (
     V1DownloadBuildCounter,
+    V2DownloadBuildCounter,
     v1_download_count_all,
     v1_download_count_day,
     v1_download_count_month,
@@ -33,6 +34,7 @@ __all__ = [
     "v1_maintainers_upload_filename_regex_pattern",
     "v1_system_info",
     "V1DownloadBuildCounter",
+    "V2DownloadBuildCounter",
     "v1_download_count_day",
     "v1_download_count_week",
     "v1_download_count_month",

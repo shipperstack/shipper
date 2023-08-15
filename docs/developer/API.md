@@ -2,13 +2,21 @@
 
 This page documents the API endpoints exposed by shipper.
 
-## Latest endpoints
+## Latest endpoints (v2)
 
 ### Warning!
 
 The latest API schema is obviously not stable and can change at any time. Please proceed with caution when using these API endpoints, and keep in mind that they may change in functionality/usage and/or may disappear in the future.
 
-TBA
+### Statistics
+
+ - `https://host/api/v2/download/build/counter/`
+
+Increments the download count of a given build. This API should be called by the OTA system whenever a user downloads a build. Either the `file_name` field or the `build_id` field must be supplied via REST. The `download_type` field must also be supplied, and it can currently either be `download` or `update`.
+
+If the user is installing the build for the first time (i.e. they are downloading the build from your app to install on their device), then the download type should be `download`. If the user is obtaining the build through an OTA app, then the download type should be `update`. The endpoint will throw a 400 if a different download type is given.
+
+This endpoint will throw a 404 if a build with the given file name or build ID does not exist, with specific error messages for each scenario.
 
 ## v1 endpoints
 
@@ -17,6 +25,8 @@ These endpoints are stable and are currently the most supported.
 ### Statistics
 
  - `https://host/api/v1/download/build/counter/`
+
+#### This endpoint has been deprecated for v2. It will be removed at some point in the future!
 
 Increments the download count of a given build. This API should be called by the OTA system whenever a user downloads a build. Either the `file_name` field or the `build_id` field must be supplied via REST.
 

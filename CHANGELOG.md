@@ -6,7 +6,25 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.20.4...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.21.0...HEAD
+
+
+# [2.21.0] - 2023-08-15
+
+This release contains a database migration.
+
+## Added
+- Added download type to statistics model
+  All previous statistics will be set to the "download" type by default.
+- Added v2 download build counter endpoint
+- Added "latest" API endpoints (unstable!)
+
+## Changed
+- Removed workaround for bug in drf_chunked_upload
+- Updated library dependencies (server)
+  - drf-chunked-upload (0.5.1 -> 0.6.0)
+
+[2.21.0]: https://github.com/shipperstack/shipper/compare/2.20.4...2.21.0
 
 
 # [2.20.4] - 2023-08-11

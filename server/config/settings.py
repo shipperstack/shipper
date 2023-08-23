@@ -34,7 +34,6 @@ with open("shippy_compat_version.txt") as v_file:
 # Application definition
 INSTALLED_APPS = [
     "constance",
-    "constance.backends.database",
     "django.contrib.admin",
     "django.contrib.auth",
     "accounts",

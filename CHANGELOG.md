@@ -6,7 +6,29 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.21.1...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.22.0...HEAD
+
+
+# [2.22.0] - 2023-09-02
+
+This release contains a database migration.
+
+## Added
+- Added a legacy mode toggle for mirror servers for resolving SSH issues
+
+## Changed
+- Updated library dependencies (server)
+  - humanize (4.7.0 -> 4.8.0)
+  - django-constance[database] (2.9.1 -> 3.1.0)
+  - sentry-sdk (1.29.2 -> 1.30.0)
+  - celery (5.3.1 -> 5.3.3)
+- Updated library dependencies (shippy)
+  - humanize (4.7.0 -> 4.8.0)
+  - setuptools (68.0.0 -> 68.1.2)
+  - sentry-sdk (1.29.2 -> 1.30.0)
+
+
+[2.22.0]: https://github.com/shipperstack/shipper/compare/2.21.1...2.22.0
 
 
 # [2.21.1] - 2023-08-15

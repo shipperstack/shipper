@@ -147,6 +147,12 @@ class MirrorServer(models.Model):
         verbose_name="SSH host fingerprint",
         blank=False,
     )
+    legacy_connection_mode = models.BooleanField(
+        help_text="Disables certain SSH key verification algorithms. We recommend "
+        "leaving this unchecked unless something goes wrong during the verification "
+        "process.",
+        default=False,
+    )
     ssh_username = models.TextField(
         max_length=50,
         help_text="SSH username to connect with",

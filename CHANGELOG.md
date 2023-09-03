@@ -6,7 +6,16 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.22.1...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.22.2...HEAD
+
+
+# [2.22.2] - 2023-09-03
+
+## Changed
+- Updated library dependencies (server)
+  - celery (5.3.3 -> 5.3.4)
+
+[2.22.2]: https://github.com/shipperstack/shipper/compare/2.22.1...2.22.2
 
 
 # [2.22.1] - 2023-09-03

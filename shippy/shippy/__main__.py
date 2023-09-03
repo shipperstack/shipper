@@ -211,7 +211,7 @@ def check_shippy_update():
     with console.status("Please wait while shippy checks for updates... "):
         try:
             r = requests.get(
-                "https://api.github.com/repos/shipperstack/shippy/releases/latest"
+                "https://api.github.com/repos/shipperstack/shipper/releases/latest"
             )
             latest_version = r.json()["name"]
         except KeyError:

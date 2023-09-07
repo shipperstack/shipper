@@ -41,6 +41,7 @@ class BuildAdmin(admin.ModelAdmin):
     ]
     list_filter = ["enabled", HashedFilter, MirroredFilter]
     ordering = ["-created"]
+    search_fields = ["id", "file_name"]
 
     @admin.display(
         description="Device",

@@ -33,4 +33,8 @@ app.conf.beat_schedule = {
         "task": "device_photo_thumbhash_generate",
         "schedule": 60 * 5,  # Every 5 minutes
     },
+    "drf_chunked_upload_cleanup": {
+        "task": "drf_chunked_upload_cleanup",
+        "schedule": 60 * 60 * 24 * 7,  # Every week
+    },
 }

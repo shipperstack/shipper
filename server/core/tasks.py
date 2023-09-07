@@ -18,6 +18,8 @@ from celery import shared_task
 from celery.utils.log import get_task_logger
 from django.utils import timezone
 from django_celery_results.models import TaskResult
+from drf_chunked_upload import settings as drf_settings
+from drf_chunked_upload.models import ChunkedUpload
 from thumbhash import image_to_thumbhash
 
 import config.settings
@@ -333,3 +335,16 @@ def device_photo_thumbhash_generate():
         with device.photo.open("rb") as photo:
             device.photo_thumbhash = image_to_thumbhash(photo)
             device.save()
+
+
+@shared_task(
+    name="drf_chunked_upload_cleanup",
+    queue="default",
+)
+def drf_chunked_upload_cleanup():
+    chunked_uploads = ChunkedUpload.objects.filter(
+        created_at__lt=(timezone.now() - drf_settings.EXPIRATION_DELTA)
+    )
+
+    for chunked_upload in chunked_uploads:
+        chunked_upload.delete()

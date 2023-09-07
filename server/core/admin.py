@@ -75,6 +75,7 @@ class MirrorServerAdmin(admin.ModelAdmin):
 class StatisticsAdmin(admin.ModelAdmin):
     readonly_fields = ["time", "build", "download_type", "ip"]
     list_display = ["time", "build", "download_type", "ip"]
+    list_filter = ["download_type"]
     ordering = ["-time"]
 
 

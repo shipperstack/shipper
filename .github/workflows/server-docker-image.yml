@@ -22,7 +22,7 @@ jobs:
         run: echo "TAG_VERSION=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_ENV
       - name: Extract Docker image metadata
         id: metadata
-        uses: docker/metadata-action@v4
+        uses: docker/metadata-action@v5
         with:
           images: ghcr.io/shipperstack/shipper-server
           tags: type=semver,pattern={{version}},value=${{ env.TAG_VERSION }}

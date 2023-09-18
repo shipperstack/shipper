@@ -32,50 +32,7 @@ class V1DownloadBuildCounter(APIView):
                 status=HTTP_400_BAD_REQUEST,
             )
 
-        file_name = request.data.get("file_name")
-
-        if file_name:
-            try:
-                build = Build.objects.get(file_name=file_name)
-                Statistics.objects.create(build=build, ip=ip)
-                return Response(
-                    {"message": "The request was successful!"}, status=HTTP_200_OK
-                )
-            except Build.DoesNotExist:
-                return Response(
-                    {
-                        "error": "invalid_build_name",
-                        "message": "A build with that file name does not exist!",
-                    },
-                    status=HTTP_404_NOT_FOUND,
-                )
-
-        build_id = request.data.get("build_id")
-
-        if build_id:
-            try:
-                build = Build.objects.get(pk=int(build_id))
-                Statistics.objects.create(build=build, ip=ip)
-                return Response(
-                    {"message": "The request was successful!"}, status=HTTP_200_OK
-                )
-            except Build.DoesNotExist:
-                return Response(
-                    {
-                        "error": "invalid_build_id",
-                        "message": "A build with that ID does not exist!",
-                    },
-                    status=HTTP_404_NOT_FOUND,
-                )
-
-        return Response(
-            {
-                "error": "missing_parameters",
-                "message": "No parameters specified. Specify a file_name parameter or "
-                "a build_id parameter.",
-            },
-            status=HTTP_400_BAD_REQUEST,
-        )
+        return create_statistics_from_request(ip, request)
 
 
 class V2DownloadBuildCounter(APIView):
@@ -113,50 +70,50 @@ class V2DownloadBuildCounter(APIView):
                 status=HTTP_400_BAD_REQUEST,
             )
 
-        file_name = request.data.get("file_name")
+        return create_statistics_from_request(ip, request)
 
-        if file_name:
-            try:
-                build = Build.objects.get(file_name=file_name)
-                Statistics.objects.create(build=build, ip=ip)
-                return Response(
-                    {"message": "The request was successful!"}, status=HTTP_200_OK
-                )
-            except Build.DoesNotExist:
-                return Response(
-                    {
-                        "error": "invalid_build_name",
-                        "message": "A build with that file name does not exist!",
-                    },
-                    status=HTTP_404_NOT_FOUND,
-                )
 
-        build_id = request.data.get("build_id")
-
-        if build_id:
-            try:
-                build = Build.objects.get(pk=int(build_id))
-                Statistics.objects.create(build=build, ip=ip)
-                return Response(
-                    {"message": "The request was successful!"}, status=HTTP_200_OK
-                )
-            except Build.DoesNotExist:
-                return Response(
-                    {
-                        "error": "invalid_build_id",
-                        "message": "A build with that ID does not exist!",
-                    },
-                    status=HTTP_404_NOT_FOUND,
-                )
-
-        return Response(
-            {
-                "error": "missing_parameters",
-                "message": "No parameters specified. Specify a file_name parameter or "
-                "a build_id parameter.",
-            },
-            status=HTTP_400_BAD_REQUEST,
-        )
+def create_statistics_from_request(ip, request):
+    file_name = request.data.get("file_name")
+    if file_name:
+        try:
+            build = Build.objects.get(file_name=file_name)
+            Statistics.objects.create(build=build, ip=ip)
+            return Response(
+                {"message": "The request was successful!"}, status=HTTP_200_OK
+            )
+        except Build.DoesNotExist:
+            return Response(
+                {
+                    "error": "invalid_build_name",
+                    "message": "A build with that file name does not exist!",
+                },
+                status=HTTP_404_NOT_FOUND,
+            )
+    build_id = request.data.get("build_id")
+    if build_id:
+        try:
+            build = Build.objects.get(pk=int(build_id))
+            Statistics.objects.create(build=build, ip=ip)
+            return Response(
+                {"message": "The request was successful!"}, status=HTTP_200_OK
+            )
+        except Build.DoesNotExist:
+            return Response(
+                {
+                    "error": "invalid_build_id",
+                    "message": "A build with that ID does not exist!",
+                },
+                status=HTTP_404_NOT_FOUND,
+            )
+    return Response(
+        {
+            "error": "missing_parameters",
+            "message": "No parameters specified. Specify a file_name parameter or "
+            "a build_id parameter.",
+        },
+        status=HTTP_400_BAD_REQUEST,
+    )
 
 
 @csrf_exempt

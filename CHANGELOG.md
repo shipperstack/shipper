@@ -6,7 +6,15 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.23.1...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.23.2...HEAD
+
+
+# [2.23.2] - 2023-09-18
+
+## Changed
+- Fixed shippy incorrectly initializing Sentry SDK for error reporting
+
+[2.23.2]: https://github.com/shipperstack/shipper/compare/2.23.1...2.23.2
 
 
 # [2.23.1] - 2023-09-18

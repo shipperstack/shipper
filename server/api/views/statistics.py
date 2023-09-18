@@ -14,7 +14,7 @@ from core.models import Build, Statistics
 # WARNING: This endpoint is deprecated!
 class V1DownloadBuildCounter(APIView):
     """
-    Endpoint to increment build download count
+    Increments the download count for a given build
     """
 
     permission_classes = [AllowAny]
@@ -80,7 +80,7 @@ class V1DownloadBuildCounter(APIView):
 
 class V2DownloadBuildCounter(APIView):
     """
-    Endpoint to increment build download count
+    Increments the download count for a given build
     """
 
     permission_classes = [AllowAny]
@@ -164,6 +164,10 @@ class V2DownloadBuildCounter(APIView):
 @permission_classes((AllowAny,))
 @cache_page(60 * 5)  # cached for 5 minutes
 def v1_download_count_day(_):
+    """
+    Returns the download count for the last 24 hours
+    :return: the download count for the last 24 hours
+    """
     return download_count_by_days_response(1)
 
 
@@ -172,6 +176,10 @@ def v1_download_count_day(_):
 @permission_classes((AllowAny,))
 @cache_page(60 * 60)  # cached for 1 hour
 def v1_download_count_week(_):
+    """
+    Returns the download count for the last 7 days
+    :return: the download count for the last 7 days
+    """
     return download_count_by_days_response(7)
 
 
@@ -180,6 +188,10 @@ def v1_download_count_week(_):
 @permission_classes((AllowAny,))
 @cache_page(60 * 60 * 5)  # cached for 5 hours
 def v1_download_count_month(_):
+    """
+    Returns the download count for the last 31 days
+    :return: the download count for the last 31 days
+    """
     return download_count_by_days_response(31)
 
 
@@ -188,6 +200,10 @@ def v1_download_count_month(_):
 @permission_classes((AllowAny,))
 @cache_page(60 * 60 * 24)  # cached for 1 day
 def v1_download_count_all(_):
+    """
+    Returns the download count since the beginning of this server
+    :return the download count since the beginning of this server
+    """
     return Response({"count": Statistics.objects.all().count()})
 
 

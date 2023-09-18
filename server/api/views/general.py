@@ -21,7 +21,7 @@ User = get_user_model()
 
 class V1GeneralDeviceAll(APIView):
     """
-    General endpoint to list all devices in shipper
+    Returns a list of all devices in shipper, with their active status and variants
     """
 
     permission_classes = [AllowAny]
@@ -47,7 +47,7 @@ class V1GeneralDeviceAll(APIView):
 
 class V1GeneralMaintainerAll(APIView):
     """
-    General endpoint to list all maintainer information registered with shipper
+    Returns a list of all maintainers' information registered with shipper
     """
 
     permission_classes = [AllowAny]
@@ -70,7 +70,7 @@ class V1GeneralMaintainerAll(APIView):
 
 class V1GeneralMaintainerActive(APIView):
     """
-    General endpoint to list active maintainer information registered with shipper
+    Returns a list of **active** maintainers' information registered with shipper
     """
 
     permission_classes = [AllowAny]
@@ -92,7 +92,7 @@ class V1GeneralMaintainerActive(APIView):
 
 class V1GeneralBuildLatest(APIView):
     """
-    General endpoint for build information
+    Returns the latest build information for a given device and variant
     """
 
     permission_classes = [AllowAny]

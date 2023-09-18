@@ -33,6 +33,10 @@ class V1MaintainersChunkedUploadSerializer(ChunkedUploadSerializer):
 
 
 class V1MaintainersChunkedUpload(ChunkedUploadView):
+    """
+    Internal endpoint used by shippy to chunk-upload build artifacts
+    """
+
     serializer_class = V1MaintainersChunkedUploadSerializer
 
     def on_completion(self, chunked_upload, request) -> Response:
@@ -99,6 +103,12 @@ class V1MaintainersChunkedUpload(ChunkedUploadView):
 @api_view(["POST"])
 @permission_classes((AllowAny,))
 def v1_maintainers_login(request):
+    """
+    Returns a token when passed login details for a maintainer
+
+    :param request: data must include `username` and `password`
+    :return: an API token
+    """
     username = request.data.get("username")
     password = request.data.get("password")
     if username is None or password is None:
@@ -133,6 +143,11 @@ def v1_maintainers_login(request):
 @api_view(["GET"])
 @permission_classes((AllowAny,))
 def v1_system_info(_):
+    """
+    Returns shipper system information
+
+    :return: the current shipper system information
+    """
     return Response(
         {
             "version": settings.SHIPPER_VERSION,
@@ -147,6 +162,12 @@ def v1_system_info(_):
 @csrf_exempt
 @api_view(["GET"])
 def v1_maintainers_token_check(request):
+    """
+    Checks whether a given API token is still valid or not
+
+    :param request: the token must be supplied via an authorization header
+    :return: The username if the token is still valid, or an HTTP error code otherwise
+    """
     # Update login timestamp
     update_last_login(None, request.user)
 
@@ -158,6 +179,12 @@ def v1_maintainers_token_check(request):
 @csrf_exempt
 @api_view(["GET"])
 def v1_maintainers_upload_filename_regex_pattern(request):
+    """
+    Returns the upload filename regex pattern defined by the server administrators
+
+    :param request: the token must be supplied via an authorization header
+    :return: The upload filename regex pattern
+    """
     # Update login timestamp
     update_last_login(None, request.user)
 
@@ -167,6 +194,12 @@ def v1_maintainers_upload_filename_regex_pattern(request):
 @csrf_exempt
 @api_view(["POST"])
 def v1_maintainers_build_enabled_status_modify(request):
+    """
+    Modifies the given build's enabled status
+
+    :param request: data must include `build_id` and `enable`
+    :return: Whether the build was enabled or disabled
+    """
     build_id = request.data.get("build_id")
     enable = request.data.get("enable")
     if build_id is None or enable is None:

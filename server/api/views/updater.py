@@ -14,7 +14,7 @@ from core.models import Device
 
 class V1UpdaterLOS(APIView):
     """
-    LOS-style updater endpoint
+    Returns updater information that is similar in spec to what LOSUpdater expects
     """
 
     permission_classes = [AllowAny]

@@ -38,9 +38,9 @@ from .version import __version__
 from .server_compat_version import server_compat_version
 
 sentry_sdk.init(
-    SENTRY_SDK_URL,
+    dsn=SENTRY_SDK_URL,
     traces_sample_rate=1.0,
-    release=__version__,
+    release=f"{__version__}",
     ignore_errors=[ConnectionError],
 )
 

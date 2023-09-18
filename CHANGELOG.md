@@ -6,7 +6,30 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.22.2...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.23.0...HEAD
+
+
+# [2.23.0] - 2023-09-18
+
+## Added
+- Added search functionality to the build admin page
+- Added filters to filter by download type for statistics
+- Added task to clean up expired chunked upload
+- Added OpenAPI schema generation
+
+## Changed
+- Updated library dependencies (shippy)
+  - loguru (0.7.0 -> 0.7.2)
+  - setuptools (68.1.2 -> 68.2.2)
+  - sentry-sdk (1.30.0 -> 1.31.0)
+- Updated library dependencies (server)
+  - django (4.2.4 -> 4.2.5)
+  - sentry-sdk (1.30.0 -> 1.31.0)
+- Updated internal documentation for API endpoints
+- General code cleanup
+
+
+[2.23.0]: https://github.com/shipperstack/shipper/compare/2.22.2...2.23.0
 
 
 # [2.22.2] - 2023-09-03

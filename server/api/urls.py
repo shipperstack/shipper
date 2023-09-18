@@ -1,5 +1,7 @@
 from django.urls import path
+from rest_framework.schemas import get_schema_view
 
+from config import settings
 from .views import (
     V1DownloadBuildCounter,
     V1GeneralBuildLatest,
@@ -21,6 +23,14 @@ from .views import (
 )
 
 urlpatterns = [
+    # OpenAPI schema
+    path(
+        "openapi/",
+        get_schema_view(
+            title="shipper", description="shipper API", version=settings.SHIPPER_VERSION
+        ),
+        name="openapi-schema",
+    ),
     # statistics
     path(
         "latest/download/build/counter/",

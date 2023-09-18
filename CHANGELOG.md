@@ -6,7 +6,17 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.23.0...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.23.1...HEAD
+
+
+# [2.23.1] - 2023-09-18
+
+## Changed
+- Updated library dependencies (shippy)
+  - rich (13.5.2 -> 13.5.3)
+- Fixed OpenAPI schema generation crashing due to missing dependency
+
+[2.23.1]: https://github.com/shipperstack/shipper/compare/2.23.0...2.23.1
 
 
 # [2.23.0] - 2023-09-18

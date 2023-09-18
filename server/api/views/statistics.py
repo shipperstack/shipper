@@ -57,15 +57,14 @@ class V2DownloadBuildCounter(APIView):
 
         # Try getting download type
         download_type = request.data.get("download_type")
+        valid_download_types = [i[0] for i in Statistics.DOWNLOAD_TYPES]
 
-        VALID_DOWNLOAD_TYPES = [i[0] for i in Statistics.DOWNLOAD_TYPES]
-
-        if download_type not in VALID_DOWNLOAD_TYPES:
+        if download_type not in valid_download_types:
             return Response(
                 {
                     "error": "invalid_download_type",
                     "message": f"The supplied download type does not exist! Valid "
-                    f"values are {', '.join(VALID_DOWNLOAD_TYPES)}",
+                    f"values are {', '.join(valid_download_types)}",
                 },
                 status=HTTP_400_BAD_REQUEST,
             )

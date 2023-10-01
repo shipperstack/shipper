@@ -9,7 +9,7 @@ from api.views import (
     v1_download_count_week,
     v1_download_count_month,
     v1_download_count_all,
-    V1DownloadBuildCounter,
+    V2DownloadBuildCounter,
 )
 from core.models import Statistics, Build
 from core.tests import mock_devices_setup, mock_builds_setup
@@ -61,18 +61,21 @@ class StatisticsIncrementTestCase(APITestCase):
         mock_builds_setup()
         mock_statistics_setup()
         self.factory = APIRequestFactory()
-        V1DownloadBuildCounter.throttle_classes = ()
+        V2DownloadBuildCounter.throttle_classes = ()
 
-    def test_v1_download_build_counter(self):
+    def test_v2_download_build_counter(self):
         previous_count = Build.objects.get(
             file_name="Bliss-v14-angler-OFFICIAL-vanilla-20200608"
         ).build_stats.count()
         request = self.factory.post(
-            "/api/v1/download/build/counter/",
-            data={"file_name": "Bliss-v14-angler-OFFICIAL-vanilla-20200608"},
+            "/api/v2/download/build/counter/",
+            data={
+                "file_name": "Bliss-v14-angler-OFFICIAL-vanilla-20200608",
+                "download_type": "download",
+            },
         )
         request.user = AnonymousUser()
-        response = V1DownloadBuildCounter.as_view()(request)
+        response = V2DownloadBuildCounter.as_view()(request)
 
         self.assertEqual(response.status_code, 200)
         self.assertTrue(
@@ -82,34 +85,60 @@ class StatisticsIncrementTestCase(APITestCase):
             > previous_count
         )
 
-    def test_v1_download_build_counter_invalid_build_name(self):
+    def test_v2_download_build_counter_invalid_build_name(self):
         request = self.factory.post(
-            "/api/v1/download/build/counter/",
-            data={"file_name": "Bliss-v14-unknown-OFFICIAL-vanilla-20200608"},
+            "/api/v2/download/build/counter/",
+            data={
+                "file_name": "Bliss-v14-unknown-OFFICIAL-vanilla-20200608",
+                "download_type": "download",
+            },
         )
         request.user = AnonymousUser()
-        response = V1DownloadBuildCounter.as_view()(request)
+        response = V2DownloadBuildCounter.as_view()(request)
 
         self.assertEqual(response.status_code, 404)
         self.assertEqual(response.data["error"], "invalid_build_name")
 
-    def test_v1_download_build_counter_invalid_build_id(self):
+    def test_v2_download_build_counter_invalid_build_id(self):
         request = self.factory.post(
-            "/api/v1/download/build/counter/", data={"build_id": 999999999}
+            "/api/v2/download/build/counter/",
+            data={
+                "build_id": 999999999,
+                "download_type": "download",
+            },
         )
         request.user = AnonymousUser()
-        response = V1DownloadBuildCounter.as_view()(request)
+        response = V2DownloadBuildCounter.as_view()(request)
 
         self.assertEqual(response.status_code, 404)
         self.assertEqual(response.data["error"], "invalid_build_id")
 
-    def test_v1_download_build_counter_invalid_missing_parameters(self):
-        request = self.factory.post("/api/v1/download/build/counter/")
+    def test_v2_download_build_counter_invalid_download_type(self):
+        request = self.factory.post(
+            "/api/v2/download/build/counter/",
+            data={
+                "file_name": "Bliss-v14-angler-OFFICIAL-vanilla-20200608",
+                "download_type": "invalid",
+            },
+        )
         request.user = AnonymousUser()
-        response = V1DownloadBuildCounter.as_view()(request)
+        response = V2DownloadBuildCounter.as_view()(request)
 
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(response.data["error"], "missing_parameters")
+        self.assertEqual(response.data["error"], "invalid_download_type")
+
+    def test_v2_download_build_counter_missing_build_information(self):
+        request = self.factory.post(
+            "/api/v2/download/build/counter/",
+            data={
+                "download_type": "download",
+            },
+        )
+        request.user = AnonymousUser()
+        response = V2DownloadBuildCounter.as_view()(request)
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.data["error"], "missing_build_information")
 
 
 def mock_statistics_object_create(time, build, ip):

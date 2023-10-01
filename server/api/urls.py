@@ -3,7 +3,6 @@ from rest_framework.schemas import get_schema_view
 
 from config import settings
 from .views import (
-    V1DownloadBuildCounter,
     V1GeneralBuildLatest,
     V1GeneralDeviceAll,
     V1GeneralMaintainerAll,
@@ -56,11 +55,6 @@ urlpatterns = [
         "latest/download/count/all/",
         v1_download_count_all,
         name="latest_download_count_all",
-    ),
-    path(
-        "v1/download/build/counter/",
-        V1DownloadBuildCounter.as_view(),
-        name="v1_download_build_counter",
     ),
     path(
         "v2/download/build/counter/",

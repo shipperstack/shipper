@@ -11,30 +11,6 @@ from rest_framework.views import APIView
 from core.models import Build, Statistics
 
 
-# WARNING: This endpoint is deprecated!
-class V1DownloadBuildCounter(APIView):
-    """
-    Increments the download count for a given build
-    """
-
-    permission_classes = [AllowAny]
-
-    # noinspection PyMethodMayBeStatic
-    def post(self, request):
-        # Try getting IP
-        ip = request.META.get("REMOTE_ADDR")
-        if ip is None:
-            return Response(
-                {
-                    "error": "invalid_ip",
-                    "message": "Your IP address is invalid!",
-                },
-                status=HTTP_400_BAD_REQUEST,
-            )
-
-        return create_statistics_from_request(ip, request)
-
-
 class V2DownloadBuildCounter(APIView):
     """
     Increments the download count for a given build

@@ -327,6 +327,14 @@ class Build(models.Model):
 
         return has_mirror
 
+    @admin.display(
+        description="Archived",
+        boolean=True,
+    )
+    def is_archived(self):
+        age = date.today() - self.build_date
+        return age > config.SHIPPER_BUILD_ARCHIVE_DAYS
+
     def __str__(self):
         return self.file_name
 

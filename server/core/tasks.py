@@ -50,7 +50,11 @@ def process_incomplete_builds():
     for build in [build for build in Build.objects.all() if not build.is_hashed()]:
         generate_checksum.delay(build.id)
 
-    for build in [build for build in Build.objects.all() if not build.is_mirrored()]:
+    for build in [
+        build
+        for build in Build.objects.all()
+        if not build.is_mirrored() and not build.is_archived()
+    ]:
         mirror_build.delay(build.id)
 
 
@@ -74,6 +78,12 @@ def mirror_build(self, build_id):
 
             if len(mirrors) == 0:
                 logger.warning("No mirror servers found to mirror to. Exiting...")
+                return
+
+            if build.is_archived():
+                logger.warning(
+                    f"Build {build.file_name} is an archived build! Not mirroring..."
+                )
                 return
 
             for mirror in mirrors:

@@ -283,6 +283,11 @@ CONSTANCE_CONFIG = {
         "supported. Specify multiple versions on each line.",
         str,
     ),
+    "SHIPPER_BUILD_ARCHIVE_DAYS": (
+        90,
+        "Builds that are 'archived' in the system after this many number of days. "
+        "Archived builds are not mirrored to any mirror servers.",
+    ),
 }
 CONSTANCE_CONFIG_FIELDSETS = {
     "Downloads page": (
@@ -297,6 +302,7 @@ CONSTANCE_CONFIG_FIELDSETS = {
         "SHIPPER_FILE_NAME_FORMAT",
         "SHIPPER_ALLOWED_VERSIONS_TO_UPLOAD",
     ),
+    "Maintenance": ("SHIPPER_BUILD_ARCHIVE_DAYS",),
 }
 
 # Django Crispy Forms

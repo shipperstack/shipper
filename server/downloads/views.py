@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
-from django.views.generic import DetailView, ListView, TemplateView
+from django.views.generic import DetailView, TemplateView
 from django.shortcuts import render
 from core.models import Build, Device
 

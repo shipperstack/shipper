@@ -36,6 +36,7 @@ class BuildAdmin(admin.ModelAdmin):
         "get_build_device_maintainers",
         "get_download_count",
         "is_hashed",
+        "is_archived",
         "is_mirrored",
         "created",
     ]

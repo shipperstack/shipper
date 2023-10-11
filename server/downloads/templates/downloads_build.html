@@ -118,7 +118,7 @@
                 const downloadURL = element.getAttribute("href");
 
                 const xhr = new XMLHttpRequest();
-                xhr.open('POST', "{% url 'v1_download_build_counter' %}", true);
+                xhr.open('POST', "{% url 'v2_download_build_counter' %}", true);
                 xhr.setRequestHeader("Content-Type", "application/json");
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -129,6 +129,7 @@
                 xhr.send(JSON.stringify({
                     file_name: "{{ object.file_name }}",
                     build_id: {{ object.id }},
+                    download_type: "download",
                 }));
             })
         });

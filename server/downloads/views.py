@@ -1,8 +1,11 @@
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.views.generic import DetailView, ListView, TemplateView
 from django.shortcuts import render
 from core.models import Build, Device
+
+from constance import config
 
 
 class DownloadsMainView(TemplateView):
@@ -53,3 +56,15 @@ class LanguageSwitchView(TemplateView):
         if not redirect_url:
             redirect_url = "/"
         return render(request, self.template_name, {"redirect_to": redirect_url})
+
+
+def download_view(request, codename, file_name):
+    build = get_object_or_404(Build, file_name=file_name, device__codename=codename)
+    response = HttpResponse()
+    response["X-Accel-Redirect"] = f"/media/{codename}/{file_name}"
+
+    if build.is_archived:
+        limit_speed = config.SHIPPER_DOWNLOADS_ARCHIVE_THROTTLE * 1000
+        response["X-Accel-Limit-Rate"] = str(limit_speed)
+
+    return response

@@ -6,7 +6,31 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.23.2...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.24.0...HEAD
+
+
+# [2.24.0] - 2023-10-11
+
+## Added
+- Added "archived builds" functionality. Archived builds are not mirrored and are subject to restrictions, such as reduced download speed
+
+## Changed
+- Updated library dependencies (server)
+  - psycopg2-binary (2.9.7 -> 2.9.9)
+  - django-ipware (5.0.0 -> 5.0.1)
+  - django (4.2.5 -> 4.2.6)
+  - sentry-sdk (1.31.0 -> 1.32.0)
+- Updated library dependencies (shippy)
+  - rich (13.5.3 -> 13.6.0)
+  - semver (3.0.1 -> 3.0.2)
+  - sentry-sdk (1.31.0 -> 1.32.0)
+- Cleaned up API response error messages
+- General code cleanup
+
+## Removed
+- Removed deprecated build counter API
+
+[2.24.0]: https://github.com/shipperstack/shipper/compare/2.23.2...2.24.0
 
 
 # [2.23.2] - 2023-09-18

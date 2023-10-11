@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .custom_filters import HashedFilter, MirroredFilter
+from .custom_filters import BuildHashedFilter, BuildMirroredFilter, BuildArchivedFilter
 from .models import Build, Device, MirrorServer, Statistics
 
 
@@ -40,7 +40,12 @@ class BuildAdmin(admin.ModelAdmin):
         "is_mirrored",
         "created",
     ]
-    list_filter = ["enabled", HashedFilter, MirroredFilter]
+    list_filter = [
+        "enabled",
+        BuildHashedFilter,
+        BuildMirroredFilter,
+        BuildArchivedFilter,
+    ]
     ordering = ["-created"]
     search_fields = ["id", "file_name"]
 

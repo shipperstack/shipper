@@ -332,7 +332,7 @@ class Build(models.Model):
         boolean=True,
     )
     def is_archived(self):
-        age = date.today() - self.build_date
+        age = (date.today() - self.build_date).days
         return age > config.SHIPPER_BUILD_ARCHIVE_DAYS
 
     def __str__(self):

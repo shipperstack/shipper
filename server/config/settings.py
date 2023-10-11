@@ -262,6 +262,11 @@ CONSTANCE_CONFIG = {
         "load problems.",
         bool,
     ),
+    "SHIPPER_DOWNLOADS_ARCHIVE_THROTTLE": (
+        1,
+        "Throttles the download speed of archived builds, in MB/s.",
+        int,
+    ),
     "SHIPPER_UPLOAD_VARIANTS": (
         '{"gapps": "GApps","vanilla": "Vanilla (no GApps)","foss": "FOSS","goapps": '
         '"GoApps (Android Go Edition GApps)"}',
@@ -296,7 +301,10 @@ CONSTANCE_CONFIG_FIELDSETS = {
         "SHIPPER_DOWNLOADS_PAGE_DONATION_URL",
         "SHIPPER_DOWNLOADS_PAGE_DONATION_MESSAGE",
     ),
-    "Download": ("SHIPPER_DOWNLOADS_DISABLE_MAIN_SERVER",),
+    "Download": (
+        "SHIPPER_DOWNLOADS_DISABLE_MAIN_SERVER",
+        "SHIPPER_DOWNLOADS_ARCHIVE_THROTTLE",
+    ),
     "Upload": (
         "SHIPPER_UPLOAD_VARIANTS",
         "SHIPPER_FILE_NAME_FORMAT",

@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from .custom_filters import BuildHashedFilter, BuildMirroredFilter, BuildArchivedFilter
-from .models import Build, Device, MirrorServer, Statistics
+from .models import Build, Device, Variant, MirrorServer, Statistics
 
 
 class DeviceAdmin(admin.ModelAdmin):
@@ -71,6 +71,12 @@ class BuildAdmin(admin.ModelAdmin):
         return obj.get_download_count()
 
 
+class VariantAdmin(admin.ModelAdmin):
+    list_display = ["codename", "description"]
+    ordering = ["codename"]
+    save_as = True
+
+
 class MirrorServerAdmin(admin.ModelAdmin):
     list_display = ["id", "name", "description", "hostname", "enabled", "downloadable"]
     list_filter = ["enabled", "downloadable"]
@@ -87,5 +93,6 @@ class StatisticsAdmin(admin.ModelAdmin):
 
 admin.site.register(Device, DeviceAdmin)
 admin.site.register(Build, BuildAdmin)
+admin.site.register(Variant, VariantAdmin)
 admin.site.register(MirrorServer, MirrorServerAdmin)
 admin.site.register(Statistics, StatisticsAdmin)

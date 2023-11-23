@@ -223,6 +223,19 @@ class MirrorServer(models.Model):
         verbose_name_plural = "mirror servers"
 
 
+# Variant Model
+class Variant(models.Model):
+    codename = models.TextField(
+        max_length=10,
+        help_text="Codename of the variant<br>Example: 'vanilla', 'gapps')",
+    )
+    description = models.TextField(
+        max_length=30,
+        help_text="Description of the variant<br>Example: 'Vanilla (no GApps)', "
+        "'GApps'",
+    )
+
+
 # Build Model
 class Build(models.Model):
     # Basic build information

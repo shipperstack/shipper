@@ -270,7 +270,8 @@ CONSTANCE_CONFIG = {
     "SHIPPER_UPLOAD_VARIANTS": (
         '{"gapps": "GApps","vanilla": "Vanilla (no GApps)","foss": "FOSS","goapps": '
         '"GoApps (Android Go Edition GApps)"}',
-        "Allowed upload variant pairing in JSON format.",
+        "Warning: this settings option is deprecated and will be removed in a future "
+        "release. Use the Variant model instead.",
         str,
     ),
     "SHIPPER_FILE_NAME_FORMAT": (

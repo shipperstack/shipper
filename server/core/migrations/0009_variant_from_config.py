@@ -7,7 +7,12 @@ from django.db import migrations
 
 def create_variants(apps, _):
     Variant = apps.get_model("core", "Variant")
-    variant_data_from_config = ast.literal_eval(config.SHIPPER_UPLOAD_VARIANTS)
+    try:
+        variant_data_from_config = ast.literal_eval(config.SHIPPER_UPLOAD_VARIANTS)
+    except AttributeError:
+        # We've deprecated and removed this option sometime in the future
+        # Just initialize an empty dataset
+        return
     new_variant_data = []
 
     for key in variant_data_from_config:

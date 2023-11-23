@@ -279,7 +279,7 @@ CONSTANCE_CONFIG = {
         "Regex pattern to use when parsing file names of uploaded artifacts. The "
         "pattern must include the following four named match groups; otherwise an "
         "exception will occur during uploading: `version', `codename`, `variant`, "
-        "and `date`.",
+        "and `date`. Separate multiple patterns with the pipe (|) delimiter.",
         str,
     ),
     "SHIPPER_ALLOWED_VERSIONS_TO_UPLOAD": (

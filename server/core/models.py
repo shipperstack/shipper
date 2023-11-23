@@ -266,6 +266,12 @@ class Build(models.Model):
 
     created = models.DateTimeField(auto_now_add=True, editable=False)
 
+    x86_type = models.TextField(
+        max_length=10,
+        help_text="Type of x86 build. Do not set if the codename is not x86!",
+        blank=True,
+    )
+
     def get_upload_path(self, filename):
         return "{}/{}".format(self.device.codename, filename)
 

@@ -6,7 +6,34 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.24.1...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.24.2...HEAD
+
+
+# [2.24.2] - 2023-11-23
+
+This release contains a security vulnerability patch.
+
+## Changed
+- General code cleanup
+- Updated library depndencies (server)
+  - django-crispy-forms (2.0 -> 2.1)
+  - @babel/traverse (7.22.10 -> 7.23.2) (security vulnerability patched)
+  - django-ipware (5.0.1 -> 6.0.0)
+  - crispy-bootstrap5 (0.7 -> 2023.10)
+  - sentry-sdk (1.32.0 -> 1.36.0)
+  - django (4.2.6 -> 4.2.7)
+  - celery (5.3.4 -> 5.3.6)
+  - humanize (4.8.0 -> 4.9.0)
+- Updated library dependencies (release-helper)
+  - rustix (0.38.7 -> 0.38.19)
+- Updated library dependencies (shippy)
+  - sentry-sdk (1.32.0 -> 1.36.0)
+  - rich (13.6.0 -> 13.7.0)
+  - setuptools (68.2.2 -> 69.0.2)
+  - humanize (4.8.0 -> 4.9.0)
+
+
+[2.24.2]: https://github.com/shipperstack/shipper/compare/2.24.1...2.24.2
 
 
 # [2.24.1] - 2023-10-11

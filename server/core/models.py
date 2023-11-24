@@ -7,7 +7,11 @@ from django.db import models
 from django.urls import reverse
 from datetime import date
 
+from django.utils.translation import get_language, to_locale
+
 from .utils import is_version_in_target_versions
+
+LOCALE_MAPPING = {"en": "en_US", "ko": "ko_KR"}
 
 
 # Device Model
@@ -366,6 +370,12 @@ class Build(models.Model):
         )
 
     def human_readable_timedelta(self):
+        locale = LOCALE_MAPPING[get_language()]
+        if locale != "en_US":
+            try:
+                humanize.i18n.activate(locale=locale)
+            except FileNotFoundError:
+                pass
         return humanize.naturaltime(date.today() - self.build_date)
 
 

@@ -72,7 +72,7 @@ options are: --major, --minor, --patch"
                 );
                 return;
             }
-            if (*major || *minor) && *patch || (*major && *minor) {
+            if enabled_version_flag_count(*major, *minor, *patch) > 1 {
                 println!("Only one version flag should be specified.");
                 return;
             }
@@ -99,6 +99,14 @@ fn check_running_directory() -> bool {
     }
 
     true
+}
+
+fn enabled_version_flag_count(major: bool, minor: bool, patch: bool) -> i32 {
+    let mut count = 0;
+    if major { count += 1; }
+    if minor { count += 1; }
+    if patch { count += 1; }
+    return count;
 }
 
 fn today_iso8601() -> String {

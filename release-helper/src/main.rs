@@ -124,7 +124,7 @@ fn generate(major: bool, minor: bool, patch: bool) {
 
     write_version_files(&new_version);
 
-    println!("Done! Modify the changelog items as necessary, add with `git add .`, and run `push`.")
+    println!("Done! Modify the changelog items as necessary, add with `git add .`, and run `shipper-release push`.")
 }
 
 fn update_changelog(git_log_raw: &str, last_version: &str, new_version: &str) {

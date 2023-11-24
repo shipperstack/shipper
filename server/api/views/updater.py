@@ -33,7 +33,9 @@ class V1UpdaterLOS(APIView):
         if ret:
             return ret
 
-        builds = device.get_all_enabled_hashed_builds_of_variant(variant=variant)
+        builds = device.get_all_enabled_hashed_builds_of_variant(
+            variant_codename=variant
+        )
 
         if not builds:
             return Response(

@@ -19,6 +19,6 @@ def device_variant_section(device, variant):
         "device": device,
         "variant_name": variants[variant],
         "build_objects": device.get_all_enabled_hashed_builds_of_variant(
-            variant=variant
+            variant_codename=variant
         ),
     }

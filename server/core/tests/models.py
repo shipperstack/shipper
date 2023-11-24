@@ -83,6 +83,10 @@ class ShipperCombinedTestCase(TestCase):
             else:
                 build_count = 0
             self.assertEqual(
-                len(device.get_all_enabled_hashed_builds_of_variant(variant=variant)),
+                len(
+                    device.get_all_enabled_hashed_builds_of_variant(
+                        variant_codename=variant
+                    )
+                ),
                 build_count,
             )

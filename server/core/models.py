@@ -71,7 +71,9 @@ class Device(models.Model):
     def get_latest_enabled_hashed_build_of_variant(self, variant):
         if not self.has_enabled_hashed_builds_of_variant(variant=variant):
             raise Build.DoesNotExist
-        return self.get_all_enabled_hashed_builds_of_variant(variant=variant)[0]
+        return self.get_all_enabled_hashed_builds_of_variant(variant_codename=variant)[
+            0
+        ]
 
     def get_latest_enabled_hashed_build(self):
         if not self.has_enabled_hashed_builds():
@@ -91,13 +93,13 @@ class Device(models.Model):
             reverse=True,
         )
 
-    def get_all_enabled_hashed_builds_of_variant(self, variant):
+    def get_all_enabled_hashed_builds_of_variant(self, variant_codename):
         enabled_hashed_build_ids = [
             build.id for build in self.get_enabled_builds() if build.is_hashed()
         ]
         return sorted(
             self.get_enabled_builds()
-            .filter(variant__codename=variant)
+            .filter(variant__codename=variant_codename)
             .filter(id__in=enabled_hashed_build_ids)
             .all(),
             key=lambda p: p.build_date,

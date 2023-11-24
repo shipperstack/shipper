@@ -267,13 +267,6 @@ CONSTANCE_CONFIG = {
         "Throttles the download speed of archived builds, in MB/s.",
         int,
     ),
-    "SHIPPER_UPLOAD_VARIANTS": (
-        '{"gapps": "GApps","vanilla": "Vanilla (no GApps)","foss": "FOSS","goapps": '
-        '"GoApps (Android Go Edition GApps)"}',
-        "Warning: this settings option is deprecated and will be removed in a future "
-        "release. Use the Variant model instead.",
-        str,
-    ),
     "SHIPPER_FILE_NAME_FORMAT": (
         "[A-Za-z]*-(?P<version>[a-z0-9.]*)-(?P<codename>[A-Za-z0-9_]*)-OFFICIAL-("
         "?P<variant>[a-z]*)-(?P<date>[ 0-9]*).zip",
@@ -307,7 +300,6 @@ CONSTANCE_CONFIG_FIELDSETS = {
         "SHIPPER_DOWNLOADS_ARCHIVE_THROTTLE",
     ),
     "Upload": (
-        "SHIPPER_UPLOAD_VARIANTS",
         "SHIPPER_FILE_NAME_FORMAT",
         "SHIPPER_ALLOWED_VERSIONS_TO_UPLOAD",
     ),

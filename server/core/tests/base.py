@@ -53,14 +53,10 @@ def mock_devices_setup():
 
 
 def mock_variants_setup():
-    # Right now we have to check if there are duplicates as the old deprecated variant
-    # configuration option exists. In the future, don't check for this.
-    # TODO: remove the checks once the configuration option is gone
-    # get_or_create -> get
-    Variant.objects.get_or_create(codename="gapps", description="GApps")
-    Variant.objects.get_or_create(codename="vanilla", description="Vanilla (no GApps)")
-    Variant.objects.get_or_create(codename="foss", description="FOSS")
-    Variant.objects.get_or_create(
+    Variant.objects.create(codename="gapps", description="GApps")
+    Variant.objects.create(codename="vanilla", description="Vanilla (no GApps)")
+    Variant.objects.create(codename="foss", description="FOSS")
+    Variant.objects.create(
         codename="goapps", description="GoApps (Android Go Edition GApps)"
     )
 

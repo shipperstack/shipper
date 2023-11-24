@@ -13,8 +13,8 @@ def format_download_url(value, arg):
 @register.inclusion_tag("downloads_device_variant.html")
 def device_variant_section(device, variant):
     variants = {}
-    for variant in Variant.objects.all():
-        variants[variant.codename] = variant.description
+    for v in Variant.objects.all():
+        variants[v.codename] = v.description
     return {
         "device": device,
         "variant_name": variants[variant],

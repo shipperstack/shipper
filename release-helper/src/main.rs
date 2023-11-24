@@ -150,9 +150,11 @@ fn update_changelog(git_log_raw: &str, last_version: &str, new_version: &str) {
 
             new_changelog.push(String::from(""));
 
+
+
             // Add all commit entries (to be sorted later)
             for commit in parse_git_log(git_log_raw) {
-                let commit_msg = commit.msg;
+                let commit_msg = parse_commit_message(commit.msg);
                 new_changelog.push(format!("- {commit_msg}"));
             }
 
@@ -170,6 +172,20 @@ fn update_changelog(git_log_raw: &str, last_version: &str, new_version: &str) {
         .expect("Failed to write the new changelog contents!");
 
     println!("Changelog entries added.");
+}
+
+fn parse_commit_message(s: &str) -> &str {
+    // Neatly format Dependabot entries so that I can easily reorder them later
+    if s.starts_with(&"build(deps): bump ") {
+        let s_parts: Vec<_> = s.split(' ').collect();
+        let dep_name = s_parts[2];
+        let dep_old_ver = s_parts[4];
+        let dep_new_ver = s_parts[6];
+        let subsystem = s_parts.last().unwrap();
+        return format!("- {dep_name} ({dep_old_ver} -> {dep_new_ver}) ({subsystem})").as_str();
+    }
+
+    return s;
 }
 
 fn write_version_files(new_version: &str) {

@@ -6,7 +6,26 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.24.2...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.25.0...HEAD
+
+
+# [2.25.0] - 2023-11-23
+
+This release contains a database migration.
+
+# Added
+- Added preliminary x86 build support to shipper
+
+# Changed
+- Fixed timedelta string not being translated (#248)
+- Updated help text in the admin page
+- Build variants are now handled as database model objects
+- General code cleanup
+
+# Removed
+- The variant configuration option has been deprecated and is slated for removal in the next release
+
+[2.25.0]: https://github.com/shipperstack/shipper/compare/2.24.2...2.25.0
 
 
 # [2.24.2] - 2023-11-23

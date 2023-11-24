@@ -3,9 +3,13 @@ import ast
 from django.conf import settings
 from constance import config
 
+from core.models import Variant
+
 
 def download_page_processor(_):
-    variants = ast.literal_eval(config.SHIPPER_UPLOAD_VARIANTS)
+    variants = {}
+    for variant in Variant.objects.all():
+        variants[variant.codename] = variant.description
     return {
         "main_website_url": config.SHIPPER_MAIN_WEBSITE_URL,
         "downloads_page_main_branding": config.SHIPPER_DOWNLOADS_PAGE_MAIN_BRANDING,

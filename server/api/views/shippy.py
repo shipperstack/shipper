@@ -1,4 +1,5 @@
 import html
+import json
 
 from constance import config
 from django.conf import settings
@@ -22,7 +23,7 @@ from rest_framework.status import (
 )
 from core.exceptions import UploadException
 from api.handler import handle_chunked_build
-from core.models import Build, Device
+from core.models import Build, Device, Variant
 from core.utils import parse_filename_with_regex
 
 
@@ -148,13 +149,16 @@ def v1_system_info(_):
 
     :return: the current shipper system information
     """
+    variants = {}
+    for variant in Variant.objects.all():
+        variants[variant.codename] = variant.description
     return Response(
         {
             "version": settings.SHIPPER_VERSION,
             "shippy_compat_version": settings.SHIPPER_SHIPPY_COMPAT_VERSION,
             "shippy_upload_checksum_type": settings.DRF_CHUNKED_UPLOAD_CHECKSUM,
             "shippy_allowed_versions": config.SHIPPER_ALLOWED_VERSIONS_TO_UPLOAD,
-            "shippy_upload_variants": config.SHIPPER_UPLOAD_VARIANTS,
+            "shippy_upload_variants": json.dumps(variants),
         }
     )
 

@@ -1,10 +1,8 @@
-import ast
 import html
 
 from django.contrib.auth import get_user_model
 
 from api.utils import variant_check
-from constance import config
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import AllowAny
@@ -13,8 +11,7 @@ from rest_framework.status import HTTP_200_OK, HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
 
 from api.views.utils import get_distributed_download_url
-from core.models import Build, Device
-
+from core.models import Build, Device, Variant
 
 User = get_user_model()
 
@@ -30,7 +27,9 @@ class V1GeneralDeviceAll(APIView):
     def get(self, request):
         return_json = {}
         for device in Device.objects.all():
-            variants = ast.literal_eval(config.SHIPPER_UPLOAD_VARIANTS)
+            variants = {}
+            for variant in Variant.objects.all():
+                variants[variant.codename] = variant.description
             has_variants = []
 
             for variant in variants:

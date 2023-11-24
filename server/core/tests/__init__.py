@@ -1,4 +1,4 @@
-from .base import mock_builds_setup, mock_devices_setup
+from .base import mock_setup
 from .models import (
     ShipperDeviceTestCase,
     ShipperBuildTestCase,
@@ -12,6 +12,5 @@ __all__ = [
     "ShipperBuildTestCase",
     "ShipperCombinedTestCase",
     "ShipperUtilsTestCase",
-    "mock_devices_setup",
-    "mock_builds_setup",
+    "mock_setup",
 ]

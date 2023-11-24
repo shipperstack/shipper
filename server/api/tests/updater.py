@@ -2,13 +2,13 @@ from api.utils import variant_check
 from api.views import V1UpdaterLOS
 from django.contrib.auth.models import AnonymousUser
 from rest_framework.test import APIRequestFactory, APITestCase
-from core.tests import mock_builds_setup, mock_devices_setup
+
+from core.tests.base import mock_setup
 
 
 class UpdaterTestCase(APITestCase):
     def setUp(self):
-        mock_devices_setup()
-        mock_builds_setup()
+        mock_setup()
         self.factory = APIRequestFactory()
         V1UpdaterLOS.throttle_classes = ()
 

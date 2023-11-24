@@ -228,12 +228,16 @@ class Variant(models.Model):
     codename = models.TextField(
         max_length=10,
         help_text="Codename of the variant<br>Example: 'vanilla', 'gapps')",
+        unique=True,
     )
     description = models.TextField(
         max_length=30,
         help_text="Description of the variant<br>Example: 'Vanilla (no GApps)', "
         "'GApps'",
     )
+
+    def __str__(self):
+        return self.codename
 
 
 # Build Model
@@ -295,11 +299,7 @@ class Build(models.Model):
         return self.build_date.strftime("%Y-%m-%d")
 
     def get_user_friendly_variant_name(self):
-        variants = ast.literal_eval(config.SHIPPER_UPLOAD_VARIANTS)
-        if self.variant in variants:
-            return variants[self.variant]
-        else:
-            return self.variant
+        return self.variant.description
 
     def get_human_readable_size(self):
         return humanize.naturalsize(self.size)

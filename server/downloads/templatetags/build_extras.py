@@ -1,7 +1,5 @@
-import ast
-
 from django import template
-from constance import config
+from core.models import Variant
 
 register = template.Library()
 
@@ -14,7 +12,9 @@ def format_download_url(value, arg):
 
 @register.inclusion_tag("downloads_device_variant.html")
 def device_variant_section(device, variant):
-    variants = ast.literal_eval(config.SHIPPER_UPLOAD_VARIANTS)
+    variants = {}
+    for variant in Variant.objects.all():
+        variants[variant.codename] = variant.description
     return {
         "device": device,
         "variant_name": variants[variant],

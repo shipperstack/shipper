@@ -12,13 +12,12 @@ from api.views import (
     V2DownloadBuildCounter,
 )
 from core.models import Statistics, Build
-from core.tests import mock_devices_setup, mock_builds_setup
+from core.tests.base import mock_setup
 
 
 class StatisticsTestCase(APITestCase):
     def setUp(self):
-        mock_devices_setup()
-        mock_builds_setup()
+        mock_setup()
         mock_statistics_setup()
         self.factory = APIRequestFactory()
 
@@ -57,8 +56,7 @@ class StatisticsTestCase(APITestCase):
 
 class StatisticsIncrementTestCase(APITestCase):
     def setUp(self):
-        mock_devices_setup()
-        mock_builds_setup()
+        mock_setup()
         mock_statistics_setup()
         self.factory = APIRequestFactory()
         V2DownloadBuildCounter.throttle_classes = ()

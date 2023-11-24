@@ -1,7 +1,12 @@
-from core.models import Build, Device
-
+from core.models import Build, Device, Variant
 
 DEVICE_BUILD_PAIRING = {}
+
+
+def mock_setup():
+    mock_devices_setup()
+    mock_variants_setup()
+    mock_builds_setup()
 
 
 def mock_devices_setup():
@@ -47,6 +52,19 @@ def mock_devices_setup():
     create_device_pairing("nobuild")
 
 
+def mock_variants_setup():
+    # Right now we have to check if there are duplicates as the old deprecated variant
+    # configuration option exists. In the future, don't check for this.
+    # TODO: remove the checks once the configuration option is gone
+    # get_or_create -> get
+    Variant.objects.get_or_create(codename="gapps", description="GApps")
+    Variant.objects.get_or_create(codename="vanilla", description="Vanilla (no GApps)")
+    Variant.objects.get_or_create(codename="foss", description="FOSS")
+    Variant.objects.get_or_create(
+        codename="goapps", description="GoApps (Android Go Edition GApps)"
+    )
+
+
 def mock_builds_setup():
     from datetime import date
 
@@ -63,7 +81,7 @@ def mock_builds_setup():
         version="v14",
         md5sum="d8e8fca2dc0f896fd7cb4cb0031ba249",
         sha256sum="b9566ebc192a4c27c72df19eae8a6eed6ea063226792e680fa0b2ede284e19f2",
-        variant="gapps",
+        variant=Variant.objects.get(codename="gapps"),
         build_date=date(2020, 6, 8),
         zip_file="bullhead/Bliss-v14-bullhead-OFFICIAL-gapps-20200608.zip",
     )
@@ -76,7 +94,7 @@ def mock_builds_setup():
         version="v14",
         md5sum="d8e8fca2dc0f896fd7cb4cb0031ba249",
         sha256sum="b9566ebc192a4c27c72df19eae8a6eed6ea063226792e680fa0b2ede284e19f2",
-        variant="gapps",
+        variant=Variant.objects.get(codename="gapps"),
         build_date=date(2020, 6, 9),
         zip_file="dream2lte/Bliss-v14-dream2lte-OFFICIAL-gapps-20200609.zip",
     )
@@ -89,7 +107,7 @@ def mock_builds_setup():
         version="v14",
         sha256sum="b9566ebc192a4c27c72df19eae8a6eed6ea063226792e680fa0b2ede284e19f2",
         md5sum="d8e8fca2dc0f896fd7cb4cb0031ba249",
-        variant="vanilla",
+        variant=Variant.objects.get(codename="vanilla"),
         build_date=date(2020, 6, 8),
         zip_file="angler/Bliss-v14-angler-OFFICIAL-vanilla-20200608.zip",
     )

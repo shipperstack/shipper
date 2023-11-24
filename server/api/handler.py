@@ -1,4 +1,3 @@
-import ast
 import os
 from datetime import datetime
 
@@ -6,7 +5,7 @@ from django.conf import settings
 from constance import config
 
 from core.exceptions import UploadException
-from core.models import Build
+from core.models import Build, Variant
 from core.tasks import generate_checksum, mirror_build
 from core.utils import parse_filename_with_regex, is_version_in_target_versions
 
@@ -30,8 +29,8 @@ def handle_chunked_build(device, chunked_file):
         )
 
     # Check if variant is supported
-    variants = ast.literal_eval(config.SHIPPER_UPLOAD_VARIANTS)
-    if filename_parts["variant"] not in variants:
+    variant_codenames = [variant.codename for variant in Variant.objects.all()]
+    if filename_parts["variant"] not in variant_codenames:
         raise UploadException(
             {
                 "error": "unsupported_variant",

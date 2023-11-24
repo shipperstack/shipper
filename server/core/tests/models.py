@@ -2,15 +2,14 @@ from django.test import TestCase
 
 from core.models import Build, Device
 from core.tests.base import (
-    mock_devices_setup,
-    mock_builds_setup,
+    mock_setup,
     DEVICE_BUILD_PAIRING,
 )
 
 
 class ShipperDeviceTestCase(TestCase):
     def setUp(self):
-        mock_devices_setup()
+        mock_setup()
 
     def test_device_string(self):
         for device in Device.objects.all():
@@ -21,8 +20,7 @@ class ShipperDeviceTestCase(TestCase):
 
 class ShipperBuildTestCase(TestCase):
     def setUp(self):
-        mock_devices_setup()
-        mock_builds_setup()
+        mock_setup()
 
     def test_build_string(self):
         build = Build.objects.get(
@@ -58,8 +56,7 @@ class ShipperBuildTestCase(TestCase):
 
 class ShipperCombinedTestCase(TestCase):
     def setUp(self):
-        mock_devices_setup()
-        mock_builds_setup()
+        mock_setup()
 
     def test_gapps_build_count(self):
         self.test_variant_build_count(variant="gapps")

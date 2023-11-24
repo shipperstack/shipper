@@ -239,6 +239,18 @@ class Variant(models.Model):
         return self.codename
 
 
+# x86 type model
+class X86Type(models.Model):
+    codename = models.TextField(
+        max_length=10, help_text="Codename of the x86 type<br>Example: 'GO', 'Bass'"
+    )
+    description = models.TextField(
+        max_length=30,
+        help_text="Description of the x86 text, as seen by users<br> Example: 'GO "
+        "builds', 'Bass builds'",
+    )
+
+
 # Build Model
 class Build(models.Model):
     # Basic build information
@@ -278,18 +290,14 @@ class Build(models.Model):
 
     created = models.DateTimeField(auto_now_add=True, editable=False)
 
-    x86_type = models.TextField(
-        max_length=10,
-        help_text="Type of x86 build. Do not set if the codename is not x86!",
-        blank=True,
-    )
-
     def get_upload_path(self, filename):
         return "{}/{}".format(self.device.codename, filename)
 
     zip_file = models.FileField(
         upload_to=get_upload_path, verbose_name="Zip file", unique=True
     )
+
+    x86_type = models.ForeignKey(X86Type, on_delete=models.PROTECT, null=True)
 
     def get_user_friendly_name(self):
         return "{} - {}".format(self.version, self.build_date.strftime("%Y-%m-%d"))

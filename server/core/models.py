@@ -376,6 +376,8 @@ class Build(models.Model):
                 humanize.i18n.activate(locale=locale)
             except FileNotFoundError:
                 pass
+        else:
+            humanize.i18n.deactivate()
         return humanize.naturaltime(date.today() - self.build_date)
 
 

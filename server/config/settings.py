@@ -16,9 +16,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get("SHIPPER_SECRET_KEY")
 DEBUG = int(os.environ.get("SHIPPER_DEBUG", default=0))
-ALLOWED_HOSTS = os.environ.get("SHIPPER_ALLOWED_HOSTS").split(" ")
+try:
+    ALLOWED_HOSTS = os.environ.get("SHIPPER_ALLOWED_HOSTS").split(" ")
+except AttributeError:
+    # Check will catch this error
+    pass
 
-CSRF_TRUSTED_ORIGINS = os.environ.get("SHIPPER_CSRF_TRUSTED_ORIGINS").split(" ")
+try:
+    CSRF_TRUSTED_ORIGINS = os.environ.get("SHIPPER_CSRF_TRUSTED_ORIGINS").split(" ")
+except AttributeError:
+    # Check will catch this error
+    pass
+
 CSRF_COOKIE_SECURE = int(os.environ.get("SHIPPER_CSRF_COOKIE_SECURE", default=1))
 SESSION_COOKIE_SECURE = int(os.environ.get("SHIPPER_SESSION_COOKIE_SECURE", default=1))
 

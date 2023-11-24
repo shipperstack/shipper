@@ -100,7 +100,7 @@ fn enabled_version_flag_count(major: bool, minor: bool, patch: bool) -> i32 {
     if major { count += 1; }
     if minor { count += 1; }
     if patch { count += 1; }
-    return count;
+    count
 }
 
 fn today_iso8601() -> String {

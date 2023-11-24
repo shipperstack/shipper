@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shipper\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-27 09:17+0900\n"
+"POT-Creation-Date: 2023-11-24 11:58-0500\n"
 "PO-Revision-Date: 2022-02-27 14:09+0900\n"
 "Last-Translator: Eric Park <me@ericswpark.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -87,29 +87,33 @@ msgstr ""
 msgid "Create Account"
 msgstr "회원가입"
 
-#: config/settings.py:176
+#: config/settings.py:175
 msgid "Korean"
 msgstr "한국어"
 
-#: config/settings.py:177
+#: config/settings.py:176
 msgid "English"
 msgstr "영어"
 
-#: core/custom_filters.py:6
-msgid "hashed"
-msgstr "체크섬 존재"
-
-#: core/custom_filters.py:11 core/custom_filters.py:35
+#: core/custom_filters.py:8
 msgid "Yes"
 msgstr "있음"
 
-#: core/custom_filters.py:12 core/custom_filters.py:36
+#: core/custom_filters.py:9
 msgid "No"
 msgstr "없음"
 
-#: core/custom_filters.py:30
+#: core/custom_filters.py:14
+msgid "hashed"
+msgstr "체크섬 존재"
+
+#: core/custom_filters.py:32
 msgid "mirrored"
 msgstr "미러됨"
+
+#: core/custom_filters.py:50
+msgid "archived"
+msgstr "보관처리됨"
 
 #: downloads/templates/debug_warning.html:5
 msgid "This is a development server!"
@@ -136,63 +140,71 @@ msgstr "기부하기 &gt;"
 msgid "Downloads for %(object)s"
 msgstr "%(object)s 빌드 다운로드"
 
-#: downloads/templates/downloads_build.html:34
+#: downloads/templates/downloads_build.html:35
+#: downloads/templates/downloads_device.html:17
+msgid "Warning"
+msgstr "경고"
+
+#: downloads/templates/downloads_build.html:36
+msgid ""
+"This build has been archived! You may experience slower download speeds with "
+"this build."
+msgstr ""
+"이 빌드는 보관처리되었습니다! 다운로드 속도가 제한될 수 있습니다."
+
+#: downloads/templates/downloads_build.html:42
 msgid "Build information"
 msgstr "빌드 정보"
 
-#: downloads/templates/downloads_build.html:39
+#: downloads/templates/downloads_build.html:47
 msgid "Device"
 msgstr "기기"
 
-#: downloads/templates/downloads_build.html:43
+#: downloads/templates/downloads_build.html:51
 #: templates/maintainer_base.html:62
 msgid "Version"
 msgstr "버전"
 
-#: downloads/templates/downloads_build.html:47
+#: downloads/templates/downloads_build.html:55
 msgid "Date"
 msgstr "날짜"
 
-#: downloads/templates/downloads_build.html:51
+#: downloads/templates/downloads_build.html:59
 msgid "Variant"
 msgstr "파생본"
 
-#: downloads/templates/downloads_build.html:55
+#: downloads/templates/downloads_build.html:63
 #: downloads/templates/downloads_device_variant.html:9
 msgid "Size"
 msgstr "크기"
 
-#: downloads/templates/downloads_build.html:70
+#: downloads/templates/downloads_build.html:78
 msgid "Mirrors"
 msgstr "미러"
 
-#: downloads/templates/downloads_build.html:75
+#: downloads/templates/downloads_build.html:83
 msgid "Server"
 msgstr "서버"
 
-#: downloads/templates/downloads_build.html:76
+#: downloads/templates/downloads_build.html:84
 msgid "Description"
 msgstr "설명"
 
-#: downloads/templates/downloads_build.html:77
-#: downloads/templates/downloads_build.html:89
-#: downloads/templates/downloads_build.html:102
+#: downloads/templates/downloads_build.html:85
+#: downloads/templates/downloads_build.html:97
+#: downloads/templates/downloads_build.html:110
 #: downloads/templates/downloads_device_variant.html:10
 #: downloads/templates/downloads_device_variant.html:20
 msgid "Download"
 msgstr "다운로드"
 
-#: downloads/templates/downloads_build.html:84
+#: downloads/templates/downloads_build.html:92
 msgid "Main"
 msgstr "메인"
 
-#: downloads/templates/downloads_build.html:85
-msgid "Download builds from the main website."
-msgstr "메인 웹사이트에서 빌드를 다운로드."
-
-#: downloads/templates/downloads_device.html:17
-msgid "Warning"
-msgstr "경고"
+#: downloads/templates/downloads_build.html:93
+msgid "Download builds from the main website"
+msgstr "메인 웹사이트에서 빌드 다운로드하기"
 
 #: downloads/templates/downloads_device.html:18
 msgid ""
@@ -203,6 +215,7 @@ msgstr ""
 "드할 때 주의하세요!"
 
 #: downloads/templates/downloads_device.html:24
+#, python-format
 msgid "This device was last updated %(last_updated_date)s"
 msgstr "이 기기는 %(last_updated_date)s에 마지막으로 업데이트 되었습니다"
 
@@ -222,18 +235,6 @@ msgstr "빌드"
 #: downloads/templates/downloads_main.html:6
 msgid "Downloads"
 msgstr "다운로드"
-
-#: downloads/templates/downloads_main.html:31
-msgid "Device photo"
-msgstr "기기 사진"
-
-#: downloads/templates/downloads_main.html:33
-msgid "Device photo placeholder image"
-msgstr "기기 사진 대체용 임시 사진"
-
-#: downloads/templates/downloads_main.html:40
-msgid "This device is no longer supported."
-msgstr "이 기기는 더 이상 지원되지 않습니다."
 
 #: templates/language_switch.html:7
 msgid "Set your language preferences here:"

@@ -27,9 +27,7 @@ class V1GeneralDeviceAll(APIView):
     def get(self, request):
         return_json = {}
         for device in Device.objects.all():
-            variants = {}
-            for variant in Variant.objects.all():
-                variants[variant.codename] = variant.description
+            variants = {v.codename: v.description for v in Variant.objects.all()}
             has_variants = []
 
             for variant in variants:

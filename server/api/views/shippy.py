@@ -147,9 +147,7 @@ def v1_system_info(_):
 
     :return: the current shipper system information
     """
-    variants = {}
-    for variant in Variant.objects.all():
-        variants[variant.codename] = variant.description
+    variants = {v.codename: v.description for v in Variant.objects.all()}
     return Response(
         {
             "version": settings.SHIPPER_VERSION,

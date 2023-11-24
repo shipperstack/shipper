@@ -7,9 +7,7 @@ from core.models import Variant
 
 
 def download_page_processor(_):
-    variants = {}
-    for variant in Variant.objects.all():
-        variants[variant.codename] = variant.description
+    variants = {v.codename: v.description for v in Variant.objects.all()}
     return {
         "main_website_url": config.SHIPPER_MAIN_WEBSITE_URL,
         "downloads_page_main_branding": config.SHIPPER_DOWNLOADS_PAGE_MAIN_BRANDING,

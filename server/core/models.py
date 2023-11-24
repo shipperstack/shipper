@@ -196,7 +196,6 @@ class MirrorServer(models.Model):
     )
     priority = models.IntegerField(
         default=10,
-        blank=False,
         help_text="Sets the priority of the mirror in the mirror list. Lower values "
         "will be listed first, and higher values will be listed last.<br>"
         "Note: the main server does not have a priority value and will always be "

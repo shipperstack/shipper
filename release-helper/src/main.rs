@@ -16,6 +16,7 @@ const CHANGELOG_FILE_NAME: &str = "CHANGELOG.md";
 const VERSION_FILE_NAME: &str = "version.txt";
 const SERVER_VERSION_FILE_NAME: &str = "server/version.txt";
 const SHIPPY_VERSION_FILE_NAME: &str = "shippy/shippy/version.py";
+const GITHUB_REPOSITORY_URL: &str = "https://github.com/shipperstack/shipper";
 
 // Define timestamp format
 const TIMESTAMP_FORMAT: &[FormatItem] = time::macros::format_description!("[year]-[month]-[day]");
@@ -135,8 +136,8 @@ fn update_changelog(git_log_raw: &str, last_version: &str, new_version: &str) {
 
     // Loop until unreleased link line
     for line in old_changelog {
-        if line.starts_with("[Unreleased]: https://github.com/shipperstack/shipper/compare/") {
-            new_changelog.push(format!("[Unreleased]: https://github.com/shipperstack/shipper/compare/{new_version}...HEAD"));
+        if line.starts_with(format!("[Unreleased]: {GITHUB_REPOSITORY_URL}/compare/")) {
+            new_changelog.push(format!("[Unreleased]: {GITHUB_REPOSITORY_URL}/compare/{new_version}...HEAD"));
 
             // Push two empty lines for readability
             new_changelog.push(String::from(""));
@@ -155,7 +156,7 @@ fn update_changelog(git_log_raw: &str, last_version: &str, new_version: &str) {
 
             new_changelog.push(String::from(""));
 
-            new_changelog.push(format!("[{new_version}]: https://github.com/shipperstack/shipper/compare/{last_version}...{new_version}"));
+            new_changelog.push(format!("[{new_version}]: {GITHUB_REPOSITORY_URL}/compare/{last_version}...{new_version}"));
             continue;
         } else {
             new_changelog.push(line.to_string());
@@ -282,7 +283,7 @@ fn get_changes(version: &str) -> String {
     println!("Got version: {}", version);
 
     let start_marker = format!("# [{version}] - ");
-    let end_marker = format!("[{version}]: https://github.com/shipperstack/shipper/compare/");
+    let end_marker = format!("[{version}]: {GITHUB_REPOSITORY_URL}/compare/");
 
     let mut extracted_changes = String::new();
     let mut is_in_target_version_section = false;

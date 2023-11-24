@@ -138,7 +138,7 @@ fn update_changelog(git_log_raw: &str, last_version: &str, new_version: &str) {
 
     // Loop until unreleased link line
     for line in old_changelog {
-        if line.starts_with(format!("[Unreleased]: {GITHUB_REPOSITORY_URL}/compare/")) {
+        if line.starts_with(&format!("[Unreleased]: {GITHUB_REPOSITORY_URL}/compare/")) {
             new_changelog.push(format!("[Unreleased]: {GITHUB_REPOSITORY_URL}/compare/{new_version}...HEAD"));
 
             // Push two empty lines for readability
@@ -174,18 +174,18 @@ fn update_changelog(git_log_raw: &str, last_version: &str, new_version: &str) {
     println!("Changelog entries added.");
 }
 
-fn parse_commit_message(s: &str) -> &str {
+fn parse_commit_message(s: &str) -> String {
     // Neatly format Dependabot entries so that I can easily reorder them later
-    if s.starts_with(&"build(deps): bump ") {
+    if s.starts_with("build(deps): bump ") {
         let s_parts: Vec<_> = s.split(' ').collect();
         let dep_name = s_parts[2];
         let dep_old_ver = s_parts[4];
         let dep_new_ver = s_parts[6];
         let subsystem = s_parts.last().unwrap();
-        return format!("- {dep_name} ({dep_old_ver} -> {dep_new_ver}) ({subsystem})").as_str();
+        return format!("- {dep_name} ({dep_old_ver} -> {dep_new_ver}) ({subsystem})")
     }
 
-    return s;
+    String::from(s)
 }
 
 fn write_version_files(new_version: &str) {

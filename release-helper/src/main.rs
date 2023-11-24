@@ -86,16 +86,10 @@ options are: --major, --minor, --patch"
 
 /// Function to check if shipper-release is running in the correct directory
 fn check_running_directory() -> bool {
-    if !Path::new(".git").is_dir() {
-        return false;
-    }
-
-    if !Path::new(CHANGELOG_FILE_NAME).exists() {
-        return false;
-    }
-
-    if !Path::new(VERSION_FILE_NAME).exists() {
-        return false;
+    for path in [".git", CHANGELOG_FILE_NAME, VERSION_FILE_NAME] {
+        if !Path::new(path).is_dir() {
+            return false;
+        }
     }
 
     true

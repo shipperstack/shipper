@@ -1,5 +1,3 @@
-import ast
-
 import humanize
 from auditlog.registry import auditlog
 from constance import config

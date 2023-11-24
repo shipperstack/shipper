@@ -161,6 +161,27 @@ def v1_system_info(_):
 
 @csrf_exempt
 @api_view(["GET"])
+@permission_classes((AllowAny,))
+def v2_system_info(_):
+    """
+    Returns shipper system information
+
+    :return: the current shipper system information
+    """
+    variants = {v.codename: v.description for v in Variant.objects.all()}
+    return Response(
+        {
+            "version": settings.SHIPPER_VERSION,
+            "shippy_compat_version": settings.SHIPPER_SHIPPY_COMPAT_VERSION,
+            "shippy_upload_checksum_type": settings.DRF_CHUNKED_UPLOAD_CHECKSUM,
+            "shippy_allowed_versions": config.SHIPPER_ALLOWED_VERSIONS_TO_UPLOAD,
+            "shippy_upload_variants": variants,
+        }
+    )
+
+
+@csrf_exempt
+@api_view(["GET"])
 def v1_maintainers_token_check(request):
     """
     Checks whether a given API token is still valid or not

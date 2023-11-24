@@ -19,6 +19,7 @@ from .views import (
     v1_maintainers_upload_filename_regex_pattern,
     v1_system_info,
     V2DownloadBuildCounter,
+    v2_system_info,
 )
 
 urlpatterns = [
@@ -72,7 +73,7 @@ urlpatterns = [
     ),
     path("v1/download/count/all/", v1_download_count_all, name="v1_download_count_all"),
     # shippy
-    path("latest/system/info/", v1_system_info, name="latest_system_info"),
+    path("latest/system/info/", v2_system_info, name="latest_system_info"),
     path(
         "latest/maintainers/login/",
         v1_maintainers_login,
@@ -103,6 +104,7 @@ urlpatterns = [
         v1_maintainers_build_enabled_status_modify,
         name="latest_maintainers_build_enabled_status_modify",
     ),
+    path("v2/system/info/", v2_system_info, name="v2_system_info"),
     path("v1/system/info/", v1_system_info, name="v1_system_info"),
     path("v1/maintainers/login/", v1_maintainers_login, name="v1_maintainers_login"),
     path(

@@ -24,6 +24,14 @@ If the user is installing the build for the first time (i.e. they are downloadin
 
 This endpoint will throw a 404 if a build with the given file name or build ID does not exist, with specific error messages for each scenario.
 
+
+### shippy
+
+ - `https://host/api/v2/system/info/`
+
+Returns the shipper version installed on the server.
+
+
 ## v1 endpoints
 
 ### Statistics
@@ -57,6 +65,8 @@ Returns the number of downloads shipper has served, all time.
 The following endpoints are used by [shippy, a tool to help maintainers upload builds to shipper.](https://github.com/ericswpark/shippy)
 
  - `https://host/api/v1/system/info/`
+
+ #### This endpoint has been deprecated for v2. It will be removed at some point in the future!
 
 Returns the shipper version installed on the server.
 

@@ -97,7 +97,7 @@ class Device(models.Model):
         ]
         return sorted(
             self.get_enabled_builds()
-            .filter(variant=variant)
+            .filter(variant__codename=variant)
             .filter(id__in=enabled_hashed_build_ids)
             .all(),
             key=lambda p: p.build_date,
@@ -255,11 +255,7 @@ class Build(models.Model):
     version = models.TextField(max_length=20, help_text="Example: v12.8")
     md5sum = models.TextField(max_length=32, verbose_name="MD5 hash")
     sha256sum = models.TextField(max_length=64, verbose_name="SHA256 hash")
-    variant = models.TextField(
-        max_length=20,
-        help_text="Variant of the build. Allowed values are set in the server "
-        "configuration.",
-    )
+    variant = models.ForeignKey(Variant, on_delete=models.PROTECT)
     build_date = models.DateField(help_text="Build date")
     mirrored_on = models.ManyToManyField(
         MirrorServer,

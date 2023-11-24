@@ -5,7 +5,7 @@ from django.conf import settings
 from constance import config
 
 from core.exceptions import UploadException
-from core.models import Build, Variant
+from core.models import Build, Variant, X86Type
 from core.tasks import generate_checksum, mirror_build
 from core.utils import parse_filename_with_regex, is_version_in_target_versions
 
@@ -39,6 +39,19 @@ def handle_chunked_build(device, chunked_file):
                 "admin to change the allowed variants list.",
             }
         )
+
+    # If x86, check for x86 type
+    if filename_parts["codename"] == "x86":
+        x86_type_codenames = [x.codename for x in X86Type.objects.all()]
+        if filename_parts["x86_type"] not in x86_type_codenames:
+            raise UploadException(
+                {
+                    "error": "unsupported_x86_type",
+                    "message": "The build's x86 type is not supported by this server "
+                    "instance. If you believe the x86 type is valid, please contact an "
+                    "admin to change the allowed x86 types list.",
+                }
+            )
 
     # Check if version is in allowed versions list
     if not is_version_in_target_versions(
@@ -82,6 +95,9 @@ def handle_chunked_build(device, chunked_file):
         zip_file="{}/{}".format(device.codename, chunked_file.filename),
         enabled=True,
     )
+    if filename_parts["codename"] == "x86":
+        build.x86_type = X86Type.objects.get(codename=filename_parts["x86_type"])
+
     build.save()
 
     # Delete unused chunked_upload file

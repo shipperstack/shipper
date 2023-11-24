@@ -38,9 +38,13 @@ def parse_filename_with_regex(filename):
             {"error": "invalid_file_name", "message": "The file name is malformed!"}
         )
 
-    return {
-        "version": matches.group("version"),
-        "codename": matches.group("codename"),
-        "variant": matches.group("variant"),
-        "date": matches.group("date"),
-    }
+    match_parts = {}
+    match_groups = ["version", "codename", "variant", "date"]
+
+    if matches.group("codename") == "x86":
+        match_groups.append("x86_type")
+
+    for match_group in match_groups:
+        match_parts[match_group] = matches.group(match_group)
+
+    return match_parts

@@ -21,6 +21,7 @@ from .views import (
     V2DownloadBuildCounter,
     v2_system_info,
 )
+from .views.updater import V1UpdaterLOSX86
 
 urlpatterns = [
     # OpenAPI schema
@@ -142,6 +143,11 @@ urlpatterns = [
         "v1/updater/los/<slug:codename>/<slug:variant>/",
         V1UpdaterLOS.as_view(),
         name="v1_updater_los",
+    ),
+    path(
+        "v1/updater/los/x86/<slug:x86_type>/<slug:variant>/",
+        V1UpdaterLOSX86.as_view(),
+        name="v1_updater_los_x86",
     ),
     # general
     path(

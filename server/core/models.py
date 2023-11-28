@@ -108,6 +108,22 @@ class Device(models.Model):
             reverse=True,
         )
 
+    def get_all_enabled_hashed_builds_of_type_and_variant(
+        self, type_codename, variant_codename
+    ):
+        enabled_hashed_build_ids = [
+            build.id for build in self.get_enabled_builds() if build.is_hashed()
+        ]
+        return sorted(
+            self.get_enabled_builds()
+            .filter(x86_type__codename=type_codename)
+            .filter(variant__codename=variant_codename)
+            .filter(id__in=enabled_hashed_build_ids)
+            .all(),
+            key=lambda p: p.build_date,
+            reverse=True,
+        )
+
     def get_absolute_url(self):
         return reverse("downloads_device", kwargs={"codename": self.codename})
 

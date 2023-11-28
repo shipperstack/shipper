@@ -1,0 +1,1 @@
+X86_DEVICE_CODENAMES = ["x86", "x86_64"]

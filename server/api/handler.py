@@ -4,6 +4,7 @@ from datetime import datetime
 from django.conf import settings
 from constance import config
 
+from config.constants import X86_DEVICE_CODENAMES
 from core.exceptions import UploadException
 from core.models import Build, Variant, X86Type
 from core.tasks import generate_checksum, mirror_build
@@ -41,7 +42,7 @@ def handle_chunked_build(device, chunked_file):
         )
 
     # If x86, check for x86 type
-    if filename_parts["codename"] == "x86":
+    if filename_parts["codename"] in X86_DEVICE_CODENAMES:
         x86_type_codenames = [x.codename for x in X86Type.objects.all()]
         if filename_parts["x86_type"] not in x86_type_codenames:
             raise UploadException(
@@ -95,7 +96,7 @@ def handle_chunked_build(device, chunked_file):
         zip_file="{}/{}".format(device.codename, chunked_file.filename),
         enabled=True,
     )
-    if filename_parts["codename"] == "x86":
+    if filename_parts["codename"] in X86_DEVICE_CODENAMES:
         build.x86_type = X86Type.objects.get(codename=filename_parts["x86_type"])
 
     build.save()

@@ -5,10 +5,11 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
-from rest_framework.status import HTTP_200_OK, HTTP_404_NOT_FOUND
+from rest_framework.status import HTTP_200_OK, HTTP_404_NOT_FOUND, HTTP_400_BAD_REQUEST
 from rest_framework.views import APIView
 
 from api.views.utils import get_distributed_download_url
+from config.constants import X86_DEVICE_CODENAMES
 from core.models import Device
 
 
@@ -21,6 +22,12 @@ class V1UpdaterLOS(APIView):
 
     # noinspection PyMethodMayBeStatic
     def get(self, request, codename, variant):
+        if codename in X86_DEVICE_CODENAMES:
+            return Response(
+                {"message": "This endpoint is for arm devices only."},
+                status=HTTP_400_BAD_REQUEST,
+            )
+
         try:
             device = get_object_or_404(Device, codename=codename)
         except Http404:
@@ -48,12 +55,18 @@ class V1UpdaterLOSX86(APIView):
     permission_classes = [AllowAny]
 
     # noinspection PyMethodMayBeStatic
-    def get(self, request, x86_type, variant):
+    def get(self, request, codename, x86_type, variant):
+        if codename not in X86_DEVICE_CODENAMES:
+            return Response(
+                {"message": "This endpoint is for x86_64 devices only."},
+                status=HTTP_400_BAD_REQUEST,
+            )
+
         try:
-            device = get_object_or_404(Device, codename="x86")
+            device = get_object_or_404(Device, codename=codename)
         except Http404:
             return Response(
-                {"message": "The x86 device has not been set up yet."},
+                {"message": "The specified device does not exist!"},
                 status=HTTP_404_NOT_FOUND,
             )
 

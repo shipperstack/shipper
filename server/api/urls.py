@@ -145,7 +145,7 @@ urlpatterns = [
         name="v1_updater_los",
     ),
     path(
-        "v1/updater/los/x86/<slug:x86_type>/<slug:variant>/",
+        "v1/updater/los/<slug:codename>/<slug:x86_type>/<slug:variant>/",
         V1UpdaterLOSX86.as_view(),
         name="v1_updater_los_x86",
     ),

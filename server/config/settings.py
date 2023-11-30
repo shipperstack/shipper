@@ -315,6 +315,9 @@ CONSTANCE_CONFIG_FIELDSETS = {
     "Maintenance": ("SHIPPER_BUILD_ARCHIVE_DAYS",),
 }
 
+# django-auditlog
+AUDITLOG_INCLUDE_TRACKING_MODELS = ("constance.Constance",)
+
 # Django Crispy Forms
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"

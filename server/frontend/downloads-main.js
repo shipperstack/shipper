@@ -47,6 +47,16 @@ function DownloadList({ filter }) {
     filtered_devices = ACTIVE_DEVICES;
   }
 
+  function sortActive(a, b) {
+    return (a["enabled"] === b["enabled"]) ? 0 : a["enabled"] ? -1 : 1;
+  }
+
+  function sortName(a, b) {
+    return a["name"] > b["name"];
+  }
+
+  filtered_devices = filtered_devices.sort(sortName).sort(sortActive);
+
   return (
     <div
       className="container"

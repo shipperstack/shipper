@@ -50,6 +50,15 @@ On Windows, this command will not work. If you know of a command that will
 ingest environment variables from an `.env` file on Windows, please create a
 patch and make a pull request.
 
+#### Generate the frontend files
+
+Run:
+
+```bash
+npm install
+npm run build
+```
+
 #### Start the development server
 
 Run:

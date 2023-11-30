@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # Unreleased
 
+# [0.0.7] - 2023-11-30
+
+## Changed
+- Updated library dependencies
+    - rustix (0.38.7 -> 0.38.19)
+- Reformat commit messages from Dependabot
+- General code cleanup
+
+[0.0.7]:
+
 # [0.0.6] - 2023-08-06
 
 ## Changed

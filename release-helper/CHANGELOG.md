@@ -15,7 +15,7 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 - Use chrono instead of time (back again?) due to offset bugs
 - General code cleanup
 
-[0.0.7]:
+[0.0.7]: https://github.com/shipperstack/shipper/commit/3c6bbe14272377b6350660cafd07ac9000173a47
 
 # [0.0.6] - 2023-08-06
 

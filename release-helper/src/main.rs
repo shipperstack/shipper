@@ -3,7 +3,7 @@ use std::fs;
 use std::io::BufReader;
 use std::process::Command;
 use std::{io::BufRead, path::Path};
-use time::{format_description::FormatItem, OffsetDateTime};
+use chrono::Local;
 
 use semver::Version;
 
@@ -17,9 +17,6 @@ const VERSION_FILE_NAME: &str = "version.txt";
 const SERVER_VERSION_FILE_NAME: &str = "server/version.txt";
 const SHIPPY_VERSION_FILE_NAME: &str = "shippy/shippy/version.py";
 const GITHUB_REPOSITORY_URL: &str = "https://github.com/shipperstack/shipper";
-
-// Define timestamp format
-const TIMESTAMP_FORMAT: &[FormatItem] = time::macros::format_description!("[year]-[month]-[day]");
 
 #[derive(Parser, Debug)]
 #[command(name = "shipper-release")]
@@ -110,10 +107,7 @@ fn enabled_version_flag_count(major: bool, minor: bool, patch: bool) -> i32 {
 }
 
 fn today_iso8601() -> String {
-    let today =
-        OffsetDateTime::now_local().expect("Could not determine the UTC offset on this system!");
-
-    today.format(TIMESTAMP_FORMAT).unwrap()
+    Local::now().format("%Y-%m-%d").to_string()
 }
 
 fn generate(major: bool, minor: bool, patch: bool) {

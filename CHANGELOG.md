@@ -6,7 +6,33 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.25.1...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.26.0...HEAD
+
+
+# [2.26.0] - 2023-11-30
+
+## Added
+- Added admin page for x86 types
+- Added new OTA endpoint for x86 devices
+
+## Changed
+- shipper now checks for invalid configurations
+- shipper now allows the x86_64 codename (in addition to the x86 codename)
+- Updated library dependencies (server)
+	- django-ipware (6.0.0 -> 6.0.1)
+	- sentry-sdk (1.36.0 -> 1.38.0)
+- Updated library dependencies (shippy)
+	- sentry-sdk (1.36.0 -> 1.38.0)
+- Updated translations
+- Removed unnecessary dot from main server description
+- Update default file name regex pattern
+- General code cleanup
+
+## Removed
+- Removed deprecated configuration option for variants
+
+
+[2.26.0]: https://github.com/shipperstack/shipper/compare/2.25.1...2.26.0
 
 
 # [2.25.1] - 2023-11-23

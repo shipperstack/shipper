@@ -154,8 +154,7 @@ fn update_changelog(git_log_raw: &str, last_version: &str, new_version: &str) {
 
             // Add all commit entries (to be sorted later)
             for commit in parse_git_log(git_log_raw) {
-                let commit_msg = parse_commit_message(commit.msg);
-                new_changelog.push(format!("- {commit_msg}"));
+                new_changelog.push(parse_commit_message(commit.msg));
             }
 
             new_changelog.push(String::from(""));
@@ -182,10 +181,10 @@ fn parse_commit_message(s: &str) -> String {
         let dep_old_ver = s_parts[4];
         let dep_new_ver = s_parts[6];
         let subsystem = s_parts.last().unwrap();
-        return format!("- {dep_name} ({dep_old_ver} -> {dep_new_ver}) ({subsystem})")
+        return format!("\t- {dep_name} ({dep_old_ver} -> {dep_new_ver}) ({subsystem})")
     }
 
-    String::from(s)
+    format!("- {s}")
 }
 
 fn write_version_files(new_version: &str) {

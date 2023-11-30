@@ -112,11 +112,11 @@ fn today_iso8601() -> String {
 
 fn generate(major: bool, minor: bool, patch: bool) {
     // Get last version
-    let last_version = get_last_version();
+    let last_version: String = get_last_version();
 
-    let git_log_raw = get_git_log_raw(&last_version);
+    let git_log_raw: String = get_git_log_raw(&last_version);
 
-    let new_version = get_new_version(&last_version, major, minor, patch);
+    let new_version: String = get_new_version(&last_version, major, minor, patch);
 
     println!("New version is {}", new_version);
 
@@ -197,7 +197,7 @@ fn write_version_files(new_version: &str) {
 }
 
 fn get_new_version(last_version_raw: &str, major: bool, minor: bool, patch: bool) -> String {
-    let mut last_version = Version::parse(last_version_raw).unwrap();
+    let mut last_version: Version = Version::parse(last_version_raw).unwrap();
 
     if major {
         last_version.major += 1;
@@ -300,11 +300,11 @@ fn get_changes(version: &str) -> String {
 
     println!("Got version: {}", version);
 
-    let start_marker = format!("# [{version}] - ");
-    let end_marker = format!("[{version}]: {GITHUB_REPOSITORY_URL}/compare/");
+    let start_marker: String = format!("# [{version}] - ");
+    let end_marker: String = format!("[{version}]: {GITHUB_REPOSITORY_URL}/compare/");
 
-    let mut extracted_changes = String::new();
-    let mut is_in_target_version_section = false;
+    let mut extracted_changes: String = String::new();
+    let mut is_in_target_version_section: bool = false;
 
     for line in changelog_content.lines() {
         if line.starts_with(&start_marker) {

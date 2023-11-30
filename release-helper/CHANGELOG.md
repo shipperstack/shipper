@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 - Updated library dependencies
     - rustix (0.38.7 -> 0.38.19)
 - Reformat commit messages from Dependabot
+- Use chrono instead of time (back again?) due to offset bugs
 - General code cleanup
 
 [0.0.7]:

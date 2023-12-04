@@ -7,7 +7,7 @@ All commits must follow the [Conventional Commits][conventional-commits] specifi
 Allowed types (from [Angular convention][angular-types]):
 
 - `build`: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)
-- `ci`: Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)
+- `ci`: Changes to our CI configuration files and scripts (example scopes: GitHub Actions)
 - `docs`: Documentation only changes
 - `feat`: A new feature
 - `fix`: A bug fix

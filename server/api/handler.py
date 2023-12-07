@@ -91,7 +91,7 @@ def handle_chunked_build(device, chunked_file):
         file_name=os.path.splitext(chunked_file.filename)[0],
         size=os.path.getsize(target_file_full_path),
         version=filename_parts["version"],
-        variant=filename_parts["variant"],
+        variant=Variant.objects.get(codename=filename_parts["variant"]),
         build_date=datetime.strptime(filename_parts["date"], "%Y%m%d"),
         zip_file="{}/{}".format(device.codename, chunked_file.filename),
         enabled=True,

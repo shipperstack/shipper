@@ -6,7 +6,20 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.26.0...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.26.1...HEAD
+
+
+# [2.26.1] - 2023-12-07
+
+## Changed
+- Fixed the main page not sorting devices by name and enabled status
+- Fixed bug where chunked upload would crash before finalizing the changes
+- Changes to the site-wide configuration is now logged in the audit log
+- Updated library dependencies (server)
+	- django-ipware (6.0.1 -> 6.0.2)
+
+
+[2.26.1]: https://github.com/shipperstack/shipper/compare/2.26.0...2.26.1
 
 
 # [2.26.0] - 2023-11-30

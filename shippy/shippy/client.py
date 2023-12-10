@@ -1,5 +1,4 @@
 import hashlib
-import json
 import os.path
 import requests
 import re
@@ -130,10 +129,10 @@ class Client:
         return semver.VersionInfo.parse(self._get_info()["shippy_compat_version"])
 
     def get_shippy_upload_variants(self):
-        return json.loads(self._get_info()["shippy_upload_variants"])
+        return self._get_info()["shippy_upload_variants"]
 
     def _get_info(self):
-        r = self._get(url="/api/v1/system/info")
+        r = self._get(url="/api/v2/system/info")
         if r.status_code == 200:
             return r.json()
         else:

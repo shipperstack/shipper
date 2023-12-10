@@ -5,8 +5,10 @@ from constance import config
 from django.conf import settings
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import update_last_login
+from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
+from drf_chunked_upload.exceptions import ChunkedUploadError
 from drf_chunked_upload.serializers import ChunkedUploadSerializer
 from drf_chunked_upload.views import ChunkedUploadView
 from rest_framework.authtoken.models import Token
@@ -37,6 +39,22 @@ class V1MaintainersChunkedUpload(ChunkedUploadView):
     """
 
     serializer_class = V1MaintainersChunkedUploadSerializer
+
+    def post(self, request, pk=None, *args, **kwargs):
+        """
+        Handle POST requests.
+        """
+        try:
+            return self._post(request, pk=pk, *args, **kwargs)
+        except ChunkedUploadError as error:
+            # Delete chunked upload (if it exists)
+            if pk:
+                try:
+                    chunked_upload = get_object_or_404(self.get_queryset(), pk=pk)
+                    chunked_upload.delete()
+                except Http404:
+                    pass
+            return Response(error.data, status=error.status_code)
 
     def on_completion(self, chunked_upload, request) -> Response:
         """

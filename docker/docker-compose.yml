@@ -122,7 +122,7 @@ services:
       - rabbitmq
       - web
   rabbitmq:
-    image: rabbitmq:3.8.16-alpine
+    image: rabbitmq:3.12-alpine
   flower:
     image: mher/flower:latest
     command: celery --broker=pyamqp://rabbitmq:5672/ flower --port=5555 --purge_offline_workers=5

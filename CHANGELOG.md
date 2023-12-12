@@ -6,7 +6,16 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.26.2...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.27.0...HEAD
+
+
+# [2.27.0] - 2023-12-12
+
+## Changed
+- shippy now uses the v2 system endpoint to fetch details about the server
+- shippy now requires the server to be at least version 2.26.0
+
+[2.27.0]: https://github.com/shipperstack/shipper/compare/2.26.2...2.27.0
 
 
 # [2.26.2] - 2023-12-10

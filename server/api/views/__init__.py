@@ -10,7 +10,6 @@ from .shippy import (
     v1_maintainers_login,
     v1_maintainers_token_check,
     v1_maintainers_upload_filename_regex_pattern,
-    v1_system_info,
     v2_system_info,
 )
 from .statistics import (
@@ -32,7 +31,6 @@ __all__ = [
     "v1_maintainers_login",
     "v1_maintainers_token_check",
     "v1_maintainers_upload_filename_regex_pattern",
-    "v1_system_info",
     "v2_system_info",
     "V2DownloadBuildCounter",
     "v1_download_count_day",

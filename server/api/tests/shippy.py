@@ -1,4 +1,4 @@
-from api.views import v1_maintainers_login, v1_system_info
+from api.views import v1_maintainers_login, v2_system_info
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
@@ -27,10 +27,10 @@ class ShippyTestCase(APITestCase):
         # Add dummy user to mock device bullhead
         Device.objects.get(codename="bullhead").maintainers.add(self.user)
 
-    def test_v1_system_info(self):
+    def test_v2_system_info(self):
         request = self.factory.get("/api/v1/system/info/")
         request.user = AnonymousUser()
-        response = v1_system_info(request)
+        response = v2_system_info(request)
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["version"], settings.SHIPPER_VERSION)

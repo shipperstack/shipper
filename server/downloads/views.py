@@ -58,8 +58,9 @@ class LanguageSwitchView(TemplateView):
         return render(request, self.template_name, {"redirect_to": redirect_url})
 
 
-def download_view(request, codename, file_name):
+def download_check_view(request, codename, file_name):
     build = get_object_or_404(Build, file_name=file_name, device__codename=codename)
+
     response = HttpResponse()
     response["X-Accel-Redirect"] = f"/internal/media/{codename}/{file_name}"
 

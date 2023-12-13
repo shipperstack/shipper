@@ -5,7 +5,7 @@ from .views import (
     DownloadsDeviceView,
     DownloadsMainView,
     LanguageSwitchView,
-    download_view,
+    download_check_view,
 )
 
 urlpatterns = [
@@ -22,6 +22,8 @@ urlpatterns = [
     ),
     path("language_switch/", LanguageSwitchView.as_view(), name="language_switch"),
     path(
-        "media/<slug:codename>/<slug:file_name>/", download_view, name="download_view"
+        "download_check/<slug:codename>/<slug:file_name>/",
+        download_check_view,
+        name="download_check_view",
     ),
 ]

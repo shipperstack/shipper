@@ -6,7 +6,22 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.27.0...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.28.0...HEAD
+
+
+# [2.28.0] - 2023-12-13
+
+## Changed
+- Fixed the download endpoint not working properly
+- Updated library dependencies (server)
+	- sentry-sdk (1.38.0 -> 1.39.0)
+- Updated library dependencies (shippy)
+	- sentry-sdk (1.38.0 -> 1.39.0)
+
+## Removed
+- Removed v1 system API endpoint from the server
+
+[2.28.0]: https://github.com/shipperstack/shipper/compare/2.27.0...2.28.0
 
 
 # [2.27.0] - 2023-12-12

@@ -61,7 +61,7 @@ class LanguageSwitchView(TemplateView):
 def download_view(request, codename, file_name):
     build = get_object_or_404(Build, file_name=file_name, device__codename=codename)
     response = HttpResponse()
-    response["X-Accel-Redirect"] = f"/media/{codename}/{file_name}"
+    response["X-Accel-Redirect"] = f"/internal/media/{codename}/{file_name}"
 
     if build.is_archived:
         limit_speed = config.SHIPPER_DOWNLOADS_ARCHIVE_THROTTLE * 1000

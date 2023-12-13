@@ -6,11 +6,20 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.28.3...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.28.4...HEAD
+
+
+# [2.28.4] - 2023-12-13
+
+## Changed
+- Fixed server passing wrong file name to nginx
+
+[2.28.4]: https://github.com/shipperstack/shipper/compare/2.28.3...2.28.4
 
 
 # [2.28.3] - 2023-12-13
 
+## Changed
 - Fixed the server using the incorrect pattern matching for the file name
 
 [2.28.3]: https://github.com/shipperstack/shipper/compare/2.28.2...2.28.3
@@ -18,6 +27,7 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [2.28.2] - 2023-12-13
 
+## Changed
 - Fixed reverse URL not working in production
 
 [2.28.2]: https://github.com/shipperstack/shipper/compare/2.28.1...2.28.2

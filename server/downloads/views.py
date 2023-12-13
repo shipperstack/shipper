@@ -67,7 +67,7 @@ def download_check_view(request, codename, file_name):
     response = HttpResponse()
     response["X-Accel-Redirect"] = f"/internal/media/{build.zip_file.name}"
     response["Last-Modified"] = time.strftime(
-        "%a,%e %b %Y %H:%M:%S %Z", time.gmtime(os.path.getmtime(build.zip_file.name))
+        "%a,%e %b %Y %H:%M:%S %Z", time.gmtime(os.path.getmtime(build.zip_file.path))
     )
     response[
         "Content-Disposition"

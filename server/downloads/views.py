@@ -68,5 +68,7 @@ def download_check_view(request, codename, file_name):
     if build.is_archived:
         limit_speed = config.SHIPPER_DOWNLOADS_ARCHIVE_THROTTLE * 1000
         response["X-Accel-Limit-Rate"] = str(limit_speed)
+    else:
+        response["X-Accel-Limit-Rate"] = "off"
 
     return response

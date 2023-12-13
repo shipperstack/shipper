@@ -22,7 +22,7 @@ urlpatterns = [
     ),
     path("language_switch/", LanguageSwitchView.as_view(), name="language_switch"),
     path(
-        "download_check/<slug:codename>/<slug:file_name>/",
+        "download_check/<slug:codename>/<file_name>/",
         download_check_view,
         name="download_check_view",
     ),

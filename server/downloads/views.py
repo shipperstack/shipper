@@ -63,6 +63,7 @@ def download_check_view(request, codename, file_name):
 
     response = HttpResponse()
     response["X-Accel-Redirect"] = f"/internal/media/{build.zip_file.name}"
+    response["Content-Type"] = ""
 
     if build.is_archived:
         limit_speed = config.SHIPPER_DOWNLOADS_ARCHIVE_THROTTLE * 1000

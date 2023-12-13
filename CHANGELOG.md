@@ -6,7 +6,15 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.28.4...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.28.5...HEAD
+
+
+# [2.28.5] - 2023-12-13
+
+## Changed
+- Fixed server improperly adding a duplicated codename to the build download redirect
+
+[2.28.5]: https://github.com/shipperstack/shipper/compare/2.28.4...2.28.5
 
 
 # [2.28.4] - 2023-12-13

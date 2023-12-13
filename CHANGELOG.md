@@ -6,7 +6,14 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.28.1...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.28.2...HEAD
+
+
+# [2.28.2] - 2023-12-13
+
+- Fixed reverse URL not working in production
+
+[2.28.2]: https://github.com/shipperstack/shipper/compare/2.28.1...2.28.2
 
 
 # [2.28.1] - 2023-12-13

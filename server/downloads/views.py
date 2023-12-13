@@ -1,3 +1,6 @@
+import os
+import time
+
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
@@ -63,7 +66,13 @@ def download_check_view(request, codename, file_name):
 
     response = HttpResponse()
     response["X-Accel-Redirect"] = f"/internal/media/{build.zip_file.name}"
-    response["Content-Type"] = ""
+    response["Last-Modified"] = time.strftime(
+        "%a,%e %b %Y %H:%M:%S %Z", time.gmtime(os.path.getmtime(build.zip_file.name))
+    )
+    response[
+        "Content-Disposition"
+    ] = f'attachment; filename="{build.zip_file_basename()}"'
+    response["Content-Type"] = "application/octet-stream"
 
     if build.is_archived:
         limit_speed = config.SHIPPER_DOWNLOADS_ARCHIVE_THROTTLE * 1000 * 1000

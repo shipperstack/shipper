@@ -1,3 +1,5 @@
+import os
+
 import humanize
 from auditlog.registry import auditlog
 from constance import config
@@ -395,6 +397,9 @@ class Build(models.Model):
         else:
             humanize.i18n.deactivate()
         return humanize.naturaltime(date.today() - self.build_date)
+
+    def zip_file_basename(self):
+        return os.path.basename(self.zip_file.name)
 
 
 # Statistics model

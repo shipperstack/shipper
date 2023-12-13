@@ -6,7 +6,14 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.28.2...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.28.3...HEAD
+
+
+# [2.28.3] - 2023-12-13
+
+- Fixed the server using the incorrect pattern matching for the file name
+
+[2.28.3]: https://github.com/shipperstack/shipper/compare/2.28.2...2.28.3
 
 
 # [2.28.2] - 2023-12-13

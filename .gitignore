@@ -1,2 +1,5 @@
 # Environment file
 .env*
+
+# Ignore htpasswd
+docker/nginx/.htpasswd

@@ -44,7 +44,7 @@ jobs:
     - name: Upload coverage report
       uses: actions/upload-artifact@v4
       with:
-        name: coverage-data-${{ github.run_id }}-${{ github.run_attempt }}
+        name: coverage-data-${{ matrix.python-version }}
         path: ${{ github.workspace }}/server/.coverage.*
 
   codecov-coverage:
@@ -63,7 +63,7 @@ jobs:
       - name: Download coverage reports from all runners
         uses: actions/download-artifact@v4
         with:
-          name: coverage-data-${{ github.run_id }}-${{ github.run_attempt }}
+          path: all
       - name: Combine coverage reports and generate Cobertura XML report
         run: |
           coverage combine

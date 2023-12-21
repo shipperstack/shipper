@@ -3,13 +3,19 @@ name: nginx gixy tests
 on:
   push:
     branches: [ master ]
+    paths:
+      - 'docker/nginx/**'
+      - 'docker/dev/nginx/**'
   pull_request:
     branches: [ master ]
+    paths:
+      - 'docker/nginx/**'
+      - 'docker/dev/nginx/**'
 
 jobs:
   test-runners:
     runs-on: ubuntu-latest
-    
+
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python

@@ -50,7 +50,7 @@ class UpdaterTestCase(APITestCase):
         self.assertEqual("v14", response.data["response"][0]["version"])
         self.assertEqual("gapps", response.data["response"][0]["variant"])
         self.assertEqual(
-            "https://testserver/media/bullhead/"
+            "https://testserver/download_check/bullhead/"
             "Bliss-v14-bullhead-OFFICIAL-gapps-20200608.zip",
             response.data["response"][0]["url"],
         )

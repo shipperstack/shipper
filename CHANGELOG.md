@@ -11,21 +11,17 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [2.29.0] - 2023-12-25
 
-	- github/codeql-action (2 -> 3) (3)
-	- sentry-sdk (1.39.0 -> 1.39.1) (/server)
-	- django-ipware (6.0.2 -> 6.0.3) (/server)
-	- actions/upload-artifact (3 -> 4) (4)
-	- actions/download-artifact (3 -> 4) (4)
-	- sentry-sdk (1.39.0 -> 1.39.1) (/shippy)
-- ci: use different names for coverage artifact data
-- ci: another attempt at fixing artifact upload
-- ci: fix artifact being downloaded to wrong path
+Merry Christmas!
+
+## Changed
+- Fixed the server sending the incorrect download URL in API responses
+- Updated library dependencies (server)
+	- sentry-sdk (1.39.0 -> 1.39.1)
+	- django-ipware (6.0.2 -> 6.0.3)
 	- thumbhash-python (1.0.0 -> 1.0.1) (/server)
 	- paramiko (3.3.1 -> 3.4.0) (/server)
-- ci(github): enable artifact merging
-- ci(github): only run nginx gixy tests if the config changed
-- ci(github): update download artifacts action to 4.1.0
-- fix(server): send proper download URL in API responses
+- Updated library dependencies (shippy)
+	- sentry-sdk (1.39.0 -> 1.39.1)
 
 [2.29.0]: https://github.com/shipperstack/shipper/compare/2.28.8...2.29.0
 

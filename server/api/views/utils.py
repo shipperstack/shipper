@@ -1,11 +1,12 @@
 import random
 
 from constance import config
+from django.urls import reverse
 
 
-def get_distributed_download_url(request, build):
+def get_distributed_download_url(build):
     if not build.is_mirrored():
-        return get_main_download_url(request, build)
+        return get_main_download_url(build)
 
     available_servers = ["main", *build.get_downloadable_mirrors()]
 
@@ -14,10 +15,13 @@ def get_distributed_download_url(request, build):
 
     selected_server = random.choice(available_servers)
     if selected_server == "main":
-        return get_main_download_url(request, build)
+        return get_main_download_url(build)
     else:
         return selected_server.get_download_url(build)
 
 
-def get_main_download_url(request, build):
-    return f"https://{request.get_host()}{build.zip_file.url}"
+def get_main_download_url(build):
+    return reverse("download_check_view", kwargs={
+        "codename": build.device.codename,
+        "file_name": build.file_name,
+    })

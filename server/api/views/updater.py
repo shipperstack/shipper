@@ -100,7 +100,7 @@ def response_from_build_query(builds, request, variant, x86_type=None):
             "size": build.size,
             "version": build.version,
             "variant": html.escape(variant),
-            "url": get_distributed_download_url(request, build),
+            "url": get_distributed_download_url(build),
         }
         if x86_type is not None:
             build_json["x86_type"] = x86_type

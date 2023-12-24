@@ -124,7 +124,7 @@ class V1GeneralBuildLatest(APIView):
                 "size": build.size,
                 "version": build.version,
                 "variant": html.escape(variant),
-                "mirror_url": get_distributed_download_url(request, build),
+                "mirror_url": get_distributed_download_url(build),
             },
             status=HTTP_200_OK,
         )

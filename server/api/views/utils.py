@@ -4,9 +4,9 @@ from constance import config
 from django.urls import reverse
 
 
-def get_distributed_download_url(build):
+def get_distributed_download_url(request, build):
     if not build.is_mirrored():
-        return get_main_download_url(build)
+        return get_main_download_url(request, build)
 
     available_servers = ["main", *build.get_downloadable_mirrors()]
 
@@ -15,13 +15,13 @@ def get_distributed_download_url(build):
 
     selected_server = random.choice(available_servers)
     if selected_server == "main":
-        return get_main_download_url(build)
+        return get_main_download_url(request, build)
     else:
         return selected_server.get_download_url(build)
 
 
-def get_main_download_url(build):
-    return reverse("download_check_view", kwargs={
+def get_main_download_url(request, build):
+    return request.build_absolute_uri(reverse("download_check_view", kwargs={
         "codename": build.device.codename,
         "file_name": build.file_name,
-    })
+    }))

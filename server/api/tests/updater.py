@@ -22,7 +22,7 @@ class UpdaterTestCase(APITestCase):
         self.assertIsNone(variant_check("goapps"))
 
     def test_v1_updater_los_bullhead_gapps(self):
-        request = self.factory.get("/api/v1/updater/los/")
+        request = self.factory.get("/api/v1/updater/los/", secure=True)
         request.user = AnonymousUser()
         response = V1UpdaterLOS.as_view()(request, "bullhead", "gapps")
 

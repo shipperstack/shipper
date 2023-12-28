@@ -65,8 +65,6 @@ jobs:
         with:
           path: ${{ github.workspace }}/server/
           merge-multiple: true
-      - name: Display structure of downloaded files
-        run: ls -R ${{ github.workspace }}/server/
       - name: Combine coverage reports and generate Cobertura XML report
         run: |
           coverage combine

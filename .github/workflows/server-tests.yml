@@ -63,7 +63,7 @@ jobs:
       - name: Download coverage reports from all runners
         uses: actions/download-artifact@v4.1.0
         with:
-          path: ${{ github.workspace }}/server/
+          path: ${{ github.workspace }}/
           merge-multiple: true
       - name: Combine coverage reports and generate Cobertura XML report
         run: |

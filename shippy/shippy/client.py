@@ -273,7 +273,6 @@ class Client:
             data={"filename": build_path},
             files={"file": chunk},
         )
-        logger.debug(f"Got back: {result}")
         return result
 
     def _upload_finalize(self, upload_id, checksum):

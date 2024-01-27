@@ -41,6 +41,18 @@ We recommend updating shippy with the following command:
 \tpip3 install --upgrade shipper-shippy
 """
 
+SERVER_EMPTY_TOKEN_MSG = "Server returned an empty token."
+SERVER_WRONG_SCHEMA_MSG = "Server uses HTTPS, but was supplied HTTP URL."
+BLANK_AUTH_DETAILS_MSG = "Username or password must not be blank."
+INVALID_CREDENTIALS_MSG = "The supplied credentials are invalid."
+GATEWAY_SERVER_UNAVAILABLE_MSG = "The gateway server is currently unavailable."
+SERVER_TEMPORARILY_UNAVAILABLE_MSG = "The server is temporarily unavailable."
+
+LOG_DEBUG_REQUEST_SEND_MSG = """\
+Sending {} request to {}, with header {} and data {}
+"""
+LOG_DEBUG_REQUEST_RESPONSE_MSG = "Received response: {}"
+
 FOUND_PREVIOUS_BUILD_ATTEMPT_MSG = """\
 Found a previous upload attempt for the build {}, created on {}
 """
@@ -56,6 +68,10 @@ WAITING_FINALIZATION_MSG = (
     "This may take around 30 seconds..."
 )
 
+BUILD_DISABLED_MSG = "Build {} has been disabled."
+
+UPLOAD_SUCCESSFUL_MSG = "Successfully uploaded the build {}!"
+
 CANNOT_CONTACT_SERVER_ERROR_MSG = "Cannot contact the server. "
 UNEXPECTED_SERVER_RESPONSE_ERROR_MSG = "The server returned an unexpected response. "
 FAILED_TO_RETRIEVE_SERVER_VERSION_ERROR_MSG = (
@@ -68,6 +84,7 @@ INTERNAL_SERVER_ERROR_MSG = (
     "An internal server error occurred. Please contact the admins."
 )
 DISABLE_BUILD_FAILED_MSG = "There was a problem disabling the build."
+RESPONSE_PARSING_FAILED_MSG = "An unknown error occurred parsing the response."
 
 UNHANDLED_EXCEPTION_MSG = """\
 shippy crashed for an unknown reason. :(

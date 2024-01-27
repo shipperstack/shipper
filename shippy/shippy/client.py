@@ -20,12 +20,23 @@ from rich.progress import (
 from loguru import logger
 
 from .constants import (
+    BLANK_AUTH_DETAILS_MSG,
+    BUILD_DISABLED_MSG,
+    GATEWAY_SERVER_UNAVAILABLE_MSG,
+    INVALID_CREDENTIALS_MSG,
+    LOG_DEBUG_REQUEST_RESPONSE_MSG,
+    LOG_DEBUG_REQUEST_SEND_MSG,
+    RESPONSE_PARSING_FAILED_MSG,
+    SERVER_EMPTY_TOKEN_MSG,
+    SERVER_TEMPORARILY_UNAVAILABLE_MSG,
+    SERVER_WRONG_SCHEMA_MSG,
     UNHANDLED_EXCEPTION_MSG,
     FAILED_TO_RETRIEVE_SERVER_VERSION_ERROR_MSG,
     RATE_LIMIT_WAIT_STATUS_MSG,
     RATE_LIMIT_MSG,
     UNKNOWN_UPLOAD_ERROR_MSG,
     UNKNOWN_UPLOAD_START_ERROR_MSG,
+    UPLOAD_SUCCESSFUL_MSG,
     WAITING_FINALIZATION_MSG,
     CHUNK_SIZE,
     INTERNAL_SERVER_ERROR_MSG,
@@ -54,10 +65,7 @@ progress = Progress(
 
 
 def log_debug_request_send(request_type, url, headers=None, data=None):
-    logger.debug(
-        f"Sending {request_type} request to {url}, with header {headers} and "
-        f"data {data}"
-    )
+    logger.debug(LOG_DEBUG_REQUEST_SEND_MSG.format(request_type, url, headers, data))
 
 
 def log_debug_request_response(r):
@@ -66,7 +74,7 @@ def log_debug_request_response(r):
     except ValueError:
         r_content = r.content
 
-    logger.debug(f"Received response: {r_content}")
+    logger.debug(LOG_DEBUG_REQUEST_RESPONSE_MSG.format(r_content))
 
 
 def wait_rate_limit(seconds):
@@ -104,24 +112,22 @@ class Client:
                 token = r.json()["token"]
 
                 if token == b"":
-                    raise LoginException("Server returned an empty token.")
+                    raise LoginException(SERVER_EMPTY_TOKEN_MSG)
                 else:
                     self.token = token
             case 301:
                 if not self.is_url_secure():
-                    raise LoginException(
-                        "Server uses HTTPS, but was supplied HTTP URL."
-                    )
+                    raise LoginException(SERVER_WRONG_SCHEMA_MSG)
             case 400:
                 if r.json()["error"] == "blank_username_or_password":
-                    raise LoginException("Username or password must not be blank.")
+                    raise LoginException(BLANK_AUTH_DETAILS_MSG)
             case 404:
                 if r.json()["error"] == "invalid_credential":
-                    raise LoginException("Invalid credentials!")
+                    raise LoginException(INVALID_CREDENTIALS_MSG)
             case 502:
-                raise LoginException("The gateway server is currently unavailable.")
+                raise LoginException(GATEWAY_SERVER_UNAVAILABLE_MSG)
             case 503:
-                raise LoginException("The server is temporarily unavailable.")
+                raise LoginException(SERVER_TEMPORARILY_UNAVAILABLE_MSG)
             case _:
                 handle_undefined_response(r)
 
@@ -252,7 +258,7 @@ class Client:
         )
 
         if r.status_code == 200:
-            print(f"Build {build_id} has been disabled.")
+            print(BUILD_DISABLED_MSG.format(build_id))
         else:
             raise Exception(DISABLE_BUILD_FAILED_MSG)
 
@@ -402,16 +408,14 @@ def find_checksum_file(filename):
 
 def upload_exception_check(request, build_file):
     if request.status_code == 200:
-        print(f"Successfully uploaded the build {build_file}!")
+        print(UPLOAD_SUCCESSFUL_MSG.format(build_file))
         return
     elif int(request.status_code / 100) == 4:
         try:
             response_json = request.json()
             raise UploadException(response_json["message"])
         except (JSONDecodeError, KeyError) as exc:
-            raise UploadException(
-                "An unknown error occurred parsing the response."
-            ) from exc
+            raise UploadException(RESPONSE_PARSING_FAILED_MSG) from exc
     elif int(request.status_code / 100) == 5:
         raise UploadException(INTERNAL_SERVER_ERROR_MSG)
 

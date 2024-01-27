@@ -175,8 +175,8 @@ class Client:
             previous_attempts = self._get(
                 url="/api/v1/maintainers/chunked_upload/", headers=self._get_header()
             ).json()
-        except requests.exceptions.RequestException:
-            raise UploadException(UNKNOWN_UPLOAD_ERROR_MSG)
+        except requests.exceptions.RequestException as exc:
+            raise UploadException(UNKNOWN_UPLOAD_ERROR_MSG) from exc
         for attempt in previous_attempts:
             if build_path == attempt["filename"]:
                 logger.debug(
@@ -221,8 +221,8 @@ class Client:
                             upload_handle_4xx_response(r)
                         else:
                             raise UploadException(UNKNOWN_UPLOAD_START_ERROR_MSG)
-                    except requests.exceptions.RequestException:
-                        raise UploadException(UNKNOWN_UPLOAD_ERROR_MSG)
+                    except requests.exceptions.RequestException as exc:
+                        raise UploadException(UNKNOWN_UPLOAD_ERROR_MSG) from exc
 
         # Finalize upload to begin processing
         try:
@@ -235,8 +235,8 @@ class Client:
                 upload_exception_check(r, build_path)
         except UploadException as e:
             raise e
-        except requests.exceptions.RequestException:
-            raise UploadException(UNKNOWN_UPLOAD_ERROR_MSG)
+        except requests.exceptions.RequestException as exc:
+            raise UploadException(UNKNOWN_UPLOAD_ERROR_MSG) from exc
 
         return r.json()["build_id"]
 
@@ -356,8 +356,8 @@ def upload_handle_4xx_response(chunk_request):
     try:
         response_json = chunk_request.json()
         raise UploadException(response_json["message"])
-    except (KeyError, JSONDecodeError):
-        raise UploadException(UNKNOWN_UPLOAD_ERROR_MSG)
+    except (KeyError, JSONDecodeError) as exc:
+        raise UploadException(UNKNOWN_UPLOAD_ERROR_MSG) from exc
 
 
 def get_hash_of_file(filename, checksum_type):
@@ -404,8 +404,10 @@ def upload_exception_check(request, build_file):
         try:
             response_json = request.json()
             raise UploadException(response_json["message"])
-        except (JSONDecodeError, KeyError):
-            raise UploadException("An unknown error occurred parsing the response.")
+        except (JSONDecodeError, KeyError) as exc:
+            raise UploadException(
+                "An unknown error occurred parsing the response."
+            ) from exc
     elif int(request.status_code / 100) == 5:
         raise UploadException(
             "An internal server error occurred. Please contact the admins."

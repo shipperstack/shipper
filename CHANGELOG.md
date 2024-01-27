@@ -6,7 +6,26 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.29.1...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.30.0...HEAD
+
+
+# [2.30.0] - 2024-01-27
+
+## Changed
+- Fixed tests not working properly for the server component
+- Fixed exception details getting lost for shippy
+- Updated library dependencies (shippy)
+	- setuptools (69.0.2 -> 69.0.3)
+	- sentry-sdk (1.39.1 -> 1.39.2)
+- Updated library dependencies (server)
+	- django-dbbackup (4.0.2 -> 4.1.0)
+  - sentry-sdk (1.39.1 -> 1.39.2)
+- General code cleanup
+
+## Removed
+- Removed unnecessary debug output for shippy
+
+[2.30.0]: https://github.com/shipperstack/shipper/compare/2.29.1...2.30.0
 
 
 # [2.29.1] - 2023-12-25

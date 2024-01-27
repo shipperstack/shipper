@@ -28,6 +28,9 @@ from .constants import (
     UNKNOWN_UPLOAD_START_ERROR_MSG,
     WAITING_FINALIZATION_MSG,
     CHUNK_SIZE,
+    INTERNAL_SERVER_ERROR_MSG,
+    FOUND_PREVIOUS_BUILD_ATTEMPT_MSG,
+    DISABLE_BUILD_FAILED_MSG,
 )
 from .exceptions import LoginException, UploadException
 from .version import __version__
@@ -180,8 +183,9 @@ class Client:
         for attempt in previous_attempts:
             if build_path == attempt["filename"]:
                 logger.debug(
-                    f"Found a previous upload attempt for the build {build_path}, "
-                    f"created on {attempt['created_at']}",
+                    FOUND_PREVIOUS_BUILD_ATTEMPT_MSG.format(
+                        build_path, attempt["created_at"]
+                    ),
                 )
                 current_byte = attempt["offset"]
                 upload_id = attempt["id"]
@@ -250,7 +254,7 @@ class Client:
         if r.status_code == 200:
             print(f"Build {build_id} has been disabled.")
         else:
-            raise Exception("There was a problem disabling the build.")
+            raise Exception(DISABLE_BUILD_FAILED_MSG)
 
     def _upload_chunk(self, build_path, chunk, current, total, upload_id):
         if upload_id:
@@ -409,8 +413,6 @@ def upload_exception_check(request, build_file):
                 "An unknown error occurred parsing the response."
             ) from exc
     elif int(request.status_code / 100) == 5:
-        raise UploadException(
-            "An internal server error occurred. Please contact the admins."
-        )
+        raise UploadException(INTERNAL_SERVER_ERROR_MSG)
 
     handle_undefined_response(request)

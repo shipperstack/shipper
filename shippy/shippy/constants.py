@@ -41,6 +41,10 @@ We recommend updating shippy with the following command:
 \tpip3 install --upgrade shipper-shippy
 """
 
+FOUND_PREVIOUS_BUILD_ATTEMPT_MSG = """\
+Found a previous upload attempt for the build {}, created on {}
+"""
+
 RATE_LIMIT_MSG = "shippy has been rate limited."
 RATE_LIMIT_WAIT_STATUS_MSG = (
     "Waiting to resume after being rate limited. shippy will "
@@ -60,6 +64,10 @@ FAILED_TO_RETRIEVE_SERVER_VERSION_ERROR_MSG = (
 FAILED_TO_LOG_IN_ERROR_MSG = "Failed to log into server! "
 UNKNOWN_UPLOAD_START_ERROR_MSG = "Something went wrong starting the upload."
 UNKNOWN_UPLOAD_ERROR_MSG = "Something went wrong during the upload."
+INTERNAL_SERVER_ERROR_MSG = (
+    "An internal server error occurred. Please contact the admins."
+)
+DISABLE_BUILD_FAILED_MSG = "There was a problem disabling the build."
 
 UNHANDLED_EXCEPTION_MSG = """\
 shippy crashed for an unknown reason. :(

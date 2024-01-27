@@ -373,6 +373,10 @@ def is_build_disabling_enabled():
         return False
 
 
+def check_debug_mode(args):
+    return args.debug or get_optional_true_config_value("shippy", "debug")
+
+
 def main():
     # Get commandline arguments
     args = init_argparse()
@@ -383,7 +387,7 @@ def main():
         print(__version__)
         return
 
-    if args.debug:
+    if check_debug_mode(args):
         print_warning("Debug mode has been turned on!")
         logger.add(sink="shippy_{time}.log", level="DEBUG", enqueue=True)
 

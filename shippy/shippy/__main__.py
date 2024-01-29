@@ -80,6 +80,7 @@ def check_and_upload_build(client, args, build_path):
             if is_build_disabling_enabled():
                 client.disable_build(build_id=uploaded_build_id)
         except UploadException as exception:
+            logger.exception(exception)
             print_error(exception, newline=True, exit_after=False)
 
 

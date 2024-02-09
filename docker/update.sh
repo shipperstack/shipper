@@ -7,6 +7,11 @@
 # Set latest version tag
 setlatest
 
+# Check if version has been uploaded to GitHub Registry
+docker pull ghcr.io/shipperstack/shipper-server:${VERSION_TAG} > /dev/null || \
+    echo "The version hasn't been published yet! Try running the updater later."; \
+    exit 1;
+
 # Start Docker images
 docker-compose up -d --no-build
 

@@ -16,7 +16,7 @@
 
     <div id="root"></div>
 
-    {{ active_devices|json_script:'active-devices' }}
+    {{ active_visible_devices|json_script:'active-visible-devices' }}
     <script src="{% static 'downloads-main.bundle.js' %}?cachebust={% now 'U' %}"></script>
     <!-- TODO: Remove cache-busting tag once main page is stable! -->
 {% endblock %}

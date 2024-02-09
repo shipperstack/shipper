@@ -4,8 +4,8 @@ import Fuse from "fuse.js";
 
 const root = createRoot(document.getElementById("root"));
 
-const ACTIVE_DEVICES = JSON.parse(
-  document.getElementById("active-devices").textContent,
+const ACTIVE_VISIBLE_DEVICES = JSON.parse(
+  document.getElementById("active-visible-devices").textContent,
 );
 
 function App() {
@@ -39,12 +39,12 @@ function DownloadList({ filter }) {
 
   if (filter) {
     // Fuzzy search through all devices
-    filtered_devices = new Fuse(ACTIVE_DEVICES, {keys: ['name']}).search(filter);
+    filtered_devices = new Fuse(ACTIVE_VISIBLE_DEVICES, {keys: ['name']}).search(filter);
 
     // Map results returned from Fuse.js to remove item enclosing
     filtered_devices = filtered_devices.map((result) => result.item)
   } else {
-    filtered_devices = ACTIVE_DEVICES;
+    filtered_devices = ACTIVE_VISIBLE_DEVICES;
   }
 
   function sortActive(a, b) {

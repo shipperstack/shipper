@@ -15,13 +15,13 @@ class DownloadsMainView(TemplateView):
     template_name = "downloads_main.html"
 
     def get_context_data(self, **kwargs):
-        active_devices = [
+        active_visible_devices = [
             device
             for device in Device.objects.all()
-            if device.has_enabled_hashed_builds()
+            if device.has_enabled_hashed_builds() and device.visible
         ]
         return {
-            "active_devices": [
+            "active_visible_devices": [
                 {
                     "codename": device.codename,
                     "enabled": device.status,
@@ -31,7 +31,7 @@ class DownloadsMainView(TemplateView):
                         "downloads_device", kwargs={"codename": device.codename}
                     ),
                 }
-                for device in active_devices
+                for device in active_visible_devices
             ]
         }
 

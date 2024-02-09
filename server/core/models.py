@@ -60,6 +60,10 @@ class Device(models.Model):
     )
     created = models.DateTimeField(auto_now_add=True, editable=False)
 
+    visible = models.BooleanField(
+        default=True, help_text="Show device on the main downloads page"
+    )
+
     def __str__(self):
         return "{} {} ({})".format(self.manufacturer, self.name, self.codename)
 

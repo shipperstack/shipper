@@ -6,7 +6,27 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.30.2...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.31.0...HEAD
+
+
+# [2.31.0] - 2024-02-09
+
+This release contains a security vulnerability patch.
+
+## Added
+- Added visible field to Device model to control device visibility on main downloads page
+
+## Changed
+- Fixed the Docker updater script crashing if the version is not published yet on GitHub Packages registry
+- Updated library dependencies (server)
+	- django-cleanup (8.0.0 -> 8.1.0)
+	- sentry-sdk (1.39.2 -> 1.40.3)
+	- django (4.2.7 -> 4.2.10)
+	- django-ipware (6.0.3 -> 6.0.4) (/server)
+- Updated library dependencies (shippy)
+	- sentry-sdk (1.39.2 -> 1.40.3) (/shippy)
+
+[2.31.0]: https://github.com/shipperstack/shipper/compare/2.30.2...2.31.0
 
 
 # [2.30.2] - 2024-01-28

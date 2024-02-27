@@ -1,6 +1,6 @@
 Celery==5.3.6
 crispy-bootstrap5==2024.2
-Django==4.2.10
+Django==5.0.2
 django-auditlog==2.3.0
 django-celery-beat==2.5.0
 django-celery-results==2.5.1

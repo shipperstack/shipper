@@ -6,7 +6,23 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.31.0...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.32.0...HEAD
+
+
+# [2.32.0] - 2024-03-18
+
+## Changed
+- Updated library dependencies (shippy)
+	- setuptools (69.0.3 -> 69.2.0)
+  - sentry-sdk (1.40.3 -> 1.42.0)
+  - rich (13.7.0 -> 13.7.1)
+- Updated library dependencies (server)
+  - django (4.2.10 -> 5.0.3)
+	- sentry-sdk (1.40.3 -> 1.42.0)
+	- crispy-bootstrap5 (2023.10 -> 2024.2)
+	- django-celery-beat (2.5.0 -> 2.6.0)
+
+[2.32.0]: https://github.com/shipperstack/shipper/compare/2.31.0...2.32.0
 
 
 # [2.31.0] - 2024-02-09

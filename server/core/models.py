@@ -320,7 +320,7 @@ class Build(models.Model):
         return "{}/{}".format(self.device.codename, filename)
 
     zip_file = models.FileField(
-        upload_to=get_upload_path, verbose_name="Zip file", unique=True
+        upload_to=get_upload_path, verbose_name="Zip file", unique=True, blank=True
     )
 
     x86_type = models.ForeignKey(X86Type, on_delete=models.PROTECT, null=True)

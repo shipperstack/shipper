@@ -405,6 +405,13 @@ class Build(models.Model):
     def zip_file_basename(self):
         return os.path.basename(self.zip_file.name)
 
+    def is_downloadable_from_main(self):
+        return (
+            bool(self.zip_file)
+            and self.zip_file.storage.exists(self.zip_file.name)
+            and not config.SHIPPER_DOWNLOADS_DISABLE_MAIN_SERVER
+        )
+
 
 # Statistics model
 class Statistics(models.Model):

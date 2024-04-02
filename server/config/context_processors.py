@@ -13,7 +13,6 @@ def download_page_processor(_):
         "downloads_page_main_branding": config.SHIPPER_DOWNLOADS_PAGE_MAIN_BRANDING,
         "downloads_page_donation_url": config.SHIPPER_DOWNLOADS_PAGE_DONATION_URL,
         "downloads_page_donation_message": config.SHIPPER_DOWNLOADS_PAGE_DONATION_MESSAGE,  # noqa: E501
-        "downloads_disable_main_server": config.SHIPPER_DOWNLOADS_DISABLE_MAIN_SERVER,
         "upload_variants": variants,
     }
 

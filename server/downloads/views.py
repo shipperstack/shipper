@@ -69,9 +69,9 @@ def download_check_view(request, codename, file_name):
     response["Last-Modified"] = time.strftime(
         "%a,%e %b %Y %H:%M:%S %Z", time.gmtime(os.path.getmtime(build.zip_file.path))
     )
-    response[
-        "Content-Disposition"
-    ] = f'attachment; filename="{build.zip_file_basename()}"'
+    response["Content-Disposition"] = (
+        f'attachment; filename="{build.zip_file_basename()}"'
+    )
     response["Content-Type"] = "application/octet-stream"
 
     if build.is_archived:

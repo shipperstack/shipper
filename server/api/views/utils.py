@@ -21,7 +21,12 @@ def get_distributed_download_url(request, build):
 
 
 def get_main_download_url(request, build):
-    return request.build_absolute_uri(reverse("download_check_view", kwargs={
-        "codename": build.device.codename,
-        "file_name": build.file_name,
-    }))
+    return request.build_absolute_uri(
+        reverse(
+            "download_check_view",
+            kwargs={
+                "codename": build.device.codename,
+                "file_name": build.file_name,
+            },
+        )
+    )

@@ -87,7 +87,7 @@
             </thead>
             <tbody>
 
-            {% if not downloads_disable_main_server %}
+            {% if object.is_downloadable_from_main %}
                 <tr>
                     <td>{% translate "Main" %}</td>
                     <td>{% translate "Download builds from the main website" %}</td>

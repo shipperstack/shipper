@@ -7,6 +7,11 @@ updates:
     directory: "./server"
     schedule:
       interval: "daily"
+  # Maintain dependencies for server Python packages
+  - package-ecosystem: "npm"
+    directory: "./server"
+    schedule:
+      interval: "daily"
   # Maintain dependencies for shippy Python packages
   - package-ecosystem: "pip"
     directory: "./shippy"

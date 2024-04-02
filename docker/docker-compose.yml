@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   web:
     image: ghcr.io/shipperstack/shipper-server:${VERSION_TAG}

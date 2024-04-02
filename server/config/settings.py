@@ -1,4 +1,7 @@
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 import sentry_sdk
 from django.utils.translation import gettext_lazy

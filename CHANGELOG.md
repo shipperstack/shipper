@@ -6,7 +6,25 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.32.0...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.33.0...HEAD
+
+
+# [2.33.0] - 2024-04-02
+
+## Added
+- Added command to unset missing build files
+
+## Changed
+- Updated library dependencies (shippy)
+  - sentry-sdk (1.42.0 -> 1.44.0)
+- Updated library dependencies (server)
+	- djangorestframework (3.14.0 -> 3.15.0)
+	- sentry-sdk (1.42.0 -> 1.44.0)
+	- djangorestframework (3.15.0 -> 3.15.1)
+- shipper now loads environment variables from a dotfile if it is available
+- Build files can now be unset for build offloading
+
+[2.33.0]: https://github.com/shipperstack/shipper/compare/2.32.0...2.33.0
 
 
 # [2.32.0] - 2024-03-18

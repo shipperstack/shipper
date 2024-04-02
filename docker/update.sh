@@ -14,7 +14,7 @@ if ! docker pull ghcr.io/shipperstack/shipper-server:${VERSION_TAG} ; then
 fi
 
 # Start Docker images
-docker-compose up -d --no-build
+docker compose up -d --no-build
 
 # Migrate database, compile translations, and collect static files
 ./server-update.sh

@@ -44,19 +44,19 @@ function is_shipper_version_tag_set {
 
 function dc {
   if is_shipper_version_tag_set; then
-    docker-compose "$@"
+    docker compose "$@"
   fi 
 }
 
 function dcup {
   if is_shipper_version_tag_set; then
-    docker-compose up -d "$@"
+    docker compose up -d "$@"
   fi  
 }
 
 function dcdown {
   if is_shipper_version_tag_set; then
-    docker-compose down "$@"
+    docker compose down "$@"
   fi 
 }
 
@@ -64,7 +64,7 @@ alias dcrestart='dcdown && dcup'
 
 function dcx {
   if is_shipper_version_tag_set; then
-    docker-compose exec "$@"
+    docker compose exec "$@"
   fi
 }
 
@@ -82,13 +82,13 @@ function setlatest {
 ###############
 
 alias devmode='export COMPOSE_PROJECT_NAME="shipper_dev" && echo "Developer mode is now active!"'
-alias dcd='docker-compose -f docker-compose.dev.yml'
-alias dcdup='docker-compose -f docker-compose.dev.yml up -d --build'
-alias dcddown='docker-compose -f docker-compose.dev.yml down'
+alias dcd='docker compose -f docker-compose.dev.yml'
+alias dcdup='docker compose -f docker-compose.dev.yml up -d --build'
+alias dcddown='docker compose -f docker-compose.dev.yml down'
 alias dcdrestart='dcddown && dcdup'
-alias dcdx='docker-compose -f docker-compose.dev.yml exec'
+alias dcdx='docker compose -f docker-compose.dev.yml exec'
 alias dcdsetup='./server-update.sh developer'
-alias dcdbuild='docker-compose -f docker-compose.dev.yml build --no-cache'
+alias dcdbuild='docker compose -f docker-compose.dev.yml build --no-cache'
 
 function dcdresetall {
   echo "Deleting all development Docker volumes..."

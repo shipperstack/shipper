@@ -6,7 +6,19 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.33.1...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.33.2...HEAD
+
+
+# [2.33.2] - 2024-04-05
+
+This release contains a database migration.
+
+## Changed
+- fix(server): drop unique requirement from build file
+- refactor(server): move main server avail check to models
+- fix(server): downloads: return 503 if zip file is offloaded
+
+[2.33.2]: https://github.com/shipperstack/shipper/compare/2.33.1...2.33.2
 
 
 # [2.33.1] - 2024-04-02
@@ -18,6 +30,8 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 
 # [2.33.0] - 2024-04-02
+
+This release contains a database migration.
 
 ## Added
 - Added command to unset missing build files

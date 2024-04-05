@@ -14,6 +14,11 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 This release contains a database migration.
 
 ## Changed
+- Updated dependencies (server)
+  - django (5.0.3 -> 5.0.4)
+  - sentry-sdk (1.44.0 -> 1.44.1)
+- Updated dependencies (shippy)
+  - sentry-sdk (1.44.0 -> 1.44.1)
 - fix(server): drop unique requirement from build file
 - refactor(server): move main server avail check to models
 - fix(server): downloads: return 503 if zip file is offloaded

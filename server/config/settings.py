@@ -1,6 +1,8 @@
 import os
 from dotenv import load_dotenv
 
+from .filters import ignore_503_errors
+
 load_dotenv()
 
 import sentry_sdk
@@ -156,6 +158,25 @@ CACHES = {
 CACHE_MIDDLEWARE_ALIAS = "default"
 CACHE_MIDDLEWARE_SECONDS = 30
 CACHE_MIDDLEWARE_KEY_PREFIX = "shipper"
+
+# Logging
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "filters": {
+        "ignore_503_errors": {
+            "()": "django.utils.log.CallbackFilter",
+            "callback": ignore_503_errors,
+        }
+    },
+    "handlers": {
+        "mail_admins": {
+            "level": "ERROR",
+            "filters": ["ignore_503_errors"],
+            "class": "django.utils.log.AdminEmailHandler",
+        },
+    },
+}
 
 
 # Email

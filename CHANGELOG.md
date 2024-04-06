@@ -6,7 +6,15 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.33.4...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.33.5...HEAD
+
+
+# [2.33.5] - 2024-04-06
+
+## Changed
+- Fixed logging filter not working properly
+
+[2.33.5]: https://github.com/shipperstack/shipper/compare/2.33.4...2.33.5
 
 
 # [2.33.4] - 2024-04-06

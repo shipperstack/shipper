@@ -62,29 +62,9 @@ class LanguageSwitchView(TemplateView):
 
 
 def download_check_view(request, codename, file_name):
-    build = get_object_or_404(Build, file_name=file_name, device__codename=codename)
-
     response = HttpResponse()
-
-    if build.zip_file.name:
-        response["X-Accel-Redirect"] = f"/internal/media/{build.zip_file.name}"
-        response["Last-Modified"] = time.strftime(
-            "%a,%e %b %Y %H:%M:%S %Z",
-            time.gmtime(os.path.getmtime(build.zip_file.path)),
-        )
-        response["Content-Disposition"] = (
-            f'attachment; filename="{build.zip_file_basename()}"'
-        )
-        response["Content-Type"] = "application/octet-stream"
-
-        if build.is_archived:
-            limit_speed = config.SHIPPER_DOWNLOADS_ARCHIVE_THROTTLE * 1000 * 1000
-            response["X-Accel-Limit-Rate"] = str(limit_speed)
-        else:
-            response["X-Accel-Limit-Rate"] = "off"
-    else:
-        response.status_code = 503
-        response.content = """
+    response.status_code = 503
+    response.content = """
 The file is currently not available on the main server. Consider using one of
 the mirror servers if there are any available."""
 

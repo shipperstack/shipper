@@ -8,7 +8,6 @@ from sentry_sdk.integrations.django import DjangoIntegration
 from pathlib import Path
 from dotenv import load_dotenv
 
-from .filters import IgnoreMissingBuild503Errors
 from core.exceptions import UploadException, BuildMirrorException
 
 load_dotenv()

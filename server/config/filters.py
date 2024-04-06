@@ -7,5 +7,6 @@ class IgnoreMissingBuild503Errors(logging.Filter):
     """
 
     def filter(self, record):
-        status_code = getattr(record, "status_code", None)
-        return status_code != 503
+        # Message is of the format `"GET /download_check/.../ HTTP/1.1" 503 125`
+        message = record.getMessage()
+        return "download_check" not in message and " 503 " not in message

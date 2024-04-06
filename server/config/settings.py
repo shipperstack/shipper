@@ -8,6 +8,7 @@ from sentry_sdk.integrations.django import DjangoIntegration
 from pathlib import Path
 from dotenv import load_dotenv
 
+from .filters import IgnoreMissingBuild503Errors
 from core.exceptions import UploadException, BuildMirrorException
 
 load_dotenv()
@@ -161,14 +162,49 @@ LOGGING = {
     "disable_existing_loggers": False,
     "filters": {
         "ignore_missing_build_503_errors": {
-            "()": "config.filters.IgnoreMissingBuild503Errors",
+            "()": IgnoreMissingBuild503Errors,
+        },
+        "require_debug_false": {
+            "()": "django.utils.log.RequireDebugFalse",
+        },
+        "require_debug_true": {
+            "()": "django.utils.log.RequireDebugTrue",
+        },
+    },
+    "formatters": {
+        "django.server": {
+            "()": "django.utils.log.ServerFormatter",
+            "format": "---- [{server_time}] {message}",
+            "style": "{",
         }
     },
     "handlers": {
+        "console": {
+            "level": "INFO",
+            "filters": ["require_debug_true", "ignore_missing_build_503_errors"],
+            "class": "logging.StreamHandler",
+        },
+        "django.server": {
+            "level": "INFO",
+            "filters": ["ignore_missing_build_503_errors"],
+            "class": "logging.StreamHandler",
+            "formatter": "django.server",
+        },
         "mail_admins": {
             "level": "ERROR",
-            "filters": ["ignore_missing_build_503_errors"],
+            "filters": ["require_debug_false", "ignore_missing_build_503_errors"],
             "class": "django.utils.log.AdminEmailHandler",
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console", "mail_admins"],
+            "level": "INFO",
+        },
+        "django.server": {
+            "handlers": ["django.server"],
+            "level": "INFO",
+            "propagate": False,
         },
     },
 }

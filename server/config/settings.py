@@ -1,20 +1,17 @@
 import os
-from dotenv import load_dotenv
-
-from .filters import ignore_503_errors
-
-load_dotenv()
-
 import sentry_sdk
 from django.utils.translation import gettext_lazy
 from kombu import Queue, Exchange
 from paramiko import AuthenticationException, SSHException
 from billiard.exceptions import TimeLimitExceeded
 from sentry_sdk.integrations.django import DjangoIntegration
-
 from pathlib import Path
+from dotenv import load_dotenv
 
+from .filters import ignore_503_errors
 from core.exceptions import UploadException, BuildMirrorException
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent

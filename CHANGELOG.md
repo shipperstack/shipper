@@ -6,7 +6,15 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.33.2...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.33.3...HEAD
+
+
+# [2.33.3] - 2024-04-06
+
+## Changed
+- Fixed server sending emails about 503 errors when download is unavailable
+
+[2.33.3]: https://github.com/shipperstack/shipper/compare/2.33.2...2.33.3
 
 
 # [2.33.2] - 2024-04-05

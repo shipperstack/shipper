@@ -8,7 +8,7 @@ from sentry_sdk.integrations.django import DjangoIntegration
 from pathlib import Path
 from dotenv import load_dotenv
 
-from .filters import ignore_503_errors
+from .filters import IgnoreMissingBuild503Errors
 from core.exceptions import UploadException, BuildMirrorException
 
 load_dotenv()
@@ -161,15 +161,14 @@ LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
     "filters": {
-        "ignore_503_errors": {
-            "()": "django.utils.log.CallbackFilter",
-            "callback": ignore_503_errors,
+        "ignore_missing_build_503_errors": {
+            "()": "config.filters.IgnoreMissingBuild503Errors",
         }
     },
     "handlers": {
         "mail_admins": {
             "level": "ERROR",
-            "filters": ["ignore_503_errors"],
+            "filters": ["ignore_missing_build_503_errors"],
             "class": "django.utils.log.AdminEmailHandler",
         },
     },

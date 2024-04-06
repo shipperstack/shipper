@@ -1,4 +1,11 @@
-def ignore_503_errors(record):
-    if hasattr(record, "status_code") and record.status_code == 503:
-        return False
-    return True
+import logging
+
+
+class IgnoreMissingBuild503Errors(logging.Filter):
+    """
+    Filters out 503 errors for missing builds.
+    """
+
+    def filter(self, record):
+        status_code = getattr(record, "status_code", None)
+        return status_code != 503

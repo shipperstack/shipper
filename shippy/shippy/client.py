@@ -289,9 +289,9 @@ class Client:
         }
 
         if chunk is not None and current is not None and total is not None:
-            header[
-                "Content-Range"
-            ] = f"bytes {current}-{current + len(chunk) - 1}/{total}"
+            header["Content-Range"] = (
+                f"bytes {current}-{current + len(chunk) - 1}/{total}"
+            )
 
         return header
 

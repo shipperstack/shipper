@@ -6,46 +6,65 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.33.6...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.34.0...HEAD
 
+# [2.34.0] - 2024-04-12
+
+This release contains a database migration.
+
+Warning: the database migration may take a long time due to the audit log package being updated.
+
+## Changed
+
+- Restored console logging to default state on the server
+- Updated dependencies (server)
+  - sentry-sdk (1.44.1 -> 1.45.0)
+  - django-ipware (6.0.4 -> 6.0.5)
+  - django-auditlog (2.3.0 -> 3.0.0)!
+- Updated dependencies (shippy)
+  - sentry-sdk (1.44.1 -> 1.45.0)
+  - setuptools (69.2.0 -> 69.4.0)
+
+[2.34.0]: https://github.com/shipperstack/shipper/compare/2.33.6...2.34.0
 
 # [2.33.6] - 2024-04-06
 
 ## Changed
+
 - Reverted debug code that managed to sneak in during the release process
 
 [2.33.6]: https://github.com/shipperstack/shipper/compare/2.33.5...2.33.6
 
-
 # [2.33.5] - 2024-04-06
 
 ## Changed
+
 - Fixed logging filter not working properly
 
 [2.33.5]: https://github.com/shipperstack/shipper/compare/2.33.4...2.33.5
 
-
 # [2.33.4] - 2024-04-06
 
 ## Changed
+
 - Fixed filtering out 503 errors
 
 [2.33.4]: https://github.com/shipperstack/shipper/compare/2.33.3...2.33.4
 
-
 # [2.33.3] - 2024-04-06
 
 ## Changed
+
 - Fixed server sending emails about 503 errors when download is unavailable
 
 [2.33.3]: https://github.com/shipperstack/shipper/compare/2.33.2...2.33.3
-
 
 # [2.33.2] - 2024-04-05
 
 This release contains a database migration.
 
 ## Changed
+
 - Updated dependencies (server)
   - django (5.0.3 -> 5.0.4)
   - sentry-sdk (1.44.0 -> 1.44.1)
@@ -57,70 +76,71 @@ This release contains a database migration.
 
 [2.33.2]: https://github.com/shipperstack/shipper/compare/2.33.1...2.33.2
 
-
 # [2.33.1] - 2024-04-02
 
 ## Changed
+
 - Fixed checking the build file existence in the management command
 
 [2.33.1]: https://github.com/shipperstack/shipper/compare/2.33.0...2.33.1
-
 
 # [2.33.0] - 2024-04-02
 
 This release contains a database migration.
 
 ## Added
+
 - Added command to unset missing build files
 
 ## Changed
+
 - Updated library dependencies (shippy)
   - sentry-sdk (1.42.0 -> 1.44.0)
 - Updated library dependencies (server)
-	- djangorestframework (3.14.0 -> 3.15.0)
-	- sentry-sdk (1.42.0 -> 1.44.0)
-	- djangorestframework (3.15.0 -> 3.15.1)
+  - djangorestframework (3.14.0 -> 3.15.0)
+  - sentry-sdk (1.42.0 -> 1.44.0)
+  - djangorestframework (3.15.0 -> 3.15.1)
 - shipper now loads environment variables from a dotfile if it is available
 - Build files can now be unset for build offloading
 
 [2.33.0]: https://github.com/shipperstack/shipper/compare/2.32.0...2.33.0
 
-
 # [2.32.0] - 2024-03-18
 
 ## Changed
+
 - Updated library dependencies (shippy)
-	- setuptools (69.0.3 -> 69.2.0)
+  - setuptools (69.0.3 -> 69.2.0)
   - sentry-sdk (1.40.3 -> 1.42.0)
   - rich (13.7.0 -> 13.7.1)
 - Updated library dependencies (server)
   - django (4.2.10 -> 5.0.3)
-	- sentry-sdk (1.40.3 -> 1.42.0)
-	- crispy-bootstrap5 (2023.10 -> 2024.2)
-	- django-celery-beat (2.5.0 -> 2.6.0)
+  - sentry-sdk (1.40.3 -> 1.42.0)
+  - crispy-bootstrap5 (2023.10 -> 2024.2)
+  - django-celery-beat (2.5.0 -> 2.6.0)
 
 [2.32.0]: https://github.com/shipperstack/shipper/compare/2.31.0...2.32.0
-
 
 # [2.31.0] - 2024-02-09
 
 This release contains a security vulnerability patch.
 
 ## Added
+
 - Added visible field to Device model to control device visibility on main downloads page
 
 ## Changed
+
 - Fixed the Docker updater script crashing if the version is not published yet on GitHub Packages registry
 - Updated library dependencies (server)
-	- django-cleanup (8.0.0 -> 8.1.0)
-	- sentry-sdk (1.39.2 -> 1.40.3)
-	- django (4.2.7 -> 4.2.10)
-	- django-ipware (6.0.3 -> 6.0.4) (/server)
+  - django-cleanup (8.0.0 -> 8.1.0)
+  - sentry-sdk (1.39.2 -> 1.40.3)
+  - django (4.2.7 -> 4.2.10)
+  - django-ipware (6.0.3 -> 6.0.4) (/server)
 - Updated library dependencies (shippy)
-	- sentry-sdk (1.39.2 -> 1.40.3) (/shippy)
+  - sentry-sdk (1.39.2 -> 1.40.3) (/shippy)
 
 [2.31.0]: https://github.com/shipperstack/shipper/compare/2.30.2...2.31.0
-
 
 # [2.30.2] - 2024-01-28
 
@@ -128,227 +148,231 @@ This release contains a security vulnerability patch.
 
 [2.30.2]: https://github.com/shipperstack/shipper/compare/2.30.1...2.30.2
 
-
 # [2.30.1] - 2024-01-27
 
 ## Added
+
 - Added debug configuration option for shippy
 
 [2.30.1]: https://github.com/shipperstack/shipper/compare/2.30.0...2.30.1
 
-
 # [2.30.0] - 2024-01-27
 
 ## Changed
+
 - Fixed tests not working properly for the server component
 - Fixed exception details getting lost for shippy
 - Updated library dependencies (shippy)
-	- setuptools (69.0.2 -> 69.0.3)
-	- sentry-sdk (1.39.1 -> 1.39.2)
+  - setuptools (69.0.2 -> 69.0.3)
+  - sentry-sdk (1.39.1 -> 1.39.2)
 - Updated library dependencies (server)
-	- django-dbbackup (4.0.2 -> 4.1.0)
+  - django-dbbackup (4.0.2 -> 4.1.0)
   - sentry-sdk (1.39.1 -> 1.39.2)
 - General code cleanup
 
 ## Removed
+
 - Removed unnecessary debug output for shippy
 
 [2.30.0]: https://github.com/shipperstack/shipper/compare/2.29.1...2.30.0
 
-
 # [2.29.1] - 2023-12-25
 
 ## Changed
+
 - Fixed the server API not returning the full download URL
 
 [2.29.1]: https://github.com/shipperstack/shipper/compare/2.29.0...2.29.1
-
 
 # [2.29.0] - 2023-12-25
 
 Merry Christmas!
 
 ## Changed
+
 - Fixed the server sending the incorrect download URL in API responses
 - Updated library dependencies (server)
-	- sentry-sdk (1.39.0 -> 1.39.1)
-	- django-ipware (6.0.2 -> 6.0.3)
-	- thumbhash-python (1.0.0 -> 1.0.1) (/server)
-	- paramiko (3.3.1 -> 3.4.0) (/server)
+  - sentry-sdk (1.39.0 -> 1.39.1)
+  - django-ipware (6.0.2 -> 6.0.3)
+  - thumbhash-python (1.0.0 -> 1.0.1) (/server)
+  - paramiko (3.3.1 -> 3.4.0) (/server)
 - Updated library dependencies (shippy)
-	- sentry-sdk (1.39.0 -> 1.39.1)
+  - sentry-sdk (1.39.0 -> 1.39.1)
 
 [2.29.0]: https://github.com/shipperstack/shipper/compare/2.28.8...2.29.0
-
 
 # [2.28.8] - 2023-12-13
 
 ## Changed
+
 - Fixed server crashing on fetching file modification time
 
 [2.28.8]: https://github.com/shipperstack/shipper/compare/2.28.7...2.28.8
 
-
 # [2.28.7] - 2023-12-13
 
 ## Changed
+
 - Fixed server corrupting download names by returning correct headers
 
 [2.28.7]: https://github.com/shipperstack/shipper/compare/2.28.6...2.28.7
 
-
 # [2.28.6] - 2023-12-13
 
 ## Changed
+
 - Fixed server mangling the content type for build downloads
 - Fixed server download speed setting
 
 [2.28.6]: https://github.com/shipperstack/shipper/compare/2.28.5...2.28.6
 
-
 # [2.28.5] - 2023-12-13
 
 ## Changed
+
 - Fixed server improperly adding a duplicated codename to the build download redirect
 
 [2.28.5]: https://github.com/shipperstack/shipper/compare/2.28.4...2.28.5
 
-
 # [2.28.4] - 2023-12-13
 
 ## Changed
+
 - Fixed server passing wrong file name to nginx
 
 [2.28.4]: https://github.com/shipperstack/shipper/compare/2.28.3...2.28.4
 
-
 # [2.28.3] - 2023-12-13
 
 ## Changed
+
 - Fixed the server using the incorrect pattern matching for the file name
 
 [2.28.3]: https://github.com/shipperstack/shipper/compare/2.28.2...2.28.3
 
-
 # [2.28.2] - 2023-12-13
 
 ## Changed
+
 - Fixed reverse URL not working in production
 
 [2.28.2]: https://github.com/shipperstack/shipper/compare/2.28.1...2.28.2
 
-
 # [2.28.1] - 2023-12-13
 
 ## Changed
+
 - Fix the download check view not being used
 
 [2.28.1]: https://github.com/shipperstack/shipper/compare/2.28.0...2.28.1
 
-
 # [2.28.0] - 2023-12-13
 
 ## Changed
+
 - Fixed the download endpoint not working properly
 - Updated library dependencies (server)
-	- sentry-sdk (1.38.0 -> 1.39.0)
+  - sentry-sdk (1.38.0 -> 1.39.0)
 - Updated library dependencies (shippy)
-	- sentry-sdk (1.38.0 -> 1.39.0)
+  - sentry-sdk (1.38.0 -> 1.39.0)
 
 ## Removed
+
 - Removed v1 system API endpoint from the server
 
 [2.28.0]: https://github.com/shipperstack/shipper/compare/2.27.0...2.28.0
 
-
 # [2.27.0] - 2023-12-12
 
 ## Changed
+
 - shippy now uses the v2 system endpoint to fetch details about the server
 - shippy now requires the server to be at least version 2.26.0
 
 [2.27.0]: https://github.com/shipperstack/shipper/compare/2.26.2...2.27.0
 
-
 # [2.26.2] - 2023-12-10
 
 ## Changed
+
 - Fixed shipper sometimes placing invalid chunked uploads into a "limbo" state
 
 [2.26.2]: https://github.com/shipperstack/shipper/compare/2.26.1...2.26.2
 
-
 # [2.26.1] - 2023-12-07
 
 ## Changed
+
 - Fixed the main page not sorting devices by name and enabled status
 - Fixed bug where chunked upload would crash before finalizing the changes
 - Changes to the site-wide configuration is now logged in the audit log
 - Updated library dependencies (server)
-	- django-ipware (6.0.1 -> 6.0.2)
-
+  - django-ipware (6.0.1 -> 6.0.2)
 
 [2.26.1]: https://github.com/shipperstack/shipper/compare/2.26.0...2.26.1
-
 
 # [2.26.0] - 2023-11-30
 
 ## Added
+
 - Added admin page for x86 types
 - Added new OTA endpoint for x86 devices
 
 ## Changed
+
 - shipper now checks for invalid configurations
 - shipper now allows the x86_64 codename (in addition to the x86 codename)
 - Updated library dependencies (server)
-	- django-ipware (6.0.0 -> 6.0.1)
-	- sentry-sdk (1.36.0 -> 1.38.0)
+  - django-ipware (6.0.0 -> 6.0.1)
+  - sentry-sdk (1.36.0 -> 1.38.0)
 - Updated library dependencies (shippy)
-	- sentry-sdk (1.36.0 -> 1.38.0)
+  - sentry-sdk (1.36.0 -> 1.38.0)
 - Updated translations
 - Removed unnecessary dot from main server description
 - Update default file name regex pattern
 - General code cleanup
 
 ## Removed
+
 - Removed deprecated configuration option for variants
 
-
 [2.26.0]: https://github.com/shipperstack/shipper/compare/2.25.1...2.26.0
-
 
 # [2.25.1] - 2023-11-23
 
 ## Changed
+
 - Fixed the localization for the human-readable timedelta getting stuck on non-English languages
 
 [2.25.1]: https://github.com/shipperstack/shipper/compare/2.25.0...2.25.1
-
 
 # [2.25.0] - 2023-11-23
 
 This release contains a database migration.
 
 ## Added
+
 - Added preliminary x86 build support to shipper
 
 ## Changed
+
 - Fixed timedelta string not being translated (#248)
 - Updated help text in the admin page
 - Build variants are now handled as database model objects
 - General code cleanup
 
 ## Removed
+
 - The variant configuration option has been deprecated and is slated for removal in the next release
 
 [2.25.0]: https://github.com/shipperstack/shipper/compare/2.24.2...2.25.0
-
 
 # [2.24.2] - 2023-11-23
 
 This release contains a security vulnerability patch.
 
 ## Changed
+
 - General code cleanup
 - Updated library depndencies (server)
   - django-crispy-forms (2.0 -> 2.1)
@@ -367,24 +391,24 @@ This release contains a security vulnerability patch.
   - setuptools (68.2.2 -> 69.0.2)
   - humanize (4.8.0 -> 4.9.0)
 
-
 [2.24.2]: https://github.com/shipperstack/shipper/compare/2.24.1...2.24.2
-
 
 # [2.24.1] - 2023-10-11
 
 ## Changed
+
 - Fixed the archived flag for builds not working properly
 
 [2.24.1]: https://github.com/shipperstack/shipper/compare/2.24.0...2.24.1
 
-
 # [2.24.0] - 2023-10-11
 
 ## Added
+
 - Added "archived builds" functionality. Archived builds are not mirrored and are subject to restrictions, such as reduced download speed
 
 ## Changed
+
 - Updated library dependencies (server)
   - psycopg2-binary (2.9.7 -> 2.9.9)
   - django-ipware (5.0.0 -> 5.0.1)
@@ -398,38 +422,40 @@ This release contains a security vulnerability patch.
 - General code cleanup
 
 ## Removed
+
 - Removed deprecated build counter API
 
 [2.24.0]: https://github.com/shipperstack/shipper/compare/2.23.2...2.24.0
 
-
 # [2.23.2] - 2023-09-18
 
 ## Changed
+
 - Fixed shippy incorrectly initializing Sentry SDK for error reporting
 
 [2.23.2]: https://github.com/shipperstack/shipper/compare/2.23.1...2.23.2
 
-
 # [2.23.1] - 2023-09-18
 
 ## Changed
+
 - Updated library dependencies (shippy)
   - rich (13.5.2 -> 13.5.3)
 - Fixed OpenAPI schema generation crashing due to missing dependency
 
 [2.23.1]: https://github.com/shipperstack/shipper/compare/2.23.0...2.23.1
 
-
 # [2.23.0] - 2023-09-18
 
 ## Added
+
 - Added search functionality to the build admin page
 - Added filters to filter by download type for statistics
 - Added task to clean up expired chunked upload
 - Added OpenAPI schema generation
 
 ## Changed
+
 - Updated library dependencies (shippy)
   - loguru (0.7.0 -> 0.7.2)
   - setuptools (68.1.2 -> 68.2.2)
@@ -440,18 +466,16 @@ This release contains a security vulnerability patch.
 - Updated internal documentation for API endpoints
 - General code cleanup
 
-
 [2.23.0]: https://github.com/shipperstack/shipper/compare/2.22.2...2.23.0
-
 
 # [2.22.2] - 2023-09-03
 
 ## Changed
+
 - Updated library dependencies (server)
   - celery (5.3.3 -> 5.3.4)
 
 [2.22.2]: https://github.com/shipperstack/shipper/compare/2.22.1...2.22.2
-
 
 # [2.22.1] - 2023-09-03
 
@@ -459,15 +483,16 @@ This release contains a security vulnerability patch.
 
 [2.22.1]: https://github.com/shipperstack/shipper/compare/2.22.0...2.22.1
 
-
 # [2.22.0] - 2023-09-02
 
 This release contains a database migration.
 
 ## Added
+
 - Added a legacy mode toggle for mirror servers for resolving SSH issues
 
 ## Changed
+
 - Updated library dependencies (server)
   - humanize (4.7.0 -> 4.8.0)
   - django-constance[database] (2.9.1 -> 3.1.0)
@@ -478,101 +503,102 @@ This release contains a database migration.
   - setuptools (68.0.0 -> 68.1.2)
   - sentry-sdk (1.29.2 -> 1.30.0)
 
-
 [2.22.0]: https://github.com/shipperstack/shipper/compare/2.21.1...2.22.0
-
 
 # [2.21.1] - 2023-08-15
 
 ## Changed
+
 - Statistics items now list by new order
 - Fixed download type not showing in the admin panel
 
 [2.21.1]: https://github.com/shipperstack/shipper/compare/2.21.0...2.21.1
-
 
 # [2.21.0] - 2023-08-15
 
 This release contains a database migration.
 
 ## Added
+
 - Added download type to statistics model
   All previous statistics will be set to the "download" type by default.
 - Added v2 download build counter endpoint
 - Added "latest" API endpoints (unstable!)
 
 ## Changed
+
 - Removed workaround for bug in drf_chunked_upload
 - Updated library dependencies (server)
   - drf-chunked-upload (0.5.1 -> 0.6.0)
 
 [2.21.0]: https://github.com/shipperstack/shipper/compare/2.20.4...2.21.0
 
-
 # [2.20.4] - 2023-08-11
 
 ## Changed
+
 - Fixed webpack crashing and breaking the build process when git repo is unavailable
 
 [2.20.4]: https://github.com/shipperstack/shipper/compare/2.20.3...2.20.4
 
-
 # [2.20.3] - 2023-08-11
 
 ## Added
+
 - Added a loading spinner to main downloads page
 
 ## Changed
+
 - Updated base Docker image to Alpine 3.18
 - Fixed main JS file being cached too aggressively with a cache-buster
 - General code cleanup
 
 [2.20.3]: https://github.com/shipperstack/shipper/compare/2.20.2...2.20.3
 
-
 # [2.20.2] - 2023-08-10
 
 ## Changed
+
 - Fixed server not building due to missing build dependencies
 
 [2.20.2]: https://github.com/shipperstack/shipper/compare/2.20.1...2.20.2
 
-
 # [2.20.1] - 2023-08-10
 
 ## Changed
+
 - The search bar now fuzzy-searches through all devices
 - The production build of the server project only installs production dependencies for the frontend
 - General code cleanup
 
 [2.20.1]: https://github.com/shipperstack/shipper/compare/2.20.0...2.20.1
 
-
 # [2.20.0] - 2023-08-10
 
 ## Added
+
 - Added a search bar to the main downloads page
 
 ## Changed
+
 - Updated library dependencies (server)
   - psycopg2-binary (2.9.6 -> 2.9.7)
 - Changed to use React for certain parts of the frontend (with more to come in the future!)
 
-
 [2.20.0]: https://github.com/shipperstack/shipper/compare/2.19.1...2.20.0
-
 
 # [2.19.1] - 2023-08-06
 
 ## Changed
+
 - Fixed incorrect version string for server
 
 [2.19.1]: https://github.com/shipperstack/shipper/compare/2.19.0...2.19.1
 
-
 # [2.19.0] - 2023-08-02
 
 ## Changed
+
 - Fixed the server crashing when API clients returned a bad build API parameter
 - Fixed shippy sending the wrong build ID when disabling the build after an upload
 - Fixed shippy not respecting shipper's rate limit response
@@ -584,24 +610,24 @@ This release contains a database migration.
   - sentry-sdk (1.28.1 -> 1.29.2)
 - General code cleanup
 
-
 [2.19.0]: https://github.com/shipperstack/shipper/compare/2.18.3...2.19.0
-
 
 # [2.18.3] - 2023-08-02
 
 ## Changed
+
 - Fixed shippy crashing due to importing server compat version from the wrong file
 
 [2.18.3]: https://github.com/shipperstack/shipper/compare/2.18.2...2.18.3
 
-
 # [2.18.2] - 2023-08-02
 
 ## Added
+
 - The raw variant name is shown in the build information
 
 ## Changed
+
 - Fixed shippy crashing due to a missing version text file
 - The main page device listing has proper margins
 - Fixed the byte size information not showing on mouseover for build information
@@ -614,10 +640,10 @@ This release contains a database migration.
 
 [2.18.2]: https://github.com/shipperstack/shipper/compare/2.18.1...2.18.2
 
-
 # [2.18.1] - 2023-07-27
 
 ## Changed
+
 - Fixed shippy crashing due to a missing version string file
 - Fixed the "last updated" timedelta calculation not working
 - Fixed the build timedelta calculation not working
@@ -628,13 +654,14 @@ This release contains a database migration.
 
 [2.18.1]: https://github.com/shipperstack/shipper/compare/2.18.0...2.18.1
 
-
 # [2.18.0] - 2023-07-26
 
 ## Added
+
 - Added "last updated" and "uploaded on" fields for the device and build pages on the webUI
 
 ## Changed
+
 - Updated library dependencies (server)
   - gunicorn (20.1.0 -> 21.2.0)
 - Fixed Docker mounting the SSH directory to mount as read-only
@@ -642,16 +669,16 @@ This release contains a database migration.
 - Version and date fields are now split on build page
 - Checksums are now wrapped in code tags for better visibility
 
-
 [2.18.0]: https://github.com/shipperstack/shipper/compare/2.17.0...2.18.0
-
 
 # [2.17.0] - 2023-07-18
 
 ## Added
+
 - Added mechanism to exclude the main server from the download mirror list
 
 ## Changed
+
 - Fixed some code for shippy that was lost in the monorepo migration
 - Updated library dependencies (shippy)
   - humanize (4.6.0 -> 4.7.0)
@@ -663,23 +690,24 @@ This release contains a database migration.
 
 [2.17.0]: https://github.com/shipperstack/shipper/compare/2.16.2...2.17.0
 
-
 # [2.16.2] - 2023-07-17
 
 ## Changed
+
 - Fixed a couple of bugs in the Docker subproject that occurred with the monorepo migration
 
 [2.16.2]: https://github.com/shipperstack/shipper/compare/2.16.1...2.16.2
 
-
 # [2.16.1] - 2023-07-17
 
 ## Added
+
 - Added mechanism to download and use the photos directly for the device photos
 - Added mechanism to potentially serve thumbhashes of device photos in the future
   (not fully implemented yet!)
 
 ## Changed
+
 - shipper is now a monorepo! That means shippy, Docker files, and other helper scripts
   all live inside this repository.
 - Fixed the hash names not being bold
@@ -689,13 +717,14 @@ This release contains a database migration.
 
 [2.16.1]: https://github.com/shipperstack/shipper/compare/2.16.0...2.16.1
 
-
 # [2.16.0] - 2023-07-14
 
 ## Added
+
 - Added a redirect for the `.well-known` password change endpoint (#209)
 
 ## Changed
+
 - Fixed a bug with the build delete view that caused it to delete devices, not builds 😱
 - Fixed a bug that prevented "super"users from modifying build enable status
 - The build download page has a better details layout

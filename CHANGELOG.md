@@ -6,7 +6,22 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.34.0...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.35.0...HEAD
+
+# [2.35.0] - 2024-04-19
+
+This release contains a security vulnerability patch.
+
+## Changed
+
+- Updated dependencies (shippy)
+  - setuptools (69.4.0 -> 69.5.1)
+- Updated dependencies (server)
+  - fuse.js (6.6.2 -> 7.0.0)
+  - gunicorn (21.2.0 -> 22.0.0)!
+  - celery (5.3.6 -> 5.4.0)
+
+[2.35.0]: https://github.com/shipperstack/shipper/compare/2.34.0...2.35.0
 
 # [2.34.0] - 2024-04-12
 

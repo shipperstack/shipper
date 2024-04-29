@@ -38,7 +38,7 @@ COPY requirements.txt requirements.txt
 ENV PIP_NO_WARN_ABOUT_ROOT_USER=0
 
 # Install Python dependencies
-RUN pip3 install --no-cache-dir -r requirements.txt
+RUN pip3 install --no-cache-dir --break-system-packages -r requirements.txt
 
 # Make Python dependencies available in PATH
 ENV PATH="${HOME}/.local/bin:${PATH}"

@@ -31,8 +31,9 @@ WORKDIR $APP_HOME
 RUN mkdir -p $APP_HOME/media && \
   mkdir -p $APP_HOME/static
 
-# Copy Python dependency file
-COPY requirements.txt requirements ./
+# Copy Python dependency files
+COPY requirements requirements
+COPY requirements.txt requirements.txt
 
 # Silence pip warnings
 ENV PIP_NO_WARN_ABOUT_ROOT_USER=0

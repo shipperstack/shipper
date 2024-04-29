@@ -15,9 +15,6 @@ RUN apk update \
   nodejs=20.12.1-r0 \
   npm=10.2.5-r0
 
-# Upgrade pip
-RUN pip3 install --upgrade pip
-
 # Python environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1

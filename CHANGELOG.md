@@ -6,7 +6,23 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.35.0...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.36.0...HEAD
+
+# [2.36.0] - 2024-04-29
+
+## Changed
+
+- Updated base Docker image to Alpine 3.19
+- Improved build times and caching behavior
+- Updated dependencies (server)
+  - django-ipware (6.0.5 -> 7.0.1)
+  - sentry-sdk (1.45.0 -> 2.0.1)
+  - react (18.2.0 -> 18.3.1)
+  - react-dom (18.2.0 -> 18.3.1)
+- Updated dependencies (shippy)
+  - sentry-sdk (1.45.0 -> 2.0.1)
+
+[2.36.0]: https://github.com/shipperstack/shipper/compare/2.35.0...2.36.0
 
 # [2.35.0] - 2024-04-19
 

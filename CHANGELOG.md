@@ -6,7 +6,15 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.36.0...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.36.1...HEAD
+
+# [2.36.1] - 2024-04-29
+
+## Changed
+
+- Fixed incorrect PostgreSQL15 client version in Alpine 3.19 crashing build process
+
+[2.36.1]: https://github.com/shipperstack/shipper/compare/2.36.0...2.36.1
 
 # [2.36.0] - 2024-04-29
 

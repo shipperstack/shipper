@@ -31,6 +31,15 @@ WORKDIR $APP_HOME
 RUN mkdir -p $APP_HOME/media && \
   mkdir -p $APP_HOME/static
 
+# Copy Python dependency file
+COPY requirements.txt requirements.txt
+
+# Install Python dependencies
+RUN pip3 install --no-cache-dir -r requirements.txt
+
+# Make Python dependencies available in PATH
+ENV PATH="${HOME}/.local/bin:${PATH}"
+
 # Copy server code
 COPY . .
 
@@ -39,12 +48,6 @@ RUN chown -R shipper:shipper $APP_HOME
 
 # Change to the shipper user
 USER shipper
-
-# Make Python dependencies available in PATH
-ENV PATH="${HOME}/.local/bin:${PATH}"
-
-# Install Python dependencies
-RUN pip3 install --no-cache-dir -r requirements.txt
 
 # Frontend generation
 # Warning: do not use --omit=dev, as webpack and bundler is required for building!

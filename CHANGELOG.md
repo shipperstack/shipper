@@ -6,13 +6,21 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.36.3...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.36.4...HEAD
+
+# [2.36.4] - 2024-04-29
+
+## Changed
+
+- Fixed copying over requirements files
+
+[2.36.4]: https://github.com/shipperstack/shipper/compare/2.36.3...2.36.4
 
 # [2.36.3] - 2024-04-29
 
 ## Changed
 
--Fixed copying over requirements files
+- Fixed copying over requirements files
 
 [2.36.3]: https://github.com/shipperstack/shipper/compare/2.36.2...2.36.3
 

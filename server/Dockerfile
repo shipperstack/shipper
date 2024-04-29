@@ -34,6 +34,9 @@ RUN mkdir -p $APP_HOME/media && \
 # Copy Python dependency file
 COPY requirements.txt requirements.txt
 
+# Silence pip warnings
+ENV PIP_NO_WARN_ABOUT_ROOT_USER=0
+
 # Install Python dependencies
 RUN pip3 install --no-cache-dir -r requirements.txt
 

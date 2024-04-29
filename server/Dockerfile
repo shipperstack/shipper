@@ -3,17 +3,17 @@ FROM alpine:3.19
 # Install base dependencies
 RUN apk update \
   && apk add --no-cache \
-  python3 \
-  python3-dev \
-  py3-pip \
-  netcat-openbsd \
-  gettext \
-  git \
-  postgresql-client \
-  libffi-dev \
-  build-base \
-  nodejs \
-  npm
+  python3=3.11.9-r0 \
+  python3-dev=3.11.9-r0 \
+  py3-pip=23.3.1-r0 \
+  netcat-openbsd=1.226-r0 \
+  gettext=0.22.3-r0 \
+  git=2.43.0-r0 \
+  postgresql15-client=15.6-r2 \
+  libffi-dev=3.4.4-r3 \
+  build-base=0.5-r3 \
+  nodejs=20.12.1-r0 \
+  npm=10.2.5-r0
 
 # Upgrade pip
 RUN pip3 install --upgrade pip

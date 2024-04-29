@@ -32,7 +32,7 @@ RUN mkdir -p $APP_HOME/media && \
   mkdir -p $APP_HOME/static
 
 # Copy Python dependency file
-COPY requirements.txt requirements.txt
+COPY requirements.txt requirements ./
 
 # Silence pip warnings
 ENV PIP_NO_WARN_ABOUT_ROOT_USER=0

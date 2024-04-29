@@ -44,7 +44,7 @@ USER shipper
 ENV PATH="${HOME}/.local/bin:${PATH}"
 
 # Install Python dependencies
-RUN pip3 install -r requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt
 
 # Frontend generation
 # Warning: do not use --omit=dev, as webpack and bundler is required for building!

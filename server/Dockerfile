@@ -2,7 +2,6 @@ FROM alpine:3.18
 
 # Install base dependencies
 RUN apk update \
-  && apk upgrade \
   && apk add --no-cache \
   python3 \
   python3-dev \

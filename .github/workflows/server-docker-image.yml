@@ -3,7 +3,7 @@ name: Build server Docker image on release
 on:
   push:
     tags:
-      - '*.*.*'
+      - "*.*.*"
 
 permissions:
   packages: write
@@ -41,3 +41,5 @@ jobs:
           labels: ${{ steps.metadata.outputs.labels }}
           build-args: |
             BRANCH=${{ env.TAG_VERSION }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

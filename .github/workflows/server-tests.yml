@@ -2,9 +2,9 @@ name: server tests
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   test-runners:
@@ -12,7 +12,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: ['3.10', '3.11', '3.12']
+        python-version: ["3.10", "3.11", "3.12"]
 
     env:
       SHIPPER_SECRET_KEY: "duk4hvedu3zxnmw@shnjw7z^)x#wcm@cj05t5f&#90rx-g44d2"
@@ -22,30 +22,30 @@ jobs:
       SHIPPER_SECURE_SSL_REDIRECT: 0
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v5
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install Dependencies
-      working-directory: ./server
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        pip install coverage
-    - name: Run Tests
-      working-directory: ./server
-      run: |
-        python manage.py test
-    - name: Generate coverage report
-      working-directory: ./server
-      run: |
-        coverage run manage.py test
-    - name: Upload coverage report
-      uses: actions/upload-artifact@v4
-      with:
-        name: coverage-data-${{ matrix.python-version }}
-        path: ${{ github.workspace }}/server/.coverage.*
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install Dependencies
+        working-directory: ./server
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install coverage
+      - name: Run Tests
+        working-directory: ./server
+        run: |
+          python manage.py test
+      - name: Generate coverage report
+        working-directory: ./server
+        run: |
+          coverage run manage.py test
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-data-${{ matrix.python-version }}
+          path: ${{ github.workspace }}/server/.coverage.*
 
   codecov-coverage:
     runs-on: ubuntu-latest
@@ -71,8 +71,7 @@ jobs:
           coverage xml
       - name: Upload finalized coverage report
         uses: codecov/codecov-action@v4.3.0
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         with:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
           verbose: true
           fail_ci_if_error: true

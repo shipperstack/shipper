@@ -7,7 +7,7 @@ register = template.Library()
 @register.filter
 def format_download_url(value, arg):
     """Formats download URL with file name"""
-    return value.format(arg + ".zip")
+    return value.format(arg)
 
 
 @register.inclusion_tag("downloads_device_variant.html")

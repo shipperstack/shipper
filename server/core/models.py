@@ -238,7 +238,7 @@ class MirrorServer(models.Model):
     )
 
     def get_download_url(self, build):
-        return self.download_url_base.format(build.file_name + ".zip")
+        return self.download_url_base.format(build.get_full_path_file_name())
 
     def __str__(self):
         return self.name
@@ -404,6 +404,9 @@ class Build(models.Model):
 
     def zip_file_basename(self):
         return os.path.basename(self.zip_file.name)
+
+    def get_full_path_file_name(self):
+        return self.get_upload_path(f"{self.file_name}.zip")
 
     def is_downloadable_from_main(self):
         return (

@@ -104,7 +104,7 @@
                 <tr>
                     <td>{{ mirror.name }}</td>
                     <td>{{ mirror.description }}</td>
-                    <td><a href="{{ mirror.download_url_base|format_download_url:object.zip_file.name }}"
+                    <td><a href="{{ mirror.download_url_base|format_download_url:object.file_name }}"
                            class="btn btn-success btn-sm">
                         <i class="fa fa-file-archive" aria-hidden="true"></i>
                         {% translate "Download" %}

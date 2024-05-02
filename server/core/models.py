@@ -9,7 +9,7 @@ from django.db import models
 from django.urls import reverse
 from datetime import date
 
-from django.utils.translation import get_language, to_locale
+from django.utils.translation import get_language
 
 from .utils import is_version_in_target_versions
 

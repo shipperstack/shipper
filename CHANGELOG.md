@@ -6,7 +6,15 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.36.5...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.36.6...HEAD
+
+# [2.36.6] - 2024-05-02
+
+## Changed
+
+- Fixed mirror server URLs not prepending the device codename as the base upload path
+
+[2.36.6]: https://github.com/shipperstack/shipper/compare/2.36.5...2.36.6
 
 # [2.36.5] - 2024-05-02
 

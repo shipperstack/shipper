@@ -6,7 +6,19 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.36.4...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.36.5...HEAD
+
+# [2.36.5] - 2024-05-02
+
+## Changed
+
+- Updated dependencies (server)
+  - @babel/core (7.24.4 -> 7.24.5)
+  - @babel/preset-env (7.24.4 -> 7.24.5)
+- Fixed broken mirror URLs on the download build pages
+- Fixed broken mirror URLs in the API relying on null build files
+
+[2.36.5]: https://github.com/shipperstack/shipper/compare/2.36.4...2.36.5
 
 # [2.36.4] - 2024-04-29
 

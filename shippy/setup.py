@@ -22,9 +22,9 @@ setup(
     description="Client-side tool to interface with shipper",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/ericswpark/shippy",
+    url="https://github.com/shipperstack/shipper/tree/master/shippy",
     project_urls={
-        "Bug Tracker": "https://github.com/ericswpark/shippy/issues",
+        "Bug Tracker": "https://github.com/shipperstack/shipper/issues",
     },
     classifiers=[
         "Programming Language :: Python :: 3",

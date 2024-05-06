@@ -6,7 +6,16 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.36.6...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.36.7...HEAD
+
+
+# [2.36.7] - 2024-05-06
+
+## Changed
+- Fixed shippy blocking login with the console status indicator
+- Fixed shippy recommending upgrade commands without considering installation method
+
+[2.36.7]: https://github.com/shipperstack/shipper/compare/2.36.6...2.36.7
 
 # [2.36.6] - 2024-05-02
 

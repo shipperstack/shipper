@@ -24,9 +24,6 @@ To prevent data corruption, shippy will not work with an outdated server. Exitin
 
 SHIPPY_COMPAT_ERROR_MSG = """\
 Error: shippy is out-of-date and will not with this server instance.
-Upgrade shippy with the following command:
-\tpip3 install --upgrade shipper-shippy
-
 Version information:
  * Reported compatible version by server: \t{}
  * Your current shippy version: \t\t{}
@@ -36,9 +33,6 @@ SHIPPY_OUTDATED_MSG = """\
 Warning: shippy is out-of-date.
  * Current version: \t{}
  * New version: \t{}
-
-We recommend updating shippy with the following command:
-\tpip3 install --upgrade shipper-shippy
 """
 
 SERVER_EMPTY_TOKEN_MSG = "Server returned an empty token."

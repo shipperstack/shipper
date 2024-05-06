@@ -42,6 +42,7 @@ We recommend updating shippy with the following command:
 """
 
 SERVER_EMPTY_TOKEN_MSG = "Server returned an empty token."
+SERVER_MISSING_SCHEMA_MSG = "Server URL is missing either http:// or https://."
 SERVER_WRONG_SCHEMA_MSG = "Server uses HTTPS, but was supplied HTTP URL."
 BLANK_AUTH_DETAILS_MSG = "Username or password must not be blank."
 INVALID_CREDENTIALS_MSG = "The supplied credentials are invalid."

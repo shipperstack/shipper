@@ -24,6 +24,7 @@ from .config import get_config_value, set_config_value, get_optional_true_config
 from .constants import (
     SENTRY_SDK_URL,
     SERVER_COMPAT_ERROR_MSG,
+    SERVER_MISSING_SCHEMA_MSG,
     SHIPPY_COMPAT_ERROR_MSG,
     SHIPPY_OUTDATED_MSG,
     UNEXPECTED_SERVER_RESPONSE_ERROR_MSG,
@@ -316,7 +317,7 @@ def get_server_url():
             if not check_server_url_schema(server_url):
                 # noinspection HttpUrlsUsage
                 print_error(
-                    msg="Server URL is missing either http:// or https://.",
+                    msg=SERVER_MISSING_SCHEMA_MSG,
                     newline=True,
                     exit_after=False,
                 )

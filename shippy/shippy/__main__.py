@@ -202,10 +202,10 @@ def check_token_validity(client):
             print_success(
                 f"Successfully validated token! Hello, {client.get_username()}!"
             )
-        else:
-            # Token check failed, prompt for login again
-            print_warning("The saved token is invalid. Please sign-in again.")
-            prompt_login(client)
+            return
+    # Token check failed, prompt for login again
+    print_warning("The saved token is invalid. Please sign-in again.")
+    prompt_login(client)
 
 
 def check_shippy_update():

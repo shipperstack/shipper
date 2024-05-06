@@ -230,7 +230,7 @@ class Client:
                         elif int(r.status_code / 100) == 4:
                             upload_handle_4xx_response(r)
                         else:
-                            raise UploadException(UNKNOWN_UPLOAD_START_ERROR_MSG)
+                            raise UploadException(UNKNOWN_UPLOAD_START_ERROR_MSG) from handle_undefined_response(r)
                     except requests.exceptions.RequestException as exc:
                         raise UploadException(UNKNOWN_UPLOAD_ERROR_MSG) from exc
 

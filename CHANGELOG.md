@@ -6,7 +6,26 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.36.8...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.37.0...HEAD
+
+# [2.37.0] - 2024-05-11
+
+## Added
+
+- Added prechecks on shipper and shippy to check build duplicity before uploading
+
+## Changed
+
+- Fixed a bug where the token check API endpoint was caching the results
+- Fixed a bug that was causing date conversion test failures on Windows
+- Updated dependencies (shippy)
+  - sentry-sdk (2.0.1 -> 2.1.1)
+- Updated dependencies (server)
+  - django (5.0.4 -> 5.0.6)
+  - sentry-sdk (2.0.1 -> 2.1.1)
+- General code cleanup
+
+[2.37.0]: https://github.com/shipperstack/shipper/compare/2.36.8...2.37.0
 
 # [2.36.8] - 2024-05-06
 

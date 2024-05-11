@@ -1,1 +1,1 @@
-server_compat_version = "2.26.0"
+server_compat_version = "2.37.0"

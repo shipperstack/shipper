@@ -252,6 +252,14 @@ def get_builds_in_current_dir(regex_pattern):
 def check_build(client, filename):
     """Makes sure the build is valid"""
     print(f"Validating build {filename}...")
+
+    # Check if the build already exists on the server
+    if client.duplicate_check(file_name=filename):
+        print_warning(
+            "This build already exists on the server. ", newline=False
+        )
+        return False
+
     # Validate that there is a matching checksum file
     has_checksum_file_type, has_sum_postfix = find_checksum_file(filename=filename)
 

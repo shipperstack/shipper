@@ -140,6 +140,10 @@ class Client:
     def get_shippy_upload_variants(self):
         return self._get_info()["shippy_upload_variants"]
 
+    def duplicate_check(self, file_name):
+        r = self._post(url="/api/v1/maintainers/build/duplicate_check/", data={"file_name": file_name})
+        return r.json()["exists"] == "true"
+
     def _get_info(self):
         r = self._get(url="/api/v2/system/info")
         if r.status_code == 200:

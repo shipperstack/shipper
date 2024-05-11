@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import update_last_login
 from django.http import Http404
 from django.shortcuts import get_object_or_404
+from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_exempt
 from drf_chunked_upload.exceptions import ChunkedUploadError
 from drf_chunked_upload.serializers import ChunkedUploadSerializer
@@ -176,6 +177,7 @@ def v2_system_info(_):
     )
 
 
+@never_cache
 @csrf_exempt
 @api_view(["GET"])
 def v1_maintainers_token_check(request):

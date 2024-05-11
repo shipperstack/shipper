@@ -82,6 +82,20 @@ class ShippyTestCase(APITestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["username"], self.credentials["username"])
 
+    def test_v1_maintainers_token_check_no_cache(self):
+        self.client.credentials(HTTP_AUTHORIZATION="Token {}".format(self.token[0]))
+        response = self.client.get("/api/v1/maintainers/token_check/")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["username"], self.credentials["username"])
+
+        self.user.is_active = False
+        self.user.save()
+
+        response = self.client.get("/api/v1/maintainers/token_check/")
+
+        self.assertEqual(response.status_code, 401)
+
     def test_v1_maintainers_build_enabled_status_modify_disable(self):
         self.client.credentials(HTTP_AUTHORIZATION="Token {}".format(self.token[0]))
         build = Build.objects.get(

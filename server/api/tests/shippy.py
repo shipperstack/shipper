@@ -1,5 +1,3 @@
-from urllib import response
-
 from api.views import v1_maintainers_login, v2_system_info
 from django.conf import settings
 from django.contrib.auth import get_user_model

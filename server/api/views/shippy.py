@@ -212,6 +212,30 @@ def v1_maintainers_upload_filename_regex_pattern(request):
 
 @csrf_exempt
 @api_view(["POST"])
+def v1_maintainers_build_duplicate_check(request):
+    """
+    Checks if the given build already exists in the system
+
+    :param request: data must include `file_name`
+    :return: Whether the build exists or not
+    """
+    file_name = request.data.get("file_name")
+    if file_name is None:
+        return Response(
+            {
+                "error": "missing_parameters",
+                "message": "The required parameter `file_name` was not provided.",
+            },
+            status=HTTP_400_BAD_REQUEST,
+        )
+
+    exists = Build.objects.filter(file_name=file_name).exists()
+
+    return Response({"exists": exists})
+
+
+@csrf_exempt
+@api_view(["POST"])
 def v1_maintainers_build_enabled_status_modify(request):
     """
     Modifies the given build's enabled status

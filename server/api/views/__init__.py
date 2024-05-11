@@ -9,6 +9,7 @@ from .shippy import (
     v1_maintainers_build_enabled_status_modify,
     v1_maintainers_login,
     v1_maintainers_token_check,
+    v1_maintainers_build_duplicate_check,
     v1_maintainers_upload_filename_regex_pattern,
     v2_system_info,
 )
@@ -30,6 +31,7 @@ __all__ = [
     "v1_maintainers_build_enabled_status_modify",
     "v1_maintainers_login",
     "v1_maintainers_token_check",
+    "v1_maintainers_build_duplicate_check",
     "v1_maintainers_upload_filename_regex_pattern",
     "v2_system_info",
     "V2DownloadBuildCounter",

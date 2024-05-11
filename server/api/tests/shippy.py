@@ -1,3 +1,5 @@
+from urllib import response
+
 from api.views import v1_maintainers_login, v2_system_info
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -95,6 +97,43 @@ class ShippyTestCase(APITestCase):
         response = self.client.get("/api/v1/maintainers/token_check/")
 
         self.assertEqual(response.status_code, 401)
+
+    def test_v1_maintainers_build_duplicate_check_missing_token(self):
+        r = self.client.post(
+            "/api/v1/maintainers/build/duplicate_check/",
+            data={"file_name": "Bliss-v14-bullhead-OFFICIAL-gapps-20200608"},
+        )
+
+        self.assertEqual(r.status_code, 401)
+
+    def test_v1_maintainers_build_duplicate_check_missing_file_name(self):
+        self.client.credentials(HTTP_AUTHORIZATION="Token {}".format(self.token[0]))
+        r = self.client.post(
+            "/api/v1/maintainers/build/duplicate_check/",
+        )
+
+        self.assertEqual(r.status_code, 400)
+        self.assertEqual(r.data["error"], "missing_parameters")
+
+    def test_v1_maintainers_build_duplicate_check(self):
+        self.client.credentials(HTTP_AUTHORIZATION="Token {}".format(self.token[0]))
+        r = self.client.post(
+            "/api/v1/maintainers/build/duplicate_check/",
+            data={"file_name": "Bliss-v14-bullhead-OFFICIAL-gapps-20200608"},
+        )
+
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(r.data["exists"], True)
+
+    def test_v1_maintainers_build_duplicate_check_nonexistent(self):
+        self.client.credentials(HTTP_AUTHORIZATION="Token {}".format(self.token[0]))
+        r = self.client.post(
+            "/api/v1/maintainers/build/duplicate_check/",
+            data={"file_name": "invalid_build_file_name"},
+        )
+
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(r.data["exists"], False)
 
     def test_v1_maintainers_build_enabled_status_modify_disable(self):
         self.client.credentials(HTTP_AUTHORIZATION="Token {}".format(self.token[0]))

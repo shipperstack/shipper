@@ -16,6 +16,7 @@ from .views import (
     v1_maintainers_build_enabled_status_modify,
     v1_maintainers_login,
     v1_maintainers_token_check,
+    v1_maintainers_build_duplicate_check,
     v1_maintainers_upload_filename_regex_pattern,
     V2DownloadBuildCounter,
     v2_system_info,
@@ -85,6 +86,11 @@ urlpatterns = [
         name="latest_maintainers_token_check",
     ),
     path(
+        "latest/maintainers/build/duplicate_check/",
+        v1_maintainers_build_duplicate_check,
+        name="latest_maintainers_build_duplicate_check",
+    ),
+    path(
         "latest/maintainers/upload_filename_regex_pattern",
         v1_maintainers_upload_filename_regex_pattern,
         name="latest_maintainers_upload_filename_regex_pattern",
@@ -110,6 +116,11 @@ urlpatterns = [
         "v1/maintainers/token_check/",
         v1_maintainers_token_check,
         name="v1_maintainers_token_check",
+    ),
+    path(
+        "v1/maintainers/build/duplicate_check/",
+        v1_maintainers_build_duplicate_check,
+        name="v1_maintainers_build_duplicate_check",
     ),
     path(
         "v1/maintainers/upload_filename_regex_pattern",

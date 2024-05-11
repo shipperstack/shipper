@@ -3,8 +3,7 @@
   <component name="Black">
     <option name="enabledOnReformat" value="true" />
     <option name="enabledOnSave" value="true" />
-    <option name="pathToExecutable" value="/opt/homebrew/bin/black" />
-    <option name="sdkName" value="Python 3.11 (server)" />
+    <option name="sdkName" value="Python 3.12 (server)" />
   </component>
   <component name="JavaScriptSettings">
     <option name="languageLevel" value="ES6" />

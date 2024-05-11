@@ -1,3 +1,4 @@
+import calendar
 import html
 
 from api.utils import variant_check, x86_type_check
@@ -94,7 +95,7 @@ def response_from_build_query(builds, request, variant, x86_type=None):
     return_json = []
     for build in builds:
         build_json = {
-            "datetime": int(build.build_date.strftime("%s")),
+            "datetime": int(calendar.timegm(build.build_date.timetuple())),
             "filename": "{}.zip".format(build.file_name),
             "id": build.sha256sum,  # WHY
             "size": build.size,

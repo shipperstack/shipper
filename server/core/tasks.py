@@ -170,19 +170,32 @@ def sftp_client_init(mirror):
         )
 
     # Connect client
-    # noinspection SpellCheckingInspection
-    if not mirror.legacy_connection_mode:
-        ssh.connect(
-            hostname=mirror.hostname,
-            username=mirror.ssh_username,
-            pkey=private_key,
-        )
-    else:
-        ssh.connect(
-            hostname=mirror.hostname,
-            username=mirror.ssh_username,
-            pkey=private_key,
-            disabled_algorithms={"pubkeys": ["rsa-sha2-256", "rsa-sha2-512"]},
+    try:
+        # noinspection SpellCheckingInspection
+        if not mirror.legacy_connection_mode:
+            ssh.connect(
+                hostname=mirror.hostname,
+                username=mirror.ssh_username,
+                pkey=private_key,
+            )
+        else:
+            ssh.connect(
+                hostname=mirror.hostname,
+                username=mirror.ssh_username,
+                pkey=private_key,
+                disabled_algorithms={"pubkeys": ["rsa-sha2-256", "rsa-sha2-512"]},
+            )
+    except (
+        ConnectionError,
+        ConnectionResetError,
+        ConnectionAbortedError,
+        ConnectionRefusedError,
+    ) as e:
+        raise BuildMirrorException(
+            {
+                "message": "A temporary error occurred connecting to the mirror server.",
+                "exception_message": e,
+            }
         )
     sftp = ssh.open_sftp()
     sftp.chdir(mirror.upload_path)

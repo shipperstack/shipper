@@ -41,9 +41,9 @@ services:
       - media_volume:/home/shipper/web/media
       - static_volume:/home/shipper/web/static
     ports:
-      - "9202:80"
-      - "9243:443"
-      - "9203:81"
+      - "127.0.0.1:9202:80"
+      - "127.0.0.1:9243:443"
+      - "127.0.0.1:9203:81"
     healthcheck:
       test: curl --fail http://localhost/api/v1/system/info/ || exit 1
     depends_on:
@@ -134,7 +134,7 @@ services:
     image: mher/flower:2.0
     command: celery --broker=pyamqp://rabbitmq:5672/ flower --port=5555 --purge_offline_workers=5
     ports:
-      - 5556:5555
+      - "127.0.0.1:5556:5555"
     depends_on:
       - rabbitmq
   memcached:

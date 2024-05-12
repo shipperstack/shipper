@@ -190,6 +190,7 @@ def sftp_client_init(mirror):
         ConnectionResetError,
         ConnectionAbortedError,
         ConnectionRefusedError,
+        EOFError,
     ) as e:
         raise BuildMirrorException(
             {

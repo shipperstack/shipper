@@ -96,7 +96,7 @@ class Build(models.Model):
             return False
 
         has_mirror = False
-        mirror_server_model = apps.get_model("MirrorServer")
+        mirror_server_model = apps.get_model("core", "MirrorServer")
 
         for mirror in list(mirror_server_model.objects.filter(enabled=True)):
             # See if already mirrored

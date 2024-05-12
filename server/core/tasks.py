@@ -161,6 +161,13 @@ def sftp_client_init(mirror):
                 "exception_message": e,
             }
         )
+    except FileNotFoundError as e:
+        raise BuildMirrorException(
+            {
+                "message": "SSH key not found. Make sure that the provided SSH key exists in the directory.",
+                "exception_message": e,
+            }
+        )
 
     # Connect client
     # noinspection SpellCheckingInspection

@@ -141,7 +141,11 @@ class Client:
         return self._get_info()["shippy_upload_variants"]
 
     def duplicate_check(self, file_name):
-        r = self._post(url="/api/v1/maintainers/build/duplicate_check/", data={"file_name": file_name})
+        r = self._post(
+            url="/api/v1/maintainers/build/duplicate_check/",
+            headers=self._get_header(),
+            data={"file_name": file_name},
+        )
         return r.json()["exists"] == "true"
 
     def _get_info(self):

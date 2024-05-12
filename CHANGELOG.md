@@ -6,7 +6,13 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.37.0...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.37.1...HEAD
+
+# [2.37.1] - 2024-05-12
+
+- Fixed the build model looking up the mirror server causing crashes
+
+[2.37.1]: https://github.com/shipperstack/shipper/compare/2.37.0...2.37.1
 
 # [2.37.0] - 2024-05-11
 

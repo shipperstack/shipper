@@ -6,9 +6,22 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.37.1...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.37.2...HEAD
+
+# [2.37.2] - 2024-05-12
+
+## Changed
+
+- Fixed the server crashing if the SSH key does not exist
+- Fixed the server erroring out during the connection to the mirror server
+- Fixed the server crashing if the base upload path does not exist on the mirror server
+- Fixed shippy not supplying the authentication token when checking for duplicate builds during validation
+
+[2.37.2]: https://github.com/shipperstack/shipper/compare/2.37.1...2.37.2
 
 # [2.37.1] - 2024-05-12
+
+## Changed
 
 - Fixed the build model looking up the mirror server causing crashes
 

@@ -198,7 +198,15 @@ def sftp_client_init(mirror):
             }
         )
     sftp = ssh.open_sftp()
-    sftp.chdir(mirror.upload_path)
+    try:
+        sftp.chdir(mirror.upload_path)
+    except OSError as e:
+        raise BuildMirrorException(
+            {
+                "message": "Cannot access upload path. Make sure that the upload path is correct.",
+                "exception_message": e,
+            }
+        )
     return sftp
 
 

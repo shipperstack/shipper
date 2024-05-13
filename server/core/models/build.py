@@ -92,6 +92,14 @@ class Build(models.Model):
         boolean=True,
     )
     def is_mirrored(self):
+        """
+        Checks if the build has been mirrored to mirror servers.
+        Criteria:
+        - The build must have at least one mirror server to be considered mirrored
+        - The build must be mirrored to all mirror servers that target the build version
+        - If the build satisfies all of the above, then it is considered mirrored
+        :return: Whether the given build is mirrored following the criteria above
+        """
         if self.mirrored_on.count() == 0:
             return False
 

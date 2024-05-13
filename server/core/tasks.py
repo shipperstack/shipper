@@ -122,12 +122,24 @@ def upload_build_to_mirror(self, build_id, build, mirror):
         )
 
     try:
+        target_file_name = f"{build.file_name}.zip"
+        temp_target_file_name = f"{target_file_name}.part"
+
         logger.info("Starting upload...")
         sftp.put(
             localpath=os.path.join(settings.MEDIA_ROOT, build.zip_file.name),
-            remotepath=f"{build.file_name}.zip",
+            remotepath=temp_target_file_name,
             callback=update_progress,
         )
+
+        try:
+            sftp.stat(target_file_name)
+            logger.warning(f"Found existing file at {target_file_name}")
+            sftp.remove(target_file_name)
+        except FileNotFoundError:
+            pass
+
+        sftp.rename(temp_target_file_name, target_file_name)
         logger.info("Upload complete!")
 
         # Fetch build one more time and lock until save completes

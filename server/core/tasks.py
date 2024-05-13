@@ -8,6 +8,7 @@ from contextlib import contextmanager
 
 import paramiko
 from billiard.exceptions import TimeLimitExceeded, SoftTimeLimitExceeded
+from constance import config
 from django.conf import settings
 from django.core import files
 from django.core.cache import cache
@@ -22,7 +23,7 @@ from drf_chunked_upload import settings as drf_settings
 from drf_chunked_upload.models import ChunkedUpload
 from thumbhash import image_to_thumbhash
 
-import config.settings
+
 from .exceptions import BuildMirrorException
 from .models import Build, MirrorServer, Device
 from .utils import is_version_in_target_versions
@@ -68,6 +69,9 @@ def process_incomplete_builds():
     queue="mirror_upload",
 )
 def mirror_build(self, build_id):
+    if not config.SHIPPER_ENABLE_MIRRORING:
+        return
+
     build = Build.objects.get(id=build_id)
 
     # Setup lock
@@ -337,7 +341,7 @@ def mirror_build_async_result_cleanup():
         logger.info(f"Elapsed time for task ID {task.id} is {elapsed_time}.")
 
         # Give the check a 30-second leeway, just in case Celery is still cleaning up
-        if elapsed_time + 30 > config.settings.CELERY_TASK_TIME_LIMIT:
+        if elapsed_time + 30 > settings.CELERY_TASK_TIME_LIMIT:
             logger.warning(
                 f"Task ID {task.id} is over the time limit. Manually setting as failed."
             )

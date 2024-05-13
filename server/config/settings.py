@@ -350,6 +350,13 @@ CONSTANCE_CONFIG = {
         90,
         "Builds that are 'archived' in the system after this many number of days. "
         "Archived builds are not mirrored to any mirror servers.",
+        int,
+    ),
+    "SHIPPER_ENABLE_MIRRORING": (
+        True,
+        "Enables the mirroring functionality of shipper. Disable temporarily if you "
+        "are experiencing problems.",
+        bool,
     ),
 }
 CONSTANCE_CONFIG_FIELDSETS = {
@@ -368,6 +375,7 @@ CONSTANCE_CONFIG_FIELDSETS = {
         "SHIPPER_ALLOWED_VERSIONS_TO_UPLOAD",
     ),
     "Maintenance": ("SHIPPER_BUILD_ARCHIVE_DAYS",),
+    "Mirroring": ("SHIPPER_ENABLE_MIRRORING",),
 }
 
 # django-auditlog

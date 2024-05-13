@@ -8,7 +8,9 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         for build in [
-            build for build in Build.objects.all() if not build.is_mirrored()
+            build
+            for build in Build.objects.all()
+            if not build.is_mirrored() and not build.is_archived()
         ]:
             mirror_build.delay(build.id)
             self.stdout.write(f"Queued backup for build {build.file_name}!")

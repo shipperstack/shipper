@@ -70,7 +70,7 @@ jobs:
           coverage combine
           coverage xml
       - name: Upload finalized coverage report
-        uses: codecov/codecov-action@v4.3.1
+        uses: codecov/codecov-action@v4.4.0
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           verbose: true

@@ -45,7 +45,7 @@ class V1MaintainersChunkedUpload(ChunkedUploadView):
         Handle POST requests.
         """
         try:
-            return self._post(request, pk=pk, *args, **kwargs)
+            return self._post(request, *args, pk=pk, **kwargs)
         except ChunkedUploadError as error:
             # Delete chunked upload (if it exists)
             if pk:

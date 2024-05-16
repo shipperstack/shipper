@@ -42,6 +42,8 @@ from .constants import (
     INTERNAL_SERVER_ERROR_MSG,
     FOUND_PREVIOUS_BUILD_ATTEMPT_MSG,
     DISABLE_BUILD_FAILED_MSG,
+    SERVER_ERROR_WAITING_MSG,
+    SERVER_ERROR_WAIT_STATUS_MSG,
 )
 from .exceptions import LoginException, UploadException
 from .version import __version__
@@ -83,6 +85,14 @@ def wait_rate_limit(seconds):
             time.sleep(1)
             seconds -= 1
             status.update(status=RATE_LIMIT_WAIT_STATUS_MSG.format(seconds))
+
+
+def wait_temporary_error(seconds):
+    with console.status(SERVER_ERROR_WAIT_STATUS_MSG.format(seconds)) as status:
+        while seconds:
+            time.sleep(1)
+            seconds -= 1
+            status.update(status=SERVER_ERROR_WAIT_STATUS_MSG.format(seconds))
 
 
 class Client:
@@ -338,6 +348,15 @@ class Client:
         if r.status_code == 429:
             print(RATE_LIMIT_MSG)
             wait_rate_limit(int(re.findall(r"\d+", r.json()["detail"])[0]))
+
+            return self._request(
+                type=type, url=url, headers=headers, data=data, files=files
+            )
+
+        # Check for temporary server-side errors
+        if int(r.status_code / 100) == 5:
+            print(SERVER_ERROR_WAITING_MSG)
+            wait_temporary_error(30)
 
             return self._request(
                 type=type, url=url, headers=headers, data=data, files=files

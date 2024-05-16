@@ -28,7 +28,7 @@ class ShipperUtilsTestCase(TestCase):
         self.assertFalse(is_version_in_target_versions("v12.5", "v12.6"))
 
     def test_is_version_in_target_versions_invalid_wildcard_version(self):
-        with self.assertRaises(Exception):
+        with self.assertRaisesRegex(Exception, "version-has-wildcard"):
             is_version_in_target_versions("v12.*", "v12.*")
 
     @override_settings(

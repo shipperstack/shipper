@@ -1,5 +1,3 @@
-import ast
-
 from django.conf import settings
 from constance import config
 

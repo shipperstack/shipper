@@ -6,7 +6,19 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.37.3...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.37.4...HEAD
+
+# [2.37.4] - 2024-05-17
+
+## Changed
+
+- Fixed the management command trying to queue up mirror jobs for archived builds
+- Increased the Celery tasks time limit to one hour
+- Fixed the server not checking if the configuration keys are empty (invalid)
+- Fixed shippy crashing if the server is temporarily unavailable
+- General code cleanup
+
+[2.37.4]: https://github.com/shipperstack/shipper/compare/2.37.3...2.37.4
 
 # [2.37.3] - 2024-05-13
 

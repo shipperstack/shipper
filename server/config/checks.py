@@ -12,7 +12,10 @@ def configuration_check(app_configs, **kwargs):
         ("SHIPPER_CSRF_TRUSTED_ORIGINS", "CSRF trusted origins"),
     ]
     for checked_key in checked_keys:
-        if os.environ.get(checked_key[0]) is None:
+        if (
+            os.environ.get(checked_key[0]) is None
+            or os.environ.get(checked_key[0]) == ""
+        ):
             errors.append(
                 Error(
                     f"The {checked_key[1]} setting is not properly configured!",

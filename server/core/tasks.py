@@ -180,7 +180,8 @@ def sftp_client_init(mirror):
     except FileNotFoundError as e:
         raise BuildMirrorException(
             {
-                "message": "SSH key not found. Make sure that the provided SSH key exists in the directory.",
+                "message": "SSH key not found. Make sure that the provided SSH key "
+                "exists in the directory.",
                 "exception_message": e,
             }
         )
@@ -203,14 +204,12 @@ def sftp_client_init(mirror):
             )
     except (
         ConnectionError,
-        ConnectionResetError,
-        ConnectionAbortedError,
-        ConnectionRefusedError,
         EOFError,
     ) as e:
         raise BuildMirrorException(
             {
-                "message": "A temporary error occurred connecting to the mirror server.",
+                "message": "A temporary error occurred connecting to the mirror "
+                "server.",
                 "exception_message": e,
             }
         )
@@ -220,7 +219,8 @@ def sftp_client_init(mirror):
     except OSError as e:
         raise BuildMirrorException(
             {
-                "message": "Cannot access upload path. Make sure that the upload path is correct.",
+                "message": "Cannot access upload path. Make sure that the upload path "
+                "is correct.",
                 "exception_message": e,
             }
         )

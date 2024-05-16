@@ -10,7 +10,9 @@ def download_page_processor(_):
         "main_website_url": config.SHIPPER_MAIN_WEBSITE_URL,
         "downloads_page_main_branding": config.SHIPPER_DOWNLOADS_PAGE_MAIN_BRANDING,
         "downloads_page_donation_url": config.SHIPPER_DOWNLOADS_PAGE_DONATION_URL,
-        "downloads_page_donation_message": config.SHIPPER_DOWNLOADS_PAGE_DONATION_MESSAGE,  # noqa: E501
+        "downloads_page_donation_message": (
+            config.SHIPPER_DOWNLOADS_PAGE_DONATION_MESSAGE
+        ),
         "upload_variants": variants,
     }
 

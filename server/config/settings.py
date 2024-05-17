@@ -1,5 +1,6 @@
 import os
 import sentry_sdk
+from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import gettext_lazy
 from kombu import Queue, Exchange
 from paramiko import AuthenticationException, SSHException
@@ -439,5 +440,6 @@ sentry_sdk.init(
         KeyboardInterrupt,
         UploadException,
         BuildMirrorException,
+        ImproperlyConfigured,
     ],
 )

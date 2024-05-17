@@ -6,7 +6,17 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.37.5...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.37.6...HEAD
+
+# [2.37.6] - 2024-05-17
+
+- Updated dependencies (shippy)
+  - sentry-sdk (2.1.1 -> 2.2.0)
+- Updated dependencies (server)
+  - sentry-sdk (2.1.1 -> 2.2.0)
+- Fixed server to ignore ImproperlyConfigured exceptions when reporting to Sentry
+
+[2.37.6]: https://github.com/shipperstack/shipper/compare/2.37.5...2.37.6
 
 # [2.37.5] - 2024-05-17
 

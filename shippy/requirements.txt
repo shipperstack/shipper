@@ -1,6 +1,6 @@
 humanize==4.9.0
 loguru==0.7.2
-requests==2.31.0
+requests==2.32.0
 rich==13.7.1
 semver==3.0.2
 sentry-sdk==2.2.0

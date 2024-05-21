@@ -1,3 +1,6 @@
+mod constants;
+use crate::constants::*;
+
 use clap::{Parser, Subcommand};
 use std::fs;
 use std::io::BufReader;
@@ -10,13 +13,6 @@ use semver::Version;
 use regex::Regex;
 
 const VERSION: &str = env!("CARGO_PKG_VERSION");
-
-// These filenames are unlikely to ever change
-const CHANGELOG_FILE_NAME: &str = "CHANGELOG.md";
-const VERSION_FILE_NAME: &str = "version.txt";
-const SERVER_VERSION_FILE_NAME: &str = "server/version.txt";
-const SHIPPY_VERSION_FILE_NAME: &str = "shippy/shippy/version.py";
-const GITHUB_REPOSITORY_URL: &str = "https://github.com/shipperstack/shipper";
 
 #[derive(Parser, Debug)]
 #[command(name = "shipper-release")]

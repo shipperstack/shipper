@@ -7,6 +7,7 @@ use std::io::BufReader;
 use std::process::Command;
 use std::{io::BufRead, path::Path};
 use chrono::Local;
+use git2::Repository;
 
 use semver::Version;
 
@@ -79,11 +80,9 @@ options are: --major, --minor, --patch"
 
 /// Function to check if shipper-release is running in the correct directory
 fn check_running_directory() -> bool {
-    for path in [".git"] {
-        if !Path::new(path).is_dir() {
-            return false;
-        }
-    }
+    if let Err(_) = Repository::open(".") {
+        return false;
+    };
 
     for file in [CHANGELOG_FILE_NAME, VERSION_FILE_NAME] {
         if !Path::new(file).exists() {

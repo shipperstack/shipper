@@ -202,8 +202,6 @@ fn get_new_version(last_version_raw: &str, major: bool, minor: bool, patch: bool
         last_version.patch = 0;
     } else if patch {
         last_version.patch += 1;
-    } else {
-        panic!("This error shouldn't occur -- failed to get new version string!");
     }
 
     last_version.to_string()

@@ -72,7 +72,13 @@ def mirror_build(self, build_id):
     if not config.SHIPPER_ENABLE_MIRRORING:
         return
 
-    build = Build.objects.get(id=build_id)
+    try:
+        build = Build.objects.get(id=build_id)
+    except Build.DoesNotExist:
+        logger.warning(
+            f"Build with ID {build_id} no longer exists. Exiting..."
+        )
+        return
 
     # Setup lock
     lock_id = "{}-lock-{}".format(self.name, build.id)

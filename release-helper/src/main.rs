@@ -291,13 +291,18 @@ fn push() -> Result<(), git2::Error> {
         &tree,
         &[&parent_commit],
     )?;
+    println!("New commit ID: {commit_oid}");
 
     let commit_obj = repo.find_object(commit_oid, Some(ObjectType::Commit))?;
     repo.tag_lightweight(&version, &commit_obj, false)?;
+    println!("Created tag {version} for commit ID {commit_oid}");
 
     let head_ref = repo.head()?.resolve()?;
     let branch_name = head_ref.name().ok_or_else(|| {
         Error::from_str("Failed to get branch name")
+    })?;
+    let branch_shortname = head_ref.shorthand().ok_or_else(|| {
+        Error::from_str("Failed to get branch shortname")
     })?;
     let upstream_remote = repo.branch_upstream_remote(branch_name)?;
     let remote_name = upstream_remote.as_str().ok_or_else(|| {
@@ -313,8 +318,13 @@ fn push() -> Result<(), git2::Error> {
     let mut push_options = PushOptions::new();
     push_options.remote_callbacks(callbacks);
 
+    print!("Pushing branch {branch_shortname} to remote {remote_name}... ");
     remote.push(&[&branch_name], Some(&mut push_options))?;
+    println!("Done");
+
+    print!("Pushing tag {version} to remote {remote_name}... ");
     remote.push(&[&format!("refs/tags/{}", &version)], Some(&mut push_options))?;
+    println!("Done");
 
     Ok(())
 }

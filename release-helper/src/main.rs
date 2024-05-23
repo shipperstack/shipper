@@ -296,7 +296,7 @@ fn push() -> Result<(), git2::Error> {
     repo.tag_lightweight(&version, &commit_obj, false)?;
 
     let head_ref = repo.head()?.resolve()?;
-    let branch_name = head_ref.shorthand().ok_or_else(|| {
+    let branch_name = head_ref.name().ok_or_else(|| {
         Error::from_str("Failed to get branch name")
     })?;
     let upstream_remote = repo.branch_upstream_remote(branch_name)?;
@@ -313,7 +313,7 @@ fn push() -> Result<(), git2::Error> {
     let mut push_options = PushOptions::new();
     push_options.remote_callbacks(callbacks);
 
-    remote.push(&[&format!("refs/heads/{}", branch_name)], Some(&mut push_options))?;
+    remote.push(&[&branch_name], Some(&mut push_options))?;
     remote.push(&[&format!("refs/tags/{}", &version)], Some(&mut push_options))?;
 
     Ok(())

@@ -355,7 +355,7 @@ class Client:
 
         # Check for temporary server-side errors
         if int(r.status_code / 100) == 5:
-            print(SERVER_ERROR_WAITING_MSG)
+            print(SERVER_ERROR_WAITING_MSG.format(r.status_code))
             wait_temporary_error(30)
 
             return self._request(

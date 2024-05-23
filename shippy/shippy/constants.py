@@ -58,7 +58,7 @@ RATE_LIMIT_WAIT_STATUS_MSG = (
     "resume uploading in {} seconds."
 )
 
-SERVER_ERROR_WAITING_MSG = "The server is temporarily unavailable."
+SERVER_ERROR_WAITING_MSG = "The server is temporarily unavailable. Error code: {}"
 SERVER_ERROR_WAIT_STATUS_MSG = (
     "Waiting to resume as the server is temporarily unavailable. "
     "shippy will automatically retry in {} seconds."

@@ -6,7 +6,20 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.37.6...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.37.7...HEAD
+
+# [2.37.7] - 2024-05-23
+
+- Fixed server generating an error if the build was deleted before mirroring auto-retry occurred
+- Updated dependencies (shippy)
+  - requests (2.31.0 -> 2.32.2)
+  - setuptools (69.5.1 -> 70.0.0)
+  - sentry-sdk (2.2.0 -> 2.2.1)
+- Updated dependencies (server)
+  - requests (2.31.0 -> 2.32.2)
+  - sentry-sdk (2.2.0 -> 2.2.1)
+
+[2.37.7]: https://github.com/shipperstack/shipper/compare/2.37.6...2.37.7
 
 # [2.37.6] - 2024-05-17
 

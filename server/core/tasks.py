@@ -75,9 +75,7 @@ def mirror_build(self, build_id):
     try:
         build = Build.objects.get(id=build_id)
     except Build.DoesNotExist:
-        logger.warning(
-            f"Build with ID {build_id} no longer exists. Exiting..."
-        )
+        logger.warning(f"Build with ID {build_id} no longer exists. Exiting...")
         return
 
     # Setup lock

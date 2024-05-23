@@ -7,7 +7,7 @@ use std::io::BufReader;
 use std::process::Command;
 use std::{io::BufRead, path::Path};
 use chrono::Local;
-use git2::Repository;
+use git2::{Error, ObjectType, PushOptions, RemoteCallbacks, Repository, Signature};
 
 use semver::Version;
 
@@ -73,7 +73,7 @@ options are: --major, --minor, --patch"
             generate(*major, *minor, *patch);
         }
         Commands::Push => {
-            push();
+            push().expect("Failed to create a commit and push to remote.");
         }
     }
 }
@@ -258,32 +258,65 @@ fn get_last_version() -> String {
     version_line.trim().to_string()
 }
 
-fn push() {
+fn get_repository() -> Repository {
+    Repository::open(".").unwrap()
+}
+
+fn push() -> Result<(), git2::Error> {
     let version = get_last_version();
 
     let changes = get_changes(&version);
 
-    Command::new("git")
-        .arg("commit")
-        .arg("-m")
-        .arg(format!("release: {version}\n\n{changes}"))
-        .status()
-        .expect("Failed to git commit");
-    Command::new("git")
-        .arg("tag")
-        .arg(version)
-        .status()
-        .expect("Failed to tag last git commit");
+    let repo = get_repository();
 
-    Command::new("git")
-        .arg("push")
-        .status()
-        .expect("Failed to push release to GitHub");
-    Command::new("git")
-        .arg("push")
-        .arg("--tags")
-        .status()
-        .expect("Failed to push tag to GitHub");
+    let mut index = repo.index()?;
+    let tree_id = index.write_tree()?;
+    let tree = repo.find_tree(tree_id)?;
+
+    let head = repo.head()?;
+    let parent_commit = head.peel_to_commit()?;
+
+    let config = repo.config()?;
+    let name = config.get_string("user.name")?;
+    let email = config.get_string("user.email")?;
+    let signature = Signature::now(&name, &email)?;
+
+    let commit_msg = format!("release: {version}\n\n{changes}");
+
+    let commit_oid = repo.commit(
+        Some("HEAD"),
+        &signature,
+        &signature,
+        &commit_msg,
+        &tree,
+        &[&parent_commit],
+    )?;
+
+    let commit_obj = repo.find_object(commit_oid, Some(ObjectType::Commit))?;
+    repo.tag_lightweight(&version, &commit_obj, false)?;
+
+    let head_ref = repo.head()?.resolve()?;
+    let branch_name = head_ref.shorthand().ok_or_else(|| {
+        Error::from_str("Failed to get branch name")
+    })?;
+    let upstream_remote = repo.branch_upstream_remote(branch_name)?;
+    let remote_name = upstream_remote.as_str().ok_or_else(|| {
+        Error::from_str("Failed to get remote name")
+    })?;
+    let mut remote = repo.find_remote(remote_name)?;
+
+    let mut callbacks = RemoteCallbacks::new();
+    callbacks.credentials(|_url, _username_from_url, _allowed_types| {
+        git2::Cred::ssh_key_from_agent("git")
+    });
+
+    let mut push_options = PushOptions::new();
+    push_options.remote_callbacks(callbacks);
+
+    remote.push(&[&format!("refs/heads/{}", branch_name)], Some(&mut push_options))?;
+    remote.push(&[&format!("refs/tags/{}", &version)], Some(&mut push_options))?;
+
+    Ok(())
 }
 
 fn get_changes(version: &str) -> String {

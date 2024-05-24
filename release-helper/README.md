@@ -1,4 +1,4 @@
-# [shipper-release](https://crates.io/crates/shipper-release)
+# shipper-release
 
 Rust program for managing releases and generating changelogs for the shipper project
 

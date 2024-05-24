@@ -1,3 +1,4 @@
+use anyhow::{anyhow, Error};
 use chrono::Local;
 use git2::Repository;
 use regex::Regex;
@@ -26,9 +27,9 @@ pub fn enabled_version_flag_count(major: bool, minor: bool, patch: bool) -> i32 
     count
 }
 
-pub fn get_version_level(major: bool, minor: bool, patch: bool) -> Result<VersionLevel, ()> {
-    if (enabled_version_flag_count(major, minor, patch) != 1) {
-        return Err(());
+pub fn get_version_level(major: bool, minor: bool, patch: bool) -> Result<VersionLevel, Error> {
+    if enabled_version_flag_count(major, minor, patch) != 1 {
+        return Err(anyhow!("Too many version flags enabled"));
     }
 
     if major { return Ok(VersionLevel::MAJOR) }

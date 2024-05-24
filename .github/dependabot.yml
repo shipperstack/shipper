@@ -22,3 +22,8 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+  # Maintain dependencies for shipper-release Rust crates
+  - package-ecosystem: "cargo"
+  directory: "./release-helper"
+  schedule:
+    interval: "daily"

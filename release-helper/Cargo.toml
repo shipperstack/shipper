@@ -13,4 +13,4 @@ chrono = "0.4.38"
 clap = { version = "4.3.10", features = ["derive"] }
 git2 = "0.18.3"
 regex = "1.8.4"
-semver = "1.0.17"
+semver = "1.0.23"

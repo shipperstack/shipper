@@ -2,23 +2,26 @@ name: Release helper tests
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
+    paths:
+      - release-helper/**
   pull_request:
-    branches: [ master ]
+    branches: [master]
+    paths:
+      - release-helper/**
 
 env:
   CARGO_TERM_COLOR: always
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Build
-      working-directory: ./release-helper
-      run: cargo build --verbose
-    - name: Run tests
-      working-directory: ./release-helper
-      run: cargo test --verbose
+      - uses: actions/checkout@v4
+      - name: Build
+        working-directory: ./release-helper
+        run: cargo build --verbose
+      - name: Run tests
+        working-directory: ./release-helper
+        run: cargo test --verbose

@@ -196,7 +196,7 @@ fn get_last_version() -> String {
     version_line.trim().to_string()
 }
 
-fn push() -> Result<(), git2::Error> {
+fn push() -> Result<(), Error> {
     let version = get_last_version();
 
     let changes = get_changes(&version);

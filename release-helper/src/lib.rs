@@ -85,7 +85,7 @@ pub fn parse_commit_message(s: &str) -> String {
         let dep_old_ver = s_parts[4];
         let dep_new_ver = s_parts[6];
         let subsystem = s_parts.last().unwrap();
-        return format!("\t- {dep_name} ({dep_old_ver} -> {dep_new_ver}) ({subsystem})")
+        return format!("\t- {dep_name} ({dep_old_ver} -> {dep_new_ver}) ({subsystem})");
     }
 
     format!("- {s}")

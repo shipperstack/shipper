@@ -29,7 +29,7 @@ Run
 cargo install --path . --debug
 ```
 
-inside the repository.
+inside the current directory.
 
 ## Installation
 
@@ -38,3 +38,5 @@ Run
 ```
 cargo install --path .
 ```
+
+inside the current directory.

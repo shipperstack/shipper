@@ -8,6 +8,12 @@ pub struct Commit<'a> {
     pub msg: &'a str,
 }
 
+pub enum VersionLevel {
+    MAJOR,
+    MINOR,
+    PATCH,
+}
+
 pub fn today_iso8601() -> String {
     Local::now().format("%Y-%m-%d").to_string()
 }
@@ -20,18 +26,32 @@ pub fn enabled_version_flag_count(major: bool, minor: bool, patch: bool) -> i32 
     count
 }
 
-pub fn get_new_version(last_version_raw: &str, major: bool, minor: bool, patch: bool) -> String {
+pub fn get_version_level(major: bool, minor: bool, patch: bool) -> Result<VersionLevel, ()> {
+    if (enabled_version_flag_count(major, minor, patch) != 1) {
+        return Err(());
+    }
+
+    if major { return Ok(VersionLevel::MAJOR) }
+    if minor { return Ok(VersionLevel::MINOR) }
+    Ok(VersionLevel::PATCH)
+}
+
+pub fn get_new_version(last_version_raw: &str, level: VersionLevel) -> String {
     let mut last_version: Version = Version::parse(last_version_raw).unwrap();
 
-    if major {
-        last_version.major += 1;
-        last_version.minor = 0;
-        last_version.patch = 0;
-    } else if minor {
-        last_version.minor += 1;
-        last_version.patch = 0;
-    } else if patch {
-        last_version.patch += 1;
+    match level {
+        VersionLevel::MAJOR => {
+            last_version.major += 1;
+            last_version.minor = 0;
+            last_version.patch = 0;
+        }
+        VersionLevel::MINOR => {
+            last_version.minor += 1;
+            last_version.patch = 0;
+        }
+        VersionLevel::PATCH => {
+            last_version.patch += 1;
+        }
     }
 
     last_version.to_string()

@@ -70,7 +70,8 @@ options are: --major, --minor, --patch"
                 println!("Only one version flag should be specified.");
                 return;
             }
-            generate(*major, *minor, *patch);
+
+            generate(get_version_level(*major, *minor, *patch).unwrap());
         }
         Commands::Push => {
             push().expect("Failed to create a commit and push to remote.");
@@ -93,13 +94,13 @@ fn check_running_directory() -> bool {
     true
 }
 
-fn generate(major: bool, minor: bool, patch: bool) {
+fn generate(version_level: VersionLevel) {
     // Get last version
     let last_version: String = get_last_version();
 
     let git_log_raw: String = get_git_log_raw(&last_version);
 
-    let new_version: String = get_new_version(&last_version, major, minor, patch);
+    let new_version: String = get_new_version(&last_version, version_level);
 
     println!("New version is {}", new_version);
 

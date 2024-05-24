@@ -91,3 +91,29 @@ pub fn parse_commit_message(s: &str) -> String {
 
     format!("- {s}")
 }
+
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_enabled_version_flag_count() {
+        assert_eq!(enabled_version_flag_count(true, true, true), 3);
+        assert_eq!(enabled_version_flag_count(true, true, false), 2);
+        assert_eq!(enabled_version_flag_count(true, false, false), 1);
+        assert_eq!(enabled_version_flag_count(false, false, false), 0);
+    }
+
+
+    #[test]
+    fn test_get_new_version() {
+        let last_version_str = "3.20.3";
+        let new_major_ver = get_new_version(last_version_str, VersionLevel::MAJOR);
+        assert_eq!(new_major_ver, "4.0.0");
+        let new_minor_ver = get_new_version(last_version_str, VersionLevel::MINOR);
+        assert_eq!(new_minor_ver, "3.21.0");
+        let new_patch_ver = get_new_version(last_version_str, VersionLevel::PATCH);
+        assert_eq!(new_patch_ver, "3.20.4");
+    }
+}

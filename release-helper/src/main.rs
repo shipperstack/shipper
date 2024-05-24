@@ -80,7 +80,7 @@ options are: --major, --minor, --patch"
 
 /// Function to check if shipper-release is running in the correct directory
 fn check_running_directory() -> bool {
-    if let Err(_) = Repository::open(".") {
+    if Repository::open(".").is_err() {
         return false;
     };
 

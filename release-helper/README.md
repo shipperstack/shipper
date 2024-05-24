@@ -7,7 +7,7 @@ Rust program for managing releases and generating changelogs for the shipper pro
 Run
 
 ```
-cargo install --path .
+cargo install --path . --debug
 ```
 
 inside the repository.
@@ -17,5 +17,5 @@ inside the repository.
 Run
 
 ```
-cargo install shipper-release
+cargo install --path .
 ```

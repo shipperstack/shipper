@@ -1,17 +1,15 @@
 mod constants;
+
 use crate::constants::*;
+
+use shipper_release::*;
 
 use clap::{Parser, Subcommand};
 use std::fs;
 use std::io::BufReader;
 use std::process::Command;
 use std::{io::BufRead, path::Path};
-use chrono::Local;
 use git2::{Error, ObjectType, PushOptions, RemoteCallbacks, Repository, Signature};
-
-use semver::Version;
-
-use regex::Regex;
 
 const VERSION: &str = env!("CARGO_PKG_VERSION");
 
@@ -19,7 +17,9 @@ const VERSION: &str = env!("CARGO_PKG_VERSION");
 #[command(name = "shipper-release")]
 #[command(author = "Eric Park <me@ericswpark.com>")]
 #[command(version = VERSION)]
-#[command(about="Release orchestrator and changelog management program for shipper", long_about = None)]
+#[command(
+    about = "Release orchestrator and changelog management program for shipper", long_about = None
+)]
 struct Cli {
     #[arg(short, long)]
     verbose: bool,
@@ -93,18 +93,6 @@ fn check_running_directory() -> bool {
     true
 }
 
-fn enabled_version_flag_count(major: bool, minor: bool, patch: bool) -> i32 {
-    let mut count = 0;
-    if major { count += 1; }
-    if minor { count += 1; }
-    if patch { count += 1; }
-    count
-}
-
-fn today_iso8601() -> String {
-    Local::now().format("%Y-%m-%d").to_string()
-}
-
 fn generate(major: bool, minor: bool, patch: bool) {
     // Get last version
     let last_version: String = get_last_version();
@@ -146,7 +134,6 @@ fn update_changelog(git_log_raw: &str, last_version: &str, new_version: &str) {
             new_changelog.push(String::from(""));
 
 
-
             // Add all commit entries (to be sorted later)
             for commit in parse_git_log(git_log_raw) {
                 new_changelog.push(parse_commit_message(commit.msg));
@@ -168,20 +155,6 @@ fn update_changelog(git_log_raw: &str, last_version: &str, new_version: &str) {
     println!("Changelog entries added.");
 }
 
-fn parse_commit_message(s: &str) -> String {
-    // Neatly format Dependabot entries so that I can easily reorder them later
-    if s.starts_with("build(deps): bump ") {
-        let s_parts: Vec<_> = s.split(' ').collect();
-        let dep_name = s_parts[2];
-        let dep_old_ver = s_parts[4];
-        let dep_new_ver = s_parts[6];
-        let subsystem = s_parts.last().unwrap();
-        return format!("\t- {dep_name} ({dep_old_ver} -> {dep_new_ver}) ({subsystem})")
-    }
-
-    format!("- {s}")
-}
-
 fn write_version_files(new_version: &str) {
     fs::write(VERSION_FILE_NAME, new_version).expect("Failed to write the new version text file!");
     fs::write(SERVER_VERSION_FILE_NAME, new_version).expect("Failed to write the new server version text file!");
@@ -190,22 +163,6 @@ fn write_version_files(new_version: &str) {
     println!("Version text updated.");
 }
 
-fn get_new_version(last_version_raw: &str, major: bool, minor: bool, patch: bool) -> String {
-    let mut last_version: Version = Version::parse(last_version_raw).unwrap();
-
-    if major {
-        last_version.major += 1;
-        last_version.minor = 0;
-        last_version.patch = 0;
-    } else if minor {
-        last_version.minor += 1;
-        last_version.patch = 0;
-    } else if patch {
-        last_version.patch += 1;
-    }
-
-    last_version.to_string()
-}
 
 fn get_git_log_raw(last_version: &str) -> String {
     // Get git log between last version and HEAD
@@ -224,26 +181,6 @@ fn get_git_log_raw(last_version: &str) -> String {
     String::from_utf8(git_log_output.stdout).unwrap()
 }
 
-#[derive(Clone, Copy, Debug, PartialEq)]
-struct Commit<'a> {
-    msg: &'a str,
-}
-
-fn parse_git_log(stdout: &str) -> impl Iterator<Item = Commit> + '_ {
-    let pattern = Regex::new(
-        r"(?x)
-            ([0-9a-fA-F]+) # commit hash
-            (.*)           # The commit message",
-    )
-    .unwrap();
-
-    stdout
-        .lines()
-        .filter_map(move |line| pattern.captures(line))
-        .map(|cap| Commit {
-            msg: cap.get(2).unwrap().as_str().trim(),
-        })
-}
 
 fn get_last_version() -> String {
     // We assume that the user has not modified the version.txt file yet
@@ -256,10 +193,6 @@ fn get_last_version() -> String {
         .expect("Cannot read line from version string buffer!");
 
     version_line.trim().to_string()
-}
-
-fn get_repository() -> Repository {
-    Repository::open(".").unwrap()
 }
 
 fn push() -> Result<(), git2::Error> {

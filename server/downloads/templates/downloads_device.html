@@ -22,6 +22,14 @@
     {% include 'donation_alert.html' %}
 
 
+    {% if object.note %}
+    <div class="alert alert-info">
+        <h4>Device Notes</h4>
+        {{ object.note }}
+    </div>
+    {% endif %}
+
+
     {% if object.has_enabled_hashed_builds %}
         <p>{% blocktranslate with last_updated_date=object.human_readable_last_updated %}This device was last updated {{ last_updated_date }}{% endblocktranslate %}</p>
 

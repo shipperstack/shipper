@@ -51,6 +51,12 @@ class Device(models.Model):
         default=True, help_text="Show device on the main downloads page"
     )
 
+    note = models.TextField(
+        help_text="Notes pertaining to device",
+        max_length=500,
+        blank=True,
+    )
+
     def __str__(self):
         return "{} {} ({})".format(self.manufacturer, self.name, self.codename)
 

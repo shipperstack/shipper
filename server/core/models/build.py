@@ -60,7 +60,9 @@ class Build(models.Model):
         upload_to=get_upload_path, verbose_name="Zip file", blank=True
     )
 
-    x86_type = models.ForeignKey("X86Type", on_delete=models.PROTECT, null=True)
+    x86_type = models.ForeignKey(
+        "X86Type", on_delete=models.PROTECT, blank=True, null=True
+    )
 
     def get_user_friendly_name(self):
         return "{} - {}".format(self.version, self.build_date.strftime("%Y-%m-%d"))

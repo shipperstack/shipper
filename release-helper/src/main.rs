@@ -203,6 +203,10 @@ fn push() -> Result<(), Error> {
 
     let repo = get_repository();
 
+    if repo.has_unstaged_changes() {
+        return Err(Error::from_str("Repository has unstaged changes!"));
+    }
+
     let mut index = repo.index()?;
     let tree_id = index.write_tree()?;
     let tree = repo.find_tree(tree_id)?;

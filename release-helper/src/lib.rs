@@ -62,6 +62,20 @@ pub fn get_repository() -> Repository {
     Repository::open(".").unwrap()
 }
 
+pub trait RepositoryTrait {
+    fn has_unstaged_changes(&self) -> bool;
+}
+
+impl RepositoryTrait for Repository {
+    fn has_unstaged_changes(&self) -> bool {
+        let diffs = self.diff_index_to_workdir(None, None).expect("Failed to get diffs from the repository!");
+        let diff_stats = diffs.stats().expect("Failed to get diff stats from the repository!");
+        let files_changed = diff_stats.files_changed();
+
+        files_changed != 0
+    }
+}
+
 pub fn parse_git_log(stdout: &str) -> impl Iterator<Item=Commit> + '_ {
     let pattern = Regex::new(
         r"(?x)

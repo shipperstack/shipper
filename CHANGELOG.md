@@ -6,7 +6,21 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.37.9...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.38.0...HEAD
+
+# [2.38.0] - 2024-05-27
+
+## Added
+
+- Added a notes field to the Device model
+
+## Changed
+
+- Fixed the server showing the "last updated" text on the device page when no builds are present
+- Fixed the `x86_type` field preventing saving of non-x86 devices
+- Fixed the release helper script panic-quitting if any errors are encountered during pushing
+
+[2.38.0]: https://github.com/shipperstack/shipper/compare/2.37.9...2.38.0
 
 # [2.37.9] - 2024-05-27
 

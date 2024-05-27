@@ -7,7 +7,7 @@ use shipper_release::*;
 use clap::{Parser, Subcommand};
 use std::fs;
 use std::io::BufReader;
-use std::process::Command;
+use std::process::{Command, exit};
 use std::{io::BufRead, path::Path};
 use git2::{Error, ObjectType, PushOptions, RemoteCallbacks, Repository, Signature};
 
@@ -74,7 +74,10 @@ options are: --major, --minor, --patch"
             generate(get_version_level(*major, *minor, *patch).unwrap());
         }
         Commands::Push => {
-            push().expect("Failed to create a commit and push to remote.");
+            push().unwrap_or_else(|error| {
+                println!("Failed to create a commit and push to remote: {error}");
+                exit(1);
+            });
         }
     }
 }

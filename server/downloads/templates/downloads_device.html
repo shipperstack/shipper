@@ -21,13 +21,14 @@
 
     {% include 'donation_alert.html' %}
 
-    <p>{% blocktranslate with last_updated_date=object.human_readable_last_updated %}This device was last updated {{ last_updated_date }}{% endblocktranslate %}</p>
 
-    {% for variant_codename in upload_variants %}
-        {% device_variant_section device=object variant_codename=variant_codename %}
-    {% endfor %}
+    {% if object.has_enabled_hashed_builds %}
+        <p>{% blocktranslate with last_updated_date=object.human_readable_last_updated %}This device was last updated {{ last_updated_date }}{% endblocktranslate %}</p>
 
-    {% if not object.has_enabled_hashed_builds %}
-    <h2>{% translate "Sorry, this device currently has no builds. Check back later!" %}</h2>
+        {% for variant_codename in upload_variants %}
+            {% device_variant_section device=object variant_codename=variant_codename %}
+        {% endfor %}
+    {% else %}
+        <h2>{% translate "Sorry, this device currently has no builds. Check back later!" %}</h2>
     {% endif %}
 {% endblock %}

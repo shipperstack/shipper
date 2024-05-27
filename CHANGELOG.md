@@ -10,6 +10,8 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [2.38.0] - 2024-05-27
 
+This release contains a database migration.
+
 ## Added
 
 - Added a notes field to the Device model

@@ -6,7 +6,30 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.37.8...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.37.9...HEAD
+
+# [2.37.9] - 2024-05-27
+
+## Changed
+
+- Updated dependencies (shippy)
+  - sentry-sdk (2.2.1 -> 2.3.1)
+- Updated dependencies (server)
+  - sentry-sdk (2.2.1 -> 2.3.1)
+- The release helper script now uses the git2 library for robustness
+- The release helper script will now no longer push if unstaged changes exist in the working directory
+- Updated dependencies (release-helper)
+  - chrono (0.4.31 -> 0.4.38)
+  - semver (1.0.18 -> 1.0.23)
+  - regex (1.9.3 -> 1.10.4)
+  - clap (4.3.19 -> 4.5.4) (/release-helper)
+- General code cleanup
+
+## Removed
+
+- Removed deprecated `USE_L10N` Django settings key
+
+[2.37.9]: https://github.com/shipperstack/shipper/compare/2.37.8...2.37.9
 
 # [2.37.8] - 2024-05-23
 

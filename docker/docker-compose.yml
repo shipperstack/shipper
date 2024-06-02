@@ -42,7 +42,7 @@ services:
       - "127.0.0.1:9200:80"
       - "127.0.0.1:9201:81"
     healthcheck:
-      test: curl --fail http://localhost/api/v1/system/info/ || exit 1
+      test: curl --fail http://localhost/api/latest/system/info/ || exit 1
     depends_on:
       - web
       - flower

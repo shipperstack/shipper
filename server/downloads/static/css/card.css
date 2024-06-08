@@ -12,4 +12,10 @@
 div.disabled-device-card img {
     filter: grayscale(100%);
     -webkit-filter: grayscale(100%);
+    transition: filter 0.2s ease, -webkit-filter 0.2s ease;
+}
+
+div.disabled-device-card:hover img {
+    filter: none;
+    -webkit-filter: none;
 }

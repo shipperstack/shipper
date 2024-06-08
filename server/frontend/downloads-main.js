@@ -85,11 +85,15 @@ function DownloadList({ filter, showUnmaintained }) {
       className="container"
       style={{ marginTop: "5px", marginBottom: "30px" }}
     >
-      <div className="row row-cols-1 row-cols-md-4 g-4">
-        {filtered_devices.map((device) => {
-          return <DeviceCard device={device} />;
-        })}
-      </div>
+      {filtered_devices && filtered_devices.length ? (
+        <div className="row row-cols-1 row-cols-md-4 g-4">
+          {filtered_devices.map((device) => {
+            return <DeviceCard device={device} />;
+          })}
+        </div>
+      ) : (
+        <p>There are no devices matching the search criteria.</p>
+      )}
     </div>
   );
 }

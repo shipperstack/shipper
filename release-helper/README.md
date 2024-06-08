@@ -23,6 +23,8 @@ The release script will then make a commit, tag the commit, and push the commit 
 
 ## Install
 
+_Note_: the commands below must be run in this current directory.
+
 For the optimized version, run `cargo i`.
 
 If you want debug symbols, run `cargo id`.

@@ -101,7 +101,12 @@ pub fn parse_commit_message(s: &str) -> String {
             let dep_name = s_parts[2];
             let dep_old_ver = s_parts[4];
             let dep_new_ver = s_parts[6];
-            let subsystem = s_parts[8];
+            let mut subsystem = s_parts[8].to_string();
+
+            if subsystem.len() > 0 && subsystem.as_bytes()[0] == u8::try_from('/').unwrap() {
+                subsystem.remove(0);
+            }
+
             return format!("\t- {dep_name} ({dep_old_ver} -> {dep_new_ver}) ({subsystem})");
         }
     }
@@ -137,7 +142,7 @@ mod tests {
     #[test]
     fn test_dependabot_parse_commit_message() {
         let commit_msg = "build(deps): bump sentry-sdk from 2.4.0 to 2.5.0 in /server";
-        assert_eq!(parse_commit_message(commit_msg), "\t- sentry-sdk (2.4.0 -> 2.5.0) (/server)")
+        assert_eq!(parse_commit_message(commit_msg), "\t- sentry-sdk (2.4.0 -> 2.5.0) (server)")
     }
 
     #[test]

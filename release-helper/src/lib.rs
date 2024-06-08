@@ -133,4 +133,17 @@ mod tests {
         let new_patch_ver = get_new_version(last_version_str, VersionLevel::PATCH);
         assert_eq!(new_patch_ver, "3.20.4");
     }
+
+    #[test]
+    fn test_dependabot_parse_commit_message() {
+        let commit_msg = "build(deps): bump sentry-sdk from 2.4.0 to 2.5.0 in /server";
+        assert_eq!(parse_commit_message(commit_msg), "\t- sentry-sdk (2.4.0 -> 2.5.0) (/server)")
+    }
+
+    #[test]
+    fn test_normal_parse_commit_message() {
+        let commit_msg = "fix(backend): sample commit";
+        let expected_msg = format!("- {commit_msg}");
+        assert_eq!(parse_commit_message(commit_msg), expected_msg.as_str())
+    }
 }

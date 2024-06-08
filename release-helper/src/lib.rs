@@ -96,11 +96,14 @@ pub fn parse_commit_message(s: &str) -> String {
     // Neatly format Dependabot entries so that I can easily reorder them later
     if s.starts_with("build(deps): bump ") {
         let s_parts: Vec<_> = s.split(' ').collect();
-        let dep_name = s_parts[2];
-        let dep_old_ver = s_parts[4];
-        let dep_new_ver = s_parts[6];
-        let subsystem = s_parts.last().unwrap();
-        return format!("\t- {dep_name} ({dep_old_ver} -> {dep_new_ver}) ({subsystem})");
+
+        if s_parts.len() >= 9 {
+            let dep_name = s_parts[2];
+            let dep_old_ver = s_parts[4];
+            let dep_new_ver = s_parts[6];
+            let subsystem = s_parts[8];
+            return format!("\t- {dep_name} ({dep_old_ver} -> {dep_new_ver}) ({subsystem})");
+        }
     }
 
     format!("- {s}")

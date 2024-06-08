@@ -148,6 +148,7 @@ fn update_changelog(git_log_raw: &str, last_version: &str, new_version: &str) {
             new_changelog.push(format!("[{new_version}]: {GITHUB_REPOSITORY_URL}/compare/{last_version}...{new_version}"));
             continue;
         } else {
+            // Write previous releases
             new_changelog.push(line.to_string());
         }
     }

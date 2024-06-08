@@ -21,22 +21,8 @@ shipper-release push
 The release script will then make a commit, tag the commit, and push the commit and tag to the remote repository.
 
 
-## Development installation
+## Install
 
-Run
+For the optimized version, run `cargo i`.
 
-```
-cargo install --path . --debug
-```
-
-inside the current directory.
-
-## Installation
-
-Run
-
-```
-cargo install --path .
-```
-
-inside the current directory.
+If you want debug symbols, run `cargo id`.

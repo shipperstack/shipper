@@ -1,3 +1,5 @@
+use std::fmt;
+use std::fmt::Formatter;
 use anyhow::{anyhow, Error};
 use chrono::Local;
 use git2::Repository;
@@ -13,6 +15,20 @@ pub enum VersionLevel {
     MAJOR,
     MINOR,
     PATCH,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct DependencyCommit<'a> {
+    pub name: &'a str,
+    pub old_ver: &'a str,
+    pub new_ver: &'a str,
+    pub subsystem: &'a str
+}
+
+impl<'a> fmt::Display for DependencyCommit<'a> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+        write!(f, "\t- {} ({} -> {}) ({})", self.name, self.old_ver, self.new_ver, self.subsystem)
+    }
 }
 
 pub fn today_iso8601() -> String {
@@ -106,8 +122,15 @@ pub fn parse_commit_message(s: &str) -> String {
             if subsystem.len() > 0 && subsystem.as_bytes()[0] == u8::try_from('/').unwrap() {
                 subsystem.remove(0);
             }
+            
+            let dep_commit = DependencyCommit {
+                name: dep_name,
+                old_ver: dep_old_ver,
+                new_ver: dep_new_ver,
+                subsystem: subsystem.as_str(),
+            };
 
-            return format!("\t- {dep_name} ({dep_old_ver} -> {dep_new_ver}) ({subsystem})");
+            return dep_commit.to_string();
         }
     }
 

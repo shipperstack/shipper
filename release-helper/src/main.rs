@@ -137,11 +137,9 @@ fn update_changelog(git_log_raw: &str, last_version: &str, new_version: &str) {
 
             new_changelog.push(String::from(""));
 
-
-            // Add all commit entries (to be sorted later)
-            for commit in parse_git_log(git_log_raw) {
-                new_changelog.push(parse_commit_message(commit.msg));
-            }
+            // Add all organized commit entries
+            let organized_commit_messages = parse_and_organize(git_log_raw);
+            new_changelog.extend(organized_commit_messages);
 
             new_changelog.push(String::from(""));
 

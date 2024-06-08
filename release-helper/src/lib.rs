@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use std::fmt;
 use std::fmt::Formatter;
 use anyhow::{anyhow, Error};
@@ -11,21 +12,62 @@ pub struct Commit<'a> {
     pub msg: &'a str,
 }
 
+trait CommitTrait {
+    fn is_dependency_commit(&self) -> bool;
+    fn to_dependency_commit(&self) -> DependencyCommit;
+}
+
+impl<'a> CommitTrait for Commit<'a> {
+    fn is_dependency_commit(&self) -> bool {
+        self.msg.starts_with("build(deps): bump ")
+    }
+
+    fn to_dependency_commit(&self) -> DependencyCommit {
+        let s_parts: Vec<_> = self.msg.split(' ').collect();
+
+        if s_parts.len() >= 9 {
+            let dep_name = s_parts[2];
+            let dep_old_ver = s_parts[4];
+            let dep_new_ver = s_parts[6];
+            let mut dep_subsystem = s_parts[8].to_string();
+
+            if dep_subsystem.len() > 0 && dep_subsystem.chars().nth(0).unwrap() == '/' {
+                dep_subsystem.remove(0);
+            }
+
+            return DependencyCommit {
+                name: dep_name.to_string(),
+                old_ver: dep_old_ver.to_string(),
+                new_ver: dep_new_ver.to_string(),
+                subsystem: dep_subsystem,
+            };
+        } else {
+            panic!("Not enough parts to construct DependencyCommit");
+        }
+    }
+}
+
+impl<'a> fmt::Display for Commit<'a> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+        write!(f, "{}", self.msg)
+    }
+}
+
 pub enum VersionLevel {
     MAJOR,
     MINOR,
     PATCH,
 }
 
-#[derive(Clone, Copy, Debug, PartialEq)]
-pub struct DependencyCommit<'a> {
-    pub name: &'a str,
-    pub old_ver: &'a str,
-    pub new_ver: &'a str,
-    pub subsystem: &'a str
+#[derive(Clone, Debug, PartialEq)]
+pub struct DependencyCommit {
+    pub name: String,
+    pub old_ver: String,
+    pub new_ver: String,
+    pub subsystem: String
 }
 
-impl<'a> fmt::Display for DependencyCommit<'a> {
+impl fmt::Display for DependencyCommit {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         write!(f, "\t- {} ({} -> {}) ({})", self.name, self.old_ver, self.new_ver, self.subsystem)
     }
@@ -92,6 +134,37 @@ impl RepositoryTrait for Repository {
     }
 }
 
+pub fn parse_and_organize(stdout: &str) -> Vec<String> {
+    let mut normal_commits = Vec::new();
+    let mut dependency_commits: HashMap<String, Vec<DependencyCommit>> = HashMap::new();
+
+    for commit in parse_git_log(stdout) {
+        if commit.is_dependency_commit() {
+            let dep_commit = commit.to_dependency_commit();
+
+            dependency_commits.entry(dep_commit.subsystem.clone()).or_insert(Vec::new()).push(dep_commit);
+        } else {
+            normal_commits.push(commit);
+        }
+    }
+
+    let mut commit_msgs = Vec::new();
+
+    for commit in normal_commits {
+        commit_msgs.push(format!("- {commit}"))
+    }
+    
+    for subsystem in dependency_commits {
+        let subsystem_name = subsystem.0;
+        commit_msgs.push(format!("- Updated dependencies ({subsystem_name})"));
+        for commit in subsystem.1 {
+            commit_msgs.push(commit.to_string());
+        }
+    }
+
+    commit_msgs
+}
+
 pub fn parse_git_log(stdout: &str) -> impl Iterator<Item=Commit> + '_ {
     let pattern = Regex::new(
         r"(?x)
@@ -106,35 +179,6 @@ pub fn parse_git_log(stdout: &str) -> impl Iterator<Item=Commit> + '_ {
         .map(|cap| Commit {
             msg: cap.get(2).unwrap().as_str().trim(),
         })
-}
-
-pub fn parse_commit_message(s: &str) -> String {
-    // Neatly format Dependabot entries so that I can easily reorder them later
-    if s.starts_with("build(deps): bump ") {
-        let s_parts: Vec<_> = s.split(' ').collect();
-
-        if s_parts.len() >= 9 {
-            let dep_name = s_parts[2];
-            let dep_old_ver = s_parts[4];
-            let dep_new_ver = s_parts[6];
-            let mut subsystem = s_parts[8].to_string();
-
-            if subsystem.len() > 0 && subsystem.as_bytes()[0] == u8::try_from('/').unwrap() {
-                subsystem.remove(0);
-            }
-            
-            let dep_commit = DependencyCommit {
-                name: dep_name,
-                old_ver: dep_old_ver,
-                new_ver: dep_new_ver,
-                subsystem: subsystem.as_str(),
-            };
-
-            return dep_commit.to_string();
-        }
-    }
-
-    format!("- {s}")
 }
 
 
@@ -160,18 +204,5 @@ mod tests {
         assert_eq!(new_minor_ver, "3.21.0");
         let new_patch_ver = get_new_version(last_version_str, VersionLevel::PATCH);
         assert_eq!(new_patch_ver, "3.20.4");
-    }
-
-    #[test]
-    fn test_dependabot_parse_commit_message() {
-        let commit_msg = "build(deps): bump sentry-sdk from 2.4.0 to 2.5.0 in /server";
-        assert_eq!(parse_commit_message(commit_msg), "\t- sentry-sdk (2.4.0 -> 2.5.0) (server)")
-    }
-
-    #[test]
-    fn test_normal_parse_commit_message() {
-        let commit_msg = "fix(backend): sample commit";
-        let expected_msg = format!("- {commit_msg}");
-        assert_eq!(parse_commit_message(commit_msg), expected_msg.as_str())
     }
 }

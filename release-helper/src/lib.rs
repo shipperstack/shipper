@@ -69,7 +69,7 @@ pub struct DependencyCommit {
 
 impl fmt::Display for DependencyCommit {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-        write!(f, "\t- {} ({} -> {}) ({})", self.name, self.old_ver, self.new_ver, self.subsystem)
+        write!(f, "\t- {} ({} -> {})", self.name, self.old_ver, self.new_ver)
     }
 }
 

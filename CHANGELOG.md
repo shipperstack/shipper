@@ -6,7 +6,32 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.38.0...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.38.1...HEAD
+
+# [2.38.1] - 2024-06-08
+
+## Added
+
+- The release helper now supports command aliases
+
+## Changed
+
+- Fixed faulty healthcheck for the nginx container in the Docker Compose configuration
+- Fixed the release helper not checking the commit message length
+- General code cleanup
+- The release helper now sorts and organizes commits when writing the new changelog
+- Updated dependencies (server)
+  - requests (2.32.2 -> 2.32.3)
+  - sentry-sdk (2.3.1 -> 2.4.0)
+  - sentry-sdk (2.4.0 -> 2.5.0)
+- Updated dependencies (release-helper)
+  - clap (4.5.4 -> 4.5.6)
+- Updated dependencies (shippy)
+  - requests (2.32.2 -> 2.32.3)
+  - sentry-sdk (2.3.1 -> 2.4.0)
+  - sentry-sdk (2.4.0 -> 2.5.0)
+
+[2.38.1]: https://github.com/shipperstack/shipper/compare/2.38.0...2.38.1
 
 # [2.38.0] - 2024-05-27
 

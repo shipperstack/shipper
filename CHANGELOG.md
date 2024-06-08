@@ -6,7 +6,22 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.38.1...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.38.2...HEAD
+
+# [2.38.2] - 2024-06-08
+
+## Added
+
+- Added checkbox to unfilter disabled devices (#329)
+
+## Changed
+
+- Disabled devices no longer show via strikethrough text (#329)
+- Disabled devices now show the color image on hover
+- The device list now shows a message when the list is empty (#477)
+- General code cleanup and refactoring
+
+[2.38.2]: https://github.com/shipperstack/shipper/compare/2.38.1...2.38.2
 
 # [2.38.1] - 2024-06-08
 

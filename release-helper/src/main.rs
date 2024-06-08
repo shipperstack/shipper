@@ -30,6 +30,7 @@ struct Cli {
 #[derive(Subcommand, Debug)]
 enum Commands {
     /// Generates a CHANGELOG entry with the git commit log
+    #[command(alias("g"))]
     Generate {
         #[arg(long)]
         major: bool,
@@ -39,6 +40,7 @@ enum Commands {
         patch: bool,
     },
     /// Creates and pushes a new release to GitHub
+    #[command(alias("p"))]
     Push,
 }
 

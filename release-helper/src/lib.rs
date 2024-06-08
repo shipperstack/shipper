@@ -165,7 +165,7 @@ pub fn parse_and_organize(stdout: &str) -> Vec<String> {
     commit_msgs
 }
 
-pub fn parse_git_log(stdout: &str) -> impl Iterator<Item=Commit> + '_ {
+fn parse_git_log(stdout: &str) -> impl Iterator<Item=Commit> + '_ {
     let pattern = Regex::new(
         r"(?x)
             ([0-9a-fA-F]+) # commit hash

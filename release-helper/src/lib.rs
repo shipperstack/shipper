@@ -142,7 +142,7 @@ pub fn parse_and_organize(stdout: &str) -> Vec<String> {
         if commit.is_dependency_commit() {
             let dep_commit = commit.to_dependency_commit();
 
-            dependency_commits.entry(dep_commit.subsystem.clone()).or_insert(Vec::new()).push(dep_commit);
+            dependency_commits.entry(dep_commit.subsystem.clone()).or_default().push(dep_commit);
         } else {
             normal_commits.push(commit);
         }

@@ -31,7 +31,7 @@ impl<'a> CommitTrait for Commit<'a> {
             let dep_new_ver = s_parts[6];
             let mut dep_subsystem = s_parts[8].to_string();
 
-            if dep_subsystem.len() > 0 && dep_subsystem.chars().nth(0).unwrap() == '/' {
+            if !dep_subsystem.is_empty() && dep_subsystem.chars().nth(0).unwrap() == '/' {
                 dep_subsystem.remove(0);
             }
 

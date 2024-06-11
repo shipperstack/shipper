@@ -35,12 +35,12 @@ impl<'a> CommitTrait for Commit<'a> {
                 dep_subsystem.remove(0);
             }
 
-            return DependencyCommit {
+            DependencyCommit {
                 name: dep_name.to_string(),
                 old_ver: dep_old_ver.to_string(),
                 new_ver: dep_new_ver.to_string(),
                 subsystem: dep_subsystem,
-            };
+            }
         } else {
             panic!("Not enough parts to construct DependencyCommit");
         }

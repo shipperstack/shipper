@@ -5,11 +5,11 @@ use crate::constants::*;
 use shipper_release::*;
 
 use clap::{Parser, Subcommand};
+use git2::{Error, ObjectType, PushOptions, RemoteCallbacks, Repository, Signature};
 use std::fs;
 use std::io::BufReader;
-use std::process::{Command, exit};
+use std::process::{exit, Command};
 use std::{io::BufRead, path::Path};
-use git2::{Error, ObjectType, PushOptions, RemoteCallbacks, Repository, Signature};
 
 const VERSION: &str = env!("CARGO_PKG_VERSION");
 
@@ -128,7 +128,9 @@ fn update_changelog(git_log_raw: &str, last_version: &str, new_version: &str) {
     // Loop until unreleased link line
     for line in old_changelog {
         if line.starts_with(&format!("[Unreleased]: {GITHUB_REPOSITORY_URL}/compare/")) {
-            new_changelog.push(format!("[Unreleased]: {GITHUB_REPOSITORY_URL}/compare/{new_version}...HEAD"));
+            new_changelog.push(format!(
+                "[Unreleased]: {GITHUB_REPOSITORY_URL}/compare/{new_version}...HEAD"
+            ));
 
             // Push two empty lines for readability
             new_changelog.push(String::from(""));
@@ -145,7 +147,9 @@ fn update_changelog(git_log_raw: &str, last_version: &str, new_version: &str) {
 
             new_changelog.push(String::from(""));
 
-            new_changelog.push(format!("[{new_version}]: {GITHUB_REPOSITORY_URL}/compare/{last_version}...{new_version}"));
+            new_changelog.push(format!(
+                "[{new_version}]: {GITHUB_REPOSITORY_URL}/compare/{last_version}...{new_version}"
+            ));
             continue;
         } else {
             // Write previous releases
@@ -162,12 +166,16 @@ fn update_changelog(git_log_raw: &str, last_version: &str, new_version: &str) {
 
 fn write_version_files(new_version: &str) {
     fs::write(VERSION_FILE_NAME, new_version).expect("Failed to write the new version text file!");
-    fs::write(SERVER_VERSION_FILE_NAME, new_version).expect("Failed to write the new server version text file!");
-    fs::write(SHIPPY_VERSION_FILE_NAME, format!("__version__ = \"{new_version}\"")).expect("Failed to write the new shippy version text file!");
+    fs::write(SERVER_VERSION_FILE_NAME, new_version)
+        .expect("Failed to write the new server version text file!");
+    fs::write(
+        SHIPPY_VERSION_FILE_NAME,
+        format!("__version__ = \"{new_version}\""),
+    )
+    .expect("Failed to write the new shippy version text file!");
 
     println!("Version text updated.");
 }
-
 
 fn get_git_log_raw(last_version: &str) -> String {
     // Get git log between last version and HEAD
@@ -185,7 +193,6 @@ fn get_git_log_raw(last_version: &str) -> String {
 
     String::from_utf8(git_log_output.stdout).unwrap()
 }
-
 
 fn get_last_version() -> String {
     // We assume that the user has not modified the version.txt file yet
@@ -240,16 +247,16 @@ fn push() -> Result<(), Error> {
     println!("Created tag {version} for commit ID {commit_oid}");
 
     let head_ref = repo.head()?.resolve()?;
-    let branch_name = head_ref.name().ok_or_else(|| {
-        Error::from_str("Failed to get branch name")
-    })?;
-    let branch_shortname = head_ref.shorthand().ok_or_else(|| {
-        Error::from_str("Failed to get branch shortname")
-    })?;
+    let branch_name = head_ref
+        .name()
+        .ok_or_else(|| Error::from_str("Failed to get branch name"))?;
+    let branch_shortname = head_ref
+        .shorthand()
+        .ok_or_else(|| Error::from_str("Failed to get branch shortname"))?;
     let upstream_remote = repo.branch_upstream_remote(branch_name)?;
-    let remote_name = upstream_remote.as_str().ok_or_else(|| {
-        Error::from_str("Failed to get remote name")
-    })?;
+    let remote_name = upstream_remote
+        .as_str()
+        .ok_or_else(|| Error::from_str("Failed to get remote name"))?;
     let mut remote = repo.find_remote(remote_name)?;
 
     let mut callbacks = RemoteCallbacks::new();
@@ -265,7 +272,10 @@ fn push() -> Result<(), Error> {
     println!("Done");
 
     print!("Pushing tag {version} to remote {remote_name}... ");
-    remote.push(&[&format!("refs/tags/{}", &version)], Some(&mut push_options))?;
+    remote.push(
+        &[&format!("refs/tags/{}", &version)],
+        Some(&mut push_options),
+    )?;
     println!("Done");
 
     Ok(())

@@ -1,11 +1,11 @@
-use std::collections::HashMap;
-use std::fmt;
-use std::fmt::Formatter;
 use anyhow::{anyhow, Error};
 use chrono::Local;
 use git2::Repository;
 use regex::Regex;
 use semver::Version;
+use std::collections::HashMap;
+use std::fmt;
+use std::fmt::Formatter;
 
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Commit<'a> {
@@ -64,12 +64,16 @@ pub struct DependencyCommit {
     pub name: String,
     pub old_ver: String,
     pub new_ver: String,
-    pub subsystem: String
+    pub subsystem: String,
 }
 
 impl fmt::Display for DependencyCommit {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-        write!(f, "\t- {} ({} -> {})", self.name, self.old_ver, self.new_ver)
+        write!(
+            f,
+            "\t- {} ({} -> {})",
+            self.name, self.old_ver, self.new_ver
+        )
     }
 }
 
@@ -79,9 +83,15 @@ pub fn today_iso8601() -> String {
 
 pub fn enabled_version_flag_count(major: bool, minor: bool, patch: bool) -> i32 {
     let mut count = 0;
-    if major { count += 1; }
-    if minor { count += 1; }
-    if patch { count += 1; }
+    if major {
+        count += 1;
+    }
+    if minor {
+        count += 1;
+    }
+    if patch {
+        count += 1;
+    }
     count
 }
 
@@ -90,8 +100,12 @@ pub fn get_version_level(major: bool, minor: bool, patch: bool) -> Result<Versio
         return Err(anyhow!("Too many version flags enabled"));
     }
 
-    if major { return Ok(VersionLevel::MAJOR) }
-    if minor { return Ok(VersionLevel::MINOR) }
+    if major {
+        return Ok(VersionLevel::MAJOR);
+    }
+    if minor {
+        return Ok(VersionLevel::MINOR);
+    }
     Ok(VersionLevel::PATCH)
 }
 
@@ -126,8 +140,12 @@ pub trait RepositoryTrait {
 
 impl RepositoryTrait for Repository {
     fn has_unstaged_changes(&self) -> bool {
-        let diffs = self.diff_index_to_workdir(None, None).expect("Failed to get diffs from the repository!");
-        let diff_stats = diffs.stats().expect("Failed to get diff stats from the repository!");
+        let diffs = self
+            .diff_index_to_workdir(None, None)
+            .expect("Failed to get diffs from the repository!");
+        let diff_stats = diffs
+            .stats()
+            .expect("Failed to get diff stats from the repository!");
         let files_changed = diff_stats.files_changed();
 
         files_changed != 0
@@ -142,7 +160,10 @@ pub fn parse_and_organize(stdout: &str) -> Vec<String> {
         if commit.is_dependency_commit() {
             let dep_commit = commit.to_dependency_commit();
 
-            dependency_commits.entry(dep_commit.subsystem.clone()).or_default().push(dep_commit);
+            dependency_commits
+                .entry(dep_commit.subsystem.clone())
+                .or_default()
+                .push(dep_commit);
         } else {
             normal_commits.push(commit);
         }
@@ -153,7 +174,7 @@ pub fn parse_and_organize(stdout: &str) -> Vec<String> {
     for commit in normal_commits {
         commit_msgs.push(format!("- {commit}"))
     }
-    
+
     for subsystem in dependency_commits {
         let subsystem_name = subsystem.0;
         commit_msgs.push(format!("- Updated dependencies ({subsystem_name})"));
@@ -165,13 +186,13 @@ pub fn parse_and_organize(stdout: &str) -> Vec<String> {
     commit_msgs
 }
 
-fn parse_git_log(stdout: &str) -> impl Iterator<Item=Commit> + '_ {
+fn parse_git_log(stdout: &str) -> impl Iterator<Item = Commit> + '_ {
     let pattern = Regex::new(
         r"(?x)
             ([0-9a-fA-F]+) # commit hash
             (.*)           # The commit message",
     )
-        .unwrap();
+    .unwrap();
 
     stdout
         .lines()
@@ -180,7 +201,6 @@ fn parse_git_log(stdout: &str) -> impl Iterator<Item=Commit> + '_ {
             msg: cap.get(2).unwrap().as_str().trim(),
         })
 }
-
 
 #[cfg(test)]
 mod tests {
@@ -193,7 +213,6 @@ mod tests {
         assert_eq!(enabled_version_flag_count(true, false, false), 1);
         assert_eq!(enabled_version_flag_count(false, false, false), 0);
     }
-
 
     #[test]
     fn test_get_new_version() {

@@ -19,7 +19,7 @@ trait CommitTrait {
 
 impl<'a> CommitTrait for Commit<'a> {
     fn is_dependency_commit(&self) -> bool {
-        self.msg.starts_with("build(deps): bump ")
+        self.msg.starts_with("build(deps): bump ") || self.msg.starts_with("build(deps-dev): bump ")
     }
 
     fn to_dependency_commit(&self) -> DependencyCommit {

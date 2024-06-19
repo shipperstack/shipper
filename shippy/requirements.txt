@@ -4,4 +4,4 @@ requests==2.32.3
 rich==13.7.1
 semver==3.0.2
 sentry-sdk==2.5.1
-setuptools==70.0.0
+setuptools==70.1.0

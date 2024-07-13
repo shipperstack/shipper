@@ -6,7 +6,37 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.38.2...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.39.0...HEAD
+
+# [2.39.0] - 2024-07-13
+
+This release contains a security vulnerability patch.
+
+## Changed
+
+- Updated dependencies (server)
+  - sentry-sdk (2.5.0 -> 2.9.0)
+  - prettier (3.3.1 -> 3.3.2)
+  - webpack (5.91.0 -> 5.93.0)
+  - django-crispy-forms (2.1 -> 2.2)
+  - djangorestframework (3.15.1 -> 3.15.2)
+  - humanize (4.9.0 -> 4.10.0)
+  - django (5.0.6 -> 5.0.7)
+  - @babel/core (7.24.7 -> 7.24.8)
+  - @babel/preset-env (7.24.7 -> 7.24.8)
+- Updated dependencies (release-helper)
+  - clap (4.5.6 -> 4.5.9)
+  - regex (1.10.4 -> 1.10.5)
+  - git2 (0.18.3 -> 0.19.0)
+- Updated dependencies (shippy)
+  - sentry-sdk (2.5.0 -> 2.9.0)
+  - setuptools (70.0.0 -> 70.3.0)
+  - humanize (4.9.0 -> 4.10.0)
+- The release-helper tool now includes Dependabot commits when generating the changelog
+- Fixed the release-helper tool crashing when parsing non-standard dependency commits
+- General code cleanup
+
+[2.39.0]: https://github.com/shipperstack/shipper/compare/2.38.2...2.39.0
 
 # [2.38.2] - 2024-06-08
 

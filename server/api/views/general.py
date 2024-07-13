@@ -1,3 +1,4 @@
+import calendar
 import html
 
 from django.contrib.auth import get_user_model
@@ -118,7 +119,7 @@ class V1GeneralBuildLatest(APIView):
 
         return Response(
             {
-                "datetime": int(build.build_date.strftime("%s")),
+                "datetime": int(calendar.timegm(build.build_date.timetuple())),
                 "filename": "{}.zip".format(build.file_name),
                 "sha256": build.sha256sum,
                 "size": build.size,

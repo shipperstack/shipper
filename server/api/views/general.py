@@ -2,17 +2,18 @@ import calendar
 import html
 
 from django.contrib.auth import get_user_model
+from django.urls import reverse
 
 from api.utils import variant_check
 from django.http import Http404
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
 
 from api.views.utils import get_distributed_download_url
-from core.models import Build, Device, Variant
+from core.models import Build, Device, Variant, Statistics
 
 User = get_user_model()
 
@@ -125,7 +126,29 @@ class V1GeneralBuildLatest(APIView):
                 "size": build.size,
                 "version": build.version,
                 "variant": html.escape(variant),
-                "mirror_url": get_distributed_download_url(request, build),
+                "mirror_url": request.build_absolute_uri(
+                    reverse(
+                        "v1_general_build_magic_download",
+                        kwargs={
+                            "codename": build.device.codename,
+                            "file_name": build.file_name,
+                        },
+                    )
+                ),
             },
             status=HTTP_200_OK,
         )
+
+
+def v1_general_build_magic_download(request, codename, file_name):
+    build = get_object_or_404(Build, file_name=file_name, device__codename=codename)
+
+    # Create statistics item
+    ip = request.META.get("REMOTE_ADDR")
+    if ip is not None:
+        # Only create statistics item with valid IP
+        Statistics.objects.create(build=build, ip=ip)
+
+    redirect_url = get_distributed_download_url(request, build)
+
+    return redirect(redirect_url)

@@ -5,6 +5,7 @@ from api.views import (
     V1GeneralDeviceAll,
     V1GeneralMaintainerAll,
     V1GeneralMaintainerActive,
+    v1_general_build_magic_download,
 )
 
 urlpatterns = [
@@ -27,5 +28,10 @@ urlpatterns = [
         "general/build/latest/<slug:codename>/<slug:variant>/",
         V1GeneralBuildLatest.as_view(),
         name="v1_general_build_latest",
+    ),
+    path(
+        "general/build/magic_download/<slug:codename>/<slug:file_name>/",
+        v1_general_build_magic_download,
+        name="v1_general_build_magic_download",
     ),
 ]

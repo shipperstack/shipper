@@ -3,6 +3,7 @@ from .general import (
     V1GeneralDeviceAll,
     V1GeneralMaintainerAll,
     V1GeneralMaintainerActive,
+    v1_general_build_magic_download,
 )
 from .shippy import (
     V1MaintainersChunkedUpload,
@@ -27,6 +28,7 @@ __all__ = [
     "V1GeneralMaintainerAll",
     "V1GeneralMaintainerActive",
     "V1GeneralBuildLatest",
+    "v1_general_build_magic_download",
     "V1MaintainersChunkedUpload",
     "v1_maintainers_build_enabled_status_modify",
     "v1_maintainers_login",

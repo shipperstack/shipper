@@ -14,7 +14,7 @@ pub struct Commit<'a> {
 
 trait CommitTrait {
     fn is_dependency_commit(&self) -> bool;
-    fn to_dependency_commit(&self) -> DependencyCommit;
+    fn to_dependency_commit(&self) -> Result<DependencyCommit, Error>;
 }
 
 const DEP_COMMIT_PART_COUNT: usize = 9;
@@ -26,7 +26,7 @@ impl<'a> CommitTrait for Commit<'a> {
             && self.msg.split(' ').count() >= DEP_COMMIT_PART_COUNT
     }
 
-    fn to_dependency_commit(&self) -> DependencyCommit {
+    fn to_dependency_commit(&self) -> Result<DependencyCommit, Error> {
         let s_parts: Vec<_> = self.msg.split(' ').collect();
 
         if s_parts.len() >= DEP_COMMIT_PART_COUNT {
@@ -39,14 +39,14 @@ impl<'a> CommitTrait for Commit<'a> {
                 dep_subsystem.remove(0);
             }
 
-            DependencyCommit {
+            Ok(DependencyCommit {
                 name: dep_name.to_string(),
                 old_ver: dep_old_ver.to_string(),
                 new_ver: dep_new_ver.to_string(),
                 subsystem: dep_subsystem,
-            }
+            })
         } else {
-            panic!("Not enough parts to construct DependencyCommit");
+            Err(anyhow!("Not enough parts to construct DependencyCommit"))
         }
     }
 }
@@ -162,7 +162,9 @@ pub fn parse_and_organize(stdout: &str) -> Vec<String> {
 
     for commit in parse_git_log(stdout) {
         if commit.is_dependency_commit() {
-            let dep_commit = commit.to_dependency_commit();
+            let dep_commit = commit
+                .to_dependency_commit()
+                .expect("Dependency commit coercion error");
 
             dependency_commits
                 .entry(dep_commit.subsystem.clone())

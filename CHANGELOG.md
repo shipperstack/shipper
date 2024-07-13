@@ -6,7 +6,20 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.39.0...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.40.0...HEAD
+
+# [2.40.0] - 2024-07-13
+
+## Changed
+
+- The API now returns a one-click statistics and mirror-redirect download URL (#436)
+- Fixed the server crashing on Windows due to a platform-dependent epoch conversion function call
+
+## Removed
+
+- Removed OpenAPI schema generation from shipper
+
+[2.40.0]: https://github.com/shipperstack/shipper/compare/2.39.0...2.40.0
 
 # [2.39.0] - 2024-07-13
 

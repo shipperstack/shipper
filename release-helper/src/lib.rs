@@ -17,15 +17,19 @@ trait CommitTrait {
     fn to_dependency_commit(&self) -> DependencyCommit;
 }
 
+const DEP_COMMIT_PART_COUNT: usize = 9;
+
 impl<'a> CommitTrait for Commit<'a> {
     fn is_dependency_commit(&self) -> bool {
-        self.msg.starts_with("build(deps): bump ") || self.msg.starts_with("build(deps-dev): bump ")
+        (self.msg.starts_with("build(deps): bump ")
+            || self.msg.starts_with("build(deps-dev): bump "))
+            && self.msg.split(' ').count() >= DEP_COMMIT_PART_COUNT
     }
 
     fn to_dependency_commit(&self) -> DependencyCommit {
         let s_parts: Vec<_> = self.msg.split(' ').collect();
 
-        if s_parts.len() >= 9 {
+        if s_parts.len() >= DEP_COMMIT_PART_COUNT {
             let dep_name = s_parts[2];
             let dep_old_ver = s_parts[4];
             let dep_new_ver = s_parts[6];

@@ -35,6 +35,12 @@ class Build(models.Model):
     sha256sum = models.TextField(max_length=64, verbose_name="SHA256 hash")
     variant = models.ForeignKey("Variant", on_delete=models.PROTECT)
     build_date = models.DateField(help_text="Build date")
+    features = models.ManyToManyField(
+        "BuildFeature",
+        related_name="builds",
+        blank=True,
+        help_text="Features of this build.",
+    )
     mirrored_on = models.ManyToManyField(
         "MirrorServer",
         related_name="builds",

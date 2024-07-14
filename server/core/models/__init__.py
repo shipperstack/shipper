@@ -20,6 +20,8 @@ __all__ = [
 
 # Register all models to audit log
 auditlog.register(Device)
+auditlog.register(Variant)
 auditlog.register(MirrorServer)
 auditlog.register(Build)
 auditlog.register(BuildFeature)
+auditlog.register(X86Type)

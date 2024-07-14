@@ -159,3 +159,7 @@ node_modules/
 
 # Ignore generated JS
 downloads/static/*.bundle.js
+
+
+# Reinclude build model package
+!core/models/build

@@ -38,7 +38,8 @@ export default function DownloadList({ filter, showUnmaintained, devices }) {
       {filtered_devices && filtered_devices.length ? (
         <div className="row row-cols-1 row-cols-md-4 g-4">
           {filtered_devices.map((device) => {
-            return <DeviceCard device={device} />;
+            console.log(device);
+            return <DeviceCard device={device} key={device.codename} />;
           })}
         </div>
       ) : (

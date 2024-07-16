@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function DeviceCard({ device }) {
+export default function DeviceCard({ device }: { device: any }) {
   let device_card_style = device.enabled ? "col" : "col disabled-device-card";
   let device_photo_url =
     device.photo_url === ""

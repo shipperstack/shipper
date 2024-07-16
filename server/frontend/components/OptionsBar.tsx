@@ -1,6 +1,12 @@
 import React from "react";
 
-export default function OptionsBar({ showUnmaintained, setShowUnmaintained }) {
+export default function OptionsBar({
+  showUnmaintained,
+  setShowUnmaintained,
+}: {
+  showUnmaintained: boolean;
+  setShowUnmaintained: any;
+}) {
   return (
     <label>
       <input

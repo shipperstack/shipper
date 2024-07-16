@@ -5,6 +5,8 @@ import DownloadList from "./components/DownloadList";
 import SearchBar from "./components/SearchBar";
 import OptionsBar from "./components/OptionsBar";
 
+declare var BUILD_DATE: string;
+
 const root = createRoot(document.getElementById("root"));
 
 const ACTIVE_VISIBLE_DEVICES = JSON.parse(
@@ -23,7 +25,7 @@ function App() {
         setShowUnmaintained={setShowUnmaintained}
       />
       <DownloadList
-        filter={searchTerm}
+        filterBy={searchTerm}
         showUnmaintained={showUnmaintained}
         devices={ACTIVE_VISIBLE_DEVICES}
       />

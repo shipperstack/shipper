@@ -1,7 +1,13 @@
 import React from "react";
 
-export default function SearchBar({ searchTerm, setSearchTerm }) {
-  function changedInput(event) {
+export default function SearchBar({
+  searchTerm,
+  setSearchTerm,
+}: {
+  searchTerm: string;
+  setSearchTerm: any;
+}) {
+  function changedInput(event: any) {
     setSearchTerm(event.target.value);
   }
 

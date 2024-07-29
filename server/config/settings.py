@@ -108,16 +108,17 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
+
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
+SQL_ENGINE = os.environ.get("SHIPPER_SQL_ENGINE", default="django.db.backends.sqlite3")
+SQL_DB_NAME = os.environ.get("SHIPPER_SQL_DATABASE")
+if SQL_ENGINE == "django.db.backends.sqlite3":
+    SQL_DB_NAME = str(BASE_DIR / f"{SQL_DB_NAME}.sqlite3")
 DATABASES = {
     "default": {
-        "ENGINE": os.environ.get(
-            "SHIPPER_SQL_ENGINE", default="django.db.backends.sqlite3"
-        ),
-        "NAME": os.environ.get(
-            "SHIPPER_SQL_DATABASE", default=str(BASE_DIR / "db.sqlite3")
-        ),
+        "ENGINE": SQL_ENGINE,
+        "NAME": SQL_DB_NAME,
         "USER": os.environ.get("SHIPPER_SQL_USER", default="user"),
         "PASSWORD": os.environ.get("SHIPPER_SQL_PASSWORD", default="password"),
         "HOST": os.environ.get("SHIPPER_SQL_HOST", default="localhost"),

@@ -1,10 +1,15 @@
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
+from django.db.models import QuerySet
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.views.generic import DeleteView, DetailView, ListView
 from core.models import Build, Device
+
+
+User = get_user_model()
 
 
 class MaintainerDashboardView(LoginRequiredMixin, ListView):
@@ -54,21 +59,21 @@ def build_enabled_status_modify(request, pk):
     return redirect(reverse("device_detail", kwargs={"pk": build.device.id}))
 
 
-def get_filtered_device_queryset(user):
+def get_filtered_device_queryset(user: User) -> QuerySet:
     if user.full_access_to_devices:
         return Device.objects.all()
     else:
         return Device.objects.filter(maintainers=user)
 
 
-def get_filtered_build_queryset(user):
+def get_filtered_build_queryset(user: User) -> QuerySet:
     if user.full_access_to_devices:
         return Build.objects.all()
     else:
         return Build.objects.filter(device__maintainers=user)
 
 
-def check_user_device_permission(user, device):
+def check_user_device_permission(user: User, device):
     if user.full_access_to_devices:
         return True
 

@@ -3,8 +3,9 @@ import os
 from django.core.checks import Error, register
 
 
+# noinspection PyUnusedLocal
 @register()
-def configuration_check(_app_configs, **_kwargs):
+def configuration_check(app_configs, **kwargs):
     errors = []
     checked_keys = [
         ("SHIPPER_SECRET_KEY", "secret key"),

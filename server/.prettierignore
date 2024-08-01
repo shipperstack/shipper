@@ -5,4 +5,4 @@
 !frontend/
 
 # And various configuration files
-!/webpack.config.js
+!/webpack.config.mjs

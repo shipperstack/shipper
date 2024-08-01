@@ -1,25 +1,25 @@
-const path = require("path");
-const webpack = require("webpack");
+import path from 'path';
+import webpack from 'webpack';
 
 const buildDate = new Date().toISOString().substring(0, 19);
 
-module.exports = {
-  entry: "./frontend/downloads-main.tsx",
+export default {
+  entry: './frontend/downloads-main.tsx',
   output: {
-    filename: "downloads-main.bundle.js",
-    path: path.resolve(__dirname, "./downloads/static"),
+    filename: 'downloads-main.bundle.js',
+    path: path.resolve(import.meta.dirname, './downloads/static'),
   },
   module: {
     rules: [
       {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
-        loader: "ts-loader",
+        use: 'ts-loader',
       },
     ],
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js"],
+    extensions: ['.tsx', '.ts', '.js'],
   },
   plugins: [
     new webpack.DefinePlugin({

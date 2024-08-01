@@ -15,7 +15,7 @@ def variant_check(variant):
         return WRONG_PARAMETER_RESPONSE
 
 
-def x86_type_check(type):
-    type_codenames = [type.codename for type in X86Type.objects.all()]
-    if type not in type_codenames:
+def x86_type_check(x86_type):
+    type_codenames = [x86_type.codename for x86_type in X86Type.objects.all()]
+    if x86_type not in type_codenames:
         return WRONG_PARAMETER_RESPONSE

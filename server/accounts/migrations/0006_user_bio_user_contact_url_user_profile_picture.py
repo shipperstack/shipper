@@ -21,7 +21,8 @@ class Migration(migrations.Migration):
             name="contact_url",
             field=models.URLField(
                 blank=True,
-                help_text="Where users should contact you.<br>Example: https://t.me/@example, mailto:john.appleseed@example.com ",
+                help_text="Where users should contact you.<br>Example: https://t.me/@example, "
+                "mailto:john.appleseed@example.com ",
             ),
         ),
         migrations.AddField(

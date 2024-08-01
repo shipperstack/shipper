@@ -4,7 +4,9 @@ from django.db import migrations
 
 
 def update_build_variant(apps, _):
+    # noinspection PyPep8Naming
     Build = apps.get_model("core", "Build")
+    # noinspection PyPep8Naming
     Variant = apps.get_model("core", "Variant")
 
     for build in Build.objects.all():

@@ -31,7 +31,8 @@ class Migration(migrations.Migration):
                 (
                     "description",
                     models.TextField(
-                        help_text="Description of the x86 text, as seen by users<br> Example: 'GO builds', 'Bass builds'",
+                        help_text="Description of the x86 text, as seen by users<br> Example: 'GO builds', "
+                        "'Bass builds'",
                         max_length=30,
                     ),
                 ),

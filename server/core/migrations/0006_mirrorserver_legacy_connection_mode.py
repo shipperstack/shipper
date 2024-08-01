@@ -14,7 +14,8 @@ class Migration(migrations.Migration):
             name="legacy_connection_mode",
             field=models.BooleanField(
                 default=False,
-                help_text="Disables certain SSH key verification algorithms. We recommend leaving this unchecked unless something goes wrong during the verification process.",
+                help_text="Disables certain SSH key verification algorithms. We recommend leaving this unchecked "
+                "unless something goes wrong during the verification process.",
             ),
         ),
     ]

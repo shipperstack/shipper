@@ -51,7 +51,10 @@ class Migration(migrations.Migration):
                     "photo",
                     models.URLField(
                         blank=True,
-                        help_text="URL to image of device.<br>Preferably grab an image from <a href=\"https://www.gsmarena.com\" target=\"_blank\">GSMArena.</a><br>Example: 'https://fdn2.gsmarena.com/vv/bigpic/lg-nexus-5x-.jpg', 'https://fdn2.gsmarena.com/vv/bigpic/huawei-nexus-6p-.jpg'",
+                        help_text="URL to image of device.<br>Preferably grab an image from <a "
+                        'href="https://www.gsmarena.com" target="_blank">GSMArena.</a><br>Example: '
+                        "'https://fdn2.gsmarena.com/vv/bigpic/lg-nexus-5x-.jpg', "
+                        "'https://fdn2.gsmarena.com/vv/bigpic/huawei-nexus-6p-.jpg'",
                     ),
                 ),
                 (
@@ -66,7 +69,8 @@ class Migration(migrations.Migration):
                     "maintainers",
                     models.ManyToManyField(
                         blank=True,
-                        help_text="Choose the maintainers working on this device. Multiple maintainers can be selected.<br>",
+                        help_text="Choose the maintainers working on this device. Multiple maintainers can be "
+                        "selected.<br>",
                         related_name="devices",
                         to=settings.AUTH_USER_MODEL,
                     ),
@@ -110,7 +114,9 @@ class Migration(migrations.Migration):
                 (
                     "ssh_keyfile",
                     models.TextField(
-                        help_text="SSH keyfile to connect with. Note that the SSH keyfiles must be placed in the ./ssh/ directory defined in the docker-compose file.<br>Example: ssh_key, id_rsa, etc.",
+                        help_text="SSH keyfile to connect with. Note that the SSH keyfiles must be placed in the "
+                        "./ssh/ directory defined in the docker-compose file.<br>Example: ssh_key, id_rsa, "
+                        "etc.",
                         max_length=100,
                         verbose_name="SSH keyfile",
                     ),
@@ -118,7 +124,8 @@ class Migration(migrations.Migration):
                 (
                     "upload_path",
                     models.TextField(
-                        help_text="Path to upload to on the server.<br>Example: /home/frs/project/example/R/, /mnt/media/mirror/src/target/R/, etc.",
+                        help_text="Path to upload to on the server.<br>Example: /home/frs/project/example/R/, "
+                        "/mnt/media/mirror/src/target/R/, etc.",
                         max_length=100,
                     ),
                 ),
@@ -126,7 +133,9 @@ class Migration(migrations.Migration):
                     "enabled",
                     models.BooleanField(
                         default=True,
-                        help_text="Whether this mirror instance is enabled or not. If disabled, builds will not be mirrored until the mirror instance is enabled again and a background refresh task runs.",
+                        help_text="Whether this mirror instance is enabled or not. If disabled, builds will not be "
+                        "mirrored until the mirror instance is enabled again and a background refresh task "
+                        "runs.",
                     ),
                 ),
                 (
@@ -140,7 +149,8 @@ class Migration(migrations.Migration):
                 (
                     "ssh_host_fingerprint_type",
                     models.TextField(
-                        help_text="SSH host fingerprint type. Get this with <code>ssh-keyscan hostname</code>.<br>Example: ssh-rsa, etc.",
+                        help_text="SSH host fingerprint type. Get this with <code>ssh-keyscan "
+                        "hostname</code>.<br>Example: ssh-rsa, etc.",
                         max_length=20,
                         verbose_name="SSH host fingerprint type",
                     ),
@@ -149,7 +159,11 @@ class Migration(migrations.Migration):
                     "download_url_base",
                     models.TextField(
                         blank=True,
-                        help_text="Base of downloads URL, should a download URL exist.<br>Example: if full URL to download is https://sourceforge.net/projects/demo/files/Q/sunfish/Bliss-v14.2-sunfish-OFFICIAL-gapps-20210425.zip/download, then the base URL is https://sourceforge.net/projects/demo/files/Q/{}/download",
+                        help_text="Base of downloads URL, should a download URL exist.<br>Example: if full URL to "
+                        "download is "
+                        "https://sourceforge.net/projects/demo/files/Q/sunfish/Bliss-v14.2-sunfish-OFFICIAL"
+                        "-gapps-20210425.zip/download, then the base URL is "
+                        "https://sourceforge.net/projects/demo/files/Q/{}/download",
                         max_length=100,
                         verbose_name="Download URL base",
                     ),
@@ -158,7 +172,9 @@ class Migration(migrations.Migration):
                     "downloadable",
                     models.BooleanField(
                         default=False,
-                        help_text="Whether downloads from this mirror instance is possible or not. If disabled, this mirror will not be shown to users in the mirror list. Make sure to set the URL base field above if you enable this option!",
+                        help_text="Whether downloads from this mirror instance is possible or not. If disabled, "
+                        "this mirror will not be shown to users in the mirror list. Make sure to set the "
+                        "URL base field above if you enable this option!",
                     ),
                 ),
                 (
@@ -173,14 +189,18 @@ class Migration(migrations.Migration):
                     "priority",
                     models.IntegerField(
                         default=10,
-                        help_text="Sets the priority of the mirror in the mirror list. Lower values will be listed first, and higher values will be listed last.<br>Note: the main server does not have a priority value and will always be the first in the mirror list.",
+                        help_text="Sets the priority of the mirror in the mirror list. Lower values will be listed "
+                        "first, and higher values will be listed last.<br>Note: the main server does not "
+                        "have a priority value and will always be the first in the mirror list.",
                     ),
                 ),
                 (
                     "target_versions",
                     models.TextField(
                         blank=True,
-                        help_text='Build versions to mirror to this server. Specify multiple versions on each line.<br>Wildcards are supported with the "*" character.<br>Example: *, v12.*, v12.5, ...',
+                        help_text="Build versions to mirror to this server. Specify multiple versions on each "
+                        'line.<br>Wildcards are supported with the "*" character.<br>Example: *, v12.*, '
+                        "v12.5, ...",
                         max_length=100,
                         verbose_name="Target versions",
                     ),
@@ -254,7 +274,9 @@ class Migration(migrations.Migration):
                     "mirrored_on",
                     models.ManyToManyField(
                         blank=True,
-                        help_text="Servers this build is mirrored on. Do NOT edit manually.<br>Incorrectly modifying this field may result in mirror servers showing for a given build, even if the build is not mirrored on said mirror server.",
+                        help_text="Servers this build is mirrored on. Do NOT edit manually.<br>Incorrectly modifying "
+                        "this field may result in mirror servers showing for a given build, even if the "
+                        "build is not mirrored on said mirror server.",
                         related_name="builds",
                         to="core.mirrorserver",
                     ),
@@ -263,7 +285,10 @@ class Migration(migrations.Migration):
                     "enabled",
                     models.BooleanField(
                         default=True,
-                        help_text="Whether this build is enabled or not. Disabled builds will not show up to users, or in the updater API until it is enabled again. Disabled builds are still replicated to mirror servers, so a user downloading from a mirror server may see the build listed.",
+                        help_text="Whether this build is enabled or not. Disabled builds will not show up to users, "
+                        "or in the updater API until it is enabled again. Disabled builds are still "
+                        "replicated to mirror servers, so a user downloading from a mirror server may see "
+                        "the build listed.",
                     ),
                 ),
                 ("build_date", models.DateField(help_text="Build date")),

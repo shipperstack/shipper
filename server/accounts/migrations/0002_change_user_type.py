@@ -3,7 +3,8 @@
 from django.db import migrations
 
 
-def change_user_type(apps, schema_editor):
+def change_user_type(apps, _schema_editor):
+    # noinspection PyPep8Naming
     ContentType = apps.get_model("contenttypes", "ContentType")
     ct = ContentType.objects.filter(app_label="auth", model="user").first()
     if ct:

@@ -6,6 +6,7 @@ from django.db import migrations
 
 
 def create_variants(apps, _):
+    # noinspection PyPep8Naming
     Variant = apps.get_model("core", "Variant")
     try:
         variant_data_from_config = ast.literal_eval(config.SHIPPER_UPLOAD_VARIANTS)

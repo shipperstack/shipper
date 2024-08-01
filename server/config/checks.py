@@ -4,7 +4,7 @@ from django.core.checks import Error, register
 
 
 @register()
-def configuration_check(app_configs, **kwargs):
+def configuration_check(_app_configs, **_kwargs):
     errors = []
     checked_keys = [
         ("SHIPPER_SECRET_KEY", "secret key"),

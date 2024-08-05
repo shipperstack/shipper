@@ -1,5 +1,9 @@
 import os
+import inspect
 
+import django.contrib.postgres.fields
+
+import django.apps
 from django.core.checks import Error, register
 
 
@@ -25,4 +29,31 @@ def configuration_check(app_configs, **kwargs):
                     id="config.E001",
                 )
             )
+    return errors
+
+
+# noinspection PyUnusedLocal
+@register()
+def disallow_postgres_specific_fields_check(app_configs, **kwargs):
+    errors = []
+    disallowed_fields = [
+        item[1]
+        for item in inspect.getmembers(django.contrib.postgres.fields, inspect.isclass)
+    ]
+
+    for model in django.apps.apps.get_models():
+        for field in model._meta.get_fields():
+            for disallowed_field in disallowed_fields:
+                # PyCharm bug, see: https://youtrack.jetbrains.com/issue/PY-32860
+                # noinspection PyTypeHints
+                if isinstance(field, disallowed_field):
+                    errors.append(
+                        Error(
+                            f"Field {field} cannot be used as it is a Postgres-specific field: "
+                            f"{disallowed_field.__name__}",
+                            hint="Use fields that are database engine-agnostic and provided by Django.",
+                            id="config.E002",
+                        )
+                    )
+
     return errors

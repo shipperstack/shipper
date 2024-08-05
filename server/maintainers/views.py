@@ -5,7 +5,7 @@ from django.core.exceptions import PermissionDenied
 from django.db.models import QuerySet
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
-from django.views.generic import DeleteView, DetailView, ListView
+from django.views.generic import DeleteView, DetailView, ListView, UpdateView
 from core.models import Build, Device
 
 
@@ -26,6 +26,19 @@ class MaintainerDashboardView(LoginRequiredMixin, ListView):
 class DeviceDetailView(LoginRequiredMixin, DetailView):
     template_name = "device_detail.html"
     model = Device
+
+    # Override devices shown to maintainers
+    def get_queryset(self):
+        return get_filtered_device_queryset(self.request.user)
+
+
+class DeviceEditNoteView(LoginRequiredMixin, UpdateView):
+    model = Device
+    fields = ["note"]
+    template_name = "device_edit_note.html"
+
+    def get_success_url(self):
+        return reverse("device_detail", kwargs={"pk": self.get_object().id})
 
     # Override devices shown to maintainers
     def get_queryset(self):

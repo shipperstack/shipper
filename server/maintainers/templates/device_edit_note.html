@@ -1,0 +1,16 @@
+{% extends 'maintainer_base.html' %}
+{% load i18n %}
+{% load crispy_forms_filters %}
+
+{% block title %}Edit notes for {{ object }}{% endblock %}
+
+{% block content %}
+    <h1>Edit notes for {{ object }}</h1>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form | crispy }}
+        <input class="btn btn-primary" type="submit" value='{% translate "Save" %}'>
+    </form>
+
+{% endblock %}

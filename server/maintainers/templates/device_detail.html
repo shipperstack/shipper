@@ -8,6 +8,16 @@
         <h3 style="display: inline-block">{{ object }}</h3>
     </div>
 
+    <div class="alert alert-info">
+        <h4>Device Notes</h4>
+        {% if object.note %}
+            {{ object.note }}
+        {% else %}
+            <em>This device does not have any notes.</em>
+        {% endif %}
+        <a href="{% url 'device_edit_note' pk=object.id %}" class="btn btn-info btn-sm">Edit</a>
+    </div>
+
     <table class="table">
         <thead>
         <tr>

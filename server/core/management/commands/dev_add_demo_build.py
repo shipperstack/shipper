@@ -21,7 +21,7 @@ class Command(BaseCommand):
             )
             return
 
-        if Device.objects.filter(codename="demodevice").count() != 1:
+        if Device.objects.filter(codename="demodevice").count() < 1:
             self.stdout.write(
                 self.style.ERROR(
                     "The demo device to associate the build to was not found. Perhaps you want to try running "
@@ -44,16 +44,25 @@ class Command(BaseCommand):
         else:
             demo_variant = Variant.objects.get(codename="demovariant")
 
+        demo_build_file_name = "Bliss-v14-demodevice-OFFICIAL-demovariant-20200608"
+        if Build.objects.filter(file_name=demo_build_file_name).count() >= 1:
+            self.stdout.write(
+                self.style.WARNING(
+                    "The demo build already exists in the system. No changes were made."
+                )
+            )
+            return
+
         demo_build = Build(
             device=demo_device,
-            file_name="Bliss-v14-demodevice-OFFICIAL-demovariant-20200608",
+            file_name=demo_build_file_name,
             size=857483855,
             version="v14",
             md5sum="d8e8fca2dc0f896fd7cb4cb0031ba249",
             sha256sum="b9566ebc192a4c27c72df19eae8a6eed6ea063226792e680fa0b2ede284e19f2",
             variant=demo_variant,
             build_date=date(2020, 6, 8),
-            zip_file="demodevice/Bliss-v14-demodevice-OFFICIAL-demovariant-20200608.zip",
+            zip_file=f"{demo_device.codename}/{demo_build_file_name}.zip",
         )
         demo_build.save()
 

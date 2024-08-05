@@ -19,6 +19,14 @@ class Command(BaseCommand):
             )
             return
 
+        if Device.objects.filter(codename="demodevice").count() >= 1:
+            self.stdout.write(
+                self.style.WARNING(
+                    "The demo device already exists in the system. No changes were made."
+                )
+            )
+            return
+
         demo_device = Device(
             name="Demo Device",
             codename="demodevice",

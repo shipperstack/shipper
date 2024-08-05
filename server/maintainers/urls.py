@@ -1,4 +1,5 @@
 from django.urls import path
+from django.views.decorators.cache import never_cache
 
 from .views import (
     BuildDeleteView,
@@ -10,10 +11,14 @@ from .views import (
 
 urlpatterns = [
     path("", MaintainerDashboardView.as_view(), name="maintainer_dashboard"),
-    path("device/<int:pk>/", DeviceDetailView.as_view(), name="device_detail"),
+    path(
+        "device/<int:pk>/",
+        never_cache(DeviceDetailView.as_view()),
+        name="device_detail",
+    ),
     path(
         "device/<int:pk>/edit_note/",
-        DeviceEditNoteView.as_view(),
+        never_cache(DeviceEditNoteView.as_view()),
         name="device_edit_note",
     ),
     path(

@@ -297,14 +297,18 @@ fn get_changes(version: &str) -> String {
         if line.starts_with(&start_marker) {
             is_in_target_version_section = true;
             continue;
-        } else if line.starts_with(&end_marker) {
+        }
+
+        if line.starts_with(&end_marker) {
             break;
         }
 
-        if is_in_target_version_section {
-            extracted_changes.push_str(line);
-            extracted_changes.push('\n');
+        if !is_in_target_version_section {
+            continue;
         }
+
+        extracted_changes.push_str(line);
+        extracted_changes.push('\n');
     }
 
     extracted_changes

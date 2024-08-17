@@ -1,19 +1,19 @@
-FROM alpine:3.19
+FROM alpine:3.20
 
 # Install base dependencies
 RUN apk update \
   && apk add --no-cache \
-  python3=3.11.9-r0 \
-  python3-dev=3.11.9-r0 \
-  py3-pip=23.3.1-r0 \
+  python3=3.12.3-r1 \
+  python3-dev=3.12.3-r1 \
+  py3-pip=24.0-r2 \
   netcat-openbsd=1.226-r0 \
-  gettext=0.22.3-r0 \
-  git=2.43.4-r0 \
+  gettext=0.22.5-r0 \
+  git=2.45.2-r0 \
   postgresql15-client=15.7-r0 \
-  libffi-dev=3.4.4-r3 \
+  libffi-dev=3.4.6-r0 \
   build-base=0.5-r3 \
-  nodejs=20.12.1-r0 \
-  npm=10.2.5-r0
+  nodejs=20.15.1-r0 \
+  npm=10.8.0-r0
 
 # Python environment variables
 ENV PYTHONDONTWRITEBYTECODE=1

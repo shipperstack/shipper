@@ -6,7 +6,47 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.40.0...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.41.0...HEAD
+
+# [2.41.0] - 2024-08-17
+
+This release contains a database migration.
+
+## Added
+
+- Added a feature model for Build objects (database only for now) (#354)
+- Added checks to disallow Postgres-specific fields
+- Added management commands for initializing a demo environment (#218)
+- Added a device note edit screen for maintainers (#527)
+
+## Changed
+- Fixed some models not being picked up in the audit log
+- Fixed a React key issue in a list on the frontend
+- The SQLite3 backend correctly utilizes the given database name in the config
+- Fixed issues loading the `crispy` form filters
+- Clarified account management texts
+- Fixed maintainer URLs as they were incorrectly being cached
+- Fixed a bug with HTTP/HTTPS URL generation with the protocol forwarded by nginx (#562)
+- General code cleanup
+- Updated dependencies (server)
+	- @babel/core (7.24.8 -> 7.25.2)
+	- prettier (3.3.2 -> 3.3.3)
+	- sentry-sdk (2.9.0 -> 2.13.0)
+	- django-crispy-forms (2.2 -> 2.3)
+	- typescript (5.5.3 -> 5.5.4)
+	- @babel/preset-env (7.24.8 -> 7.25.3)
+	- django (5.0.7 -> 5.0.8)
+	- pyyaml (6.0.1 -> 6.0.2)
+	- gunicorn (22.0.0 -> 23.0.0)
+	- paramiko (3.4.0 -> 3.4.1)
+- Updated dependencies (release-helper)
+	- clap (4.5.9 -> 4.5.16)
+	- regex (1.10.5 -> 1.10.6)
+- Updated dependencies (shippy)
+	- sentry-sdk (2.9.0 -> 2.13.0)
+	- setuptools (70.3.0 -> 72.2.0)
+
+[2.41.0]: https://github.com/shipperstack/shipper/compare/2.40.0...2.41.0
 
 # [2.40.0] - 2024-07-13
 

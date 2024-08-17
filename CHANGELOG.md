@@ -6,7 +6,16 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.41.0...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.41.1...HEAD
+
+
+# [2.41.1] - 2024-08-17
+
+## Changed
+
+- Fixed server image build failing due to outdated Alpine versions
+
+[2.41.1]: https://github.com/shipperstack/shipper/compare/2.41.0...2.41.1
 
 # [2.41.0] - 2024-08-17
 

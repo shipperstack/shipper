@@ -6,7 +6,7 @@ shipper will run on any x86_64 platform, but for best results we recommend runni
 
 To install shipper, Docker and Docker Compose **must** be installed.
 
-A web server (such as Nginx or Apache) should also be installed so that requests to shipper can be reverse-proxied. Although not strictly required, we recommend using one if it is available.
+A web server (such as Nginx or Apache) should also be installed so that it may serve as a reverse proxy to shipper. This is **required** and should **not** be skipped. Failure to reverse proxy shipper can and will result in security issues, as the reverse proxy of the Docker Compose stack will trust all `X-Forwarded-*` headers sent by the edge reverse proxy. 
 
 ## Clone the repository
 

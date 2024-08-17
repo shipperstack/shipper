@@ -20,6 +20,7 @@ body:
         - shipper (API)
         - shippy
         - Docker images
+        - Release helper
         - N/A (don't select anything above)
   - type: textarea
     id: bug-description

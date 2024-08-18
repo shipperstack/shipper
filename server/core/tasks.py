@@ -123,10 +123,10 @@ def upload_build_to_mirror(self, build_id, build, mirror):
     sftp.chdir(build.device.codename)
 
     # Define callback for printing progress
-    def update_progress(transferred, total):
+    def update_progress(current, total):
         self.update_state(
             state="PROGRESS",
-            meta={"current": transferred, "total": total},
+            meta={"current": current, "total": total},
         )
 
     try:

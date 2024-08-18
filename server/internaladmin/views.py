@@ -1,3 +1,4 @@
+import datetime
 import json
 import re
 
@@ -87,6 +88,9 @@ def map_mirror_result(raw_result):
 
     current = load_values_or_default(upload_result, "current", -1)
     total = load_values_or_default(upload_result, "total", -1)
+    elapsed = load_values_or_default(upload_result, "elapsed", -1)
+    remaining = load_values_or_default(upload_result, "remaining", -1)
+    speed = current / elapsed
 
     if upload_result is None:
         percent = 100 if raw_result.status == "SUCCESS" else 0
@@ -101,5 +105,8 @@ def map_mirror_result(raw_result):
         "status": raw_result.status,
         "current": humanize.naturalsize(current),
         "total": humanize.naturalsize(total),
+        "elapsed": humanize.naturaldelta(datetime.timedelta(seconds=elapsed)),
+        "remaining": humanize.naturaldelta(datetime.timedelta(seconds=remaining)),
+        "speed": humanize.naturalsize(speed),
         "percent": percent,
     }

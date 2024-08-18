@@ -15,6 +15,8 @@
             <th class="col-1" scope="col">Last updated</th>
             <th class="col-3" scope="col">Build name</th>
             <th class="col-4" scope="col">Progress</th>
+            <th class="col-1" scope="col">Elapsed</th>
+            <th class="col-1" scope="col">Remaining</th>
         </tr>
         </thead>
         <tbody>
@@ -42,10 +44,12 @@
                             aria-valuemin="0"
                             aria-valuemax="100"
                     >{{ mirror_result.percent }}%
-                        ({{ mirror_result.current }}/{{ mirror_result.total }})
+                        ({{ mirror_result.current }}/{{ mirror_result.total }}, {{ mirror_result.speed }}/s)
                     </div>
                 </div>
             </td>
+            <td>{{ mirror_result.elapsed }}</td>
+            <td>{{ mirror_result.remaining }}</td>
         </tr>
         {% endfor %}
         </tbody>

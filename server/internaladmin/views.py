@@ -15,6 +15,11 @@ from core.models import Build, Device
 User = get_user_model()
 
 
+@method_decorator(staff_member_required, name="dispatch")
+class AdminMainView(TemplateView):
+    template_name = "admin_main.html"
+
+
 def get_humanized_total_size(build_list):
     total_size = 0
     for build in build_list:

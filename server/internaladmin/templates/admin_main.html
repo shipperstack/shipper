@@ -1,0 +1,11 @@
+{% extends 'maintainer_base.html' %}
+
+{% load admin_extras %}
+
+{% block title %}Internal Admin{% endblock %}
+
+{% block content %}
+    <a href="{% url 'admin_statistics' %}"><h1>Statistics</h1></a>
+    <a href="{% url 'admin_build_mirror_status' %}"><h1>Build mirror status</h1></a>
+
+{% endblock %}

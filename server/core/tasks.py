@@ -4,6 +4,7 @@ import os
 import tempfile
 import time
 import requests
+import datetime
 from contextlib import contextmanager
 
 import paramiko
@@ -122,11 +123,28 @@ def upload_build_to_mirror(self, build_id, build, mirror):
         sftp.mkdir(build.device.codename)
     sftp.chdir(build.device.codename)
 
+    start_time = datetime.datetime.now()
+
     # Define callback for printing progress
     def update_progress(current, total):
+        current_time = datetime.datetime.now()
+        elapsed_time = current_time - start_time
+
+        if current > 0:
+            remaining_sec = elapsed_time.total_seconds() * (
+                float(total - current) / current
+            )
+        else:
+            remaining_sec = 0
+
         self.update_state(
             state="PROGRESS",
-            meta={"current": current, "total": total},
+            meta={
+                "current": current,
+                "total": total,
+                "elapsed": elapsed_time.total_seconds(),
+                "remaining": remaining_sec,
+            },
         )
 
     try:

@@ -6,7 +6,23 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.41.1...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.41.2...HEAD
+
+
+# [2.41.2] - 2024-08-18
+
+## Added
+
+- Added main internal admin page (for linking)
+
+## Changed
+
+- The internal admin page for tracking build mirror status now shows more stats for each item
+- Fixed the nginx proxy configuration for layered reverse proxies (#562)
+- Fixed the release helper ignoring Markdown headings during release (#563)
+- General code cleanup
+
+[2.41.2]: https://github.com/shipperstack/shipper/compare/2.41.1...2.41.2
 
 
 # [2.41.1] - 2024-08-17

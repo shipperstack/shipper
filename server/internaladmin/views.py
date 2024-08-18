@@ -53,46 +53,9 @@ class AdminBuildMirrorStatusView(TemplateView):
     def get(self, request, *args, **kwargs):
         fetch_limit = 100
         raw_results = TaskResult.objects.filter(task_name="mirror_build")[:fetch_limit]
-        mirror_results = []
-
-        for raw_result in raw_results:
-            build_id = int(re.search(r"\d+", raw_result.task_args).group())
-            try:
-                build = Build.objects.get(id=build_id)
-            except Build.DoesNotExist:
-                continue
-
-            upload_result = json.loads(raw_result.result)
-
-            def load_values_or_default(result, key, default=0):
-                if result is None or key not in result:
-                    return default
-                else:
-                    return result[key]
-
-            current = load_values_or_default(upload_result, "current", -1)
-            total = load_values_or_default(upload_result, "total", -1)
-
-            if upload_result is None:
-                if raw_result.status == "SUCCESS":
-                    percent = 100
-                else:
-                    percent = 0
-            else:
-                percent = int(current * 100 / total)
-
-            mirror_results.append(
-                {
-                    "task_id": raw_result.id,
-                    "created_on": raw_result.date_created,
-                    "last_updated": raw_result.date_done,
-                    "build_name": build.file_name,
-                    "status": raw_result.status,
-                    "current": humanize.naturalsize(current),
-                    "total": humanize.naturalsize(total),
-                    "percent": percent,
-                }
-            )
+        mirror_results = [
+            x for x in map(map_mirror_result, raw_results) if x is not None
+        ]
 
         data = {
             "mirror_results": mirror_results,
@@ -100,3 +63,38 @@ class AdminBuildMirrorStatusView(TemplateView):
         }
 
         return render(request, self.template_name, data)
+
+
+def map_mirror_result(raw_result):
+    build_id = int(re.search(r"\d+", raw_result.task_args).group())
+    try:
+        build = Build.objects.get(id=build_id)
+    except Build.DoesNotExist:
+        return None
+
+    upload_result = json.loads(raw_result.result)
+
+    def load_values_or_default(result, key, default=0):
+        if result is None or key not in result:
+            return default
+        else:
+            return result[key]
+
+    current = load_values_or_default(upload_result, "current", -1)
+    total = load_values_or_default(upload_result, "total", -1)
+
+    if upload_result is None:
+        percent = 100 if raw_result.status == "SUCCESS" else 0
+    else:
+        percent = int(current * 100 / total)
+
+    return {
+        "task_id": raw_result.id,
+        "created_on": raw_result.date_created,
+        "last_updated": raw_result.date_done,
+        "build_name": build.file_name,
+        "status": raw_result.status,
+        "current": humanize.naturalsize(current),
+        "total": humanize.naturalsize(total),
+        "percent": percent,
+    }

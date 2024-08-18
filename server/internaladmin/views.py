@@ -64,27 +64,21 @@ class AdminBuildMirrorStatusView(TemplateView):
 
             upload_result = json.loads(raw_result.result)
 
-            # Some tasks never record the current progress, so we need to check if the
-            # JSON load was successful here
-            if upload_result is None:
-                current = 0
-                total = 0
+            def load_values_or_default(result, key, default=0):
+                if result is None or key not in result:
+                    return default
+                else:
+                    return result[key]
 
-                # We have to check if the task succeeded, as Celery will overwrite the
-                # task results if it has
+            current = load_values_or_default(upload_result, "current", -1)
+            total = load_values_or_default(upload_result, "total", -1)
+
+            if upload_result is None:
                 if raw_result.status == "SUCCESS":
                     percent = 100
                 else:
                     percent = 0
             else:
-                try:
-                    current = upload_result["current"]
-                except KeyError:
-                    current = -1
-                try:
-                    total = upload_result["total"]
-                except KeyError:
-                    total = -1
                 percent = int(current * 100 / total)
 
             mirror_results.append(

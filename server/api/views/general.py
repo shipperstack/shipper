@@ -20,7 +20,7 @@ User = get_user_model()
 
 class V1GeneralDeviceAll(APIView):
     """
-    Returns a list of all devices in shipper, with their active status and variants
+    Returns a list of all devices in shipper, with their active status, variants, and note
     """
 
     permission_classes = [AllowAny]
@@ -39,6 +39,7 @@ class V1GeneralDeviceAll(APIView):
             return_json[device.codename] = {
                 "status": device.status,
                 "variants": has_variants,
+                "note": device.note,
             }
 
         return Response(return_json, status=HTTP_200_OK)

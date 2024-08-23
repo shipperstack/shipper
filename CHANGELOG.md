@@ -6,7 +6,25 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.41.2...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.41.3...HEAD
+
+
+# [2.41.3] - 2024-08-23
+
+## Added
+- Added device note field to general API
+
+## Changed
+- Updated dependencies (shippy)
+	- setuptools (72.2.0 -> 73.0.1)
+- Updated dependencies (server)
+	- @types/react (18.3.3 -> 18.3.4)
+	- webpack (5.93.0 -> 5.94.0)
+	- @babel/preset-env (7.25.3 -> 7.25.4)
+	- django-celery-beat (2.6.0 -> 2.7.0)
+	- django (5.0.8 -> 5.1)
+
+[2.41.3]: https://github.com/shipperstack/shipper/compare/2.41.2...2.41.3
 
 
 # [2.41.2] - 2024-08-18

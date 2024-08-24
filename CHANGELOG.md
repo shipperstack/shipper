@@ -12,9 +12,11 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 # [2.41.3] - 2024-08-23
 
 ## Added
+
 - Added device note field to general API
 
 ## Changed
+
 - Updated dependencies (shippy)
 	- setuptools (72.2.0 -> 73.0.1)
 - Updated dependencies (server)

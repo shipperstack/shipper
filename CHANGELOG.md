@@ -6,7 +6,20 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.41.3...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.41.4...HEAD
+
+
+# [2.41.4] - 2024-08-25
+
+## Changed
+
+- Fixed Docker image build crashing due to outdated Alpine Python package versions
+- The task time limit value is now configurable with the `.env` file
+- Updated dependencies (server)
+  - django-constance[database] (3.1.0 -> 4.0.0)
+	- django-dbbackup (4.1.0 -> 4.2.0)
+
+[2.41.4]: https://github.com/shipperstack/shipper/compare/2.41.3...2.41.4
 
 
 # [2.41.3] - 2024-08-23

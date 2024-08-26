@@ -52,6 +52,10 @@ SHIPPER_OTHER_CONFIG_OPTION=1 # for true
     - Setting this key to any value other than 0 will enable HSTS for the specified duration (in seconds)
     - Warning: make sure you know what you are doing! Improper settings may block you from accessing your instance.
     - Default: `0`
+  - `SHIPPER_TASK_TIME_LIMIT`
+    - Controls the limit of build mirror tasks before they are killed
+    - Setting is in minutes
+    - Default: `60`
 
 ### Upload
   - `SHIPPER_UPLOAD_CHECKSUM`

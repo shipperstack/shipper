@@ -17,7 +17,7 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 - The task time limit value is now configurable with the `.env` file
 - Updated dependencies (server)
   - django-constance[database] (3.1.0 -> 4.0.0)
-	- django-dbbackup (4.1.0 -> 4.2.0)
+  - django-dbbackup (4.1.0 -> 4.2.0)
 
 [2.41.4]: https://github.com/shipperstack/shipper/compare/2.41.3...2.41.4
 

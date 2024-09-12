@@ -46,6 +46,8 @@ jobs:
         with:
           name: coverage-data-${{ matrix.python-version }}
           path: ./server/.coverage.*
+          if-no-files-found: error
+          include-hidden-files: true
 
   codecov-coverage:
     runs-on: ubuntu-latest

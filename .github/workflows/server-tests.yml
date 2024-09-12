@@ -37,10 +37,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install coverage
-      - name: Run Tests
-        working-directory: ./server
-        run: |
-          python manage.py test
       - name: Generate coverage report
         working-directory: ./server
         run: |

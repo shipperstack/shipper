@@ -47,6 +47,8 @@ sentry_sdk.init(
 
 console = Console()
 
+failed_builds_exist = False
+
 
 # Handle SIGINT gracefully and don't puke up traceback
 def sigint_handler(*_):
@@ -67,6 +69,8 @@ def server_prechecks(client):
 
 
 def check_and_upload_build(client, args, build_path):
+    global failed_builds_exist
+
     # Check build file validity
     if not check_build(client, build_path):
         print_warning("Invalid build. Skipping...")
@@ -83,6 +87,7 @@ def check_and_upload_build(client, args, build_path):
         except UploadException as exception:
             logger.exception(exception)
             print_error(exception, newline=True, exit_after=False)
+            failed_builds_exist = True
 
 
 def search_and_upload_builds(client, args):
@@ -412,6 +417,10 @@ def main():
 
     # Start uploads
     search_and_upload_builds(client, args)
+
+    # Check exit condition
+    if failed_builds_exist:
+        exit(2)
 
 
 if __name__ == "__main__":

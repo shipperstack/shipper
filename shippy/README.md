@@ -61,3 +61,12 @@ directory. Use with caution. Same as the `-y`/`--yes` flag shown above.
 
 Enable debug mode for all invocations. When set to true, the `-d`/`--debug` flag will have no effect, and all
 invocations of shippy will run with debug mode enabled.
+
+
+# Status
+
+shippy returns exit codes based on the results.
+
+`1` - Ctrl-C exit
+
+`2` - one or more builds failed to upload and/or set disabled status

@@ -6,7 +6,33 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.41.4...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.41.5...HEAD
+
+
+# [2.41.5] - 2024-09-19
+
+## Changed
+
+- Fixed the server Docker image not building due to outdated Alpine packages
+- Fixed shippy not setting the exit code based on success or failure of uploading and disabling status
+- Updated dependencies (server)
+	- django-dbbackup (4.2.0 -> 4.2.1)
+	- @types/react (18.3.4 -> 18.3.7)
+	- django (5.1 -> 5.1.1)
+	- typescript (5.5.4 -> 5.6.2)
+	- sentry-sdk (2.13.0 -> 2.14.0)
+	- babel-loader (9.1.3 -> 9.2.1)
+	- paramiko (3.4.1 -> 3.5.0)
+  - django-constance[database] (4.0.0 -> 4.1.1)
+- Updated dependencies (release-helper)
+	- clap (4.5.16 -> 4.5.17)
+	- anyhow (1.0.86 -> 1.0.89)
+- Updated dependencies (shippy)
+	- rich (13.7.1 -> 13.8.1)
+	- setuptools (73.0.1 -> 75.1.0)
+	- sentry-sdk (2.13.0 -> 2.14.0)
+
+[2.41.5]: https://github.com/shipperstack/shipper/compare/2.41.4...2.41.5
 
 
 # [2.41.4] - 2024-08-25

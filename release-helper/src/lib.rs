@@ -1,3 +1,4 @@
+use std::cmp::{max, min};
 use anyhow::{anyhow, Error};
 use chrono::Local;
 use git2::Repository;
@@ -156,10 +157,17 @@ pub fn parse_and_organize(stdout: &str) -> Vec<String> {
                 .to_dependency_commit()
                 .expect("Dependency commit coercion error");
 
-            dependency_commits
-                .entry(dep_commit.subsystem.clone())
-                .or_default()
-                .push(dep_commit);
+            if dependency_commits.contains_key(&dep_commit.subsystem) {
+                for prev_dep_commit in dependency_commits.get_mut(&dep_commit.subsystem).unwrap() {
+                    if prev_dep_commit.name == dep_commit.name {
+                        prev_dep_commit.old_ver = min(prev_dep_commit.old_ver.clone(), dep_commit.old_ver.clone());
+                        prev_dep_commit.new_ver = max(prev_dep_commit.new_ver.clone(), dep_commit.new_ver.clone());
+                        break;
+                    }
+                }
+            } else {
+                dependency_commits.insert(dep_commit.subsystem.to_string(), vec![dep_commit]);
+            }
         } else {
             normal_commits.push(commit);
         }

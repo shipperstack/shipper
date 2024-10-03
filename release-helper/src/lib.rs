@@ -148,10 +148,31 @@ impl RepositoryTrait for Repository {
 }
 
 pub fn parse_and_organize(stdout: &str) -> Vec<String> {
-    let mut normal_commits = Vec::new();
+    let parsed_log: Vec<Commit> = parse_git_log(stdout).collect();
+    let (normal_commits, dependency_commits) = filter_commits(parsed_log);
+
+    let mut commit_msgs = Vec::new();
+
+    for commit in normal_commits {
+        commit_msgs.push(format!("- {commit}"))
+    }
+
+    for subsystem in dependency_commits {
+        let subsystem_name = subsystem.0;
+        commit_msgs.push(format!("- Updated dependencies ({subsystem_name})"));
+        for commit in subsystem.1 {
+            commit_msgs.push(commit.to_string());
+        }
+    }
+
+    commit_msgs
+}
+
+fn filter_commits(parsed_log: Vec<Commit>) -> (Vec<Commit>, HashMap<String, Vec<DependencyCommit>>) {
+    let mut normal_commits: Vec<Commit> = Vec::new();
     let mut dependency_commits: HashMap<String, Vec<DependencyCommit>> = HashMap::new();
 
-    for commit in parse_git_log(stdout) {
+    for commit in parsed_log {
         if commit.is_dependency_commit() {
             let dep_commit = commit
                 .to_dependency_commit()
@@ -173,21 +194,7 @@ pub fn parse_and_organize(stdout: &str) -> Vec<String> {
         }
     }
 
-    let mut commit_msgs = Vec::new();
-
-    for commit in normal_commits {
-        commit_msgs.push(format!("- {commit}"))
-    }
-
-    for subsystem in dependency_commits {
-        let subsystem_name = subsystem.0;
-        commit_msgs.push(format!("- Updated dependencies ({subsystem_name})"));
-        for commit in subsystem.1 {
-            commit_msgs.push(commit.to_string());
-        }
-    }
-
-    commit_msgs
+    (normal_commits, dependency_commits)
 }
 
 fn parse_git_log(stdout: &str) -> impl Iterator<Item = Commit> + '_ {

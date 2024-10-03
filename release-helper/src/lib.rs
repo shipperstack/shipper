@@ -149,7 +149,7 @@ impl RepositoryTrait for Repository {
 
 pub fn parse_and_organize(stdout: &str) -> Vec<String> {
     let parsed_log: Vec<Commit> = parse_git_log(stdout).collect();
-    let (normal_commits, dependency_commits) = filter_commits(parsed_log);
+    let (normal_commits, dependency_commits) = filter_commits(&parsed_log);
 
     let mut commit_messages = Vec::new();
 
@@ -168,9 +168,9 @@ pub fn parse_and_organize(stdout: &str) -> Vec<String> {
     commit_messages
 }
 
-fn filter_commits(
-    parsed_log: Vec<Commit>,
-) -> (Vec<Commit>, HashMap<String, Vec<DependencyCommit>>) {
+fn filter_commits<'a>(
+    parsed_log: &'a Vec<Commit<'a>>,
+) -> (Vec<Commit<'a>>, HashMap<String, Vec<DependencyCommit>>) {
     let mut normal_commits: Vec<Commit> = Vec::new();
     let mut dependency_commits: HashMap<String, Vec<DependencyCommit>> = HashMap::new();
 
@@ -194,7 +194,7 @@ fn filter_commits(
                 dependency_commits.insert(dep_commit.subsystem.to_string(), vec![dep_commit]);
             }
         } else {
-            normal_commits.push(commit);
+            normal_commits.push(*commit);
         }
     }
 
@@ -257,7 +257,7 @@ mod tests {
             },
         ];
 
-        let (normal_commits, dependency_commits) = filter_commits(parsed_commits);
+        let (normal_commits, dependency_commits) = filter_commits(&parsed_commits);
 
         assert_eq!(normal_commits.len(), 1);
         assert_eq!(dependency_commits.len(), 2);

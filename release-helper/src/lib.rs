@@ -1,9 +1,9 @@
-use std::cmp::{max, min};
 use anyhow::{anyhow, Error};
 use chrono::Local;
 use git2::Repository;
 use regex::Regex;
 use semver::Version;
+use std::cmp::{max, min};
 use std::collections::HashMap;
 use std::fmt;
 use std::fmt::Formatter;
@@ -168,7 +168,9 @@ pub fn parse_and_organize(stdout: &str) -> Vec<String> {
     commit_messages
 }
 
-fn filter_commits(parsed_log: Vec<Commit>) -> (Vec<Commit>, HashMap<String, Vec<DependencyCommit>>) {
+fn filter_commits(
+    parsed_log: Vec<Commit>,
+) -> (Vec<Commit>, HashMap<String, Vec<DependencyCommit>>) {
     let mut normal_commits: Vec<Commit> = Vec::new();
     let mut dependency_commits: HashMap<String, Vec<DependencyCommit>> = HashMap::new();
 
@@ -181,8 +183,10 @@ fn filter_commits(parsed_log: Vec<Commit>) -> (Vec<Commit>, HashMap<String, Vec<
             if dependency_commits.contains_key(&dep_commit.subsystem) {
                 for prev_dep_commit in dependency_commits.get_mut(&dep_commit.subsystem).unwrap() {
                     if prev_dep_commit.name == dep_commit.name {
-                        prev_dep_commit.old_ver = min(prev_dep_commit.old_ver.clone(), dep_commit.old_ver.clone());
-                        prev_dep_commit.new_ver = max(prev_dep_commit.new_ver.clone(), dep_commit.new_ver.clone());
+                        prev_dep_commit.old_ver =
+                            min(prev_dep_commit.old_ver.clone(), dep_commit.old_ver.clone());
+                        prev_dep_commit.new_ver =
+                            max(prev_dep_commit.new_ver.clone(), dep_commit.new_ver.clone());
                         break;
                     }
                 }

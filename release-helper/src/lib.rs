@@ -239,4 +239,68 @@ mod tests {
         let new_patch_ver = get_new_version(last_version_str, VersionLevel::PATCH);
         assert_eq!(new_patch_ver, "3.20.4");
     }
+
+    #[test]
+    fn test_filter_commits() {
+        let parsed_commits = vec![
+            Commit {
+                msg: "fix: did some fixing stuff",
+            },
+            Commit {
+                msg: "build(deps): bump semver from 1.0.0 to 1.1.0 in /server",
+            },
+            Commit {
+                msg: "build(deps): bump semver from 1.1.0 to 1.1.1 in /server",
+            },
+            Commit {
+                msg: "build(deps): bump orion from 2.0.0 to 3.2.2 in /shippy",
+            },
+        ];
+
+        let (normal_commits, dependency_commits) = filter_commits(parsed_commits);
+
+        assert_eq!(normal_commits.len(), 1);
+        assert_eq!(dependency_commits.len(), 2);
+        assert_eq!(
+            dependency_commits
+                .get("server")
+                .unwrap()
+                .iter()
+                .filter(|&x| x.name == "semver")
+                .collect::<Vec<&DependencyCommit>>()[0]
+                .old_ver,
+            Version::parse("1.0.0").unwrap()
+        );
+        assert_eq!(
+            dependency_commits
+                .get("server")
+                .unwrap()
+                .iter()
+                .filter(|&x| x.name == "semver")
+                .collect::<Vec<&DependencyCommit>>()[0]
+                .new_ver,
+            Version::parse("1.1.1").unwrap()
+        );
+
+        assert_eq!(
+            dependency_commits
+                .get("shippy")
+                .unwrap()
+                .iter()
+                .filter(|&x| x.name == "orion")
+                .collect::<Vec<&DependencyCommit>>()[0]
+                .old_ver,
+            Version::parse("2.0.0").unwrap()
+        );
+        assert_eq!(
+            dependency_commits
+                .get("shippy")
+                .unwrap()
+                .iter()
+                .filter(|&x| x.name == "orion")
+                .collect::<Vec<&DependencyCommit>>()[0]
+                .new_ver,
+            Version::parse("3.2.2").unwrap()
+        );
+    }
 }

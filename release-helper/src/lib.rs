@@ -151,21 +151,21 @@ pub fn parse_and_organize(stdout: &str) -> Vec<String> {
     let parsed_log: Vec<Commit> = parse_git_log(stdout).collect();
     let (normal_commits, dependency_commits) = filter_commits(parsed_log);
 
-    let mut commit_msgs = Vec::new();
+    let mut commit_messages = Vec::new();
 
     for commit in normal_commits {
-        commit_msgs.push(format!("- {commit}"))
+        commit_messages.push(format!("- {commit}"))
     }
 
     for subsystem in dependency_commits {
         let subsystem_name = subsystem.0;
-        commit_msgs.push(format!("- Updated dependencies ({subsystem_name})"));
+        commit_messages.push(format!("- Updated dependencies ({subsystem_name})"));
         for commit in subsystem.1 {
-            commit_msgs.push(commit.to_string());
+            commit_messages.push(commit.to_string());
         }
     }
 
-    commit_msgs
+    commit_messages
 }
 
 fn filter_commits(parsed_log: Vec<Commit>) -> (Vec<Commit>, HashMap<String, Vec<DependencyCommit>>) {

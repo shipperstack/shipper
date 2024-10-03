@@ -41,8 +41,8 @@ impl<'a> CommitTrait for Commit<'a> {
 
             Ok(DependencyCommit {
                 name: dep_name.to_string(),
-                old_ver: dep_old_ver.to_string(),
-                new_ver: dep_new_ver.to_string(),
+                old_ver: Version::parse(dep_old_ver).unwrap(),
+                new_ver: Version::parse(dep_new_ver).unwrap(),
                 subsystem: dep_subsystem,
             })
         } else {
@@ -66,8 +66,8 @@ pub enum VersionLevel {
 #[derive(Clone, Debug, PartialEq)]
 pub struct DependencyCommit {
     pub name: String,
-    pub old_ver: String,
-    pub new_ver: String,
+    pub old_ver: Version,
+    pub new_ver: Version,
     pub subsystem: String,
 }
 

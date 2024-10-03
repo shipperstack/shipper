@@ -181,14 +181,21 @@ fn filter_commits<'a>(
                 .expect("Dependency commit coercion error");
 
             if dependency_commits.contains_key(&dep_commit.subsystem) {
+                let mut found_existing_commit = false;
+
                 for prev_dep_commit in dependency_commits.get_mut(&dep_commit.subsystem).unwrap() {
                     if prev_dep_commit.name == dep_commit.name {
                         prev_dep_commit.old_ver =
                             min(prev_dep_commit.old_ver.clone(), dep_commit.old_ver.clone());
                         prev_dep_commit.new_ver =
                             max(prev_dep_commit.new_ver.clone(), dep_commit.new_ver.clone());
+                        found_existing_commit = true;
                         break;
                     }
+                }
+
+                if !found_existing_commit {
+                    dependency_commits.get_mut(&dep_commit.subsystem).unwrap().push(dep_commit);
                 }
             } else {
                 dependency_commits.insert(dep_commit.subsystem.to_string(), vec![dep_commit]);
@@ -255,12 +262,16 @@ mod tests {
             Commit {
                 msg: "build(deps): bump orion from 2.0.0 to 3.2.2 in /shippy",
             },
+            Commit {
+                msg: "build(deps): bump astro from 1.0.0 to 1.1.1 in /server",
+            },
         ];
 
         let (normal_commits, dependency_commits) = filter_commits(&parsed_commits);
 
         assert_eq!(normal_commits.len(), 1);
-        assert_eq!(dependency_commits.len(), 2);
+        assert_eq!(dependency_commits.get("server").unwrap().len(), 2);
+        assert_eq!(dependency_commits.get("shippy").unwrap().len(), 1);
         assert_eq!(normal_commits[0].msg,  parsed_commits[0].msg);
         assert_eq!(
             dependency_commits

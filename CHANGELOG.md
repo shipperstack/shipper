@@ -6,7 +6,32 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.41.5...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.41.6...HEAD
+
+
+# [2.41.6] - 2024-10-03
+
+## Changed
+
+- The release-helper now merges multiple version bumps (#615)
+- General code cleanup
+- Updated dependencies (server)
+	- django-cleanup (8.1.0 -> 9.0.0)
+	- @types/react (18.3.7 -> 18.3.11)
+	- webpack (5.94.0 -> 5.95.0)
+	- sentry-sdk (2.14.0 -> 2.15.0)
+	- @babel/core (7.25.2 -> 7.25.7)
+	- @babel/preset-env (7.25.4 -> 7.25.7)
+  - django-constance[database] (4.1.1 -> 4.1.2)
+  - @babel/preset-react (7.24.7 -> 7.25.7)
+- Updated dependencies (release-helper)
+	- clap (4.5.17 -> 4.5.19)
+	- regex (1.10.6 -> 1.11.0)
+- Updated dependencies (shippy)
+	- sentry-sdk (2.14.0 -> 2.15.0)
+	- rich (13.8.1 -> 13.9.1)
+
+[2.41.6]: https://github.com/shipperstack/shipper/compare/2.41.5...2.41.6
 
 
 # [2.41.5] - 2024-09-19

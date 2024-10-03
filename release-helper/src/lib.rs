@@ -261,6 +261,7 @@ mod tests {
 
         assert_eq!(normal_commits.len(), 1);
         assert_eq!(dependency_commits.len(), 2);
+        assert_eq!(normal_commits[0].msg,  parsed_commits[0].msg);
         assert_eq!(
             dependency_commits
                 .get("server")

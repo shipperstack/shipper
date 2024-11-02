@@ -42,8 +42,8 @@ impl<'a> CommitTrait for Commit<'a> {
 
             Ok(DependencyCommit {
                 name: dep_name.to_string(),
-                old_ver: Version::parse(dep_old_ver).unwrap(),
-                new_ver: Version::parse(dep_new_ver).unwrap(),
+                old_ver: Version::parse(dep_old_ver)?,
+                new_ver: Version::parse(dep_new_ver)?,
                 subsystem: dep_subsystem,
             })
         } else {

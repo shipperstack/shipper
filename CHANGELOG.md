@@ -6,7 +6,38 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.41.6...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.41.7...HEAD
+
+
+# [2.41.7] - 2024-11-02
+
+## Changed
+- Fixed server Docker image build by updating Alpine Python versions
+- Fixed server Docker image build by updating Alpine Postgres package to 15.8
+- Fixed release helper crashing if commit was not parsable as dependency commit
+- Updated dependencies (release-helper)
+	- clap (4.5.19 -> 4.5.20)
+	- anyhow (1.0.89 -> 1.0.92)
+	- regex (1.11.0 -> 1.11.1)
+- Updated dependencies (shippy)
+	- rich (13.9.1 -> 13.9.4)
+	- humanize (4.10.0 -> 4.11.0)
+	- sentry-sdk (2.15.0 -> 2.17.0)
+	- setuptools (75.1.0 -> 75.3.0)
+- Updated dependencies (server)
+  - crispy-bootstrap5 (2024.2 -> 2024.10)
+	- humanize (4.10.0 -> 4.11.0)
+	- django (5.1.1 -> 5.1.2)
+	- typescript (5.6.2 -> 5.6.3)
+	- sentry-sdk (2.15.0 -> 2.17.0)
+	- @babel/core (7.25.7 -> 7.26.0)
+	- @babel/preset-env (7.25.7 -> 7.26.0)
+	- @types/react-dom (18.3.0 -> 18.3.1)
+	- psycopg2-binary (2.9.9 -> 2.9.10)
+	- @types/react (18.3.11 -> 18.3.12)
+	- webpack (5.95.0 -> 5.96.1)
+
+[2.41.7]: https://github.com/shipperstack/shipper/compare/2.41.6...2.41.7
 
 
 # [2.41.6] - 2024-10-03

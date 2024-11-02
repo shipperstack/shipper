@@ -25,6 +25,7 @@ impl<'a> CommitTrait for Commit<'a> {
         (self.msg.starts_with("build(deps): bump ")
             || self.msg.starts_with("build(deps-dev): bump "))
             && self.msg.split(' ').count() >= DEP_COMMIT_PART_COUNT
+            && self.to_dependency_commit().is_ok()
     }
 
     fn to_dependency_commit(&self) -> Result<DependencyCommit, Error> {

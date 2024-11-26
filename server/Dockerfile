@@ -9,11 +9,11 @@ RUN apk update \
   netcat-openbsd=1.226-r0 \
   gettext=0.22.5-r0 \
   git=2.45.2-r0 \
-  postgresql15-client=15.9-r0 \
+  postgresql15-client=15.10-r0 \
   libffi-dev=3.4.6-r0 \
   build-base=0.5-r3 \
   nodejs=20.15.1-r0 \
-  npm=10.8.0-r0
+  npm=10.9.1-r0
 
 # Python environment variables
 ENV PYTHONDONTWRITEBYTECODE=1

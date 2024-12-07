@@ -55,7 +55,7 @@ USER shipper
 
 # Frontend generation
 # Warning: do not use --omit=dev, as webpack and bundler is required for building!
-RUN npm install \
+RUN npm install --omit=dev \
   && npm run build
 
 ENTRYPOINT ["/bin/sh"]

@@ -68,7 +68,7 @@ to start your shipper instance.
 The database hasn't been initialized yet and the static files need to be collected. Fortunately, a script will do this for us. Run:
 
 ```
-./django-update.sh
+./server-update.sh
 ```
 
 And it should automatically apply any unapplied migrations, generate translation files and collect static files for you.

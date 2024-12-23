@@ -10,7 +10,7 @@ publish = false
 
 [dependencies]
 chrono = "0.4.39"
-anyhow = "1.0.94"
+anyhow = "1.0.95"
 clap = { version = "4.5.23", features = ["derive"] }
 git2 = "0.19.0"
 regex = "1.11.1"

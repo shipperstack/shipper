@@ -2,6 +2,6 @@ humanize==4.11.0
 loguru==0.7.3
 requests==2.32.3
 rich==13.9.4
-semver==3.0.2
+semver==3.0.4
 sentry-sdk==2.20.0
 setuptools==75.8.0

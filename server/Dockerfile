@@ -8,7 +8,7 @@ RUN apk update \
   py3-pip=24.0-r2 \
   netcat-openbsd=1.226-r0 \
   gettext=0.22.5-r0 \
-  git=2.45.2-r0 \
+  git=2.45.3-r0 \
   postgresql15-client=15.10-r0 \
   libffi-dev=3.4.6-r0 \
   build-base=0.5-r3 \

@@ -5,9 +5,9 @@ export default function SearchBar({
   setSearchTerm,
 }: {
   searchTerm: string;
-  setSearchTerm: any;
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
 }) {
-  function changedInput(event: any) {
+  function changedInput(event: React.ChangeEvent<HTMLInputElement>) {
     setSearchTerm(event.target.value);
   }
 

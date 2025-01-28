@@ -1,8 +1,10 @@
 import React from "react";
 
-export default function DeviceCard({ device }: { device: any }) {
-  let device_card_style = device.enabled ? "col" : "col disabled-device-card";
-  let device_photo_url =
+import type { Device } from "./DownloadList";
+
+export default function DeviceCard({ device }: { device: Device }) {
+  const device_card_style = device.enabled ? "col" : "col disabled-device-card";
+  const device_photo_url =
     device.photo_url === ""
       ? "static/img/no_device_image.png"
       : device.photo_url;

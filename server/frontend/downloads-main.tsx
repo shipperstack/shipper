@@ -5,7 +5,7 @@ import DownloadList from "./components/DownloadList";
 import SearchBar from "./components/SearchBar";
 import OptionsBar from "./components/OptionsBar";
 
-declare var BUILD_DATE: string;
+declare let BUILD_DATE: string;
 
 const root = createRoot(document.getElementById("root"));
 
@@ -14,8 +14,8 @@ const ACTIVE_VISIBLE_DEVICES = JSON.parse(
 );
 
 function App() {
-  let [searchTerm, setSearchTerm] = React.useState("");
-  let [showUnmaintained, setShowUnmaintained] = React.useState(false);
+  const [searchTerm, setSearchTerm] = React.useState("");
+  const [showUnmaintained, setShowUnmaintained] = React.useState(false);
 
   return (
     <>

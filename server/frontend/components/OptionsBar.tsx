@@ -5,7 +5,7 @@ export default function OptionsBar({
   setShowUnmaintained,
 }: {
   showUnmaintained: boolean;
-  setShowUnmaintained: any;
+  setShowUnmaintained: (value: boolean) => void;
 }) {
   return (
     <label>

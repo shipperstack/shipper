@@ -16,7 +16,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: ["3.10", "3.11", "3.12"]
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
 
     env:
       SHIPPER_SECRET_KEY: "duk4hvedu3zxnmw@shnjw7z^)x#wcm@cj05t5f&#90rx-g44d2"

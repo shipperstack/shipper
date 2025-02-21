@@ -152,11 +152,20 @@ def upload_build_to_mirror(self, build_id, build, mirror):
         temp_target_file_name = f"{target_file_name}.part"
 
         logger.info("Starting upload...")
-        sftp.put(
-            localpath=os.path.join(settings.MEDIA_ROOT, build.zip_file.name),
-            remotepath=temp_target_file_name,
-            callback=update_progress,
-        )
+        try:
+            sftp.put(
+                localpath=os.path.join(settings.MEDIA_ROOT, build.zip_file.name),
+                remotepath=temp_target_file_name,
+                callback=update_progress,
+            )
+        except EOFError:
+            raise BuildMirrorException(
+                {
+                    "message": "A network error occured while uploading the "
+                    "build file.",
+                    "exception_message": "EOFError",
+                }
+            )
 
         try:
             sftp.stat(target_file_name)

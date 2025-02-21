@@ -11,7 +11,7 @@
     <div class="alert alert-info">
         <h4>Device Notes</h4>
         {% if object.note %}
-            {{ object.note }}
+            {{ object.note | linebreaks }}
         {% else %}
             <em>This device does not have any notes.</em>
         {% endif %}

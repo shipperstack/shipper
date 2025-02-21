@@ -175,9 +175,13 @@ def upload_build_to_mirror(self, build_id, build, mirror):
             build.mirrored_on.add(mirror)
             build.save()
         logger.info("Database successfully updated.")
-    except SoftTimeLimitExceeded:
-        logger.error("Exceeded time limit. Shutting down...")
-        return
+    except SoftTimeLimitExceeded as e:
+        raise BuildMirrorException(
+            {
+                "message": "This build did not mirror within the time limit.",
+                "exception_message": e,
+            }
+        )
 
 
 def sftp_client_init(mirror):

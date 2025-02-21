@@ -80,19 +80,17 @@ def log_debug_request_response(r):
 
 
 def wait_rate_limit(seconds):
-    with console.status(RATE_LIMIT_WAIT_STATUS_MSG.format(seconds)) as status:
-        while seconds:
-            time.sleep(1)
-            seconds -= 1
-            status.update(status=RATE_LIMIT_WAIT_STATUS_MSG.format(seconds))
+    while seconds:
+        print(RATE_LIMIT_WAIT_STATUS_MSG.format(seconds))
+        time.sleep(1)
+        seconds -= 1
 
 
 def wait_temporary_error(seconds):
-    with console.status(SERVER_ERROR_WAIT_STATUS_MSG.format(seconds)) as status:
-        while seconds:
-            time.sleep(1)
-            seconds -= 1
-            status.update(status=SERVER_ERROR_WAIT_STATUS_MSG.format(seconds))
+    while seconds:
+        print(SERVER_ERROR_WAIT_STATUS_MSG.format(seconds))
+        time.sleep(1)
+        seconds -= 1
 
 
 class Client:

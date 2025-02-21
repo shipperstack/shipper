@@ -158,12 +158,12 @@ def upload_build_to_mirror(self, build_id, build, mirror):
                 remotepath=temp_target_file_name,
                 callback=update_progress,
             )
-        except EOFError:
+        except EOFError as e:
             raise BuildMirrorException(
                 {
                     "message": "A network error occured while uploading the "
                     "build file.",
-                    "exception_message": "EOFError",
+                    "exception_message": e,
                 }
             )
 

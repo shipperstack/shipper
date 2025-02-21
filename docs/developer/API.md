@@ -62,12 +62,6 @@ Returns the number of downloads shipper has served, all time.
 
 The following endpoints are used by [shippy, a tool to help maintainers upload builds to shipper.](https://github.com/ericswpark/shippy)
 
- - `https://host/api/v1/system/info/`
-
- #### This endpoint has been deprecated for v2. It will be removed at some point in the future!
-
-Returns the shipper version installed on the server.
-
  - `https://host/api/v1/maintainers/login/`
 
 Returns an authentication token when the correct username and password is supplied. The `username` and `password` fields must be supplied via REST.

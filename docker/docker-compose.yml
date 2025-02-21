@@ -26,7 +26,7 @@ services:
       - db
       - memcached
   db:
-    image: postgres:15.2-alpine
+    image: postgres:15.11-alpine
     volumes:
       - postgres_data:/var/lib/postgresql/data
     env_file:

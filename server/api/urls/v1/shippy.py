@@ -22,7 +22,7 @@ urlpatterns = [
         name="v1_maintainers_build_duplicate_check",
     ),
     path(
-        "maintainers/upload_filename_regex_pattern",
+        "maintainers/upload_filename_regex_pattern/",
         v1_maintainers_upload_filename_regex_pattern,
         name="v1_maintainers_upload_filename_regex_pattern",
     ),

@@ -44,6 +44,15 @@ def handle_chunked_build(device, chunked_file):
     # If x86, check for x86 type
     if filename_parts["codename"] in X86_DEVICE_CODENAMES:
         x86_type_codenames = [x.codename for x in X86Type.objects.all()]
+        if "x86_type" not in filename_parts:
+            raise UploadException(
+                {
+                    "error": "missing_x86_type",
+                    "message": "The x86 type is missing from the build's file name, "
+                    "even though the build is an x86 build.",
+                }
+            )
+
         if filename_parts["x86_type"] not in x86_type_codenames:
             raise UploadException(
                 {

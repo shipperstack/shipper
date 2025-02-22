@@ -1,7 +1,6 @@
 import argparse
 import re
 import glob
-import os.path
 import signal
 import sys
 from json import JSONDecodeError
@@ -298,18 +297,16 @@ def check_build(client, filename):
             return False
         print_success(f"Checksum {has_checksum_file_type.upper()} hash matches!")
 
-    build_slug, _ = os.path.splitext(filename)
-    _, _, _, build_type, build_variant, _ = build_slug.split("-")
+    matches = re.search(client.get_regex_pattern(), filename)
 
-    # Check build type
-    if build_type != "OFFICIAL":
-        print_error(msg="This build is not official. ", newline=False, exit_after=False)
+    if not matches:
+        print_error(msg="This build does not match any file name patterns. ", newline=False, exit_after=False)
         return False
-    else:
-        print_success("Build type is official!")
+
+    variant = matches.group("variant")
 
     # Check build variant
-    if build_variant not in client.get_shippy_upload_variants():
+    if variant not in client.get_shippy_upload_variants():
         print_error(
             msg="This build has an unknown variant. ",
             newline=False,
@@ -317,7 +314,7 @@ def check_build(client, filename):
         )
         return False
     else:
-        print_success(f"Build variant {build_variant} is supported!")
+        print_success(f"Build variant {variant} is supported!")
 
     print_success(f"Validation of build {filename} complete. No problems found.")
     return True

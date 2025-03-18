@@ -41,9 +41,7 @@ def parse_filename_with_regex(filename):
     match_dict = matches.groupdict()
 
     # Check if the required match groups exist within the matched dictionary
-    match_groups = ["version", "codename", "variant", "date"]
-    if matches.group("codename") == "x86":
-        match_groups.append("x86_type")
+    match_groups = get_required_capture_groups(matches.group("codename"))
     for match_group in match_groups:
         if match_group not in match_dict:
             raise UploadException(
@@ -54,3 +52,12 @@ def parse_filename_with_regex(filename):
             )
 
     return match_dict
+
+
+def get_required_capture_groups(codename):
+    groups = ["version", "codename", "variant", "date"]
+
+    if codename == "x86":
+        groups.append("x86_type")
+
+    return groups

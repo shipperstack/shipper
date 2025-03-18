@@ -47,7 +47,10 @@ def parse_filename_with_regex(filename):
     for match_group in match_groups:
         if match_group not in match_dict:
             raise UploadException(
-                {"error": "configuration_error", "message": "The server is improperly configured! All required match groups not found."}
+                {
+                    "error": "configuration_error",
+                    "message": "The server is improperly configured! All required match groups not found.",
+                }
             )
 
     return match_dict

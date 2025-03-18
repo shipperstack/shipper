@@ -14,6 +14,7 @@ from rest_framework.views import APIView
 
 from api.views.utils import get_distributed_download_url
 from core.models import Build, Device, Variant, Statistics
+from core.models.build.metadata import Metadata
 
 User = get_user_model()
 
@@ -119,6 +120,10 @@ class V1GeneralBuildLatest(APIView):
                 status=HTTP_404_NOT_FOUND,
             )
 
+        # Fetch any metadata values if they exist
+        metadata_objects = Metadata.objects.filter(build=build)
+        metadata_dict = {x.name: x.value for x in metadata_objects}
+
         return Response(
             {
                 "datetime": int(calendar.timegm(build.build_date.timetuple())),
@@ -136,6 +141,7 @@ class V1GeneralBuildLatest(APIView):
                         },
                     )
                 ),
+                "metadata": metadata_dict,
             },
             status=HTTP_200_OK,
         )

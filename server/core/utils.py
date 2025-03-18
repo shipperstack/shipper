@@ -38,4 +38,16 @@ def parse_filename_with_regex(filename):
             {"error": "invalid_file_name", "message": "The file name is malformed!"}
         )
 
-    return matches.groupdict()
+    match_dict = matches.groupdict()
+
+    # Check if the required match groups exist within the matched dictionary
+    match_groups = ["version", "codename", "variant", "date"]
+    if matches.group("codename") == "x86":
+        match_groups.append("x86_type")
+    for match_group in match_groups:
+        if match_group not in match_dict:
+            raise UploadException(
+                {"error": "configuration_error", "message": "The server is improperly configured! All required match groups not found."}
+            )
+
+    return match_dict

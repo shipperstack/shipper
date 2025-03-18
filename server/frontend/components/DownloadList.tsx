@@ -59,7 +59,6 @@ export default function DownloadList({
       {filtered_devices?.length ? (
         <div className="row row-cols-1 row-cols-md-4 g-4">
           {filtered_devices.map((device: Device) => {
-            console.log(device);
             return <DeviceCard device={device} key={device.codename} />;
           })}
         </div>

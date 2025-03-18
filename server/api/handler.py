@@ -15,6 +15,52 @@ def handle_chunked_build(device, chunked_file):
     # Parse file name
     filename_parts = parse_filename_with_regex(chunked_file.filename)
 
+    # Run validations before continuing
+    run_validations(chunked_file, filename_parts)
+
+    # Construct full path to save files in
+    target_file_full_path = os.path.join(
+        settings.MEDIA_ROOT, device.codename, chunked_file.filename
+    )
+
+    # See if the build exists from a previous failed attempt
+    if os.path.exists(target_file_full_path):
+        os.remove(target_file_full_path)
+
+    # Make sure device codename folder exists
+    if not os.path.exists(os.path.join(settings.MEDIA_ROOT, device.codename)):
+        os.mkdir(os.path.join(settings.MEDIA_ROOT, device.codename))
+
+    # Rename chunked file and move to correct folder
+    os.rename(chunked_file.file.path, target_file_full_path)
+
+    # Construct and save build object in database
+    build = Build(
+        device=device,
+        file_name=os.path.splitext(chunked_file.filename)[0],
+        size=os.path.getsize(target_file_full_path),
+        version=filename_parts["version"],
+        variant=Variant.objects.get(codename=filename_parts["variant"]),
+        build_date=datetime.strptime(filename_parts["date"], "%Y%m%d"),
+        zip_file="{}/{}".format(device.codename, chunked_file.filename),
+        enabled=True,
+    )
+    if filename_parts["codename"] in X86_DEVICE_CODENAMES:
+        build.x86_type = X86Type.objects.get(codename=filename_parts["x86_type"])
+
+    build.save()
+
+    # Delete unused chunked_upload file
+    chunked_file.delete()
+
+    # Execute background tasks
+    generate_checksum.delay(build.id)
+    mirror_build.delay(build.id)
+
+    return build.id
+
+
+def run_validations(chunked_file, filename_parts):
     # Check for duplicate builds
     if (
         Build.objects.filter(
@@ -77,44 +123,3 @@ def handle_chunked_build(device, chunked_file):
                 "admin to adjust server settings.",
             }
         )
-
-    # Construct full path to save files in
-    target_file_full_path = os.path.join(
-        settings.MEDIA_ROOT, device.codename, chunked_file.filename
-    )
-
-    # See if the build exists from a previous failed attempt
-    if os.path.exists(target_file_full_path):
-        os.remove(target_file_full_path)
-
-    # Make sure device codename folder exists
-    if not os.path.exists(os.path.join(settings.MEDIA_ROOT, device.codename)):
-        os.mkdir(os.path.join(settings.MEDIA_ROOT, device.codename))
-
-    # Rename chunked file and move to correct folder
-    os.rename(chunked_file.file.path, target_file_full_path)
-
-    # Construct and save build object in database
-    build = Build(
-        device=device,
-        file_name=os.path.splitext(chunked_file.filename)[0],
-        size=os.path.getsize(target_file_full_path),
-        version=filename_parts["version"],
-        variant=Variant.objects.get(codename=filename_parts["variant"]),
-        build_date=datetime.strptime(filename_parts["date"], "%Y%m%d"),
-        zip_file="{}/{}".format(device.codename, chunked_file.filename),
-        enabled=True,
-    )
-    if filename_parts["codename"] in X86_DEVICE_CODENAMES:
-        build.x86_type = X86Type.objects.get(codename=filename_parts["x86_type"])
-
-    build.save()
-
-    # Delete unused chunked_upload file
-    chunked_file.delete()
-
-    # Execute background tasks
-    generate_checksum.delay(build.id)
-    mirror_build.delay(build.id)
-
-    return build.id

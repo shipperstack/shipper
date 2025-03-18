@@ -3,14 +3,21 @@ from datetime import datetime
 
 from django.conf import settings
 from constance import config
+from django.db import transaction
 
 from config.constants import X86_DEVICE_CODENAMES
 from core.exceptions import UploadException
 from core.models import Build, Variant, X86Type
+from core.models.build.metadata import Metadata
 from core.tasks import generate_checksum, mirror_build
-from core.utils import parse_filename_with_regex, is_version_in_target_versions
+from core.utils import (
+    parse_filename_with_regex,
+    is_version_in_target_versions,
+    get_required_capture_groups,
+)
 
 
+@transaction.atomic
 def handle_chunked_build(device, chunked_file):
     # Parse file name
     filename_parts = parse_filename_with_regex(chunked_file.filename)
@@ -49,6 +56,9 @@ def handle_chunked_build(device, chunked_file):
         build.x86_type = X86Type.objects.get(codename=filename_parts["x86_type"])
 
     build.save()
+
+    # Create metadata objects for build (if any exists)
+    create_metadata(build, filename_parts)
 
     # Delete unused chunked_upload file
     chunked_file.delete()
@@ -123,3 +133,20 @@ def run_validations(chunked_file, filename_parts):
                 "admin to adjust server settings.",
             }
         )
+
+
+def create_metadata(build, filename_parts):
+    # Filter out all keys that are not part of the required groups
+    required_groups = get_required_capture_groups(filename_parts["codename"])
+    filtered_parts = {
+        k: v for k, v in filename_parts.items() if k not in required_groups
+    }
+
+    # For remaining groups, construct metadata objects associated with build
+    for key in filtered_parts:
+        metadata = Metadata(
+            build=build,
+            name=key,
+            value=filtered_parts[key],
+        )
+        metadata.save()

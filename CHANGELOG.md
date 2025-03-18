@@ -6,29 +6,69 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.41.8...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.42.0...HEAD
 
+# [2.42.0] - 2025-03-18
+
+## Added
+
+- shipper now handles extra metadata in file names (#699)
+- shippers displays build metadata in the general API (#699)
+
+## Changed
+
+- Update PostgreSQL in server Docker image from 15.2 to 15.11
+- If a build mirror task exceeds the time limit, it is now properly mapped to an exception
+- If a build mirror task fails due to network errors an explicit error is raised
+- Fixed shippy crashing on rare occasions where it would attempt to display two live statuses at once
+- Device notes are now multi-line
+- Fixed the regex pattern API not loading depending on the trailing slash
+- shippy now uses the regex pattern returned from the server to match build slugs
+- shipper now explicitly checks for the `x86_type` field for x86 builds in file name parts
+- shipper raises an exception if required match groups are missing
+- General code cleanup
+- Updated dependencies (server)
+  - @types/react (19.0.8 -> 19.0.11)
+  - prettier (3.5.1 -> 3.5.3)
+  - babel-loader (9.2.1 -> 10.0.0)
+  - typescript (5.7.3 -> 5.8.2)
+  - django (5.1.6 -> 5.1.7)
+  - @babel/core (7.26.9 -> 7.26.10)
+  - @babel/runtime (7.25.9 -> 7.26.10)
+  - sentry-sdk (2.22.0 -> 2.23.1)
+- Updated dependencies (release-helper)
+  - clap (4.5.30 -> 4.5.32)
+  - chrono (0.4.39 -> 0.4.40)
+  - anyhow (1.0.96 -> 1.0.97)
+  - semver (1.0.25 -> 1.0.26)
+  - git2 (0.20.0 -> 0.20.1)
+- Updated dependencies (shippy)
+  - setuptools (75.8.0 -> 76.1.0)
+  - sentry-sdk (2.22.0 -> 2.23.1)
+
+[2.42.0]: https://github.com/shipperstack/shipper/compare/2.41.8...2.42.0
 
 # [2.41.8] - 2025-02-20
 
 ## Changed
+
 - Updated frontend to React 19
 - Updated base Dockerfile Alpine packages (git, Python, PostgreSQL)
 - Properly define dependencies as non-developer dependencies in frontend
 - Fixed an unclosed image tag without an alt text on the frontend
 - General code cleanup
 - Updated dependencies (shippy)
-	- sentry-sdk (2.17.0 -> 2.22.0)
-	- setuptools (75.3.0 -> 75.8.0)
-	- loguru (0.7.2 -> 0.7.3)
-	- semver (3.0.2 -> 3.0.4)
-	- humanize (4.11.0 -> 4.12.1)
+  - sentry-sdk (2.17.0 -> 2.22.0)
+  - setuptools (75.3.0 -> 75.8.0)
+  - loguru (0.7.2 -> 0.7.3)
+  - semver (3.0.2 -> 3.0.4)
+  - humanize (4.11.0 -> 4.12.1)
 - Updated dependencies (release-helper)
-	- anyhow (1.0.92 -> 1.0.96)
-	- clap (4.5.20 -> 4.5.30)
-	- chrono (0.4.38 -> 0.4.39)
-	- semver (1.0.23 -> 1.0.25)
-	- git2 (0.19.0 -> 0.20.0)
+  - anyhow (1.0.92 -> 1.0.96)
+  - clap (4.5.20 -> 4.5.30)
+  - chrono (0.4.38 -> 0.4.39)
+  - semver (1.0.23 -> 1.0.25)
+  - git2 (0.19.0 -> 0.20.0)
 - Updated dependencies (server)
   - django-constance[database] (4.1.2 -> 4.3.2)
   - sentry-sdk (2.17.0 -> 2.22.0)
@@ -50,37 +90,36 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 [2.41.8]: https://github.com/shipperstack/shipper/compare/2.41.7...2.41.8
 
-
 # [2.41.7] - 2024-11-02
 
 ## Changed
+
 - Fixed server Docker image build by updating Alpine Python versions
 - Fixed server Docker image build by updating Alpine Postgres package to 15.8
 - Fixed release helper crashing if commit was not parsable as dependency commit
 - Updated dependencies (release-helper)
-	- clap (4.5.19 -> 4.5.20)
-	- anyhow (1.0.89 -> 1.0.92)
-	- regex (1.11.0 -> 1.11.1)
+  - clap (4.5.19 -> 4.5.20)
+  - anyhow (1.0.89 -> 1.0.92)
+  - regex (1.11.0 -> 1.11.1)
 - Updated dependencies (shippy)
-	- rich (13.9.1 -> 13.9.4)
-	- humanize (4.10.0 -> 4.11.0)
-	- sentry-sdk (2.15.0 -> 2.17.0)
-	- setuptools (75.1.0 -> 75.3.0)
+  - rich (13.9.1 -> 13.9.4)
+  - humanize (4.10.0 -> 4.11.0)
+  - sentry-sdk (2.15.0 -> 2.17.0)
+  - setuptools (75.1.0 -> 75.3.0)
 - Updated dependencies (server)
   - crispy-bootstrap5 (2024.2 -> 2024.10)
-	- humanize (4.10.0 -> 4.11.0)
-	- django (5.1.1 -> 5.1.2)
-	- typescript (5.6.2 -> 5.6.3)
-	- sentry-sdk (2.15.0 -> 2.17.0)
-	- @babel/core (7.25.7 -> 7.26.0)
-	- @babel/preset-env (7.25.7 -> 7.26.0)
-	- @types/react-dom (18.3.0 -> 18.3.1)
-	- psycopg2-binary (2.9.9 -> 2.9.10)
-	- @types/react (18.3.11 -> 18.3.12)
-	- webpack (5.95.0 -> 5.96.1)
+  - humanize (4.10.0 -> 4.11.0)
+  - django (5.1.1 -> 5.1.2)
+  - typescript (5.6.2 -> 5.6.3)
+  - sentry-sdk (2.15.0 -> 2.17.0)
+  - @babel/core (7.25.7 -> 7.26.0)
+  - @babel/preset-env (7.25.7 -> 7.26.0)
+  - @types/react-dom (18.3.0 -> 18.3.1)
+  - psycopg2-binary (2.9.9 -> 2.9.10)
+  - @types/react (18.3.11 -> 18.3.12)
+  - webpack (5.95.0 -> 5.96.1)
 
 [2.41.7]: https://github.com/shipperstack/shipper/compare/2.41.6...2.41.7
-
 
 # [2.41.6] - 2024-10-03
 
@@ -89,23 +128,22 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 - The release-helper now merges multiple version bumps (#615)
 - General code cleanup
 - Updated dependencies (server)
-	- django-cleanup (8.1.0 -> 9.0.0)
-	- @types/react (18.3.7 -> 18.3.11)
-	- webpack (5.94.0 -> 5.95.0)
-	- sentry-sdk (2.14.0 -> 2.15.0)
-	- @babel/core (7.25.2 -> 7.25.7)
-	- @babel/preset-env (7.25.4 -> 7.25.7)
+  - django-cleanup (8.1.0 -> 9.0.0)
+  - @types/react (18.3.7 -> 18.3.11)
+  - webpack (5.94.0 -> 5.95.0)
+  - sentry-sdk (2.14.0 -> 2.15.0)
+  - @babel/core (7.25.2 -> 7.25.7)
+  - @babel/preset-env (7.25.4 -> 7.25.7)
   - django-constance[database] (4.1.1 -> 4.1.2)
   - @babel/preset-react (7.24.7 -> 7.25.7)
 - Updated dependencies (release-helper)
-	- clap (4.5.17 -> 4.5.19)
-	- regex (1.10.6 -> 1.11.0)
+  - clap (4.5.17 -> 4.5.19)
+  - regex (1.10.6 -> 1.11.0)
 - Updated dependencies (shippy)
-	- sentry-sdk (2.14.0 -> 2.15.0)
-	- rich (13.8.1 -> 13.9.1)
+  - sentry-sdk (2.14.0 -> 2.15.0)
+  - rich (13.8.1 -> 13.9.1)
 
 [2.41.6]: https://github.com/shipperstack/shipper/compare/2.41.5...2.41.6
-
 
 # [2.41.5] - 2024-09-19
 
@@ -114,24 +152,23 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 - Fixed the server Docker image not building due to outdated Alpine packages
 - Fixed shippy not setting the exit code based on success or failure of uploading and disabling status
 - Updated dependencies (server)
-	- django-dbbackup (4.2.0 -> 4.2.1)
-	- @types/react (18.3.4 -> 18.3.7)
-	- django (5.1 -> 5.1.1)
-	- typescript (5.5.4 -> 5.6.2)
-	- sentry-sdk (2.13.0 -> 2.14.0)
-	- babel-loader (9.1.3 -> 9.2.1)
-	- paramiko (3.4.1 -> 3.5.0)
+  - django-dbbackup (4.2.0 -> 4.2.1)
+  - @types/react (18.3.4 -> 18.3.7)
+  - django (5.1 -> 5.1.1)
+  - typescript (5.5.4 -> 5.6.2)
+  - sentry-sdk (2.13.0 -> 2.14.0)
+  - babel-loader (9.1.3 -> 9.2.1)
+  - paramiko (3.4.1 -> 3.5.0)
   - django-constance[database] (4.0.0 -> 4.1.1)
 - Updated dependencies (release-helper)
-	- clap (4.5.16 -> 4.5.17)
-	- anyhow (1.0.86 -> 1.0.89)
+  - clap (4.5.16 -> 4.5.17)
+  - anyhow (1.0.86 -> 1.0.89)
 - Updated dependencies (shippy)
-	- rich (13.7.1 -> 13.8.1)
-	- setuptools (73.0.1 -> 75.1.0)
-	- sentry-sdk (2.13.0 -> 2.14.0)
+  - rich (13.7.1 -> 13.8.1)
+  - setuptools (73.0.1 -> 75.1.0)
+  - sentry-sdk (2.13.0 -> 2.14.0)
 
 [2.41.5]: https://github.com/shipperstack/shipper/compare/2.41.4...2.41.5
-
 
 # [2.41.4] - 2024-08-25
 
@@ -145,7 +182,6 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 [2.41.4]: https://github.com/shipperstack/shipper/compare/2.41.3...2.41.4
 
-
 # [2.41.3] - 2024-08-23
 
 ## Added
@@ -155,16 +191,15 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 ## Changed
 
 - Updated dependencies (shippy)
-	- setuptools (72.2.0 -> 73.0.1)
+  - setuptools (72.2.0 -> 73.0.1)
 - Updated dependencies (server)
-	- @types/react (18.3.3 -> 18.3.4)
-	- webpack (5.93.0 -> 5.94.0)
-	- @babel/preset-env (7.25.3 -> 7.25.4)
-	- django-celery-beat (2.6.0 -> 2.7.0)
-	- django (5.0.8 -> 5.1)
+  - @types/react (18.3.3 -> 18.3.4)
+  - webpack (5.93.0 -> 5.94.0)
+  - @babel/preset-env (7.25.3 -> 7.25.4)
+  - django-celery-beat (2.6.0 -> 2.7.0)
+  - django (5.0.8 -> 5.1)
 
 [2.41.3]: https://github.com/shipperstack/shipper/compare/2.41.2...2.41.3
-
 
 # [2.41.2] - 2024-08-18
 
@@ -180,7 +215,6 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 - General code cleanup
 
 [2.41.2]: https://github.com/shipperstack/shipper/compare/2.41.1...2.41.2
-
 
 # [2.41.1] - 2024-08-17
 
@@ -202,6 +236,7 @@ This release contains a database migration.
 - Added a device note edit screen for maintainers (#527)
 
 ## Changed
+
 - Fixed some models not being picked up in the audit log
 - Fixed a React key issue in a list on the frontend
 - The SQLite3 backend correctly utilizes the given database name in the config
@@ -211,22 +246,22 @@ This release contains a database migration.
 - Fixed a bug with HTTP/HTTPS URL generation with the protocol forwarded by nginx (#562)
 - General code cleanup
 - Updated dependencies (server)
-	- @babel/core (7.24.8 -> 7.25.2)
-	- prettier (3.3.2 -> 3.3.3)
-	- sentry-sdk (2.9.0 -> 2.13.0)
-	- django-crispy-forms (2.2 -> 2.3)
-	- typescript (5.5.3 -> 5.5.4)
-	- @babel/preset-env (7.24.8 -> 7.25.3)
-	- django (5.0.7 -> 5.0.8)
-	- pyyaml (6.0.1 -> 6.0.2)
-	- gunicorn (22.0.0 -> 23.0.0)
-	- paramiko (3.4.0 -> 3.4.1)
+  - @babel/core (7.24.8 -> 7.25.2)
+  - prettier (3.3.2 -> 3.3.3)
+  - sentry-sdk (2.9.0 -> 2.13.0)
+  - django-crispy-forms (2.2 -> 2.3)
+  - typescript (5.5.3 -> 5.5.4)
+  - @babel/preset-env (7.24.8 -> 7.25.3)
+  - django (5.0.7 -> 5.0.8)
+  - pyyaml (6.0.1 -> 6.0.2)
+  - gunicorn (22.0.0 -> 23.0.0)
+  - paramiko (3.4.0 -> 3.4.1)
 - Updated dependencies (release-helper)
-	- clap (4.5.9 -> 4.5.16)
-	- regex (1.10.5 -> 1.10.6)
+  - clap (4.5.9 -> 4.5.16)
+  - regex (1.10.5 -> 1.10.6)
 - Updated dependencies (shippy)
-	- sentry-sdk (2.9.0 -> 2.13.0)
-	- setuptools (70.3.0 -> 72.2.0)
+  - sentry-sdk (2.9.0 -> 2.13.0)
+  - setuptools (70.3.0 -> 72.2.0)
 
 [2.41.0]: https://github.com/shipperstack/shipper/compare/2.40.0...2.41.0
 

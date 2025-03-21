@@ -18,5 +18,5 @@ pymemcache==4.0.0
 python-dotenv==1.0.1
 pyyaml==6.0.2
 requests==2.32.3
-sentry-sdk==2.23.1
+sentry-sdk==2.24.0
 thumbhash-python==1.0.1

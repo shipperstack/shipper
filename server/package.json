@@ -18,7 +18,7 @@
     "@babel/core": "^7.22.10",
     "@babel/preset-env": "^7.22.10",
     "@babel/preset-react": "^7.22.5",
-    "@types/react": "19.1.0",
+    "@types/react": "19.1.1",
     "@types/react-dom": "19.1.2",
     "babel-loader": "^10.0.0",
     "fuse.js": "^7.0.0",

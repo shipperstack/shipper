@@ -139,7 +139,9 @@ def create_metadata(build, filename_parts):
     # Filter out all keys that are not part of the required groups
     required_groups = get_required_capture_groups(filename_parts["codename"])
     filtered_parts = {
-        k: v for k, v in filename_parts.items() if k not in required_groups
+        k: v
+        for k, v in filename_parts.items()
+        if k not in required_groups and v is not None
     }
 
     # For remaining groups, construct metadata objects associated with build

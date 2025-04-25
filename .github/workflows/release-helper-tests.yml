@@ -25,3 +25,23 @@ jobs:
       - name: Run tests
         working-directory: ./release-helper
         run: cargo test --verbose
+  coverage:
+    runs-on: ubuntu-latest
+    container:
+      image: xd009642/tarpaulin:develop-nightly
+      options: --security-opt seccomp=unconfined
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Generate code coverage
+        working-directory: ./release-helper
+        run: |
+          cargo +nightly tarpaulin --verbose --all-features --workspace --timeout 120 --out xml
+      - name: Upload finalized coverage report
+        uses: codecov/codecov-action@v5.4.2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          directory: ./release-helper
+          verbose: true
+          fail_ci_if_error: true
+          flags: release-helper

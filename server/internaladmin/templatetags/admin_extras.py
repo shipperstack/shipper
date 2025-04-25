@@ -7,10 +7,14 @@ register = template.Library()
 
 
 @register.inclusion_tag("admin_stats_variant_row.html")
-def admin_stats_variant_row(variant):
+def admin_stats_variant_row(variant_codename):
+    variant = Variant.objects.get(codename=variant_codename)
+
     return {
-        "variant_name": Variant.objects.get(codename=variant).description,
-        "variant_builds_count": Build.objects.filter(variant__codename=variant).count(),
+        "variant_name": variant.description,
+        "variant_builds_count": Build.objects.filter(
+            variant__codename=variant_codename
+        ).count(),
         "variant_builds_size": get_humanized_total_size(
             Build.objects.filter(variant=variant)
         ),

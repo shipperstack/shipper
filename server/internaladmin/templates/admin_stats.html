@@ -23,8 +23,8 @@
         </tr>
         </thead>
         <tbody>
-        {% for variant in upload_variants %}
-            {% admin_stats_variant_row variant=variant %}
+        {% for variant_codename in upload_variants %}
+            {% admin_stats_variant_row variant_codename=variant_codename %}
         {% endfor %}
         </tbody>
         <tfoot>

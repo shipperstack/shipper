@@ -6,36 +6,58 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.42.1...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.42.2...HEAD
 
+# [2.42.2] - 2025-04-25
+
+## Changed
+
+- Fixed the internal admin statistics page crashing
+- Fixed an issue where OS errors during build mirroring were being treated as crashes to Sentry
+- General code cleanup
+- Updated dependencies (server)
+  - sentry-sdk (2.25.1 -> 2.27.0)
+  - @types/react (19.1.1 -> 19.1.2)
+  - django-celery-beat (2.7.0 -> 2.8.0)
+  - django-crispy-forms (2.3 -> 2.4)
+  - webpack (5.99.5 -> 5.99.7)
+- Updated dependencies (release-helper)
+  - clap (4.5.35 -> 4.5.37)
+  - anyhow (1.0.97 -> 1.0.98)
+- Updated dependencies (shippy)
+  - sentry-sdk (2.25.1 -> 2.27.0)
+  - setuptools (78.1.0 -> 79.0.1)
+
+[2.42.2]: https://github.com/shipperstack/shipper/compare/2.42.1...2.42.2
 
 # [2.42.1] - 2025-04-12
 
 ## Changed
+
 - Fixed the frontend unnecessarily logging device information from API
 - Fixed the metadata saving process crashing build upload due to missing values
 - Updated Python in server Dockerfile to 3.12.10-r0
 - Updated dependencies (server)
-	- @types/react (19.0.11 -> 19.1.1)
-	- sentry-sdk (2.23.1 -> 2.25.1)
-	- humanize (4.12.1 -> 4.12.2)
-	- python-dotenv (1.0.1 -> 1.1.0)
-	- djangorestframework (3.15.2 -> 3.16.0)
-	- react (19.0.0 -> 19.1.0)
-	- react-dom (19.0.0 -> 19.1.0)
-	- @types/react-dom (19.0.4 -> 19.1.2)
-	- typescript (5.8.2 -> 5.8.3)
-	- webpack (5.98.0 -> 5.99.5)
-	- celery (5.4.0 -> 5.5.1)
-	- django-celery-results (2.5.1 -> 2.6.0)
+  - @types/react (19.0.11 -> 19.1.1)
+  - sentry-sdk (2.23.1 -> 2.25.1)
+  - humanize (4.12.1 -> 4.12.2)
+  - python-dotenv (1.0.1 -> 1.1.0)
+  - djangorestframework (3.15.2 -> 3.16.0)
+  - react (19.0.0 -> 19.1.0)
+  - react-dom (19.0.0 -> 19.1.0)
+  - @types/react-dom (19.0.4 -> 19.1.2)
+  - typescript (5.8.2 -> 5.8.3)
+  - webpack (5.98.0 -> 5.99.5)
+  - celery (5.4.0 -> 5.5.1)
+  - django-celery-results (2.5.1 -> 2.6.0)
   - crispy-bootstrap5 (2024.10 -> 2025.4)
 - Updated dependencies (shippy)
-	- setuptools (76.1.0 -> 78.1.0)
-	- sentry-sdk (2.23.1 -> 2.25.1)
-	- humanize (4.12.1 -> 4.12.2)
-	- rich (13.9.4 -> 14.0.0)
+  - setuptools (76.1.0 -> 78.1.0)
+  - sentry-sdk (2.23.1 -> 2.25.1)
+  - humanize (4.12.1 -> 4.12.2)
+  - rich (13.9.4 -> 14.0.0)
 - Updated dependencies (release-helper)
-	- clap (4.5.32 -> 4.5.35)
+  - clap (4.5.32 -> 4.5.35)
 
 [2.42.1]: https://github.com/shipperstack/shipper/compare/2.42.0...2.42.1
 

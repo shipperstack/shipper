@@ -3,7 +3,11 @@ from django.test import RequestFactory, TestCase
 from core.tests.base import mock_setup
 from django.contrib.auth import get_user_model
 
-from internaladmin.views import AdminStatisticsView, get_humanized_total_size
+from internaladmin.views import (
+    AdminBuildMirrorStatusView,
+    AdminStatisticsView,
+    get_humanized_total_size,
+)
 
 User = get_user_model()
 
@@ -42,5 +46,19 @@ class InternalAdminViewTestCase(TestCase):
         request = self.factory.get("")
         request.user = AnonymousUser()
         response = AdminStatisticsView.as_view()(request)
+
+        self.assertEqual(response.status_code, 302)
+
+    def test_admin_mirror_status_view(self):
+        request = self.factory.get("")
+        request.user = self.user
+        response = AdminBuildMirrorStatusView.as_view()(request)
+
+        self.assertEqual(response.status_code, 200)
+
+    def test_admin_mirror_status_view_no_permissions(self):
+        request = self.factory.get("")
+        request.user = AnonymousUser()
+        response = AdminBuildMirrorStatusView.as_view()(request)
 
         self.assertEqual(response.status_code, 302)

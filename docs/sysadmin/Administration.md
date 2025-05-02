@@ -25,7 +25,7 @@ De-initializes a "full" user by removing access to all enabled devices. The spec
 
 For a full overview on all of the commands, [visit the `django-dbbackup` documentation.][django-dbbackup-docs]
 
-[django-dbbackup-docs]: https://django-dbbackup.readthedocs.io/en/master/commands.html
+[django-dbbackup-docs]: https://django-dbbackup.readthedocs.io/en/stable/commands.html
 
 #### `dbbackup`
 

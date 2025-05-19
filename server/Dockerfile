@@ -9,7 +9,7 @@ RUN apk update \
   netcat-openbsd=1.226-r0 \
   gettext=0.22.5-r0 \
   git=2.45.3-r0 \
-  postgresql15-client=15.11-r0 \
+  postgresql15-client=15.13-r0 \
   libffi-dev=3.4.6-r0 \
   build-base=0.5-r3 \
   nodejs=20.15.1-r0 \

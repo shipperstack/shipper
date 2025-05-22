@@ -5,14 +5,14 @@ RUN apk update \
   && apk add --no-cache \
   python3=3.12.10-r1 \
   python3-dev=3.12.10-r1 \
-  py3-pip=24.0-r2 \
-  netcat-openbsd=1.226-r0 \
+  py3-pip=24.3.1-r0 \
+  netcat-openbsd=1.226.1.1-r0 \
   gettext=0.22.5-r0 \
-  git=2.45.3-r0 \
+  git=2.47.2-r0 \
   postgresql15-client=15.13-r0 \
-  libffi-dev=3.4.6-r0 \
+  libffi-dev=3.4.7-r0 \
   build-base=0.5-r3 \
-  nodejs=20.15.1-r0 \
+  nodejs=22.13.1-r0 \
   npm=10.9.1-r0
 
 # Python environment variables

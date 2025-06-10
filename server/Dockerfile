@@ -3,8 +3,8 @@ FROM alpine:3.21
 # Install base dependencies
 RUN apk update \
   && apk add --no-cache \
-  python3=3.12.10-r1 \
-  python3-dev=3.12.10-r1 \
+  python3=3.12.11-r0 \
+  python3-dev=3.12.11-r0 \
   py3-pip=24.3.1-r0 \
   netcat-openbsd=1.226.1.1-r0 \
   gettext=0.22.5-r0 \

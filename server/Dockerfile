@@ -12,7 +12,7 @@ RUN apk update \
   postgresql15-client=15.13-r0 \
   libffi-dev=3.4.7-r0 \
   build-base=0.5-r3 \
-  nodejs=22.13.1-r0 \
+  nodejs=22.15.1-r0 \
   npm=10.9.1-r0
 
 # Python environment variables

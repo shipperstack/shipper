@@ -17,6 +17,6 @@ psycopg2-binary==2.9.10
 pymemcache==4.0.0
 python-dotenv==1.1.0
 pyyaml==6.0.2
-requests==2.32.3
+requests==2.32.4
 sentry-sdk==2.29.1
 thumbhash-python==1.0.1

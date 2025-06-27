@@ -12,7 +12,7 @@
   "author": "",
   "license": "SEE LICENSE IN ../LICENSE",
   "devDependencies": {
-    "prettier": "3.6.0"
+    "prettier": "3.6.2"
   },
   "dependencies": {
     "@babel/core": "^7.22.10",

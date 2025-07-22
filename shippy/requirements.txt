@@ -3,5 +3,5 @@ loguru==0.7.3
 requests==2.32.4
 rich==14.0.0
 semver==3.0.4
-sentry-sdk==2.33.1
+sentry-sdk==2.33.2
 setuptools==80.9.0

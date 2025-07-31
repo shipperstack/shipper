@@ -6,7 +6,49 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.42.2...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.42.3...HEAD
+
+# [2.42.3] - 2025-07-31
+
+## Changed
+
+- Updated PostgreSQL client version in server Dockerfile (15.11 -> 15.13)
+- Updated Python in server Dockerfile (3.12.10-r0 -> 3.12.11-r0)
+- Updated server base Alpine image (3.20 -> 3.21)
+- Updated Alpine packages in server Dockerfile
+- Updated NodeJS in server Dockerfile (22.13.1-r0 -> 22.15.1-r0)
+- Updated git in server Dockerfile (2.47.2-r0 -> 2.47.3-r0)
+- Updated dependencies (shippy)
+  - setuptools (79.0.1 -> 80.9.0)
+  - humanize (4.12.2 -> 4.12.3)
+  - sentry-sdk (2.27.0 -> 2.34.1)
+  - requests (2.32.3 -> 2.32.4)
+  - rich (14.0.0 -> 14.1.0)
+- Updated dependencies (release-helper)
+  - chrono (0.4.40 -> 0.4.41)
+  - git2 (0.20.1 -> 0.20.2)
+  - clap (4.5.37 -> 4.5.42)
+- Updated dependencies (server)
+  - crispy-bootstrap5 (2025.4 -> 2025.6)
+  - celery (5.5.1 -> 5.5.3)
+  - django-auditlog (3.0.0 -> 3.2.1)
+  - @babel/preset-react (7.26.3 -> 7.27.1)
+  - @babel/preset-env (7.26.9 -> 7.28.0)
+  - @types/react-dom (19.1.2 -> 19.1.7)
+  - @babel/core (7.26.10 -> 7.28.0)
+  - humanize (4.12.2 -> 4.12.3)
+  - webpack (5.99.7 -> 5.101.0)
+  - @types/react (19.1.2 -> 19.1.9)
+  - sentry-sdk (2.27.0 -> 2.34.1)
+  - django-dbbackup (4.2.1 -> 4.3.0)
+  - django-celery-beat (2.8.0 -> 2.8.1)
+  - requests (2.32.3 -> 2.32.4)
+  - prettier (3.5.3 -> 3.6.2)
+  - python-dotenv (1.1.0 -> 1.1.1)
+  - react (19.1.0 -> 19.1.1)
+  - react-dom (19.1.0 -> 19.1.1)
+
+[2.42.3]: https://github.com/shipperstack/shipper/compare/2.42.2...2.42.3
 
 # [2.42.2] - 2025-04-25
 

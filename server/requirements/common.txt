@@ -12,7 +12,7 @@ django-ipware==7.0.1
 djangorestframework==3.16.0
 drf-chunked-upload==0.6.0
 humanize==4.12.3
-paramiko==3.5.1
+paramiko==4.0.0
 psycopg2-binary==2.9.10
 pymemcache==4.0.0
 python-dotenv==1.1.1

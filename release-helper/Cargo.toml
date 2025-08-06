@@ -11,7 +11,7 @@ publish = false
 [dependencies]
 chrono = "0.4.41"
 anyhow = "1.0.98"
-clap = { version = "4.5.42", features = ["derive"] }
+clap = { version = "4.5.43", features = ["derive"] }
 git2 = "0.20.2"
 regex = "1.11.1"
 semver = "1.0.26"

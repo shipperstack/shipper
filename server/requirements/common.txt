@@ -9,7 +9,7 @@ django-constance[database]==4.3.2
 django-crispy-forms==2.4
 django-dbbackup==4.3.0
 django-ipware==7.0.1
-djangorestframework==3.16.0
+djangorestframework==3.16.1
 drf-chunked-upload==0.6.0
 humanize==4.12.3
 paramiko==4.0.0

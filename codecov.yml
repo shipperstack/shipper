@@ -1,0 +1,9 @@
+flags:
+  server:
+    paths:
+      - server/
+    carryforward: true
+  release-helper:
+    paths:
+      - release-helper/
+    carryforward: true

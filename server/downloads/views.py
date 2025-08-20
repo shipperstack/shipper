@@ -26,6 +26,7 @@ class DownloadsMainView(TemplateView):
                     "codename": device.codename,
                     "enabled": device.status,
                     "photo_url": device.photo_url,
+                    "photo_thumbhash": device.photo_thumbhash,
                     "name": str(device),
                     "url": reverse(
                         "downloads_device", kwargs={"codename": device.codename}

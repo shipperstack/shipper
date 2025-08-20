@@ -53,8 +53,7 @@ RUN chown -R shipper:shipper $APP_HOME
 # Change to the shipper user
 USER shipper
 
-# Frontend generation
-# Warning: do not use --omit=dev, as webpack and bundler is required for building!
+# Frontend generation (production)
 RUN pnpm install -P \
   && pnpm run build
 

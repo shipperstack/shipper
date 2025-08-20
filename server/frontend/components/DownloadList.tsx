@@ -6,6 +6,7 @@ import DeviceCard from "./DeviceCard";
 export interface Device {
   enabled: boolean;
   photo_url: string;
+  photo_thumbhash: string;
   codename: string;
   url: string;
   name: string;

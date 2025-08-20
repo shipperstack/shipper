@@ -17,6 +17,12 @@ Mirrors builds that have not been mirrored yet to the appropriate mirror servers
 Checks the filesystem to make sure that all builds exist. If any build does not
 exist, then the file will be unset on the Django admin portal.
 
+#### `check_mirror_missing_builds`
+
+Checks all builds to make sure that each build's mirrors still have the build. 
+If any check fails, then that particular mirror will be unset on the Django
+admin portal for that build.
+
 
 ### `django-dbbackup`
 

@@ -12,7 +12,7 @@ Calculates build hashes for builds that do not have them (maybe interrupted mid-
 
 Mirrors builds that have not been mirrored yet to the appropriate mirror servers
 
-#### `check_missing_builds`
+#### `check_fs_missing_builds`
 
 Checks the filesystem to make sure that all builds exist. If any build does not
 exist, then the file will be unset on the Django admin portal.

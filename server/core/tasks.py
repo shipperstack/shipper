@@ -193,6 +193,18 @@ def upload_build_to_mirror(self, build_id, build, mirror):
         )
 
 
+def check_build_exists_on_mirror(build, mirror):
+    sftp = sftp_client_init(mirror)
+    target_file_name = f"{build.file_name}.zip"
+
+    target_path = f"{build.device.codename}/{target_file_name}"
+    try:
+        sftp.stat(target_path)
+        return True
+    except FileNotFoundError:
+        return False
+
+
 def sftp_client_init(mirror):
     ssh = paramiko.SSHClient()
 

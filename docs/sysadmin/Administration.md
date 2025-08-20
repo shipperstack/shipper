@@ -20,7 +20,8 @@ there is now a setting to mark a user as having "full access."
 Use the command below to "deinit" the user, and then mark them as having "full access"
 on the Django admin page.
 
-Initializes a "full" user that has access to all enabled devices. The specified user must exist within shipper first!
+Initializes a "full" user that has access to all enabled devices. The specified
+user must exist within shipper first!
 
 #### `deinit_full_user` <`username`>
 
@@ -28,7 +29,8 @@ WARNING: this command has been deprecated and will be removed on future versions
 of shipper. Use the instructions above to "deinit" the user and mark them as
 having "full access."
 
-De-initializes a "full" user by removing access to all enabled devices. The specified user must exist within shipper first!
+De-initializes a "full" user by removing access to all enabled devices. The
+specified user must exist within shipper first!
 
 #### `check_missing_builds`
 
@@ -73,4 +75,5 @@ For details on the command below, [visit the `drf-chunked-upload` source.][drf-c
 
 Deletes expired uploads. Use `-i` for interactive.
 
-Do NOT use `-k` as it will delete the file but keep the record on the database. shipper will get confused since the offset is preserved and the upload attempt will fail.
+Do NOT use `-k` as it will delete the file but keep the record on the database.
+shipper will get confused since the offset is preserved and the upload attempt will fail.

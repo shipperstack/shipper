@@ -6,7 +6,30 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.42.3...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.42.4...HEAD
+
+# [2.42.4] - 2025-08-20
+
+## Changed
+
+- Updated dependencies (shippy)
+  - sentry-sdk (2.34.1 -> 2.35.0)
+  - requests (2.32.4 -> 2.32.5)
+- Updated dependencies (release-helper)
+  - clap (4.5.42 -> 4.5.45)
+  - anyhow (1.0.98 -> 1.0.99)
+- Updated dependencies (server)
+  - typescript (5.8.3 -> 5.9.2)
+  - paramiko (3.5.1 -> 4.0.0)
+  - djangorestframework (3.16.0 -> 3.16.1)
+  - webpack (5.101.0 -> 5.101.3)
+  - @types/react (19.1.9 -> 19.1.10)
+  - sentry-sdk (2.34.1 -> 2.35.0)
+  - @babel/preset-env (7.28.0 -> 7.28.3)
+  - @babel/core (7.28.0 -> 7.28.3)
+  - requests (2.32.4 -> 2.32.5)
+
+[2.42.4]: https://github.com/shipperstack/shipper/compare/2.42.3...2.42.4
 
 # [2.42.3] - 2025-07-31
 

@@ -13,7 +13,7 @@ RUN apk update \
   libffi-dev=3.4.7-r0 \
   build-base=0.5-r3 \
   nodejs=22.15.1-r0 \
-  npm=10.9.1-r0
+  pnpm=9.15.9-r0
 
 # Python environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -55,7 +55,7 @@ USER shipper
 
 # Frontend generation
 # Warning: do not use --omit=dev, as webpack and bundler is required for building!
-RUN npm install --omit=dev \
-  && npm run build
+RUN pnpm install -P \
+  && pnpm run build
 
 ENTRYPOINT ["/bin/sh"]

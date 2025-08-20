@@ -13,7 +13,7 @@ RUN apk update \
   libffi-dev=3.4.8-r0 \
   build-base=0.5-r3 \
   nodejs=22.16.0-r2 \
-  pnpm=9.15.9-r0
+  pnpm=10.9.0-r0
 
 # Python environment variables
 ENV PYTHONDONTWRITEBYTECODE=1

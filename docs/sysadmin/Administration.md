@@ -30,6 +30,11 @@ having "full access."
 
 De-initializes a "full" user by removing access to all enabled devices. The specified user must exist within shipper first!
 
+#### `check_missing_builds`
+
+Checks the filesystem to make sure that all builds exist. If any build does not
+exist, then the file will be unset on the Django admin portal.
+
 
 ### `django-dbbackup`
 

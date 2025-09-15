@@ -14,4 +14,4 @@ anyhow = "1.0.99"
 clap = { version = "4.5.47", features = ["derive"] }
 git2 = "0.20.2"
 regex = "1.11.2"
-semver = "1.0.26"
+semver = "1.0.27"

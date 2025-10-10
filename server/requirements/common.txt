@@ -13,7 +13,7 @@ djangorestframework==3.16.1
 drf-chunked-upload==0.6.0
 humanize==4.13.0
 paramiko==4.0.0
-psycopg2-binary==2.9.10
+psycopg2-binary==2.9.11
 pymemcache==4.0.0
 python-dotenv==1.1.1
 pyyaml==6.0.3

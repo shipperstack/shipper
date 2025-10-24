@@ -21,7 +21,7 @@
     "@babel/preset-react": "^7.22.5",
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
-    "@unlazy/react": "^0.12.4",
+    "@unlazy/react": "^1.0.0",
     "babel-loader": "^10.0.0",
     "fuse.js": "^7.0.0",
     "react": "19.2.0",

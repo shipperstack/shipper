@@ -260,6 +260,12 @@ LOGIN_REDIRECT_URL = "/maintainers/"
 
 # Storage
 STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
     "dbbackup": {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
         "OPTIONS": {

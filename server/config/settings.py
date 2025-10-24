@@ -258,6 +258,18 @@ MEDIA_ROOT = BASE_DIR / "media"
 # Login
 LOGIN_REDIRECT_URL = "/maintainers/"
 
+# Storage
+STORAGES = {
+    "dbbackup": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+        "OPTIONS": {
+            "location": os.environ.get(
+                "SHIPPER_DBBACKUP_DIRECTORY", default="/tmp/shipper-backup/"
+            ),
+        },
+    },
+}
+
 # Django REST Framework
 REST_FRAMEWORK = {
     "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
@@ -388,15 +400,6 @@ AUDITLOG_INCLUDE_TRACKING_MODELS = ("constance.Constance",)
 # Django Crispy Forms
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
-
-
-# Django-dbbackup
-DBBACKUP_STORAGE = "django.core.files.storage.FileSystemStorage"
-DBBACKUP_STORAGE_OPTIONS = {
-    "location": os.environ.get(
-        "SHIPPER_DBBACKUP_DIRECTORY", default="/tmp/shipper-backup/"
-    )
-}
 
 # django-ipware
 IPWARE_META_PRECEDENCE_ORDER = (

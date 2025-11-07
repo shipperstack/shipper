@@ -7,7 +7,7 @@ django-celery-results==2.6.0
 django-cleanup==9.0.0
 django-constance[database]==4.3.3
 django-crispy-forms==2.4
-django-dbbackup==5.0.0
+django-dbbackup==5.0.1
 django-ipware==7.0.1
 djangorestframework==3.16.1
 drf-chunked-upload==0.6.0

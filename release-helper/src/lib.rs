@@ -18,38 +18,69 @@ trait CommitTrait {
     fn to_dependency_commit(&self) -> Result<DependencyCommit, Error>;
 }
 
-const DEP_COMMIT_PART_COUNT: usize = 9;
+/// Number of parts in Dependabot commit title
+const DEPENDABOT_COMMIT_PART_COUNT: usize = 9;
 
 impl<'a> CommitTrait for Commit<'a> {
     fn is_dependency_commit(&self) -> bool {
-        (self.msg.starts_with("build(deps): bump ")
-            || self.msg.starts_with("build(deps-dev): bump "))
-            && self.msg.split(' ').count() >= DEP_COMMIT_PART_COUNT
-            && self.to_dependency_commit().is_ok()
+        if self.msg.starts_with("build(deps): bump ")
+            || self.msg.starts_with("build(deps-dev): bump ")
+        {
+            // Old Dependabot style
+            return self.msg.split(' ').count() >= DEPENDABOT_COMMIT_PART_COUNT
+                && self.to_dependency_commit().is_ok();
+        } else if self.msg.starts_with("chore(deps): update ") {
+            // New Renovate style
+            return self.to_dependency_commit().is_ok();
+        }
+        false
     }
 
     fn to_dependency_commit(&self) -> Result<DependencyCommit, Error> {
-        let s_parts: Vec<_> = self.msg.split(' ').collect();
+        if self.msg.starts_with("build(deps): bump ")
+            || self.msg.starts_with("build(deps-dev): bump ")
+        {
+            // Old Dependabot style
+            let s_parts: Vec<_> = self.msg.split(' ').collect();
 
-        if s_parts.len() >= DEP_COMMIT_PART_COUNT {
-            let dep_name = s_parts[2];
-            let dep_old_ver = s_parts[4];
-            let dep_new_ver = s_parts[6];
-            let mut dep_subsystem = s_parts[8].to_string();
+            if s_parts.len() >= DEPENDABOT_COMMIT_PART_COUNT {
+                let dep_name = s_parts[2];
+                let dep_old_ver = s_parts[4];
+                let dep_new_ver = s_parts[6];
+                let mut dep_subsystem = s_parts[8].to_string();
 
-            if !dep_subsystem.is_empty() && dep_subsystem.chars().nth(0).unwrap() == '/' {
-                dep_subsystem.remove(0);
+                if !dep_subsystem.is_empty() && dep_subsystem.chars().nth(0).unwrap() == '/' {
+                    dep_subsystem.remove(0);
+                }
+
+                return Ok(DependencyCommit {
+                    name: dep_name.to_string(),
+                    old_ver: Some(Version::parse(dep_old_ver)?),
+                    new_ver: Version::parse(dep_new_ver)?,
+                    subsystem: dep_subsystem,
+                });
+            } else {
+                return Err(anyhow!("Not enough parts to construct DependencyCommit"));
             }
+        } else if self.msg.starts_with("chore(deps): update ") {
+            // New Renovate style
+            let s_parts: Vec<_> = self.msg.split(' ').collect();
 
-            Ok(DependencyCommit {
+            let dep_name = s_parts[2];
+            let dep_new_ver = s_parts
+                .last()
+                .ok_or(anyhow!("Failed to get version from Renovate commit"))?;
+
+            return Ok(DependencyCommit {
                 name: dep_name.to_string(),
-                old_ver: Version::parse(dep_old_ver)?,
+                // Renovate doesn't give out old versions...
+                old_ver: None,
                 new_ver: Version::parse(dep_new_ver)?,
-                subsystem: dep_subsystem,
-            })
-        } else {
-            Err(anyhow!("Not enough parts to construct DependencyCommit"))
+                // ...nor the subsystem.
+                subsystem: String::new(),
+            });
         }
+        Err(anyhow!("Neither a Dependabot commit nor a Renovate commit"))
     }
 }
 
@@ -68,18 +99,18 @@ pub enum VersionLevel {
 #[derive(Clone, Debug, PartialEq)]
 pub struct DependencyCommit {
     pub name: String,
-    pub old_ver: Version,
+    pub old_ver: Option<Version>,
     pub new_ver: Version,
     pub subsystem: String,
 }
 
 impl fmt::Display for DependencyCommit {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-        write!(
-            f,
-            "\t- {} ({} -> {})",
-            self.name, self.old_ver, self.new_ver
-        )
+        if let Some(old_ver) = self.old_ver.as_ref() {
+            write!(f, "\t- {} ({} -> {})", self.name, old_ver, self.new_ver)
+        } else {
+            write!(f, "\t- {} (??? -> {})", self.name, self.new_ver)
+        }
     }
 }
 
@@ -196,7 +227,10 @@ fn filter_commits<'a>(
                 }
 
                 if !found_existing_commit {
-                    dependency_commits.get_mut(&dep_commit.subsystem).unwrap().push(dep_commit);
+                    dependency_commits
+                        .get_mut(&dep_commit.subsystem)
+                        .unwrap()
+                        .push(dep_commit);
                 }
             } else {
                 dependency_commits.insert(dep_commit.subsystem.to_string(), vec![dep_commit]);
@@ -273,7 +307,7 @@ mod tests {
         assert_eq!(normal_commits.len(), 1);
         assert_eq!(dependency_commits.get("server").unwrap().len(), 2);
         assert_eq!(dependency_commits.get("shippy").unwrap().len(), 1);
-        assert_eq!(normal_commits[0].msg,  parsed_commits[0].msg);
+        assert_eq!(normal_commits[0].msg, parsed_commits[0].msg);
         assert_eq!(
             dependency_commits
                 .get("server")
@@ -281,8 +315,10 @@ mod tests {
                 .iter()
                 .filter(|&x| x.name == "semver")
                 .collect::<Vec<&DependencyCommit>>()[0]
-                .old_ver,
-            Version::parse("1.0.0").unwrap()
+                .old_ver
+                .as_ref()
+                .unwrap(),
+            Version::parse("1.0.0").as_ref().unwrap()
         );
         assert_eq!(
             dependency_commits
@@ -302,8 +338,10 @@ mod tests {
                 .iter()
                 .filter(|&x| x.name == "orion")
                 .collect::<Vec<&DependencyCommit>>()[0]
-                .old_ver,
-            Version::parse("2.0.0").unwrap()
+                .old_ver
+                .as_ref()
+                .unwrap(),
+            Version::parse("2.0.0").as_ref().unwrap()
         );
         assert_eq!(
             dependency_commits

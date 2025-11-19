@@ -6,7 +6,71 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/shipperstack/shipper/compare/2.42.4...HEAD
+[Unreleased]: https://github.com/shipperstack/shipper/compare/2.43.0...HEAD
+
+
+# [2.43.0] - 2025-11-18
+
+## Added
+- Added command to check missing builds on mirrors (`check_mirror_missing_builds`)
+- Added thumbhash images on client-side. Images should now show as a low resolution
+  preview while the full image loads in.
+
+## Changed
+- Updated documentation
+- The command to check for missing builds on the filesystem is now `check_fs_missing_builds`
+- Frontend package manager is now `pnpm`
+- Updated PostgreSQL image used for Docker Compose (15.11 -> 15.15)
+- Updated RabbitMQ image used for Docker Compose (3.12 -> 3.13)
+- Updated base Alpine image for server (3.21 -> 3.22)
+- Updated requested pnpm package in frontend to 10.22.0
+- Updated dependencies (server)
+	- django (5.1.7 -> 5.2.8)
+	- react (19.1.1 -> 19.2.0)
+	- @types/react (19.1.10 -> 19.2.6)
+	- ts-loader (9.5.2 -> 9.5.4)
+	- humanize (4.12.3 -> 4.14.0)
+	- sentry-sdk (2.35.0 -> 2.45.0)
+	- react-dom (19.1.1 -> 19.2.0)
+	- @types/react-dom (19.1.7 -> 19.2.3)
+	- @babel/core (7.28.3 -> 7.28.5)
+	- pyyaml (6.0.2 -> 6.0.3)
+	- webpack (5.101.3 -> 5.103.0)
+	- django-auditlog (3.2.1 -> 3.3.0)
+	- typescript (5.9.2 -> 5.9.3)
+	- psycopg2-binary (2.9.10 -> 2.9.11)
+	- @babel/preset-env (7.28.3 -> 7.28.5)
+	- @unlazy/react (0.12.4 -> 1.0.0)
+	- @babel/preset-react (7.27.1 -> 7.28.5)
+	- django-dbbackup (4.3.0 -> 5.0.1)
+	- python-dotenv (1.1.1 -> 1.2.1)
+	- gettext (0.22.5-r0 -> 0.24.1-r0)
+  - git (2.47.3-r0 -> 2.49.1-r0)
+  - libffi-dev (3.4.7-r0 -> 3.4.8-r0)
+  - netcat-openbsd (1.226.1.1-r0 -> 1.229.1-r0)
+  - nodejs (22.15.1-r0 -> 22.16.0-r2)
+  - pnpm (9.15.9-r0 -> 10.9.0-r0)
+  - postgresql15-client (15.13-r0 -> 15.15-r0)
+  - pip (24.3.1-r0 -> 25.1.1-r0)
+  - django-crispy-forms (2.4 -> 2.5)
+  - django-constance[database] (4.3.2 -> 4.3.4)
+  - python3 (3.12.11-r0 -> 3.12.12-r0)
+  - python3-dev (3.12.11-r0 -> 3.12.12-r0)
+- Updated dependencies (release-helper)
+	- regex (1.11.1 -> 1.12.2)
+	- clap (4.5.45 -> 4.5.52)
+	- chrono (0.4.41 -> 0.4.42)
+	- semver (1.0.26 -> 1.0.27)
+	- anyhow (1.0.99 -> 1.0.100)
+- Updated dependencies (shippy)
+	- humanize (4.12.3 -> 4.14.0)
+	- sentry-sdk (2.35.0 -> 2.45.0)
+	- rich (14.1.0 -> 14.2.0)
+
+## Removed
+- Remove `deinit_full_user` admin command
+
+[2.43.0]: https://github.com/shipperstack/shipper/compare/2.42.4...2.43.0
 
 # [2.42.4] - 2025-08-20
 

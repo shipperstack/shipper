@@ -68,7 +68,7 @@ docker compose exec web python3 manage.py mediabackup
 docker compose exec web ls /tmp/shipper-backup
 ```
 
-The output should be something like `default-<ID>-2025-12-04-173031.psql.bin`.
+The output should be something like `<ID>-2025-12-04-173031.tar`.
 
 Copy the file name, and then use the following command to copy the backup file
 to your host:

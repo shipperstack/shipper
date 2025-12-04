@@ -13,20 +13,20 @@ Please back up using alternative methods before doing anything destructive, like
 To create a dump of the database, make sure that the web and database services are running. If they are not running, start them with:
 
 ```
-docker-compose up -d web db
+docker compose up -d web db
 ```
 
 Then run:
 
 ```
-docker-compose exec web python3 manage.py dbbackup
-docker-compose exec web ls /tmp/shipper-backup
+docker compose exec web python3 manage.py dbbackup
+docker compose exec web ls /tmp/shipper-backup
 ```
 
 Copy the file name, and then use the following command to copy the backup file to your host:
 
 ```
-docker-compose cp web:/tmp/shipper-backup/<FILE NAME HERE> .
+docker compose cp web:/tmp/shipper-backup/<FILE NAME HERE> .
 ```
 
 ### Restore
@@ -34,14 +34,14 @@ docker-compose cp web:/tmp/shipper-backup/<FILE NAME HERE> .
 Copy the file back into the container:
 
 ```
-docker-compose exec web mkdir -p /tmp/shipper-backup
-docker-compose cp ./<FILE NAME HERE> web:/tmp/shipper-backup/
+docker compose exec web mkdir -p /tmp/shipper-backup
+docker compose cp ./<FILE NAME HERE> web:/tmp/shipper-backup/
 ```
 
 Then restore using the following command:
 
 ```
-docker-compose exec web dbrestore
+docker compose exec web dbrestore
 ```
 
 
@@ -52,13 +52,13 @@ docker-compose exec web dbrestore
 To create a dump of the database, make sure the database service is first running. If it is not running, start it with:
 
 ```
-docker-compose up -d db
+docker compose up -d db
 ```
 
 Then run:
 
 ```
-docker-compose exec db pg_dumpall -U pdbuser > dump.sql
+docker compose exec db pg_dumpall -U pdbuser > dump.sql
 ```
 
 Make sure to substitute `db` and `pdbuser` if you have customized those in the Docker Compose file or in the environment file.
@@ -74,7 +74,7 @@ To restore a dump of the database, first start up the shipper-docker instance an
 docker run --rm -v shipper_postgres_data:/target -v $(pwd):/source alpine cp /source/dump.sql /target
 
 # Connect to the current database instance inside the Docker Compose file
-docker-compose exec db bash
+docker compose exec db bash
 
 # Import
 psql -U pdbuser -d shipper < /var/lib/postgresql/data/dump.sql
@@ -93,7 +93,7 @@ To fix this issue, simply set the password of the PostgreSQL user again with the
 
 ```
 # Connect to the current database instance inside the Docker Compose file
-docker-compose exec db bash
+docker compose exec db bash
 
 # Connect to PostgreSQL
 psql -U pdbuser

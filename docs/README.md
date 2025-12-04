@@ -15,6 +15,7 @@ Welcome to the shipper documentation!
 - [Troubleshooting](sysadmin/Troubleshooting.md)
 - [Useful administration commands](sysadmin/Administration.md)
 - [Frequently Asked Questions](sysadmin/FAQ.md)
+- [Back up shipper](sysadmin/Backup.md)
 
 ### For developers
 

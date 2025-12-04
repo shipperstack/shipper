@@ -23,11 +23,15 @@ docker compose exec web python3 manage.py dbbackup
 docker compose exec web ls /tmp/shipper-backup
 ```
 
+The output should be something like `default-<ID>-2025-12-04-173031.psql.bin`.
+
 Copy the file name, and then use the following command to copy the backup file to your host:
 
 ```
 docker compose cp web:/tmp/shipper-backup/<FILE NAME HERE> .
 ```
+
+Note the `.` at the end to copy to the current directory. You can replace it with the desired target directory.
 
 ### Restore
 

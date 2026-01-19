@@ -9,7 +9,7 @@
     "build": "webpack --mode production"
   },
   "keywords": [],
-  "packageManager": "pnpm@10.24.0",
+  "packageManager": "pnpm@10.28.1",
   "author": "",
   "license": "SEE LICENSE IN ../LICENSE",
   "devDependencies": {
